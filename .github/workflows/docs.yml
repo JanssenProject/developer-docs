@@ -58,7 +58,7 @@ jobs:
          sudo bash ../../automation/docs/generate-javadocs.sh . ../../ || echo "something went wrong with generating the java docs"
          cd ../../
          sudo rm -rf temp
-         git add .
          git commit -a -S -m "docs: update javadocs" || echo "Nothing to commit"
+         git push  
 
          
