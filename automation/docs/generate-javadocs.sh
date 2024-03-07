@@ -3,7 +3,7 @@ set -euo pipefail
 # The below variable represents the top level directory of the repository
 MAIN_DIRECTORY_LOCATION=$1
 OUTPUT_DIRECTORY=$2
-JVM_PROJECTS="jans-auth-server jans-orm jans-config-api jans-scim jans-core jans-fido2 agama"
+JVM_PROJECTS="agama jans-auth-server jans-casa jans-config-api jans-core jans-fido2 jans-keycloak-integration jans-keycloak-link jans-link jans-lock jans-orm jans-scim"
 for module in $JVM_PROJECTS
  do
    echo "Generating javadocs for module: $module and all it's sub-modules"
