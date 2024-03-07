@@ -1,4 +1,5 @@
 io.jans.as.model.authorize
+io.jans.as.model.authzdetails
 io.jans.as.model.ciba
 io.jans.as.model.clientinfo
 io.jans.as.model.common
