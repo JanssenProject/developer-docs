@@ -3,9 +3,11 @@ io.jans.config.oxauth
 io.jans.config.oxtrust
 io.jans.exception
 io.jans.model
+io.jans.model.net
 io.jans.model.security
 io.jans.model.security.event
 io.jans.model.security.protect
+io.jans.model.token
 io.jans.model.uma
 io.jans.service
 io.jans.service.cdi.async
