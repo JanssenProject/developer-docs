@@ -18,7 +18,7 @@ for module in $JVM_PROJECTS
    for source_path in "${generated_doc_paths[@]}"
    do
      # check if the directory `$source_path` exists, if not then create one
-     mkdir -p "$source_path" || echo "Directory $source_path already exists"
+     mkdir -p "$OUTPUT_DIRECTORY""$source_path"/ || echo "Directory $source_path already exists"
      echo "copy javadocs for $source_path"
      cp -rv ./"$source_path"/target/site/apidocs/* "$OUTPUT_DIRECTORY""$source_path"/
    done
