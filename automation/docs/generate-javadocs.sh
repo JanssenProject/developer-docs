@@ -3,7 +3,8 @@ set -euo pipefail
 # The below variable represents the top level directory of the repository
 MAIN_DIRECTORY_LOCATION=$1
 OUTPUT_DIRECTORY=$2
-JVM_PROJECTS="agama jans-auth-server jans-casa jans-config-api jans-core jans-fido2 jans-keycloak-integration jans-keycloak-link jans-link jans-lock jans-orm jans-scim"
+# add jans-keycloak-integration to the list below once https://github.com/JanssenProject/jans/issues/8057 is resolved
+JVM_PROJECTS="agama jans-auth-server jans-casa jans-config-api jans-core jans-fido2 jans-keycloak-link jans-link jans-lock jans-orm jans-scim"
 for module in $JVM_PROJECTS
  do
    echo "Generating javadocs for module: $module and all it's sub-modules"
