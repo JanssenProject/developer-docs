@@ -4,6 +4,7 @@ io.jans.configapi.external.service
 io.jans.configapi.filters
 io.jans.configapi.interceptor
 io.jans.configapi.rest
+io.jans.configapi.rest.form
 io.jans.configapi.rest.health
 io.jans.configapi.rest.resource.auth
 io.jans.configapi.security.api
