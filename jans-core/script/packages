@@ -22,6 +22,7 @@ io.jans.model.custom.script.type.uma
 io.jans.model.custom.script.type.session
 io.jans.model.custom.script.type.token
 io.jans.model.custom.script.type.ssa
+io.jans.model.custom.script.type.createuser
 io.jans.model.custom.script.type
 io.jans.model.custom.script.type.owner
 io.jans.model.custom.script.type.scope

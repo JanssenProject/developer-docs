@@ -12,6 +12,7 @@ io.jans.model.custom.script.type.authzdetails
 io.jans.model.custom.script.type.ciba
 io.jans.model.custom.script.type.client
 io.jans.model.custom.script.type.configapi
+io.jans.model.custom.script.type.createuser
 io.jans.model.custom.script.type.discovery
 io.jans.model.custom.script.type.fido2
 io.jans.model.custom.script.type.id
