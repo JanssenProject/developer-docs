@@ -8,3 +8,5 @@ io.jans.model.metric.timer
 io.jans.model.types
 io.jans.model.uma
 io.jans.model.user
+io.jans.model.user.authenticator
+io.jans.model.user.authenticator.serialize

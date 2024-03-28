@@ -15,6 +15,7 @@ io.jans.model.custom.script.type.configapi
 io.jans.model.custom.script.type.createuser
 io.jans.model.custom.script.type.discovery
 io.jans.model.custom.script.type.fido2
+io.jans.model.custom.script.type.health
 io.jans.model.custom.script.type.id
 io.jans.model.custom.script.type.idp
 io.jans.model.custom.script.type.introspection

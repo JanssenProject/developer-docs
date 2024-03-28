@@ -9,6 +9,7 @@ io.jans.model.custom.script.type.ciba
 io.jans.model.custom.script.type.auth
 io.jans.model.custom.script.type.logout
 io.jans.model.custom.script.type.fido2
+io.jans.model.custom.script.type.health
 io.jans.model.custom.script.type.authz
 io.jans.model.custom.script.type.id
 io.jans.model.custom.script.type.revoke
