@@ -32,4 +32,5 @@ io.jans.as.model.uma.persistence
 io.jans.as.model.jwe
 io.jans.as.model.register
 io.jans.as.model.session
+io.jans.as.model.revoke
 io.jans.as.model.authzdetails
