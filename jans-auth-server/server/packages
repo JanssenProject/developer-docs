@@ -5,6 +5,7 @@ io.jans.as.server.ciba
 io.jans.as.server.ws.rs.controller
 io.jans.as.server.ws.rs.stat
 io.jans.as.server.jwk.ws.rs
+io.jans.as.server.status.ws.rs
 io.jans.as.server.register.ws.rs
 io.jans.as.server.register.ws.rs.action
 io.jans.as.server.ssa.ws.rs
@@ -30,6 +31,7 @@ io.jans.as.server.service.cdi.event
 io.jans.as.server.service.net
 io.jans.as.server.service.push.sns
 io.jans.as.server.service.token
+io.jans.as.server.service.cluster
 io.jans.as.server.service.exception
 io.jans.as.server.service.external
 io.jans.as.server.service.external.internal

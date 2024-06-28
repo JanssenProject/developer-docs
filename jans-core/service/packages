@@ -23,4 +23,5 @@ io.jans.model.token
 io.jans.model.security
 io.jans.model.security.event
 io.jans.model.security.protect
+io.jans.model.cluster
 io.jans.model.uma
