@@ -1,6 +1,4 @@
-io.jans.saml
 io.jans.saml.exception
-io.jans.saml.metadata
 io.jans.saml.metadata.builder
 io.jans.saml.metadata.builder.ds
 io.jans.saml.metadata.builder.enc
