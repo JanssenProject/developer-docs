@@ -1,5 +1,5 @@
-io.jans.service.document.store.provider
 io.jans.service.document.store.service
+io.jans.service.document.store.provider
 io.jans.service.document.store
-io.jans.service.document.store.conf
 io.jans.service.document.store.exception
+io.jans.service.document.store.conf
