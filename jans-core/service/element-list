@@ -23,5 +23,6 @@ io.jans.service.logger
 io.jans.service.metric
 io.jans.service.metric.inject
 io.jans.service.net
+io.jans.service.security.api
 io.jans.service.security.protect
 io.jans.service.util
