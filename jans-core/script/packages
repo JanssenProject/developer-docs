@@ -27,6 +27,7 @@ io.jans.model.custom.script.type.uma
 io.jans.model.custom.script.type.configapi
 io.jans.model.custom.script.type.ciba
 io.jans.model.custom.script.type.introspection
+io.jans.model.custom.script.type.authzen
 io.jans.model.custom.script.type.authzdetails
 io.jans.model.custom.script.type.scope
 io.jans.model.custom.script.type.scim

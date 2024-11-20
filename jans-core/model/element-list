@@ -1,5 +1,6 @@
 io.jans.model
 io.jans.model.attribute
+io.jans.model.authzen
 io.jans.model.error
 io.jans.model.metric
 io.jans.model.metric.counter
