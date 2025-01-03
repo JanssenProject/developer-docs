@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"io.jans.conf.model"},{"l":"io.jans.conf.service"}]
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"io.jans.conf.model"},{"l":"io.jans.conf.service"}];updateSearchResults();

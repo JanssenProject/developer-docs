@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"io.jans.i18n","l":"ExtendedResourceBundleControlProvider.CustomControl"},{"p":"io.jans.i18n","l":"ExtendedResourceBundle"},{"p":"io.jans.i18n","l":"ExtendedResourceBundleControlProvider"}]
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"io.jans.i18n","l":"ExtendedResourceBundleControlProvider.CustomControl"},{"p":"io.jans.i18n","l":"ExtendedResourceBundle"},{"p":"io.jans.i18n","l":"ExtendedResourceBundleControlProvider"}];updateSearchResults();
