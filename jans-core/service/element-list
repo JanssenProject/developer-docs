@@ -1,6 +1,6 @@
 io.jans.config
+io.jans.config.link
 io.jans.config.oxauth
-io.jans.config.oxtrust
 io.jans.exception
 io.jans.model
 io.jans.model.cluster

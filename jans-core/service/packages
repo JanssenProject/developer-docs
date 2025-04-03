@@ -7,8 +7,8 @@ io.jans.model.security
 io.jans.model.security.event
 io.jans.model.cluster
 io.jans.config
+io.jans.config.link
 io.jans.config.oxauth
-io.jans.config.oxtrust
 io.jans.exception
 io.jans.service.cdi.event
 io.jans.service.cdi.util
