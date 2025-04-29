@@ -50,7 +50,7 @@ jobs:
       - name: Generate docs
         continue-on-error: true
         run: |
-          rustup update stable && rustup default stable
+         rustup update stable && rustup default stable
          mkdir temp && cd temp
          git clone  https://mo-auto:${{ secrets.MOAUTO_WORKFLOW_TOKEN }}@github.com/JanssenProject/jans.git
          cd jans
