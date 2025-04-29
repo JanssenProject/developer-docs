@@ -50,14 +50,15 @@ jobs:
       - name: Generate docs
         continue-on-error: true
         run: |
+          rustup update stable && rustup default stable
          mkdir temp && cd temp
          git clone  https://mo-auto:${{ secrets.MOAUTO_WORKFLOW_TOKEN }}@github.com/JanssenProject/jans.git
          cd jans
-         git checkout -b docs-update-mkdocs-javadocs-links
-         git pull origin docs-update-mkdocs-javadocs-links || echo "Nothing to pull"
           
          echo "Generating javadocs"
          sudo bash ../../automation/docs/generate-javadocs.sh . ../../ || echo "something went wrong with generating the java docs"
+         echo "Generating Rust docs"
+         bash ../../automation/docs/generate-rustdocs.sh || echo "something went wrong with generating the rust docs"
          cd ../../
          sudo rm -rf temp
          git commit -a -S -m "docs: update javadocs" || echo "Nothing to commit"
