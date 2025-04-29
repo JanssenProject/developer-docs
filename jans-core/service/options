@@ -6,20 +6,20 @@
 -source
 '11'
 -sourcepath
-'/home/runner/work/javadocs/javadocs/temp/jans/jans-core/service/src/main/java'
+'/home/runner/work/developer-docs/developer-docs/temp/jans/jans-core/service/src/main/java'
 -author
 -bottom
 'Copyright &#169; 2025. All rights reserved.'
 -charset
 'UTF-8'
 -d
-'/home/runner/work/javadocs/javadocs/temp/jans/jans-core/service/target/site/apidocs'
+'/home/runner/work/developer-docs/developer-docs/temp/jans/jans-core/service/target/site/apidocs'
 -docencoding
 'UTF-8'
 -doctitle
 'jans-core-service 0.0.0-nightly API'
 -linkoffline
-'https://docs.oracle.com/en/java/javase/11/docs/api' '/home/runner/work/javadocs/javadocs/temp/jans/jans-core/service/target/javadoc-bundle-options'
+'https://docs.oracle.com/en/java/javase/11/docs/api' '/home/runner/work/developer-docs/developer-docs/temp/jans/jans-core/service/target/javadoc-bundle-options'
 -use
 -version
 -windowtitle
