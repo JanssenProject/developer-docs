@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"io.jans.configapi.plugin.kc.link.extensions"},{"l":"io.jans.configapi.plugin.kc.link.model.config"},{"l":"io.jans.configapi.plugin.kc.link.rest"},{"l":"io.jans.configapi.plugin.kc.link.service"},{"l":"io.jans.configapi.plugin.kc.link.util"}];updateSearchResults();

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"io.jans.configapi.plugin.lock.extensions"},{"l":"io.jans.configapi.plugin.lock.model.config"},{"l":"io.jans.configapi.plugin.lock.rest"},{"l":"io.jans.configapi.plugin.lock.service"},{"l":"io.jans.configapi.plugin.lock.util"}];updateSearchResults();

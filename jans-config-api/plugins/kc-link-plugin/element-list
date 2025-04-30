@@ -1,0 +1,5 @@
+io.jans.configapi.plugin.kc.link.extensions
+io.jans.configapi.plugin.kc.link.model.config
+io.jans.configapi.plugin.kc.link.rest
+io.jans.configapi.plugin.kc.link.service
+io.jans.configapi.plugin.kc.link.util

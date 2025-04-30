@@ -1,0 +1,5 @@
+io.jans.configapi.plugin.lock.extensions
+io.jans.configapi.plugin.lock.model.config
+io.jans.configapi.plugin.lock.rest
+io.jans.configapi.plugin.lock.service
+io.jans.configapi.plugin.lock.util
