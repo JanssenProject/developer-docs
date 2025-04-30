@@ -1,0 +1,9 @@
+(function() {
+    var implementors = Object.fromEntries([["cedarling",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.83.0/core/fmt/trait.Display.html\" title=\"trait core::fmt::Display\">Display</a> for <a class=\"enum\" href=\"cedarling/enum.AuthorizeError.html\" title=\"enum cedarling::AuthorizeError\">AuthorizeError</a>"],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.83.0/core/fmt/trait.Display.html\" title=\"trait core::fmt::Display\">Display</a> for <a class=\"enum\" href=\"cedarling/enum.BootstrapConfigLoadingError.html\" title=\"enum cedarling::BootstrapConfigLoadingError\">BootstrapConfigLoadingError</a>"],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.83.0/core/fmt/trait.Display.html\" title=\"trait core::fmt::Display\">Display</a> for <a class=\"enum\" href=\"cedarling/enum.InitCedarlingError.html\" title=\"enum cedarling::InitCedarlingError\">InitCedarlingError</a>"],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.83.0/core/fmt/trait.Display.html\" title=\"trait core::fmt::Display\">Display</a> for <a class=\"enum\" href=\"cedarling/enum.LogLevel.html\" title=\"enum cedarling::LogLevel\">LogLevel</a>"],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.83.0/core/fmt/trait.Display.html\" title=\"trait core::fmt::Display\">Display</a> for <a class=\"enum\" href=\"cedarling/enum.LoggerType.html\" title=\"enum cedarling::LoggerType\">LoggerType</a>"]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":57,"fragment_lengths":[1391]}
