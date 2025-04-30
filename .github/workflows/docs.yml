@@ -62,6 +62,7 @@ jobs:
          cp -rv jans-cedarling/target/doc ../../cedarling
          cd ../../
          sudo rm -rf temp
+         git add . || echo "Nothing to add"
          git commit -a -S -m "docs: update javadocs & rustdocs" || echo "Nothing to commit"
          git push  
 
