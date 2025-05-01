@@ -60,6 +60,10 @@ jobs:
          echo "Generating Rust docs"
          bash ../../automation/docs/generate-rustdocs.sh || echo "something went wrong with generating the rust docs"
          echo "Generating Python docs"
+         pip install maturin[patchelf]
+         cd jans-cedarling/bindings/cedarling_python
+         maturin develop --release
+         cd ../../../
          sudo bash ../../automation/docs/generate-pythondocs.sh || echo "something went wrong with generating the python docs"
          cd ../../
          sudo rm -rf temp
