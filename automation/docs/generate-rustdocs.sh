@@ -6,4 +6,5 @@ for project in $RUST_PROJECTS
    echo "Generating rust docs for: $project and all it's sub-modules"
    cd "$project"
    cargo doc --no-deps -p cedarling
+   cp -rv target/doc ../../cedarling
  done
