@@ -61,10 +61,9 @@ jobs:
          bash ../../automation/docs/generate-rustdocs.sh || echo "something went wrong with generating the rust docs"
          cp -rv jans-cedarling/target/doc ../../cedarling
          echo "Generating Python docs"
-         pip install maturin[patchelf]
          python -m venv venv
          source venv/bin/activate
-         pip install maturin
+         pip install maturin[patchelf]
          cd jans-cedarling/bindings/cedarling_python
          maturin develop --release
          cd ../../../
