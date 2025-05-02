@@ -70,6 +70,7 @@ jobs:
          cp -rv cedarling_python.html ../../../../../cedarling-python/cedarling_python.html
          cd ../../
          sudo rm -rf temp
+         git pull origin main || echo "Nothing to pull"
          git add . || echo "Nothing to add"
          git commit -a -S -m "docs: update javadocs & rustdocs" || echo "Nothing to commit"
          git push  
