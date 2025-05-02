@@ -8,7 +8,7 @@
 <table class="heading">
 <tr class="heading-text decor">
 <td class="title">&nbsp;<br><strong class="title">cedarling_python</strong></td>
-<td class="extra"><a href=".">index</a><br>(built-in)</td></tr></table>
+<td class="extra"><a href=".">index</a><br><a href="file:/home/runner/work/developer-docs/developer-docs/temp/jans/venv/lib/python3.12/site-packages/cedarling_python/__init__.py">/home/runner/work/developer-docs/developer-docs/temp/jans/venv/lib/python3.12/site-packages/cedarling_python/__init__.py</a></td></tr></table>
     <p></p>
 <p>
 <table class="section">
@@ -16,7 +16,499 @@
 <td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Package Contents</strong></td></tr>
     
 <tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
-<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="cedarling_python.example.html">example</a><br>
-</td><td class="multicolumn"><a href="cedarling_python.print_documentation.html">print_documentation</a><br>
-</td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="cedarling_python.cedarling_python.html">cedarling_python</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="builtins.html#object">builtins.object</a>
+</dt><dd>
+<dl>
+<dt class="heading-text">builtins.AuthorizeResult
+</dt><dt class="heading-text">builtins.AuthorizeResultResponse
+</dt><dt class="heading-text">builtins.BootstrapConfig
+</dt><dt class="heading-text">builtins.Cedarling
+</dt><dt class="heading-text">builtins.Decision
+</dt><dt class="heading-text">builtins.Diagnostics
+</dt><dt class="heading-text">builtins.EntityData
+</dt><dt class="heading-text">builtins.PolicyEvaluationError
+</dt><dt class="heading-text">builtins.Request
+</dt><dt class="heading-text">builtins.RequestUnsigned
+</dt></dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="AuthorizeResult">class <strong>AuthorizeResult</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#AuthorizeResult">AuthorizeResult</a><br>
+===============<br>
+&nbsp;<br>
+A&nbsp;Python&nbsp;wrapper&nbsp;for&nbsp;the&nbsp;Rust&nbsp;`cedarling::<a href="#AuthorizeResult">AuthorizeResult</a>`&nbsp;struct.<br>
+Represents&nbsp;the&nbsp;result&nbsp;of&nbsp;an&nbsp;authorization&nbsp;request.<br>
+&nbsp;<br>
+Methods<br>
+-------<br>
+..&nbsp;method::&nbsp;<a href="#AuthorizeResult-is_allowed">is_allowed</a>(self)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;whether&nbsp;the&nbsp;request&nbsp;is&nbsp;allowed.<br>
+&nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#AuthorizeResult-workload">workload</a>(self)&nbsp;-&gt;&nbsp;<a href="#AuthorizeResultResponse">AuthorizeResultResponse</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;the&nbsp;detailed&nbsp;response&nbsp;as&nbsp;an&nbsp;`<a href="#AuthorizeResultResponse">AuthorizeResultResponse</a>`&nbsp;<a href="builtins.html#object">object</a>.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="AuthorizeResult-is_allowed"><strong>is_allowed</strong></a>(self, /)</dt><dd><span class="code">Returns&nbsp;true&nbsp;if&nbsp;request&nbsp;is&nbsp;allowed</span></dd></dl>
+
+<dl><dt><a name="AuthorizeResult-person"><strong>person</strong></a>(self, /)</dt><dd><span class="code">Get&nbsp;the&nbsp;decision&nbsp;value&nbsp;for&nbsp;person/user</span></dd></dl>
+
+<dl><dt><a name="AuthorizeResult-principal"><strong>principal</strong></a>(self, /, principal)</dt><dd><span class="code">Get&nbsp;the&nbsp;decision&nbsp;value&nbsp;for&nbsp;a&nbsp;specific&nbsp;principal</span></dd></dl>
+
+<dl><dt><a name="AuthorizeResult-request_id"><strong>request_id</strong></a>(self, /)</dt><dd><span class="code">Get&nbsp;the&nbsp;request&nbsp;ID&nbsp;associated&nbsp;with&nbsp;this&nbsp;result</span></dd></dl>
+
+<dl><dt><a name="AuthorizeResult-workload"><strong>workload</strong></a>(self, /)</dt><dd><span class="code">Get&nbsp;the&nbsp;decision&nbsp;value&nbsp;for&nbsp;workload</span></dd></dl>
+
+<hr>
+Static methods defined here:<br>
+<dl><dt><a name="AuthorizeResult-__new__"><strong>__new__</strong></a>(*args, **kwargs)</dt><dd><span class="code">Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</span></dd></dl>
+
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="AuthorizeResultResponse">class <strong>AuthorizeResultResponse</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#AuthorizeResultResponse">AuthorizeResultResponse</a><br>
+=======================<br>
+&nbsp;<br>
+A&nbsp;Python&nbsp;wrapper&nbsp;for&nbsp;the&nbsp;Rust&nbsp;`cedar_policy::Response`&nbsp;struct.<br>
+Represents&nbsp;the&nbsp;result&nbsp;of&nbsp;an&nbsp;authorization&nbsp;request.<br>
+&nbsp;<br>
+Attributes<br>
+----------<br>
+:param&nbsp;decision:&nbsp;The&nbsp;authorization&nbsp;decision&nbsp;(wrapped&nbsp;`<a href="#Decision">Decision</a>`&nbsp;<a href="builtins.html#object">object</a>).<br>
+:param&nbsp;diagnostics:&nbsp;Additional&nbsp;information&nbsp;on&nbsp;the&nbsp;decision&nbsp;(wrapped&nbsp;`<a href="#Diagnostics">Diagnostics</a>`&nbsp;<a href="builtins.html#object">object</a>).<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Static methods defined here:<br>
+<dl><dt><a name="AuthorizeResultResponse-__new__"><strong>__new__</strong></a>(*args, **kwargs)</dt><dd><span class="code">Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>decision</strong></dt>
+<dd><span class="code">Authorization&nbsp;decision</span></dd>
+</dl>
+<dl><dt><strong>diagnostics</strong></dt>
+<dd><span class="code">Diagnostics&nbsp;providing&nbsp;more&nbsp;information&nbsp;on&nbsp;how&nbsp;this&nbsp;decision&nbsp;was&nbsp;reached</span></dd>
+</dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="BootstrapConfig">class <strong>BootstrapConfig</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#BootstrapConfig">BootstrapConfig</a>(options)<br>
+&nbsp;<br>
+<a href="#BootstrapConfig">BootstrapConfig</a><br>
+=========<br>
+&nbsp;<br>
+A&nbsp;Python&nbsp;wrapper&nbsp;for&nbsp;the&nbsp;Rust&nbsp;`cedarling::<a href="#BootstrapConfig">BootstrapConfig</a>`&nbsp;struct.<br>
+Configures&nbsp;the&nbsp;`<a href="#Cedarling">Cedarling</a>`&nbsp;application,&nbsp;including&nbsp;authorization,&nbsp;logging,&nbsp;and&nbsp;policy&nbsp;store&nbsp;settings.<br>
+&nbsp;<br>
+Methods<br>
+-------<br>
+..&nbsp;method::&nbsp;<a href="#BootstrapConfig-__init__">__init__</a>(self,&nbsp;options)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Initializes&nbsp;the&nbsp;<a href="#Cedarling">Cedarling</a>&nbsp;instance&nbsp;with&nbsp;the&nbsp;provided&nbsp;configuration.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:param&nbsp;options:&nbsp;A&nbsp;`dict`&nbsp;with&nbsp;startup&nbsp;settings.<br>
+&nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#BootstrapConfig-load_from_file">load_from_file</a>(str)&nbsp;-&gt;&nbsp;<a href="#BootstrapConfig">BootstrapConfig</a><br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Loads&nbsp;the&nbsp;bootstrap&nbsp;config&nbsp;from&nbsp;a&nbsp;file.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:returns:&nbsp;A&nbsp;<a href="#BootstrapConfig">BootstrapConfig</a>&nbsp;instance<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:raises&nbsp;ValueError:&nbsp;If&nbsp;a&nbsp;provided&nbsp;value&nbsp;is&nbsp;invalid&nbsp;or&nbsp;decoding&nbsp;fails.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:raises&nbsp;OSError:&nbsp;If&nbsp;there&nbsp;is&nbsp;an&nbsp;error&nbsp;reading&nbsp;while&nbsp;the&nbsp;file.<br>
+&nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#BootstrapConfig-load_from_json">load_from_json</a>(str)&nbsp;-&gt;&nbsp;<a href="#BootstrapConfig">BootstrapConfig</a><br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Loads&nbsp;the&nbsp;bootstrap&nbsp;config&nbsp;from&nbsp;a&nbsp;JSON&nbsp;string.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:returns:&nbsp;A&nbsp;<a href="#BootstrapConfig">BootstrapConfig</a>&nbsp;instance<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:raises&nbsp;ValueError:&nbsp;If&nbsp;a&nbsp;provided&nbsp;value&nbsp;is&nbsp;invalid&nbsp;or&nbsp;decoding&nbsp;fails.<br>
+&nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#BootstrapConfig-from_env">from_env</a>(config=None)&nbsp;-&gt;&nbsp;<a href="#BootstrapConfig">BootstrapConfig</a><br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Loads&nbsp;the&nbsp;bootstrap&nbsp;config&nbsp;from&nbsp;environment&nbsp;variables,&nbsp;optionally&nbsp;merging&nbsp;with&nbsp;provided&nbsp;config.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:param&nbsp;config:&nbsp;Optional&nbsp;dictionary&nbsp;with&nbsp;additional&nbsp;configuration&nbsp;to&nbsp;merge&nbsp;with&nbsp;environment&nbsp;variables.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:returns:&nbsp;A&nbsp;<a href="#BootstrapConfig">BootstrapConfig</a>&nbsp;instance<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:raises&nbsp;ValueError:&nbsp;If&nbsp;a&nbsp;provided&nbsp;value&nbsp;is&nbsp;invalid&nbsp;or&nbsp;decoding&nbsp;fails.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Static methods defined here:<br>
+<dl><dt><a name="BootstrapConfig-__new__"><strong>__new__</strong></a>(*args, **kwargs)</dt><dd><span class="code">Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</span></dd></dl>
+
+<dl><dt><a name="BootstrapConfig-from_env"><strong>from_env</strong></a>(config=None)</dt></dl>
+
+<dl><dt><a name="BootstrapConfig-load_from_file"><strong>load_from_file</strong></a>(path)</dt></dl>
+
+<dl><dt><a name="BootstrapConfig-load_from_json"><strong>load_from_json</strong></a>(config_json)</dt></dl>
+
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Cedarling">class <strong>Cedarling</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Cedarling">Cedarling</a>(config)<br>
+&nbsp;<br>
+<a href="#Cedarling">Cedarling</a><br>
+=========<br>
+&nbsp;<br>
+A&nbsp;Python&nbsp;wrapper&nbsp;for&nbsp;the&nbsp;Rust&nbsp;`cedarling::<a href="#Cedarling">Cedarling</a>`&nbsp;struct.<br>
+Represents&nbsp;an&nbsp;instance&nbsp;of&nbsp;the&nbsp;<a href="#Cedarling">Cedarling</a>&nbsp;application,&nbsp;a&nbsp;local&nbsp;authorization&nbsp;service<br>
+that&nbsp;answers&nbsp;authorization&nbsp;questions&nbsp;based&nbsp;on&nbsp;JWT&nbsp;tokens.<br>
+&nbsp;<br>
+Attributes<br>
+----------<br>
+:param&nbsp;config:&nbsp;A&nbsp;`<a href="#BootstrapConfig">BootstrapConfig</a>`&nbsp;<a href="builtins.html#object">object</a>&nbsp;for&nbsp;initializing&nbsp;the&nbsp;<a href="#Cedarling">Cedarling</a>&nbsp;instance.<br>
+&nbsp;<br>
+Methods<br>
+-------<br>
+..&nbsp;method::&nbsp;<a href="#Cedarling-__init__">__init__</a>(self,&nbsp;config)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Initializes&nbsp;the&nbsp;<a href="#Cedarling">Cedarling</a>&nbsp;instance&nbsp;with&nbsp;the&nbsp;provided&nbsp;configuration.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:param&nbsp;config:&nbsp;A&nbsp;`<a href="#BootstrapConfig">BootstrapConfig</a>`&nbsp;<a href="builtins.html#object">object</a>&nbsp;with&nbsp;startup&nbsp;settings.<br>
+&nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#Cedarling-authorize">authorize</a>(self,&nbsp;request:&nbsp;<a href="#Request">Request</a>)&nbsp;-&gt;&nbsp;<a href="#AuthorizeResult">AuthorizeResult</a><br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Execute&nbsp;authorize&nbsp;request<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:param&nbsp;request:&nbsp;<a href="#Request">Request</a>&nbsp;struct&nbsp;for&nbsp;authorize.<br>
+&nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#Cedarling-pop_logs">pop_logs</a>(self)&nbsp;-&gt;&nbsp;List[dict]<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Retrieves&nbsp;and&nbsp;removes&nbsp;all&nbsp;logs&nbsp;from&nbsp;storage.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:returns:&nbsp;A&nbsp;list&nbsp;of&nbsp;log&nbsp;entries&nbsp;as&nbsp;Python&nbsp;objects.<br>
+&nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#Cedarling-get_log_by_id">get_log_by_id</a>(self,&nbsp;id:&nbsp;str)&nbsp;-&gt;&nbsp;dict|None<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Gets&nbsp;a&nbsp;log&nbsp;entry&nbsp;by&nbsp;its&nbsp;ID.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:param&nbsp;id:&nbsp;The&nbsp;log&nbsp;entry&nbsp;ID.<br>
+&nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#Cedarling-get_log_ids">get_log_ids</a>(self)&nbsp;-&gt;&nbsp;List[str]<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Retrieves&nbsp;all&nbsp;stored&nbsp;log&nbsp;IDs.<br>
+&nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#Cedarling-get_logs_by_tag">get_logs_by_tag</a>(self,&nbsp;tag:&nbsp;str)&nbsp;-&gt;&nbsp;List[dict]<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Retrieves&nbsp;all&nbsp;logs&nbsp;matching&nbsp;a&nbsp;specific&nbsp;tag.&nbsp;Tags&nbsp;can&nbsp;be&nbsp;'log_kind',&nbsp;'log_level'&nbsp;params&nbsp;from&nbsp;log&nbsp;entries.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:param&nbsp;tag:&nbsp;A&nbsp;string&nbsp;specifying&nbsp;the&nbsp;tag&nbsp;type.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:returns:&nbsp;A&nbsp;list&nbsp;of&nbsp;log&nbsp;entries&nbsp;filtered&nbsp;by&nbsp;the&nbsp;tag,&nbsp;each&nbsp;converted&nbsp;to&nbsp;a&nbsp;Python&nbsp;dictionary.<br>
+&nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#Cedarling-get_logs_by_request_id">get_logs_by_request_id</a>(self,&nbsp;id:&nbsp;str)&nbsp;-&gt;&nbsp;List[dict]<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Retrieves&nbsp;log&nbsp;entries&nbsp;associated&nbsp;with&nbsp;a&nbsp;specific&nbsp;request&nbsp;ID.&nbsp;Each&nbsp;log&nbsp;entry&nbsp;is&nbsp;converted&nbsp;to&nbsp;a&nbsp;Python&nbsp;dictionary&nbsp;containing&nbsp;fields&nbsp;like&nbsp;'id',&nbsp;'timestamp',&nbsp;and&nbsp;'message'.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:param&nbsp;id:&nbsp;The&nbsp;unique&nbsp;identifier&nbsp;for&nbsp;the&nbsp;request.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:returns:&nbsp;A&nbsp;list&nbsp;of&nbsp;dictionaries,&nbsp;each&nbsp;representing&nbsp;a&nbsp;log&nbsp;entry&nbsp;related&nbsp;to&nbsp;the&nbsp;specified&nbsp;request&nbsp;ID.<br>
+&nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#Cedarling-get_logs_by_request_id_and_tag">get_logs_by_request_id_and_tag</a>(self,&nbsp;id:&nbsp;str,&nbsp;tag:&nbsp;str)&nbsp;-&gt;&nbsp;List[dict]<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Retrieves&nbsp;all&nbsp;logs&nbsp;associated&nbsp;with&nbsp;a&nbsp;specific&nbsp;request&nbsp;ID&nbsp;and&nbsp;tag.&nbsp;The&nbsp;tag&nbsp;can&nbsp;be&nbsp;'log_kind',&nbsp;'log_level'&nbsp;params&nbsp;from&nbsp;log&nbsp;entries.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:param&nbsp;id:&nbsp;The&nbsp;request&nbsp;ID&nbsp;as&nbsp;a&nbsp;string.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:param&nbsp;tag:&nbsp;The&nbsp;tag&nbsp;type&nbsp;as&nbsp;a&nbsp;string.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:returns:&nbsp;A&nbsp;list&nbsp;of&nbsp;log&nbsp;entries&nbsp;matching&nbsp;both&nbsp;the&nbsp;request&nbsp;ID&nbsp;and&nbsp;tag,&nbsp;each&nbsp;converted&nbsp;to&nbsp;a&nbsp;Python&nbsp;dictionary.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="Cedarling-authorize"><strong>authorize</strong></a>(self, /, request)</dt><dd><span class="code">Authorize&nbsp;request</span></dd></dl>
+
+<dl><dt><a name="Cedarling-authorize_unsigned"><strong>authorize_unsigned</strong></a>(self, /, request)</dt><dd><span class="code">Authorize&nbsp;request&nbsp;with&nbsp;unsigned&nbsp;data.</span></dd></dl>
+
+<dl><dt><a name="Cedarling-get_log_by_id"><strong>get_log_by_id</strong></a>(self, /, id)</dt><dd><span class="code">Get&nbsp;specific&nbsp;log&nbsp;entry</span></dd></dl>
+
+<dl><dt><a name="Cedarling-get_log_ids"><strong>get_log_ids</strong></a>(self, /)</dt><dd><span class="code">Returns&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;log&nbsp;ids</span></dd></dl>
+
+<dl><dt><a name="Cedarling-get_logs_by_request_id"><strong>get_logs_by_request_id</strong></a>(self, /, request_id)</dt><dd><span class="code">Returns&nbsp;a&nbsp;list&nbsp;of&nbsp;log&nbsp;entries&nbsp;by&nbsp;request&nbsp;id.</span></dd></dl>
+
+<dl><dt><a name="Cedarling-get_logs_by_request_id_and_tag"><strong>get_logs_by_request_id_and_tag</strong></a>(self, /, id, tag)</dt><dd><span class="code">Returns&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;log&nbsp;entries&nbsp;by&nbsp;request&nbsp;id&nbsp;and&nbsp;tag.<br>
+Tag&nbsp;can&nbsp;be&nbsp;`log_kind`,&nbsp;`log_level`.</span></dd></dl>
+
+<dl><dt><a name="Cedarling-get_logs_by_tag"><strong>get_logs_by_tag</strong></a>(self, /, tag)</dt><dd><span class="code">Returns&nbsp;a&nbsp;list&nbsp;of&nbsp;log&nbsp;entries&nbsp;by&nbsp;tag.<br>
+Tag&nbsp;can&nbsp;be&nbsp;`log_kind`,&nbsp;`log_level`.</span></dd></dl>
+
+<dl><dt><a name="Cedarling-pop_logs"><strong>pop_logs</strong></a>(self, /)</dt><dd><span class="code">Return&nbsp;logs&nbsp;and&nbsp;remove&nbsp;them&nbsp;from&nbsp;the&nbsp;storage</span></dd></dl>
+
+<hr>
+Static methods defined here:<br>
+<dl><dt><a name="Cedarling-__new__"><strong>__new__</strong></a>(*args, **kwargs)</dt><dd><span class="code">Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</span></dd></dl>
+
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Decision">class <strong>Decision</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Decision">Decision</a><br>
+========<br>
+&nbsp;<br>
+Represents&nbsp;the&nbsp;decision&nbsp;result&nbsp;of&nbsp;a&nbsp;Cedar&nbsp;policy&nbsp;authorization.<br>
+&nbsp;<br>
+Methods<br>
+-------<br>
+<a href="#Decision-value">value</a>()&nbsp;-&gt;&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;the&nbsp;string&nbsp;value&nbsp;of&nbsp;the&nbsp;decision.<br>
+<a href="#Decision-__str__">__str__</a>()&nbsp;-&gt;&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;the&nbsp;string&nbsp;representation&nbsp;of&nbsp;the&nbsp;decision.<br>
+<a href="#Decision-__repr__">__repr__</a>()&nbsp;-&gt;&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;the&nbsp;detailed&nbsp;type&nbsp;representation&nbsp;of&nbsp;the&nbsp;decision.<br>
+<a href="#Decision-__eq__">__eq__</a>(other:&nbsp;<a href="#Decision">Decision</a>)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Compares&nbsp;two&nbsp;`<a href="#Decision">Decision</a>`&nbsp;objects&nbsp;for&nbsp;equality.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="Decision-__eq__"><strong>__eq__</strong></a>(self, value, /)</dt><dd><span class="code">Return&nbsp;self==value.</span></dd></dl>
+
+<dl><dt><a name="Decision-__ge__"><strong>__ge__</strong></a>(self, value, /)</dt><dd><span class="code">Return&nbsp;self&gt;=value.</span></dd></dl>
+
+<dl><dt><a name="Decision-__gt__"><strong>__gt__</strong></a>(self, value, /)</dt><dd><span class="code">Return&nbsp;self&gt;value.</span></dd></dl>
+
+<dl><dt><a name="Decision-__le__"><strong>__le__</strong></a>(self, value, /)</dt><dd><span class="code">Return&nbsp;self&lt;=value.</span></dd></dl>
+
+<dl><dt><a name="Decision-__lt__"><strong>__lt__</strong></a>(self, value, /)</dt><dd><span class="code">Return&nbsp;self&lt;value.</span></dd></dl>
+
+<dl><dt><a name="Decision-__ne__"><strong>__ne__</strong></a>(self, value, /)</dt><dd><span class="code">Return&nbsp;self!=value.</span></dd></dl>
+
+<dl><dt><a name="Decision-__repr__"><strong>__repr__</strong></a>(self, /)</dt><dd><span class="code">Return&nbsp;repr(self).</span></dd></dl>
+
+<dl><dt><a name="Decision-__str__"><strong>__str__</strong></a>(self, /)</dt><dd><span class="code">Return&nbsp;str(self).</span></dd></dl>
+
+<hr>
+Static methods defined here:<br>
+<dl><dt><a name="Decision-__new__"><strong>__new__</strong></a>(*args, **kwargs)</dt><dd><span class="code">Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>value</strong></dt>
+<dd><span class="code">get&nbsp;the&nbsp;value&nbsp;of&nbsp;the&nbsp;decision</span></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__hash__</strong> = None</dl>
+
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Diagnostics">class <strong>Diagnostics</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Diagnostics">Diagnostics</a><br>
+===========<br>
+&nbsp;<br>
+Provides&nbsp;detailed&nbsp;information&nbsp;about&nbsp;how&nbsp;a&nbsp;policy&nbsp;decision&nbsp;was&nbsp;made,&nbsp;including&nbsp;policies&nbsp;that&nbsp;contributed&nbsp;to&nbsp;the&nbsp;decision&nbsp;and&nbsp;any&nbsp;errors&nbsp;encountered&nbsp;during&nbsp;evaluation.<br>
+&nbsp;<br>
+Attributes<br>
+----------<br>
+reason&nbsp;:&nbsp;set&nbsp;of&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;set&nbsp;of&nbsp;`PolicyId`s&nbsp;for&nbsp;the&nbsp;policies&nbsp;that&nbsp;contributed&nbsp;to&nbsp;the&nbsp;decision.&nbsp;If&nbsp;no&nbsp;policies&nbsp;applied,&nbsp;this&nbsp;set&nbsp;is&nbsp;empty.<br>
+errors&nbsp;:&nbsp;list&nbsp;of&nbsp;<a href="#PolicyEvaluationError">PolicyEvaluationError</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;list&nbsp;of&nbsp;errors&nbsp;that&nbsp;occurred&nbsp;during&nbsp;the&nbsp;authorization&nbsp;process.&nbsp;These&nbsp;are&nbsp;unordered&nbsp;as&nbsp;policies&nbsp;may&nbsp;be&nbsp;evaluated&nbsp;in&nbsp;any&nbsp;order.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Static methods defined here:<br>
+<dl><dt><a name="Diagnostics-__new__"><strong>__new__</strong></a>(*args, **kwargs)</dt><dd><span class="code">Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>errors</strong></dt>
+<dd><span class="code">Errors&nbsp;that&nbsp;occurred&nbsp;during&nbsp;authorization.&nbsp;The&nbsp;errors&nbsp;should&nbsp;be<br>
+treated&nbsp;as&nbsp;unordered,&nbsp;since&nbsp;policies&nbsp;may&nbsp;be&nbsp;evaluated&nbsp;in&nbsp;any&nbsp;order.</span></dd>
+</dl>
+<dl><dt><strong>reason</strong></dt>
+<dd><span class="code">`PolicyId`s&nbsp;of&nbsp;the&nbsp;policies&nbsp;that&nbsp;contributed&nbsp;to&nbsp;the&nbsp;decision.<br>
+If&nbsp;no&nbsp;policies&nbsp;applied&nbsp;to&nbsp;the&nbsp;request,&nbsp;this&nbsp;set&nbsp;will&nbsp;be&nbsp;empty.</span></dd>
+</dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="EntityData">class <strong>EntityData</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#EntityData">EntityData</a>(entity_type,&nbsp;id,&nbsp;**kwargs)<br>
+&nbsp;<br>
+<a href="#EntityData">EntityData</a><br>
+============<br>
+&nbsp;<br>
+A&nbsp;Python&nbsp;wrapper&nbsp;for&nbsp;the&nbsp;Rust&nbsp;`cedarling::<a href="#EntityData">EntityData</a>`&nbsp;struct.&nbsp;This&nbsp;class&nbsp;represents<br>
+a&nbsp;resource&nbsp;entity&nbsp;with&nbsp;a&nbsp;type,&nbsp;ID,&nbsp;and&nbsp;attributes.&nbsp;Attributes&nbsp;are&nbsp;stored&nbsp;as&nbsp;a&nbsp;payload<br>
+in&nbsp;a&nbsp;dictionary&nbsp;format.<br>
+&nbsp;<br>
+Attributes<br>
+----------<br>
+:param&nbsp;entity_type:&nbsp;Type&nbsp;of&nbsp;the&nbsp;entity.<br>
+:param&nbsp;id:&nbsp;ID&nbsp;of&nbsp;the&nbsp;entity.<br>
+:param&nbsp;payload:&nbsp;Optional&nbsp;dictionary&nbsp;of&nbsp;attributes.<br>
+&nbsp;<br>
+Methods<br>
+-------<br>
+..&nbsp;method::&nbsp;<a href="#EntityData-__init__">__init__</a>(self,&nbsp;entity_type:&nbsp;str,&nbsp;id:&nbsp;str,&nbsp;**kwargs:&nbsp;dict)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Initialize&nbsp;a&nbsp;new&nbsp;<a href="#EntityData">EntityData</a>.&nbsp;In&nbsp;kwargs&nbsp;the&nbsp;payload&nbsp;is&nbsp;a&nbsp;dictionary&nbsp;of&nbsp;entity&nbsp;attributes.<br>
+&nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#EntityData-from_dict">from_dict</a>(cls,&nbsp;value:&nbsp;dict)&nbsp;-&gt;&nbsp;<a href="#EntityData">EntityData</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;Initialize&nbsp;a&nbsp;new&nbsp;<a href="#EntityData">EntityData</a>&nbsp;from&nbsp;a&nbsp;dictionary.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;pass&nbsp;`entity_type`&nbsp;you&nbsp;need&nbsp;to&nbsp;use&nbsp;`type`&nbsp;key.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Class methods defined here:<br>
+<dl><dt><a name="EntityData-from_dict"><strong>from_dict</strong></a>(value)</dt><dd><span class="code">method&nbsp;to&nbsp;build&nbsp;a&nbsp;resource&nbsp;data&nbsp;<a href="builtins.html#object">object</a>&nbsp;from&nbsp;a&nbsp;python&nbsp;dictionary</span></dd></dl>
+
+<hr>
+Static methods defined here:<br>
+<dl><dt><a name="EntityData-__new__"><strong>__new__</strong></a>(*args, **kwargs)</dt><dd><span class="code">Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>entity_type</strong></dt>
+<dd><span class="code">entity&nbsp;type&nbsp;name</span></dd>
+</dl>
+<dl><dt><strong>id</strong></dt>
+<dd><span class="code">entity&nbsp;id</span></dd>
+</dl>
+<dl><dt><strong>payload</strong></dt>
+<dd><span class="code">setter&nbsp;for&nbsp;payload&nbsp;attribute</span></dd>
+</dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="PolicyEvaluationError">class <strong>PolicyEvaluationError</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#PolicyEvaluationError">PolicyEvaluationError</a><br>
+=====================<br>
+&nbsp;<br>
+Represents&nbsp;an&nbsp;error&nbsp;that&nbsp;occurred&nbsp;when&nbsp;evaluating&nbsp;a&nbsp;Cedar&nbsp;policy.<br>
+&nbsp;<br>
+Attributes<br>
+----------<br>
+id&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;policy&nbsp;that&nbsp;caused&nbsp;the&nbsp;error.<br>
+error&nbsp;:&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;error&nbsp;message&nbsp;describing&nbsp;the&nbsp;evaluation&nbsp;failure.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Static methods defined here:<br>
+<dl><dt><a name="PolicyEvaluationError-__new__"><strong>__new__</strong></a>(*args, **kwargs)</dt><dd><span class="code">Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>error</strong></dt>
+<dd><span class="code">Underlying&nbsp;evaluation&nbsp;error&nbsp;string&nbsp;representation</span></dd>
+</dl>
+<dl><dt><strong>id</strong></dt>
+<dd><span class="code">Id&nbsp;of&nbsp;the&nbsp;policy&nbsp;with&nbsp;an&nbsp;error</span></dd>
+</dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Request">class <strong>Request</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Request">Request</a>(tokens,&nbsp;action,&nbsp;resource,&nbsp;context)<br>
+&nbsp;<br>
+<a href="#Request">Request</a><br>
+=======<br>
+&nbsp;<br>
+A&nbsp;Python&nbsp;wrapper&nbsp;for&nbsp;the&nbsp;Rust&nbsp;`cedarling::<a href="#Request">Request</a>`&nbsp;struct.&nbsp;Represents<br>
+authorization&nbsp;data&nbsp;with&nbsp;access&nbsp;token,&nbsp;action,&nbsp;resource,&nbsp;and&nbsp;context.<br>
+&nbsp;<br>
+Attributes<br>
+----------<br>
+:param&nbsp;tokens:&nbsp;A&nbsp;class&nbsp;containing&nbsp;the&nbsp;JWTs&nbsp;what&nbsp;will&nbsp;be&nbsp;used&nbsp;for&nbsp;the&nbsp;request.<br>
+:param&nbsp;action:&nbsp;The&nbsp;action&nbsp;to&nbsp;be&nbsp;authorized.<br>
+:param&nbsp;resource:&nbsp;Resource&nbsp;data&nbsp;(wrapped&nbsp;`<a href="#EntityData">EntityData</a>`&nbsp;<a href="builtins.html#object">object</a>).<br>
+:param&nbsp;context:&nbsp;Python&nbsp;dictionary&nbsp;with&nbsp;additional&nbsp;context.<br>
+&nbsp;<br>
+Example<br>
+-------<br>
+```python<br>
+#&nbsp;Create&nbsp;a&nbsp;request&nbsp;for&nbsp;authorization<br>
+request&nbsp;=&nbsp;<a href="#Request">Request</a>(access_token="token123",&nbsp;action="read",&nbsp;resource=resource,&nbsp;context={})<br>
+```<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Static methods defined here:<br>
+<dl><dt><a name="Request-__new__"><strong>__new__</strong></a>(*args, **kwargs)</dt><dd><span class="code">Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>action</strong></dt>
+<dd><span class="code">cedar_policy&nbsp;action</span></dd>
+</dl>
+<dl><dt><strong>context</strong></dt>
+<dd><span class="code">context&nbsp;to&nbsp;be&nbsp;used&nbsp;in&nbsp;cedar_policy</span></dd>
+</dl>
+<dl><dt><strong>resource</strong></dt>
+<dd><span class="code">cedar_policy&nbsp;resource&nbsp;data</span></dd>
+</dl>
+<dl><dt><strong>tokens</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="RequestUnsigned">class <strong>RequestUnsigned</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#RequestUnsigned">RequestUnsigned</a>(principals,&nbsp;action,&nbsp;resource,&nbsp;context)<br>
+&nbsp;<br>
+<a href="#Request">Request</a><br>
+=======<br>
+&nbsp;<br>
+A&nbsp;Python&nbsp;wrapper&nbsp;for&nbsp;the&nbsp;Rust&nbsp;`cedarling::<a href="#RequestUnsigned">RequestUnsigned</a>`&nbsp;struct.&nbsp;Represents<br>
+authorization&nbsp;data&nbsp;for&nbsp;unsigned&nbsp;authorization&nbsp;requests&nbsp;for&nbsp;many&nbsp;principals.<br>
+&nbsp;<br>
+Attributes<br>
+----------<br>
+:param&nbsp;principals:&nbsp;A&nbsp;list&nbsp;of&nbsp;`<a href="#EntityData">EntityData</a>`&nbsp;objects&nbsp;representing&nbsp;the&nbsp;principals.<br>
+:param&nbsp;action:&nbsp;The&nbsp;action&nbsp;to&nbsp;be&nbsp;authorized.<br>
+:param&nbsp;resource:&nbsp;Resource&nbsp;data&nbsp;(wrapped&nbsp;`ResourceData`&nbsp;<a href="builtins.html#object">object</a>).<br>
+:param&nbsp;context:&nbsp;Python&nbsp;dictionary&nbsp;with&nbsp;additional&nbsp;context.<br>
+&nbsp;<br>
+Example<br>
+-------<br>
+```python<br>
+#&nbsp;Create&nbsp;a&nbsp;request&nbsp;for&nbsp;authorization<br>
+request&nbsp;=&nbsp;<a href="#Request">Request</a>(principals=[principal],&nbsp;action="read",&nbsp;resource=resource,&nbsp;context={})<br>
+```<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Static methods defined here:<br>
+<dl><dt><a name="RequestUnsigned-__new__"><strong>__new__</strong></a>(*args, **kwargs)</dt><dd><span class="code">Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>action</strong></dt>
+<dd><span class="code">cedar_policy&nbsp;action</span></dd>
+</dl>
+<dl><dt><strong>context</strong></dt>
+<dd><span class="code">context&nbsp;to&nbsp;be&nbsp;used&nbsp;in&nbsp;cedar_policy</span></dd>
+</dl>
+<dl><dt><strong>principals</strong></dt>
+</dl>
+<dl><dt><strong>resource</strong></dt>
+<dd><span class="code">cedar_policy&nbsp;resource&nbsp;data</span></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor data-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
+    
+<tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><strong>__all__</strong> = ['BootstrapConfig', 'PolicyEvaluationError', 'Diagnostics', 'Decision', 'EntityData', 'Request', 'RequestUnsigned', 'AuthorizeResultResponse', 'AuthorizeResult', 'authorize_errors', 'Cedarling']</td></tr></table>
 </body></html>
