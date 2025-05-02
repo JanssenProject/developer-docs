@@ -66,9 +66,8 @@ jobs:
          pip install maturin[patchelf]
          cd jans-cedarling/bindings/cedarling_python
          maturin develop --release
-         cd ../../../
-         sudo bash ../../automation/docs/generate-pythondocs.sh || echo "something went wrong with generating the python docs"
-         cp -rv jans-cedarling/bindings/cedarling_python.html ../../cedarling-python/cedarling_python.html
+         python -m pydoc -w cedarling_python || echo "something went wrong with generating the python docs"
+         cp -rv cedarling_python.html ../../cedarling-python/cedarling_python.html
          cd ../../
          sudo rm -rf temp
          git add . || echo "Nothing to add"
