@@ -11,21 +11,26 @@ fi
 MAIN_DIRECTORY_LOCATION=$1
 OUTPUT_DIRECTORY=$2
 
-JVM_PROJECTS="agama jans-auth-server jans-casa jans-config-api jans-core jans-fido2 jans-keycloak-link jans-link jans-lock jans-orm jans-scim  jans-keycloak-integration"
+# List of Maven projects. Adjust as needed.
+JVM_PROJECTS="agama jans-auth-server jans-casa jans-config-api jans-core jans-fido2 jans-keycloak-link jans-link jans-lock jans-orm jans-scim"
 
-for module in $JVM_PROJECTS
-do
+for module in $JVM_PROJECTS; do
     echo "--------------------------------------------"
     echo "Processing module: $module"
+    pom_file="$MAIN_DIRECTORY_LOCATION/$module/pom.xml"
+
+    if [ ! -f "$pom_file" ]; then
+        echo "Warning: POM file not found for module $module at expected location ($pom_file). Skipping module."
+        continue
+    fi
+
     echo "Generating Javadocs for $module and its sub-modules"
-
-    mvn -f "$MAIN_DIRECTORY_LOCATION/$module/pom.xml" javadoc:javadoc
-
+    ( cd "$MAIN_DIRECTORY_LOCATION/$module" && mvn javadoc:javadoc )
     echo "Javadocs generation complete for $module"
     echo "--------------------------------------------"
 
     echo "Searching for generated Javadoc directories within $module:"
-    mapfile -t generated_doc_paths < <(find "$MAIN_DIRECTORY_LOCATION/$module" -type d $ -path '*/target/site/apidocs' -o -path '*/target/site/*apidocs' $ | sed 's/\/target\/site\/apidocs//;s/\/target\/site\/.*apidocs//')
+    mapfile -t generated_doc_paths < <(find "$MAIN_DIRECTORY_LOCATION/$module" -type d $ -path '*/target/site/apidocs' -o -path '*/target/site/*apidocs' $ 2>/dev/null | sed 's#/target/site/apidocs##; s#/target/site/[^/]*apidocs##')
 
     if [ ${#generated_doc_paths[@]} -eq 0 ]; then
         echo "Warning: No Javadoc generation directory found for module $module"
@@ -33,28 +38,26 @@ do
     fi
 
     echo "Found the following base directories for generated docs:"
-    for dir in "${generated_doc_paths[@]}"; do
-        echo "  --> $dir"
+    for base_dir in "${generated_doc_paths[@]}"; do
+        echo "  --> $base_dir"
     done
 
     # For each found location, attempt to copy the generated Javadocs.
-    for base_path in "${generated_doc_paths[@]}"
-    do
-        src_dir="$base_path/target/site/apidocs"
+    for base_dir in "${generated_doc_paths[@]}"; do
+        src_dir="$base_dir/target/site/apidocs"
         if [ ! -d "$src_dir" ]; then
             echo "Warning: Source directory $src_dir does not exist. Skipping copy for this location."
             continue
         fi
 
-        dest_dir="$OUTPUT_DIRECTORY${base_path}"
+        # Preserve the folder structure in the destination directory.
+        dest_dir="$OUTPUT_DIRECTORY$base_dir"
         echo "Preparing to copy Javadocs from $src_dir to $dest_dir"
         mkdir -p "$dest_dir" || echo "Directory $dest_dir already exists"
 
-        # Copy files from source to destination
-        echo "Copying files..."
+        echo "Copying files from $src_dir to $dest_dir"
         cp -rv "$src_dir/"* "$dest_dir/"
     done
-
     echo "Finished processing module: $module"
     echo "--------------------------------------------"
 done
