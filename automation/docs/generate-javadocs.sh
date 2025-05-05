@@ -21,9 +21,27 @@ for module in $JVM_PROJECTS; do
         continue
     fi
 
-    echo "Generating Javadocs for $module"
-    ( cd "$MAIN_DIRECTORY_LOCATION/$module" && mvn javadoc:javadoc -DoutputDirectory="../../$OUTPUT_DIRECTORY/$module" )
+
+    MODULE_PATH="$OUTPUT_DIRECTORY/$module"
+    CUSTOM_OUTPUT_DIR=""
+    if [ -d "$MODULE_PATH" ]; then
+        CUSTOM_OUTPUT_DIR=$(cd "$MODULE_PATH" && pwd)
+    else
+        mkdir -p "$MODULE_PATH"
+        CUSTOM_OUTPUT_DIR=$(cd "$MODULE_PATH" && pwd)
+    fi
+
+    echo "Generating Javadocs for $module."
+    echo "Custom output directory (passed via -DoutputDirectory): $CUSTOM_OUTPUT_DIR"
+
+    (
+      cd "$MAIN_DIRECTORY_LOCATION/$module"
+      mvn javadoc:javadoc -DoutputDirectory="$CUSTOM_OUTPUT_DIR"
+    )
     echo "Javadocs generation complete for $module."
+
+    echo "Contents of $CUSTOM_OUTPUT_DIR:"
+    ls -l "$CUSTOM_OUTPUT_DIR"
 
     echo "Finished processing module: $module"
     echo "--------------------------------------------"
