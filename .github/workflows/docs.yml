@@ -54,6 +54,7 @@ jobs:
          mkdir temp && cd temp
          git clone  https://mo-auto:${{ secrets.MOAUTO_WORKFLOW_TOKEN }}@github.com/JanssenProject/jans.git
          cd jans
+         git checkout fix-update-javadocs-plugin
           
          echo "Generating javadocs"
          sudo bash ../../automation/docs/generate-javadocs.sh . ../../ || echo "something went wrong with generating the java docs"

@@ -1,50 +1,26 @@
 #!/bin/bash
 set -euo pipefail
-
-if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 <MAIN_DIRECTORY_LOCATION> <OUTPUT_DIRECTORY>"
-    exit 1
-fi
-
+# The below variable represents the top level directory of the repository
 MAIN_DIRECTORY_LOCATION=$1
 OUTPUT_DIRECTORY=$2
-
+# add jans-keycloak-integration to the list below once https://github.com/JanssenProject/jans/issues/8057 is resolved
 JVM_PROJECTS="agama jans-auth-server jans-casa jans-config-api jans-core jans-fido2 jans-keycloak-link jans-link jans-lock jans-orm jans-scim"
+for module in $JVM_PROJECTS
+ do
+   echo "Generating javadocs for module: $module and all it's sub-modules"
+   mvn -f "$MAIN_DIRECTORY_LOCATION"/"$module"/pom.xml javadoc:javadoc
 
-for module in $JVM_PROJECTS; do
-    echo "--------------------------------------------"
-    echo "Processing module: $module"
-    pom_file="$MAIN_DIRECTORY_LOCATION/$module/pom.xml"
+   echo "Move generated javadocs to respective doc site location"
 
-    if [ ! -f "$pom_file" ]; then
-        echo "Warning: POM file not found for module $module at $pom_file. Skipping module."
-        continue
-    fi
+   echo "getting locations where javadocs got generated"
+   mapfile -t generated_doc_paths < <(find "$MAIN_DIRECTORY_LOCATION/$module" -type d  -path '*/target/site/apidocs' | sed 's/\/target\/site\/apidocs//')
 
-
-    MODULE_PATH="$OUTPUT_DIRECTORY/$module"
-    CUSTOM_OUTPUT_DIR=""
-    if [ -d "$MODULE_PATH" ]; then
-        CUSTOM_OUTPUT_DIR=$(cd "$MODULE_PATH" && pwd)
-    else
-        mkdir -p "$MODULE_PATH"
-        CUSTOM_OUTPUT_DIR=$(cd "$MODULE_PATH" && pwd)
-    fi
-
-    echo "Generating Javadocs for $module."
-    echo "Custom output directory (passed via -DoutputDirectory): $CUSTOM_OUTPUT_DIR"
-
-    (
-      cd "$MAIN_DIRECTORY_LOCATION/$module"
-      mvn javadoc:javadoc -DoutputDirectory="$CUSTOM_OUTPUT_DIR"
-    )
-    echo "Javadocs generation complete for $module."
-
-    echo "Contents of $CUSTOM_OUTPUT_DIR:"
-    ls -l "$CUSTOM_OUTPUT_DIR"
-
-    echo "Finished processing module: $module"
-    echo "--------------------------------------------"
-done
-
-echo "All modules processed."
+   echo "move javadocs from each location to respective documentation site location"
+   for source_path in "${generated_doc_paths[@]}"
+   do
+     # check if the directory `$source_path` exists, if not then create one
+     mkdir -p "$OUTPUT_DIRECTORY""$source_path"/ || echo "Directory $source_path already exists"
+     echo "copy javadocs for $source_path"
+     cp -rv ./"$source_path"/target/site/apidocs/* "$OUTPUT_DIRECTORY""$source_path"/
+   done
+ done
