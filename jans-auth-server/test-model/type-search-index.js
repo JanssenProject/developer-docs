@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"io.jans.as.test","l":"TestUtil"},{"p":"io.jans.as.test","l":"UmaTestUtil"}]
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"io.jans.as.test","l":"TestUtil"},{"p":"io.jans.as.test","l":"UmaTestUtil"}];updateSearchResults();

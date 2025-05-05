@@ -1,6 +1,7 @@
 io.jans.ads
 io.jans.ads.timer
 io.jans.agama
+io.jans.agama.engine.client
 io.jans.agama.engine.continuation
 io.jans.agama.engine.exception
 io.jans.agama.engine.misc

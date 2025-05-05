@@ -4,6 +4,7 @@ io.jans.as.server.audit.debug.entity
 io.jans.as.server.audit.debug.wrapper
 io.jans.as.server.auth
 io.jans.as.server.authorize.ws.rs
+io.jans.as.server.authzen.ws.rs
 io.jans.as.server.bcauthorize.ws.rs
 io.jans.as.server.ciba
 io.jans.as.server.clientinfo.ws.rs
@@ -32,6 +33,7 @@ io.jans.as.server.model.session
 io.jans.as.server.model.token
 io.jans.as.server.model.userinfo
 io.jans.as.server.par.ws.rs
+io.jans.as.server.rate
 io.jans.as.server.register.ws.rs
 io.jans.as.server.register.ws.rs.action
 io.jans.as.server.revoke
