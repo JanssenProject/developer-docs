@@ -378,7 +378,39 @@
 <a href="#377" id="377">377</a>
 <a href="#378" id="378">378</a>
 <a href="#379" id="379">379</a>
-<a href="#380" id="380">380</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#380" id="380">380</a>
+<a href="#381" id="381">381</a>
+<a href="#382" id="382">382</a>
+<a href="#383" id="383">383</a>
+<a href="#384" id="384">384</a>
+<a href="#385" id="385">385</a>
+<a href="#386" id="386">386</a>
+<a href="#387" id="387">387</a>
+<a href="#388" id="388">388</a>
+<a href="#389" id="389">389</a>
+<a href="#390" id="390">390</a>
+<a href="#391" id="391">391</a>
+<a href="#392" id="392">392</a>
+<a href="#393" id="393">393</a>
+<a href="#394" id="394">394</a>
+<a href="#395" id="395">395</a>
+<a href="#396" id="396">396</a>
+<a href="#397" id="397">397</a>
+<a href="#398" id="398">398</a>
+<a href="#399" id="399">399</a>
+<a href="#400" id="400">400</a>
+<a href="#401" id="401">401</a>
+<a href="#402" id="402">402</a>
+<a href="#403" id="403">403</a>
+<a href="#404" id="404">404</a>
+<a href="#405" id="405">405</a>
+<a href="#406" id="406">406</a>
+<a href="#407" id="407">407</a>
+<a href="#408" id="408">408</a>
+<a href="#409" id="409">409</a>
+<a href="#410" id="410">410</a>
+<a href="#411" id="411">411</a>
+<a href="#412" id="412">412</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -401,6 +433,7 @@
 <span class="kw">mod </span>validator;
 
 <span class="kw">use </span><span class="kw">crate</span>::JwtConfig;
+<span class="kw">use </span><span class="kw">crate</span>::LogLevel;
 <span class="kw">use </span><span class="kw">crate</span>::LogWriter;
 <span class="kw">use </span><span class="kw">crate</span>::common::policy_store::TrustedIssuer;
 <span class="kw">use </span><span class="kw">crate</span>::log::Logger;
@@ -474,19 +507,42 @@
         <span class="kw">let </span>key_service: Arc&lt;<span class="kw">_</span>&gt; =
             <span class="kw">match </span>(<span class="kw-2">&amp;</span>config.jwt_sig_validation, <span class="kw-2">&amp;</span>config.jwks, <span class="kw-2">&amp;</span>trusted_issuers) {
                 <span class="comment">// Case: no JWKS provided
-                </span>(<span class="bool-val">true</span>, <span class="prelude-val">None</span>, <span class="prelude-val">None</span>) =&gt; <span class="prelude-val">Err</span>(JwtServiceInitError::MissingJwksConfig)<span class="question-mark">?</span>,
+                </span>(<span class="bool-val">true</span>, <span class="prelude-val">None</span>, <span class="prelude-val">None</span>) =&gt; {
+                    <span class="kw">let </span>err = JwtServiceInitError::MissingJwksConfig;
+                    logger.log_any(JwtLogEntry::new(<span class="macro">format!</span>(<span class="string">"{err}"</span>), <span class="prelude-val">Some</span>(LogLevel::ERROR)));
+                    <span class="kw">return </span><span class="prelude-val">Err</span>(err);
+                },
                 <span class="comment">// Case: Trusted issuers provided
-                </span>(<span class="bool-val">true</span>, <span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(issuers)) =&gt; <span class="prelude-val">Some</span>(
-                    KeyService::new_from_trusted_issuers(issuers)
+                </span>(<span class="bool-val">true</span>, <span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(issuers)) =&gt; {
+                    <span class="kw">let </span>key_service = KeyService::new_from_trusted_issuers(issuers)
                         .<span class="kw">await
-                        </span>.map_err(JwtServiceInitError::KeyService)<span class="question-mark">?</span>,
-                ),
+                        </span>.inspect_err(|e| {
+                            logger.log_any(JwtLogEntry::new(
+                                <span class="macro">format!</span>(<span class="string">"failed to initialize the JWT validation service: {}"</span>, e),
+                                <span class="prelude-val">Some</span>(LogLevel::ERROR),
+                            ))
+                        })
+                        .map_err(JwtServiceInitError::KeyService)<span class="question-mark">?</span>;
+                    <span class="prelude-val">Some</span>(key_service)
+                },
                 <span class="comment">// Case: Local JWKS provided
                 </span>(<span class="bool-val">true</span>, <span class="prelude-val">Some</span>(jwks), <span class="prelude-val">None</span>) =&gt; {
-                    <span class="prelude-val">Some</span>(KeyService::new_from_str(jwks).map_err(JwtServiceInitError::KeyService)<span class="question-mark">?</span>)
+                    <span class="kw">let </span>key_service = KeyService::new_from_str(jwks)
+                        .inspect_err(|e| {
+                            logger.log_any(JwtLogEntry::new(
+                                <span class="macro">format!</span>(<span class="string">"failed to initialize the JWT validation service: {}"</span>, e),
+                                <span class="prelude-val">Some</span>(LogLevel::ERROR),
+                            ))
+                        })
+                        .map_err(JwtServiceInitError::KeyService)<span class="question-mark">?</span>;
+                    <span class="prelude-val">Some</span>(key_service)
                 },
                 <span class="comment">// Case: Both a local JWKS and trusted issuers were provided
-                </span>(<span class="bool-val">true</span>, <span class="prelude-val">Some</span>(<span class="kw">_</span>), <span class="prelude-val">Some</span>(<span class="kw">_</span>)) =&gt; <span class="prelude-val">Err</span>(JwtServiceInitError::ConflictingJwksConfig)<span class="question-mark">?</span>,
+                </span>(<span class="bool-val">true</span>, <span class="prelude-val">Some</span>(<span class="kw">_</span>), <span class="prelude-val">Some</span>(<span class="kw">_</span>)) =&gt; {
+                    <span class="kw">let </span>err = JwtServiceInitError::ConflictingJwksConfig;
+                    logger.log_any(JwtLogEntry::new(<span class="macro">format!</span>(<span class="string">"{err}"</span>), <span class="prelude-val">Some</span>(LogLevel::ERROR)));
+                    <span class="kw">return </span><span class="prelude-val">Err</span>(err);
+                },
                 <span class="comment">// Case: Signature validation is Off so no key service is needed.
                 </span><span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
             }
@@ -505,11 +561,10 @@
                 <span class="kw">let </span>origin = iss.oidc_endpoint.origin().ascii_serialization();
                 <span class="kw">for </span>(tkn, metadata) <span class="kw">in </span>iss.token_metadata.iter() {
                     <span class="kw">if </span>!metadata.trusted {
-                        <span class="kw">if let </span><span class="prelude-val">Some</span>(logger) = logger.as_ref() {
-                            logger.log_any(JwtLogEntry::system(<span class="macro">format!</span>(
-                                <span class="string">"skipping metadata for {tkn} since `trusted == false`"
-                            </span>)));
-                        }
+                        logger.log_any(JwtLogEntry::new(
+                            <span class="macro">format!</span>(<span class="string">"skipping metadata for {tkn} since `trusted == false`"</span>),
+                            <span class="prelude-val">Some</span>(LogLevel::WARN),
+                        ));
                         <span class="kw">continue</span>;
                     }
 
@@ -543,13 +598,6 @@
         <span class="prelude-val">Ok</span>(<span class="self">Self </span>{ validators, logger })
     }
 
-    <span class="doccomment">/// Helper for making [`crate::LogType::System`] logs.
-    </span><span class="kw">fn </span>system_log(<span class="kw-2">&amp;</span><span class="self">self</span>, msg: String) {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(logger) = <span class="self">self</span>.logger.as_ref() {
-            logger.log_any(JwtLogEntry::system(msg));
-        }
-    }
-
     <span class="kw">pub async fn </span>validate_tokens&lt;<span class="lifetime">'a</span>&gt;(
         <span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>,
         tokens: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>HashMap&lt;String, String&gt;,
@@ -577,18 +625,34 @@
                 <span class="comment">// we just ignore input tokens that are not defined
                 // in the policy store's tokens
                 </span><span class="kw">if let </span><span class="prelude-val">Some</span>(iss) = iss {
-                    <span class="self">self</span>.system_log(<span class="macro">format!</span>(
-                        <span class="string">"ignoring {token_name} since it's from an untrusted issuer: '{iss}'"
-                    </span>));
+                    <span class="self">self</span>.logger.log_any(JwtLogEntry::new(
+                        <span class="macro">format!</span>(
+                            <span class="string">"ignoring {token_name} since it's from an untrusted issuer: '{iss}'"
+                        </span>),
+                        <span class="prelude-val">Some</span>(LogLevel::WARN),
+                    ));
                 }
                 <span class="kw">continue</span>;
             };
 
-            <span class="kw">let </span>validated_jwt = validator
-                .process_jwt(jwt)
-                .map_err(|e| JwtProcessingError::InvalidToken(token_name.to_string(), e))<span class="question-mark">?</span>;
+            <span class="kw">let </span>validated_jwt = validator.process_jwt(jwt).map_err(|e| {
+                <span class="self">self</span>.logger.log_any(JwtLogEntry::new(
+                    <span class="macro">format!</span>(<span class="string">"failed to validate token: {e}"</span>),
+                    <span class="prelude-val">Some</span>(LogLevel::ERROR),
+                ));
+                JwtProcessingError::InvalidToken(token_name.to_string(), e)
+            })<span class="question-mark">?</span>;
+
             <span class="kw">let </span>claims = serde_json::from_value::&lt;TokenClaims&gt;(validated_jwt.claims)
+                .map_err(|err| {
+                    <span class="self">self</span>.logger.log_any(JwtLogEntry::new(
+                        <span class="macro">format!</span>(<span class="string">"failed to deserialize token claims: {err}"</span>),
+                        <span class="prelude-val">Some</span>(LogLevel::ERROR),
+                    ));
+                    err
+                })
                 .map_err(JwtProcessingError::StringDeserialization)<span class="question-mark">?</span>;
+
             validated_tokens.insert(
                 token_name.to_string(),
                 Token::new(token_name, claims, validated_jwt.trusted_iss),

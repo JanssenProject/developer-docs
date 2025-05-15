@@ -629,11 +629,11 @@
 <span class="kw">use </span>time::OffsetDateTime;
 
 <span class="kw">use super</span>::{KeyId, TrustedIssuerId};
-<span class="kw">use </span><span class="kw">crate</span>::LogWriter;
 <span class="kw">use </span><span class="kw">crate</span>::common::policy_store::TrustedIssuer;
 <span class="kw">use </span><span class="kw">crate</span>::http::{HttpClient, HttpClientError};
 <span class="kw">use </span><span class="kw">crate</span>::jwt::log_entry::JwtLogEntry;
 <span class="kw">use </span><span class="kw">crate</span>::log::Logger;
+<span class="kw">use crate</span>::{LogLevel, LogWriter};
 
 <span class="attr">#[derive(Deserialize)]
 </span><span class="kw">struct </span>OpenIdConfig {
@@ -738,9 +738,9 @@
                     // we can safely ignore it.
                     </span><span class="kw">if </span>e.to_string().contains(<span class="string">"unknown variant"</span>) {
                         <span class="kw">if let </span><span class="prelude-val">Some</span>(logger) = logger.as_ref() {
-                            logger.log_any(JwtLogEntry::system(<span class="macro">format!</span>(
+                            logger.log_any(JwtLogEntry::new(<span class="macro">format!</span>(
                                 <span class="string">"encountered a JWK with an unsupported algorithm, ignoring it: {e}"
-                            </span>)));
+                            </span>), <span class="prelude-val">Some</span>(LogLevel::WARN)));
                         }
                         <span class="kw">continue</span>;
                     } <span class="kw">else </span>{
