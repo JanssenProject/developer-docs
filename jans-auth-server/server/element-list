@@ -53,6 +53,7 @@ io.jans.as.server.service.external.session
 io.jans.as.server.service.logger
 io.jans.as.server.service.net
 io.jans.as.server.service.push.sns
+io.jans.as.server.service.session
 io.jans.as.server.service.stat
 io.jans.as.server.service.status.ldap
 io.jans.as.server.service.token

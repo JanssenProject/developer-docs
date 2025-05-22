@@ -185,7 +185,24 @@
 <a href="#184" id="184">184</a>
 <a href="#185" id="185">185</a>
 <a href="#186" id="186">186</a>
-<a href="#187" id="187">187</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -230,6 +247,7 @@
 <span class="kw">use </span>init::ServiceFactory;
 <span class="kw">use </span>init::service_config::{ServiceConfig, ServiceConfigError};
 <span class="kw">use </span>init::service_factory::ServiceInitError;
+<span class="kw">use </span>lock::InitLockServiceError;
 <span class="kw">use </span>log::interface::LogWriter;
 <span class="kw">use </span>log::{LogEntry, LogType};
 <span class="kw">pub use </span>log::{LogLevel, LogStorage};
@@ -263,6 +281,10 @@
     </span><span class="doccomment">/// Error while init tokio runtime
     </span><span class="attr">#[error(transparent)]
     </span>RuntimeInit(std::io::Error),
+    <span class="doccomment">/// Error returned when Cedarling fails to obtain client credentials for sending
+    /// logs to the Lock Server.
+    </span><span class="attr">#[error(<span class="string">"failed to initialize the Lock Service: {0}"</span>)]
+    </span>InitLockService(<span class="attr">#[from] </span>InitLockServiceError),
 }
 
 <span class="doccomment">/// The instance of the Cedarling application.
@@ -290,7 +312,14 @@
         <span class="kw">let </span>pdp_id = app_types::PdpID::new();
         <span class="kw">let </span>app_name = (!config.application_name.is_empty())
             .then(|| ApplicationName(config.application_name.clone()));
-        <span class="kw">let </span>log = log::init_logger(<span class="kw-2">&amp;</span>config.log_config, pdp_id, app_name);
+
+        <span class="kw">let </span>log = log::init_logger(
+            <span class="kw-2">&amp;</span>config.log_config,
+            pdp_id,
+            app_name,
+            config.lock_config.as_ref(),
+        )
+        .<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="kw">let </span>service_config = ServiceConfig::new(config)
             .<span class="kw">await
@@ -342,6 +371,11 @@
     ) -&gt; <span class="prelude-ty">Result</span>&lt;AuthorizeEntitiesData, AuthorizeError&gt; {
         <span class="kw">let </span>tokens = <span class="self">self</span>.authz.decode_tokens(request).<span class="kw">await</span><span class="question-mark">?</span>;
         <span class="self">self</span>.authz.build_entities(request, <span class="kw-2">&amp;</span>tokens)
+    }
+
+    <span class="doccomment">/// Closes the connections to the Lock Server and pushes all available logs.
+    </span><span class="kw">pub async fn </span>shut_down(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="self">self</span>.log.shut_down().<span class="kw">await</span>;
     }
 }
 

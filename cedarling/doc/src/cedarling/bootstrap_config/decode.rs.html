@@ -138,7 +138,9 @@
 <a href="#137" id="137">137</a>
 <a href="#138" id="138">138</a>
 <a href="#139" id="139">139</a>
-<a href="#140" id="140">140</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -153,13 +155,13 @@
 <span class="kw">use </span>std::path::Path;
 <span class="kw">use </span>std::str::FromStr;
 
-<span class="kw">use </span><span class="kw">super</span>::BootstrapConfigRaw;
 <span class="kw">use </span><span class="kw">super</span>::authorization_config::{AuthorizationConfig, IdTokenTrustMode};
 <span class="kw">use </span><span class="kw">super</span>::raw_config::LoggerType;
 <span class="kw">use super</span>::{
     BootstrapConfig, BootstrapConfigLoadingError, JwtConfig, LogConfig, LogTypeConfig,
     MemoryLogConfig, PolicyStoreConfig, PolicyStoreSource,
 };
+<span class="kw">use super</span>::{BootstrapConfigRaw, LockServiceConfig};
 <span class="kw">use </span><span class="kw">crate</span>::log::LogLevel;
 <span class="kw">use </span>jsonwebtoken::Algorithm;
 <span class="kw">use </span>serde::{Deserialize, Deserializer, Serialize};
@@ -184,6 +186,8 @@
             <span class="kw">return </span><span class="prelude-val">Err</span>(BootstrapConfigLoadingError::BothPrincipalsDisabled);
         }
 
+        <span class="kw">let </span>lock_config = raw.lock.is_enabled().then(|| raw.try_into()).transpose()<span class="question-mark">?</span>;
+
         <span class="comment">// Decode LogCofig
         </span><span class="kw">let </span>log_type = <span class="kw">match </span>raw.log_type {
             LoggerType::Off =&gt; LogTypeConfig::Off,
@@ -195,7 +199,6 @@
                 max_items: raw.log_max_items,
             }),
             LoggerType::StdOut =&gt; LogTypeConfig::StdOut,
-            LoggerType::Lock =&gt; LogTypeConfig::Lock,
         };
         <span class="kw">let </span>log_config = LogConfig {
             log_type,
@@ -275,6 +278,7 @@
             jwt_config,
             authorization_config,
             entity_builder_config: raw.into(),
+            lock_config,
         })
     }
 }

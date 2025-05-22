@@ -502,7 +502,19 @@
 <a href="#501" id="501">501</a>
 <a href="#502" id="502">502</a>
 <a href="#503" id="503">503</a>
-<a href="#504" id="504">504</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#504" id="504">504</a>
+<a href="#505" id="505">505</a>
+<a href="#506" id="506">506</a>
+<a href="#507" id="507">507</a>
+<a href="#508" id="508">508</a>
+<a href="#509" id="509">509</a>
+<a href="#510" id="510">510</a>
+<a href="#511" id="511">511</a>
+<a href="#512" id="512">512</a>
+<a href="#513" id="513">513</a>
+<a href="#514" id="514">514</a>
+<a href="#515" id="515">515</a>
+<a href="#516" id="516">516</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -569,9 +581,11 @@
 </span><span class="kw">mod </span>fallback {
     <span class="kw">use </span><span class="kw">crate</span>::LogLevel;
     <span class="kw">use </span><span class="kw">crate</span>::app_types::{ApplicationName, PdpID};
+    <span class="kw">use </span><span class="kw">crate</span>::log::log_strategy::LogStrategyLogger;
+    <span class="kw">use </span><span class="kw">crate</span>::log::stdout_logger::StdOutLogger;
 
     <span class="doccomment">/// conform to Loggable requirement imposed by LogStrategy
-    </span><span class="attr">#[derive(serde::Serialize)]
+    </span><span class="attr">#[derive(serde::Serialize, Clone)]
     </span><span class="kw">struct </span>StrWrap&lt;<span class="lifetime">'a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">'a </span>str);
 
     <span class="kw">impl </span><span class="kw">crate</span>::log::interface::Indexed <span class="kw">for </span>StrWrap&lt;<span class="lifetime">'_</span>&gt; {
@@ -599,14 +613,24 @@
     /// call. But this is a fallback logger, so it is not intended to be used
     /// often, and in this case correctness and non-fallibility are far more
     /// important than performance.
+    ///
+    /// # Panics
+    ///
+    /// Panics when:
+    /// - A runtime to initialize a new LogStrategy could not be built.
+    /// - A fallback logger could not be initialized.
     </span><span class="kw">pub fn </span>log(msg: <span class="kw-2">&amp;</span>str, pdp_id: <span class="kw-2">&amp;</span>PdpID, app_name: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;ApplicationName&gt;) {
-        <span class="kw">let </span>log_config = <span class="kw">crate</span>::bootstrap_config::LogConfig {
-            log_type: <span class="kw">crate</span>::bootstrap_config::log_config::LogTypeConfig::StdOut,
-            <span class="comment">// level is so that all messages passed here are logged.
-            </span>log_level: LogLevel::TRACE,
-        };
+        <span class="comment">// level is so that all messages passed here are logged.
+        </span><span class="kw">let </span>logger = StdOutLogger::new(LogLevel::TRACE);
+
         <span class="comment">// This should always be a LogStrategy::StdOut(StdOutLogger)
-        </span><span class="kw">let </span>log_strategy = <span class="kw">crate</span>::log::LogStrategy::new(<span class="kw-2">&amp;</span>log_config, <span class="kw-2">*</span>pdp_id, app_name.clone());
+        </span><span class="kw">let </span>log_strategy = <span class="kw">crate</span>::log::LogStrategy::new_with_logger(
+            LogStrategyLogger::StdOut(logger),
+            <span class="kw-2">*</span>pdp_id,
+            app_name.clone(),
+            <span class="prelude-val">None</span>,
+        );
+
         <span class="kw">use </span><span class="kw">crate</span>::log::interface::LogWriter;
         <span class="comment">// a string is always serializable
         </span>log_strategy.log_any(StrWrap(msg))

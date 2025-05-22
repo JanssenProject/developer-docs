@@ -93,7 +93,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::log::{BaseLogEntry, LogLevel, LogType};
 <span class="kw">use </span>serde::Serialize;
 
-<span class="attr">#[derive(Serialize)]
+<span class="attr">#[derive(Serialize, Clone)]
 </span><span class="kw">pub struct </span>JwtLogEntry {
     <span class="attr">#[serde(flatten)]
     </span>base: BaseLogEntry,

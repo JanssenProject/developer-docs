@@ -166,24 +166,63 @@
 <a href="#165" id="165">165</a>
 <a href="#166" id="166">166</a>
 <a href="#167" id="167">167</a>
-<a href="#168" id="168">168</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a>
+<a href="#178" id="178">178</a>
+<a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
 
-</span><span class="kw">use </span>serde::Serialize;
+</span><span class="kw">use </span>std::sync::RwLock;
 
+<span class="kw">use </span><span class="kw">super</span>::InitLockServiceError;
 <span class="kw">use </span><span class="kw">super</span>::interface::{Indexed, LogStorage, LogWriter, Loggable};
 <span class="kw">use </span><span class="kw">super</span>::memory_logger::MemoryLogger;
 <span class="kw">use </span><span class="kw">super</span>::nop_logger::NopLogger;
 <span class="kw">use </span><span class="kw">super</span>::stdout_logger::StdOutLogger;
 <span class="kw">use </span><span class="kw">crate</span>::app_types::{ApplicationName, PdpID};
 <span class="kw">use </span><span class="kw">crate</span>::bootstrap_config::log_config::{LogConfig, LogTypeConfig};
+<span class="kw">use </span><span class="kw">crate</span>::lock::LockService;
+<span class="kw">use </span>serde::Serialize;
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>LogStrategy {
     logger: LogStrategyLogger,
     pdp_id: PdpID,
     app_name: <span class="prelude-ty">Option</span>&lt;ApplicationName&gt;,
+    lock_service: RwLock&lt;<span class="prelude-ty">Option</span>&lt;LockService&gt;&gt;,
 }
 
 <span class="doccomment">/// LogStrategy implements strategy pattern for logging.
@@ -197,42 +236,65 @@
 <span class="kw">impl </span>LogStrategy {
     <span class="doccomment">/// Creates a new `LogStrategy` based on the provided configuration.
     /// Initializes the corresponding logger accordingly.
-    </span><span class="kw">pub fn </span>new(config: <span class="kw-2">&amp;</span>LogConfig, pdp_id: PdpID, app_name: <span class="prelude-ty">Option</span>&lt;ApplicationName&gt;) -&gt; <span class="self">Self </span>{
-        <span class="kw">let </span>logger = <span class="kw">match </span>config.log_type {
+    </span><span class="kw">pub async fn </span>new(
+        config: <span class="kw-2">&amp;</span>LogConfig,
+        pdp_id: PdpID,
+        app_name: <span class="prelude-ty">Option</span>&lt;ApplicationName&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, InitLockServiceError&gt; {
+        <span class="kw">let </span>logger = <span class="kw">match </span><span class="kw-2">&amp;</span>config.log_type {
             LogTypeConfig::Off =&gt; LogStrategyLogger::Off(NopLogger),
             LogTypeConfig::Memory(memory_config) =&gt; LogStrategyLogger::MemoryLogger(
-                MemoryLogger::new(memory_config, config.log_level, pdp_id, app_name.clone()),
+                MemoryLogger::new(<span class="kw-2">*</span>memory_config, config.log_level, pdp_id, app_name.clone()),
             ),
             LogTypeConfig::StdOut =&gt; LogStrategyLogger::StdOut(StdOutLogger::new(config.log_level)),
-            LogTypeConfig::Lock =&gt; <span class="macro">todo!</span>(),
         };
-        <span class="self">Self </span>{
+        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
             logger,
             pdp_id,
             app_name,
-        }
+            lock_service: RwLock::new(<span class="prelude-val">None</span>),
+        })
     }
 
-    <span class="attr">#[cfg(test)]
-    </span><span class="kw">pub fn </span>new_with_logger(
+    <span class="kw">pub fn </span>new_with_logger(
         logger: LogStrategyLogger,
         pdp_id: PdpID,
         app_name: <span class="prelude-ty">Option</span>&lt;ApplicationName&gt;,
+        lock_service: <span class="prelude-ty">Option</span>&lt;LockService&gt;,
     ) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             logger,
             pdp_id,
             app_name,
+            lock_service: RwLock::new(lock_service),
         }
     }
 
-    <span class="attr">#[cfg(test)]
-    </span><span class="kw">pub fn </span>logger(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>LogStrategyLogger {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>logger(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>LogStrategyLogger {
         <span class="kw-2">&amp;</span><span class="self">self</span>.logger
+    }
+
+    <span class="kw">pub fn </span>set_lock_service(<span class="kw-2">&amp;</span><span class="self">self</span>, lock_service: LockService) {
+        <span class="kw-2">*</span><span class="self">self
+            </span>.lock_service
+            .write()
+            .expect(<span class="string">"obtain lock_service write lock"</span>) = <span class="prelude-val">Some</span>(lock_service);
+    }
+
+    <span class="kw">pub async fn </span>shut_down(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="kw">let </span>lock = <span class="self">self
+            </span>.lock_service
+            .write()
+            .expect(<span class="string">"obtain lock_service write lock"</span>)
+            .take();
+
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">mut </span>lock_service) = lock {
+            lock_service.shut_down().<span class="kw">await
+        </span>}
     }
 }
 
-<span class="attr">#[derive(Serialize, PartialEq)]
+<span class="attr">#[derive(Serialize, PartialEq, Clone)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>LogEntryWithClientInfo&lt;Entry: Loggable&gt; {
     <span class="attr">#[serde(flatten)]
     </span>entry: Entry,
@@ -266,6 +328,14 @@
     <span class="kw">fn </span>log_any&lt;T: Loggable&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, entry: T) {
         <span class="kw">let </span>entry =
             LogEntryWithClientInfo::from_loggable(entry, <span class="self">self</span>.pdp_id, <span class="self">self</span>.app_name.clone());
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(lock_service) = <span class="self">self
+            </span>.lock_service
+            .read()
+            .expect(<span class="string">"obtain lock_service read lock"</span>)
+            .as_ref()
+        {
+            lock_service.log_any(entry.clone());
+        }
         <span class="kw">match </span><span class="kw-2">&amp;</span><span class="self">self</span>.logger {
             LogStrategyLogger::Off(log) =&gt; log.log_any(entry),
             LogStrategyLogger::MemoryLogger(memory_logger) =&gt; memory_logger.log_any(entry),

@@ -30,20 +30,22 @@
 <a href="#29" id="29">29</a>
 <a href="#30" id="30">30</a>
 <a href="#31" id="31">31</a>
-<a href="#32" id="32">32</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#32" id="32">32</a>
+<a href="#33" id="33">33</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
 
 </span><span class="doccomment">//! Module that contains structures used as configuration internally in the application
 //! It is usefull to use it with DI container
-</span><span class="kw">use </span>serde::Serialize;
+</span><span class="kw">use </span>derive_more::derive::Display;
+<span class="kw">use </span>serde::Serialize;
 <span class="kw">use </span>uuid7::{Uuid, uuid4};
 
 <span class="doccomment">/// Value is used as ID for application
 /// represents a unique ID for application
 /// generated one on startup
-</span><span class="attr">#[derive(Debug, Clone, Copy, Serialize, PartialEq)]
+</span><span class="attr">#[derive(Debug, Clone, Copy, Serialize, PartialEq, Display)]
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>PdpID(<span class="kw">pub </span>Uuid);
 
 <span class="kw">impl </span>PdpID {

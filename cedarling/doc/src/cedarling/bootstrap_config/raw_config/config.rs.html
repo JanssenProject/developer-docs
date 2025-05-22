@@ -468,7 +468,11 @@
 <a href="#467" id="467">467</a>
 <a href="#468" id="468">468</a>
 <a href="#469" id="469">469</a>
-<a href="#470" id="470">470</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#470" id="470">470</a>
+<a href="#471" id="471">471</a>
+<a href="#472" id="472">472</a>
+<a href="#473" id="473">473</a>
+<a href="#474" id="474">474</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -701,11 +705,15 @@
     <span class="doccomment">/// How often to send telemetry messages to Lock Master (0 to turn off transmission).
     </span><span class="attr">#[serde(rename = <span class="string">"CEDARLING_LOCK_TELEMETRY_INTERVAL"</span>, default)]
     #[serde(deserialize_with = <span class="string">"deserialize_or_parse_string_as_json"</span>)]
-    </span><span class="kw">pub </span>audit_health_telemetry_interval: u64,
+    </span><span class="kw">pub </span>audit_telemetry_interval: u64,
 
     <span class="doccomment">/// Controls whether Cedarling should listen for updates from the Lock Server.
     </span><span class="attr">#[serde(rename = <span class="string">"CEDARLING_LOCK_LISTEN_SSE"</span>, default)]
     </span><span class="kw">pub </span>listen_sse: FeatureToggle,
+
+    <span class="doccomment">/// Allow interaction with a Lock server with invalid certificates. Used for testing.
+    </span><span class="attr">#[serde(rename = <span class="string">"CEDARLING_LOCK_ACCEPT_INVALID_CERTS"</span>, default)]
+    </span><span class="kw">pub </span>accept_invalid_certs: FeatureToggle,
 }
 
 <span class="kw">impl </span>BootstrapConfigRaw {

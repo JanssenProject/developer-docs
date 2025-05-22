@@ -231,7 +231,11 @@ Methods<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:param&nbsp;tag:&nbsp;The&nbsp;tag&nbsp;type&nbsp;as&nbsp;a&nbsp;string.<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;:returns:&nbsp;A&nbsp;list&nbsp;of&nbsp;log&nbsp;entries&nbsp;matching&nbsp;both&nbsp;the&nbsp;request&nbsp;ID&nbsp;and&nbsp;tag,&nbsp;each&nbsp;converted&nbsp;to&nbsp;a&nbsp;Python&nbsp;dictionary.<br>&nbsp;</span></td></tr>
+&nbsp;&nbsp;&nbsp;&nbsp;:returns:&nbsp;A&nbsp;list&nbsp;of&nbsp;log&nbsp;entries&nbsp;matching&nbsp;both&nbsp;the&nbsp;request&nbsp;ID&nbsp;and&nbsp;tag,&nbsp;each&nbsp;converted&nbsp;to&nbsp;a&nbsp;Python&nbsp;dictionary.<br>
+&nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#Cedarling-shut_down">shut_down</a>(self)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Closes&nbsp;the&nbsp;connections&nbsp;to&nbsp;the&nbsp;Lock&nbsp;Server&nbsp;and&nbsp;pushes&nbsp;all&nbsp;available&nbsp;logs.<br>&nbsp;</span></td></tr>
 <tr><td>&nbsp;</td>
 <td class="singlecolumn">Methods defined here:<br>
 <dl><dt><a name="Cedarling-authorize"><strong>authorize</strong></a>(self, /, request)</dt><dd><span class="code">Authorize&nbsp;request</span></dd></dl>
@@ -251,6 +255,8 @@ Tag&nbsp;can&nbsp;be&nbsp;`log_kind`,&nbsp;`log_level`.</span></dd></dl>
 Tag&nbsp;can&nbsp;be&nbsp;`log_kind`,&nbsp;`log_level`.</span></dd></dl>
 
 <dl><dt><a name="Cedarling-pop_logs"><strong>pop_logs</strong></a>(self, /)</dt><dd><span class="code">Return&nbsp;logs&nbsp;and&nbsp;remove&nbsp;them&nbsp;from&nbsp;the&nbsp;storage</span></dd></dl>
+
+<dl><dt><a name="Cedarling-shut_down"><strong>shut_down</strong></a>(self, /)</dt><dd><span class="code">Closes&nbsp;the&nbsp;connections&nbsp;to&nbsp;the&nbsp;Lock&nbsp;Server&nbsp;and&nbsp;pushes&nbsp;all&nbsp;available&nbsp;logs.</span></dd></dl>
 
 <hr>
 Static methods defined here:<br>

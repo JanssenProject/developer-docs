@@ -123,7 +123,32 @@
 <a href="#122" id="122">122</a>
 <a href="#123" id="123">123</a>
 <a href="#124" id="124">124</a>
-<a href="#125" id="125">125</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -131,10 +156,10 @@
 </span><span class="doccomment">//! Log interface
 //! Contains the interface for logging. And getting log information from storage.
 
-</span><span class="kw">use </span>std::sync::Arc;
+</span><span class="kw">use </span>std::sync::{Arc, Weak};
 
 <span class="kw">use </span>uuid7::Uuid;
-
+<span class="kw">use </span><span class="kw">crate</span>::log::log_strategy::LogStrategyLogger;
 <span class="kw">use super</span>::{LogLevel, LogStrategy};
 
 <span class="doccomment">/// Log Writer
@@ -149,6 +174,31 @@
         <span class="kw">if let </span><span class="prelude-val">Some</span>(logger) = <span class="self">self</span>.as_ref() {
             logger.log_any(entry);
         }
+    }
+}
+
+<span class="kw">impl </span>LogWriter <span class="kw">for </span><span class="prelude-ty">Option</span>&lt;Weak&lt;LogStrategy&gt;&gt; {
+    <span class="kw">fn </span>log_any&lt;T: Loggable&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, entry: T) {
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(log_strategy) = <span class="self">self</span>.as_ref().and_then(|l| l.upgrade()) {
+            <span class="kw">match </span>log_strategy.logger() {
+                LogStrategyLogger::Off(log) =&gt; log.log_any(entry),
+                LogStrategyLogger::MemoryLogger(memory_logger) =&gt; memory_logger.log_any(entry),
+                LogStrategyLogger::StdOut(std_out_logger) =&gt; std_out_logger.log_any(entry),
+            }
+            <span class="kw">return</span>;
+        }
+
+        <span class="comment">// we log the error manually to stdout if the logger is gone
+        
+        </span><span class="kw">let </span>log = <span class="kw">match </span>serde_json::to_value(<span class="kw-2">&amp;</span>entry) {
+            <span class="prelude-val">Ok</span>(json) =&gt; json.to_string(),
+            <span class="prelude-val">Err</span>(err) =&gt; {
+                <span class="kw">let </span>err_msg = <span class="macro">format!</span>(<span class="string">"failed to serialize log entry to JSON: {err}"</span>);
+                serde_json::to_value(entry).expect(<span class="kw-2">&amp;</span>err_msg).to_string()
+            },
+        };
+
+        <span class="macro">println!</span>(<span class="string">"{log}"</span>);
     }
 }
 
@@ -202,7 +252,7 @@
     }
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">trait </span>Loggable: serde::Serialize + Indexed {
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">trait </span>Loggable: serde::Serialize + Indexed + Clone {
     <span class="doccomment">/// get log level for entity
     /// not all log entities have log level, only when `log_kind` == `System`
     </span><span class="kw">fn </span>get_log_level(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;LogLevel&gt;;

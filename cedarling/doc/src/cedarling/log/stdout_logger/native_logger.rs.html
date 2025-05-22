@@ -158,10 +158,7 @@
 <a href="#157" id="157">157</a>
 <a href="#158" id="158">158</a>
 <a href="#159" id="159">159</a>
-<a href="#160" id="160">160</a>
-<a href="#161" id="161">161</a>
-<a href="#162" id="162">162</a>
-<a href="#163" id="163">163</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#160" id="160">160</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -190,7 +187,7 @@
 
     <span class="comment">// Create a new StdOutLogger with custom writer.
     // is used in tests.
-    </span><span class="attr">#[allow(dead_code)]
+    </span><span class="attr">#[cfg(test)]
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new_with(writer: Box&lt;<span class="kw">dyn </span>Write + Send + Sync&gt;, log_level: LogLevel) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             writer: Mutex::new(Box::new(writer)),
@@ -295,11 +292,8 @@
             cedar_lang_version: <span class="prelude-val">None</span>,
             cedar_sdk_version: <span class="prelude-val">None</span>,
         };
-        <span class="kw">let </span>log_entry = LogEntryWithClientInfo::from_loggable(
-            log_entry.clone(),
-            pdp_id,
-            app_name.clone(),
-        );
+        <span class="kw">let </span>log_entry =
+            LogEntryWithClientInfo::from_loggable(log_entry.clone(), pdp_id, app_name.clone());
 
         <span class="comment">// Serialize the log entry to JSON
         </span><span class="kw">let </span>json_str = <span class="macro">json!</span>(log_entry).to_string();

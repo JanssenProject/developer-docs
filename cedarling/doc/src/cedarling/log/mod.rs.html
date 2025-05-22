@@ -84,7 +84,18 @@
 <a href="#83" id="83">83</a>
 <a href="#84" id="84">84</a>
 <a href="#85" id="85">85</a>
-<a href="#86" id="86">86</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
+<a href="#90" id="90">90</a>
+<a href="#91" id="91">91</a>
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -137,6 +148,7 @@
 
 </span><span class="kw">mod </span>err_log_entry;
 <span class="kw">pub mod </span>interface;
+
 <span class="kw">mod </span>log_entry;
 <span class="kw">mod </span>log_level;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>log_strategy;
@@ -150,24 +162,34 @@
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test;
 
-<span class="kw">use </span>std::sync::Arc;
+<span class="kw">use </span>std::sync::{Arc, Weak};
 
 <span class="kw">pub use </span>interface::LogStorage;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>log_strategy::LogStrategy;
 
+<span class="kw">use </span><span class="kw">crate</span>::LockServiceConfig;
 <span class="kw">use </span><span class="kw">crate</span>::app_types::{ApplicationName, PdpID};
 <span class="kw">use </span><span class="kw">crate</span>::bootstrap_config::log_config::LogConfig;
+<span class="kw">use </span><span class="kw">crate</span>::lock::{InitLockServiceError, LockService};
 
 <span class="doccomment">/// Type alias for logger that is used in application
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">type </span>Logger = Arc&lt;LogStrategy&gt;;
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">type </span>LoggerWeak = Weak&lt;LogStrategy&gt;;
 
 <span class="doccomment">/// Initialize logger.
 /// entry point for initialize logger
-</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>init_logger(
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>init_logger(
     config: <span class="kw-2">&amp;</span>LogConfig,
     pdp_id: PdpID,
     app_name: <span class="prelude-ty">Option</span>&lt;ApplicationName&gt;,
-) -&gt; Logger {
-    Arc::new(LogStrategy::new(config, pdp_id, app_name))
+    lock_config: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>LockServiceConfig&gt;,
+) -&gt; <span class="prelude-ty">Result</span>&lt;Logger, InitLockServiceError&gt; {
+    <span class="kw">let </span>logger = Arc::new(LogStrategy::new(config, pdp_id, app_name).<span class="kw">await</span><span class="question-mark">?</span>);
+    <span class="kw">let </span>logger_weak = Arc::downgrade(<span class="kw-2">&amp;</span>logger);
+    <span class="kw">if let </span><span class="prelude-val">Some</span>(lock_config) = lock_config {
+        <span class="kw">let </span>lock_service = LockService::new(pdp_id, lock_config, <span class="prelude-val">Some</span>(logger_weak)).<span class="kw">await</span><span class="question-mark">?</span>;
+        logger.set_lock_service(lock_service);
+    }
+    <span class="prelude-val">Ok</span>(logger)
 }
 </code></pre></div></section></main></body></html>
