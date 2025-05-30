@@ -290,38 +290,159 @@
 <a href="#289" id="289">289</a>
 <a href="#290" id="290">290</a>
 <a href="#291" id="291">291</a>
-<a href="#292" id="292">292</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
+<a href="#295" id="295">295</a>
+<a href="#296" id="296">296</a>
+<a href="#297" id="297">297</a>
+<a href="#298" id="298">298</a>
+<a href="#299" id="299">299</a>
+<a href="#300" id="300">300</a>
+<a href="#301" id="301">301</a>
+<a href="#302" id="302">302</a>
+<a href="#303" id="303">303</a>
+<a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
+<a href="#306" id="306">306</a>
+<a href="#307" id="307">307</a>
+<a href="#308" id="308">308</a>
+<a href="#309" id="309">309</a>
+<a href="#310" id="310">310</a>
+<a href="#311" id="311">311</a>
+<a href="#312" id="312">312</a>
+<a href="#313" id="313">313</a>
+<a href="#314" id="314">314</a>
+<a href="#315" id="315">315</a>
+<a href="#316" id="316">316</a>
+<a href="#317" id="317">317</a>
+<a href="#318" id="318">318</a>
+<a href="#319" id="319">319</a>
+<a href="#320" id="320">320</a>
+<a href="#321" id="321">321</a>
+<a href="#322" id="322">322</a>
+<a href="#323" id="323">323</a>
+<a href="#324" id="324">324</a>
+<a href="#325" id="325">325</a>
+<a href="#326" id="326">326</a>
+<a href="#327" id="327">327</a>
+<a href="#328" id="328">328</a>
+<a href="#329" id="329">329</a>
+<a href="#330" id="330">330</a>
+<a href="#331" id="331">331</a>
+<a href="#332" id="332">332</a>
+<a href="#333" id="333">333</a>
+<a href="#334" id="334">334</a>
+<a href="#335" id="335">335</a>
+<a href="#336" id="336">336</a>
+<a href="#337" id="337">337</a>
+<a href="#338" id="338">338</a>
+<a href="#339" id="339">339</a>
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
+<a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a>
+<a href="#348" id="348">348</a>
+<a href="#349" id="349">349</a>
+<a href="#350" id="350">350</a>
+<a href="#351" id="351">351</a>
+<a href="#352" id="352">352</a>
+<a href="#353" id="353">353</a>
+<a href="#354" id="354">354</a>
+<a href="#355" id="355">355</a>
+<a href="#356" id="356">356</a>
+<a href="#357" id="357">357</a>
+<a href="#358" id="358">358</a>
+<a href="#359" id="359">359</a>
+<a href="#360" id="360">360</a>
+<a href="#361" id="361">361</a>
+<a href="#362" id="362">362</a>
+<a href="#363" id="363">363</a>
+<a href="#364" id="364">364</a>
+<a href="#365" id="365">365</a>
+<a href="#366" id="366">366</a>
+<a href="#367" id="367">367</a>
+<a href="#368" id="368">368</a>
+<a href="#369" id="369">369</a>
+<a href="#370" id="370">370</a>
+<a href="#371" id="371">371</a>
+<a href="#372" id="372">372</a>
+<a href="#373" id="373">373</a>
+<a href="#374" id="374">374</a>
+<a href="#375" id="375">375</a>
+<a href="#376" id="376">376</a>
+<a href="#377" id="377">377</a>
+<a href="#378" id="378">378</a>
+<a href="#379" id="379">379</a>
+<a href="#380" id="380">380</a>
+<a href="#381" id="381">381</a>
+<a href="#382" id="382">382</a>
+<a href="#383" id="383">383</a>
+<a href="#384" id="384">384</a>
+<a href="#385" id="385">385</a>
+<a href="#386" id="386">386</a>
+<a href="#387" id="387">387</a>
+<a href="#388" id="388">388</a>
+<a href="#389" id="389">389</a>
+<a href="#390" id="390">390</a>
+<a href="#391" id="391">391</a>
+<a href="#392" id="392">392</a>
+<a href="#393" id="393">393</a>
+<a href="#394" id="394">394</a>
+<a href="#395" id="395">395</a>
+<a href="#396" id="396">396</a>
+<a href="#397" id="397">397</a>
+<a href="#398" id="398">398</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
 
 </span><span class="kw">use </span>std::collections::HashMap;
-<span class="kw">use </span>std::sync::Arc;
-<span class="kw">use </span>std::time::Duration;
 
-<span class="kw">use </span>jsonwebtoken::DecodingKey;
-<span class="kw">use </span>serde_json::{Value, json};
+<span class="kw">use </span><span class="kw">crate</span>::LogWriter;
+<span class="kw">use </span><span class="kw">crate</span>::jwt::log_entry::JwtLogEntry;
+<span class="kw">use </span><span class="kw">crate</span>::log::Logger;
 
-<span class="kw">use </span><span class="kw">super</span>::TrustedIssuerId;
-<span class="kw">use </span><span class="kw">super</span>::jwk_store::{JwkStore, JwkStoreError};
-<span class="kw">use </span><span class="kw">crate</span>::common::policy_store::TrustedIssuer;
-<span class="kw">use </span><span class="kw">crate</span>::http::{HttpClient, HttpClientError};
+<span class="kw">use </span><span class="kw">super</span>::http_utils::<span class="kw-2">*</span>;
+<span class="kw">use </span>jsonwebtoken::jwk::{Jwk, KeyAlgorithm};
+<span class="kw">use </span>jsonwebtoken::{Algorithm, DecodingKey};
+<span class="kw">use </span>serde::Deserialize;
 
-<span class="kw">pub struct </span>DecodingKeyWithIss&lt;<span class="lifetime">'a</span>&gt; {
-    <span class="doccomment">/// The decoding key used to validate JWT signatures.
-    </span><span class="kw">pub </span>key: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>DecodingKey,
-    <span class="doccomment">/// The Trusted Issuer where the Key was fetched.
-    </span><span class="kw">pub </span>key_iss: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>TrustedIssuer&gt;,
+<span class="attr">#[derive(Debug, Hash, Eq, PartialEq)]
+</span><span class="kw">pub struct </span>DecodingKeyInfo {
+    <span class="kw">pub </span>issuer: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="kw">pub </span>kid: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="kw">pub </span>algorithm: Algorithm,
 }
 
-<span class="doccomment">/// Manages Json Web Keys (JWK).
-</span><span class="comment">// TODO: periodically update the key stores to ensure keys are valid.
-</span><span class="attr">#[derive(Debug)]
+<span class="doccomment">/// Manages JSON Web Keys (JWKs) used for decoding JWTs.
+///
+/// ## TODO
+///
+/// We still need to figure out a reliable way to handle rotating out expired keys.
+///
+/// the Jans Auth Server adds a custom `exp` field to the JWK but it's not really
+/// a standard approach yet as per [`RFC 7517 v41`] so some IDPs will might not follow
+/// the same convention. Thus, we shouldn't rely on it yet for rotating keys.
+///
+/// A naive first solution might be to try fetching a new key if validation fails
+/// but this could be abused if someone just kept sending invalid JWTs.
+///
+/// [`RFC 7517 v41`]: https://datatracker.ietf.org/doc/html/draft-ietf-jose-json-web-key-41
+</span><span class="attr">#[derive(Default)]
 </span><span class="kw">pub struct </span>KeyService {
-    key_stores: HashMap&lt;TrustedIssuerId, JwkStore&gt;,
+    keys: HashMap&lt;DecodingKeyInfo, DecodingKey&gt;,
 }
 
 <span class="kw">impl </span>KeyService {
+    <span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
+        Default::default()
+    }
+
     <span class="doccomment">/// Loads JWK stores from a string.
     ///
     /// This enables loading keystores via a local JSON file.
@@ -341,95 +462,207 @@
     /// - and the values contains the JSON Web Keys as defined in [`RFC 7517`].
     ///
     /// [`RFC 7517`]: https://datatracker.ietf.org/doc/html/rfc7517
-    </span><span class="kw">pub fn </span>new_from_str(key_stores: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, KeyServiceError&gt; {
-        <span class="kw">let </span>parsed_stores = serde_json::from_str::&lt;HashMap&lt;String, Value&gt;&gt;(key_stores)
-            .map_err(KeyServiceError::DecodeJwkStores)<span class="question-mark">?</span>;
-        <span class="kw">let </span><span class="kw-2">mut </span>key_stores = HashMap::new();
-        <span class="kw">for </span>(iss_id, keys) <span class="kw">in </span><span class="kw-2">&amp;</span>parsed_stores {
-            <span class="kw">let </span>iss_id = TrustedIssuerId::from(iss_id.as_str());
-            <span class="kw">let </span>jwks = <span class="macro">json!</span>({<span class="string">"keys"</span>: keys});
-            key_stores.insert(iss_id.clone(), JwkStore::new_from_jwks_value(iss_id, jwks)<span class="question-mark">?</span>);
-        }
-        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{ key_stores })
-    }
+    </span><span class="kw">pub fn </span>insert_keys_from_str(<span class="kw-2">&amp;mut </span><span class="self">self</span>, key_stores: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;(), KeyServiceError&gt; {
+        <span class="kw">let </span>parsed_stores = serde_json::from_str::&lt;HashMap&lt;String, Vec&lt;Jwk&gt;&gt;&gt;(key_stores)
+            .map_err(InsertKeysError::DeserializeJwkStores)<span class="question-mark">?</span>;
 
-    <span class="doccomment">/// Loads key stores using a JSON string.
-    ///
-    /// Enables loading key stores from a local JSON file.
-    </span><span class="kw">pub async fn </span>new_from_trusted_issuers(
-        trusted_issuers: <span class="kw-2">&amp;</span>HashMap&lt;String, TrustedIssuer&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, KeyServiceError&gt; {
-        <span class="kw">let </span>http_client = HttpClient::new(<span class="number">3</span>, Duration::from_secs(<span class="number">3</span>))<span class="question-mark">?</span>;
-
-        <span class="kw">let </span><span class="kw-2">mut </span>key_stores = HashMap::new();
-        <span class="kw">for </span>(iss_id, iss) <span class="kw">in </span>trusted_issuers.iter() {
-            <span class="kw">let </span>iss_id: Arc&lt;str&gt; = iss_id.as_str().into();
-            key_stores.insert(
-                iss_id.clone(),
-                JwkStore::new_from_trusted_issuer(iss_id, iss, <span class="kw-2">&amp;</span>http_client).<span class="kw">await</span><span class="question-mark">?</span>,
-            );
-        }
-
-        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{ key_stores })
-    }
-
-    <span class="doccomment">/// Gets the decoding key with the given key ID from the store with it's Trusted Issuer.
-    </span><span class="kw">pub fn </span>get_key(<span class="kw-2">&amp;</span><span class="self">self</span>, key_id: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;DecodingKeyWithIss&gt; {
-        <span class="comment">// PERF: We can add a reference of all the keys into a HashMap
-        // so we do not need to loop through all of these.
-        </span><span class="kw">for </span>store <span class="kw">in </span><span class="self">self</span>.key_stores.values() {
-            <span class="kw">if let </span><span class="prelude-val">Some</span>(key) = store.get(key_id) {
-                <span class="kw">return </span><span class="prelude-val">Some</span>(DecodingKeyWithIss {
-                    key,
-                    key_iss: store.source_iss(),
-                });
+        <span class="kw">for </span>(issuer, keys) <span class="kw">in </span>parsed_stores.into_iter() {
+            <span class="kw">for </span>jwk <span class="kw">in </span>keys.into_iter() {
+                <span class="kw">let </span>decoding_key =
+                    DecodingKey::from_jwk(<span class="kw-2">&amp;</span>jwk).map_err(InsertKeysError::BuildDecodingKey)<span class="question-mark">?</span>;
+                <span class="kw">let </span>algorithm = jwk
+                    .common
+                    .key_algorithm
+                    .map(|alg| {
+                        cast_to_algorithm(alg).map_err(InsertKeysError::UnsupportedKeyAlgorithm)
+                    })
+                    .transpose()<span class="question-mark">?
+                    </span>.ok_or(InsertKeysError::UnspecifiedAlgorithm)<span class="question-mark">?</span>;
+                <span class="kw">let </span>key_info = DecodingKeyInfo {
+                    issuer: <span class="prelude-val">Some</span>(issuer.clone()),
+                    kid: jwk.common.key_id,
+                    algorithm,
+                };
+                <span class="self">self</span>.keys.insert(key_info, decoding_key);
             }
         }
 
-        <span class="prelude-val">None
-    </span>}
+        <span class="prelude-val">Ok</span>(())
+    }
 
-    <span class="doccomment">/// Returns a Vec containing a reference to all of the keys.
-    ///
-    /// Useful if the keys from the JWKS do not have a `kid` (Key ID).
-    </span><span class="comment">//  this is currently unused since we don't handle JWTs without `kid` yet.
-    </span><span class="attr">#[allow(dead_code)]
-    </span><span class="kw">pub fn </span>get_keys(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<span class="kw-2">&amp;</span>DecodingKey&gt; {
-        <span class="comment">// PERF: We can cache the returned Vec so it doesn't
-        // get created every time this function is called.
-        </span><span class="kw">let </span><span class="kw-2">mut </span>keys = Vec::new();
-        <span class="self">self</span>.key_stores
-            .values()
-            .for_each(|store| keys.extend(store.get_keys()));
-        keys
+    <span class="kw">pub async fn </span>get_keys_using_oidc(
+        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+        openid_config: <span class="kw-2">&amp;</span>OpenIdConfig,
+        logger: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;Logger&gt;,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), KeyServiceError&gt; {
+        <span class="kw">let </span>jwks = JwkSet::get_from_url(<span class="kw-2">&amp;</span>openid_config.jwks_uri)
+            .<span class="kw">await
+            </span>.map_err(KeyServiceError::GetJwks)<span class="question-mark">?</span>;
+
+        <span class="kw">let </span>(keys, errs) = jwks.unwrap_keys();
+        <span class="kw">for </span>err <span class="kw">in </span>errs.into_iter() {
+            <span class="kw">let </span>err_msg = <span class="macro">format!</span>(
+                <span class="string">"failed to deserialize a JWK from '{}': {}"</span>,
+                openid_config.issuer, err,
+            );
+            logger.log_any(JwtLogEntry::new(err_msg, <span class="prelude-val">Some</span>(<span class="kw">crate</span>::LogLevel::WARN)));
+            <span class="kw">continue</span>;
+        }
+
+        <span class="kw">for </span>key <span class="kw">in </span>keys.into_iter() {
+            <span class="comment">// We will no support keys with unspecified algorithms
+            </span><span class="kw">let </span><span class="prelude-val">Some</span>(key_algorithm) = key.common.key_algorithm <span class="kw">else </span>{
+                <span class="kw">let </span>err_msg = <span class="macro">format!</span>(
+                    <span class="string">"skipping a JWK with a missing algorithm specifier from '{}'"</span>,
+                    openid_config.issuer,
+                );
+                logger.log_any(JwtLogEntry::new(err_msg, <span class="prelude-val">Some</span>(<span class="kw">crate</span>::LogLevel::ERROR)));
+                <span class="kw">continue</span>;
+            };
+
+            <span class="comment">// We need to cast from `jsonwebtoken::jwk::KeyAlgorithm` into
+            // `jsonwebtoken::Algorithm`
+            </span><span class="kw">let </span>algorithm = <span class="kw">match </span>cast_to_algorithm(key_algorithm) {
+                <span class="prelude-val">Ok</span>(alg) =&gt; alg,
+                <span class="prelude-val">Err</span>(alg) =&gt; {
+                    <span class="kw">let </span>err_msg = <span class="macro">format!</span>(
+                        <span class="string">"skipping building a validation key for unsupported algorithm from '{}': {}"</span>,
+                        openid_config.issuer, alg,
+                    );
+                    logger.log_any(JwtLogEntry::new(err_msg, <span class="prelude-val">Some</span>(<span class="kw">crate</span>::LogLevel::WARN)));
+                    <span class="kw">continue</span>;
+                },
+            };
+
+            <span class="kw">let </span>decoding_key =
+                DecodingKey::from_jwk(<span class="kw-2">&amp;</span>key).map_err(FetchKeysError::BuildDecodingKey)<span class="question-mark">?</span>;
+
+            <span class="kw">let </span>key_info = DecodingKeyInfo {
+                issuer: <span class="prelude-val">Some</span>(openid_config.issuer.clone()),
+                kid: key.common.key_id,
+                algorithm,
+            };
+            <span class="self">self</span>.keys.insert(key_info, decoding_key);
+        }
+
+        <span class="prelude-val">Ok</span>(())
+    }
+
+    <span class="kw">pub fn </span>get_key(<span class="kw-2">&amp;</span><span class="self">self</span>, key_info: <span class="kw-2">&amp;</span>DecodingKeyInfo) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>DecodingKey&gt; {
+        <span class="self">self</span>.keys.get(key_info)
+    }
+
+    <span class="kw">pub fn </span>has_keys(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        !<span class="self">self</span>.keys.is_empty()
+    }
+}
+
+<span class="doccomment">/// An alternative implementation of [`jsonwebtoken::jwk::JwkSet`].
+///
+/// This struct allows us to iterate over each in in the JwkSet and handle deserializing
+/// each one independently.
+</span><span class="attr">#[derive(Deserialize)]
+</span><span class="kw">pub struct </span>JwkSet {
+    keys: Vec&lt;serde_json::Value&gt;,
+}
+
+<span class="kw">impl </span>JwkSet {
+    <span class="kw">pub fn </span>unwrap_keys(<span class="self">self</span>) -&gt; (Vec&lt;Jwk&gt;, Vec&lt;serde_json::Error&gt;) {
+        <span class="kw">let </span><span class="kw-2">mut </span>keys = Vec::new();
+        <span class="kw">let </span><span class="kw-2">mut </span>errs = Vec::new();
+
+        <span class="kw">for </span>key <span class="kw">in </span><span class="self">self</span>.keys.into_iter() {
+            <span class="kw">let </span>result = serde_json::from_value::&lt;Jwk&gt;(key);
+            <span class="kw">match </span>result {
+                <span class="prelude-val">Ok</span>(jwk) =&gt; keys.push(jwk),
+                <span class="prelude-val">Err</span>(err) =&gt; errs.push(err),
+            }
+        }
+
+        (keys, errs)
+    }
+}
+
+<span class="doccomment">/// Tries to Casts a [`jsonwebtoken::jwk::KeyAlgorithm`] into a [`jsonwebtoken::Algorithm`].
+</span><span class="kw">fn </span>cast_to_algorithm(
+    key_alg: jsonwebtoken::jwk::KeyAlgorithm,
+) -&gt; <span class="prelude-ty">Result</span>&lt;jsonwebtoken::Algorithm, jsonwebtoken::jwk::KeyAlgorithm&gt; {
+    <span class="kw">match </span>key_alg {
+        KeyAlgorithm::HS256 =&gt; <span class="prelude-val">Ok</span>(Algorithm::HS256),
+        KeyAlgorithm::HS384 =&gt; <span class="prelude-val">Ok</span>(Algorithm::HS384),
+        KeyAlgorithm::HS512 =&gt; <span class="prelude-val">Ok</span>(Algorithm::HS512),
+        KeyAlgorithm::ES256 =&gt; <span class="prelude-val">Ok</span>(Algorithm::ES256),
+        KeyAlgorithm::ES384 =&gt; <span class="prelude-val">Ok</span>(Algorithm::ES384),
+        KeyAlgorithm::RS256 =&gt; <span class="prelude-val">Ok</span>(Algorithm::RS256),
+        KeyAlgorithm::RS384 =&gt; <span class="prelude-val">Ok</span>(Algorithm::RS384),
+        KeyAlgorithm::RS512 =&gt; <span class="prelude-val">Ok</span>(Algorithm::RS512),
+        KeyAlgorithm::PS256 =&gt; <span class="prelude-val">Ok</span>(Algorithm::PS256),
+        KeyAlgorithm::PS384 =&gt; <span class="prelude-val">Ok</span>(Algorithm::PS384),
+        KeyAlgorithm::PS512 =&gt; <span class="prelude-val">Ok</span>(Algorithm::PS512),
+        KeyAlgorithm::EdDSA =&gt; <span class="prelude-val">Ok</span>(Algorithm::EdDSA),
+        key_alg =&gt; <span class="prelude-val">Err</span>(key_alg),
     }
 }
 
 <span class="attr">#[derive(thiserror::Error, Debug)]
 </span><span class="kw">pub enum </span>KeyServiceError {
-    <span class="attr">#[error(<span class="string">"Failed to decode JWK Stores from string: {0}"</span>)]
-    </span>DecodeJwkStores(serde_json::Error),
-    <span class="attr">#[error(<span class="string">"Failed to make HTTP Request: {0}"</span>)]
-    </span>Http(<span class="attr">#[from] </span>HttpClientError),
-    <span class="attr">#[error(<span class="string">"Failed to load JWKS: {0}"</span>)]
-    </span>JwkStoreError(<span class="attr">#[from] </span>JwkStoreError),
+    <span class="attr">#[error(<span class="string">"failed to retrieve openid configuration: {0}"</span>)]
+    </span>GetOpenIdConfig(<span class="attr">#[source] </span>HttpError),
+    <span class="attr">#[error(<span class="string">"failed to retrieve the JWKS: {0}"</span>)]
+    </span>GetJwks(<span class="attr">#[source] </span>HttpError),
+    <span class="attr">#[error(<span class="string">"failed to insert keys into the KeyService: {0}"</span>)]
+    </span>InsertKeys(<span class="attr">#[from] </span>InsertKeysError),
+    <span class="attr">#[error(<span class="string">"failed to fetch keys for the KeyService: {0}"</span>)]
+    </span>FetchKeysError(<span class="attr">#[from] </span>FetchKeysError),
+}
+
+<span class="doccomment">/// Errors encountered while inserting keys using strings
+</span><span class="attr">#[derive(thiserror::Error, Debug)]
+</span><span class="kw">pub enum </span>InsertKeysError {
+    <span class="attr">#[error(<span class="string">"failed to deserialize string into JWK stores: {0}"</span>)]
+    </span>DeserializeJwkStores(<span class="attr">#[from] </span>serde_json::Error),
+    <span class="attr">#[error(<span class="string">"unsupported key algorithm: {0}"</span>)]
+    </span>UnsupportedKeyAlgorithm(KeyAlgorithm),
+    <span class="attr">#[error(<span class="string">"failed to build decoding key: {0}"</span>)]
+    </span>BuildDecodingKey(<span class="attr">#[from] </span>jsonwebtoken::errors::Error),
+    <span class="attr">#[error(<span class="string">"the key did not specify it's algorithm"</span>)]
+    </span>UnspecifiedAlgorithm,
+}
+
+<span class="doccomment">/// Errors encountered while fetching keys remotely
+</span><span class="attr">#[derive(thiserror::Error, Debug)]
+</span><span class="kw">pub enum </span>FetchKeysError {
+    <span class="attr">#[error(<span class="string">"failed to get openid config: {0}"</span>)]
+    </span>GetOpenIdConfig(<span class="attr">#[source] </span>reqwest::Error),
+    <span class="attr">#[error(<span class="string">"failed to deserialize openid config: {0}"</span>)]
+    </span>DeserializeOpenIdConfig(<span class="attr">#[source] </span>reqwest::Error),
+    <span class="attr">#[error(<span class="string">"failed to get JWKS: {0}"</span>)]
+    </span>GetJwks(<span class="attr">#[source] </span>reqwest::Error),
+    <span class="attr">#[error(<span class="string">"failed to deserialize JWKS: {0}"</span>)]
+    </span>DeserializeJwks(<span class="attr">#[source] </span>reqwest::Error),
+    <span class="attr">#[error(<span class="string">"unsupported key algorithm: {0}"</span>)]
+    </span>UnsupportedKeyAlgorithm(KeyAlgorithm),
+    <span class="attr">#[error(<span class="string">"failed to build decoding key: {0}"</span>)]
+    </span>BuildDecodingKey(<span class="attr">#[from] </span>jsonwebtoken::errors::Error),
+    <span class="attr">#[error(<span class="string">"the key did not specify it's algorithm"</span>)]
+    </span>UnspecifiedAlgorithm,
 }
 
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
-    <span class="kw">use </span><span class="kw">crate</span>::common::policy_store::TrustedIssuer;
-    <span class="kw">use </span><span class="kw">crate</span>::jwt::key_service::KeyService;
-    <span class="kw">use </span>mockito::Server;
+    <span class="kw">use super</span>::<span class="kw-2">*</span>;
+    <span class="kw">use </span><span class="kw">crate</span>::jwt::test_utils::MockServer;
+    <span class="kw">use </span>jsonwebtoken::Algorithm;
     <span class="kw">use </span>serde_json::json;
-    <span class="kw">use </span>std::collections::HashMap;
-    <span class="kw">use </span>url::Url;
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>can_load_from_str() {
-        <span class="kw">let </span>kid1 = <span class="string">"a50f6e70ef4b548a5fd9142eecd1fb8f54dce9ee"</span>;
-        <span class="kw">let </span>kid2 = <span class="string">"73e25f9789119c7875d58087a78ac23f5ef2eda3"</span>;
+    </span><span class="kw">fn </span>can_insert_and_get_keys_from_str() {
+        <span class="kw">let </span>iss1 = <span class="string">"http://some_issuer.com"</span>.to_string();
+        <span class="kw">let </span>kid1 = <span class="string">"a50f6e70ef4b548a5fd9142eecd1fb8f54dce9ee"</span>.to_string();
+        <span class="kw">let </span>iss2 = <span class="string">"http://another_issuer.com"</span>.to_string();
+        <span class="kw">let </span>kid2 = <span class="string">"73e25f9789119c7875d58087a78ac23f5ef2eda3"</span>.to_string();
         <span class="kw">let </span>key_stores = <span class="macro">json!</span>({
-            <span class="string">"some_issuer_id"</span>: [{
+            <span class="kw-2">&amp;</span>iss1: [{
                 <span class="string">"use"</span>: <span class="string">"sig"</span>,
                 <span class="string">"e"</span>: <span class="string">"AQAB"</span>,
                 <span class="string">"alg"</span>: <span class="string">"RS256"</span>,
@@ -437,7 +670,7 @@
                 <span class="string">"kty"</span>: <span class="string">"RSA"</span>,
                 <span class="string">"kid"</span>: <span class="string">"a50f6e70ef4b548a5fd9142eecd1fb8f54dce9ee"
             </span>}],
-            <span class="string">"anorther_issuer_id"</span>: [{
+            <span class="kw-2">&amp;</span>iss2: [{
                 <span class="string">"n"</span>: <span class="string">"tMXbmw7xEDVLLkAJdxpI-6pGywn0x9fHbD_mfgtFGZEs1LDjhDAJq6c-SoODeWQstjpetTgNqVCKOuU6zGyFPNtkDjhJqDW6THy06uJ8I85crILo3h-6NPclZ3bK9OzN5bIbzjbSvxrIM7ORZOlWzByOn5qGsMvI3aDrZ0lXNC1eCDWJpoJznG1fWcHYxbUy_CHDC3Cd26jX19aRALEEQU-y-wi9pv86qxEmrYMLsVN3__eWNNPkzxgf0eSOWFDv5_19YK7irYztqiwin6abxr9RHj3Qs21hpJ9A-YfsfmNkxmifgDeiTnXpZY8yfVTCJTtkgT7sjdU1lvhsMa4Z0w"</span>,
                 <span class="string">"e"</span>: <span class="string">"AQAB"</span>,
                 <span class="string">"use"</span>: <span class="string">"sig"</span>,
@@ -446,140 +679,119 @@
                 <span class="string">"kid"</span>: <span class="string">"73e25f9789119c7875d58087a78ac23f5ef2eda3"
             </span>}],
         });
+        <span class="kw">let </span><span class="kw-2">mut </span>key_service = KeyService::default();
 
-        <span class="kw">let </span>key_service = KeyService::new_from_str(<span class="kw-2">&amp;</span>key_stores.to_string())
-            .expect(<span class="string">"Should load KeyService from str"</span>);
+        key_service
+            .insert_keys_from_str(<span class="kw-2">&amp;</span>key_stores.to_string())
+            .expect(<span class="string">"insert keys"</span>);
 
         <span class="macro">assert!</span>(
-            key_service.get_key(kid1).is_some(),
+            key_service
+                .get_key(<span class="kw-2">&amp;</span>DecodingKeyInfo {
+                    issuer: <span class="prelude-val">Some</span>(iss1),
+                    kid: <span class="prelude-val">Some</span>(kid1.clone()),
+                    algorithm: Algorithm::RS256,
+                })
+                .is_some(),
             <span class="string">"Expected to find a key"
         </span>);
+
         <span class="macro">assert!</span>(
-            key_service.get_key(kid2).is_some(),
+            key_service
+                .get_key(<span class="kw-2">&amp;</span>DecodingKeyInfo {
+                    issuer: <span class="prelude-val">Some</span>(iss2),
+                    kid: <span class="prelude-val">Some</span>(kid2.clone()),
+                    algorithm: Algorithm::RS256,
+                })
+                .is_some(),
             <span class="string">"Expected to find a key"
         </span>);
+
         <span class="macro">assert!</span>(
-            key_service.get_key(<span class="string">"some unknown key id"</span>).is_none(),
+            key_service
+                .get_key(<span class="kw-2">&amp;</span>DecodingKeyInfo {
+                    issuer: <span class="prelude-val">Some</span>(<span class="string">"some_unknown_iss"</span>.to_string()),
+                    kid: <span class="prelude-val">Some</span>(kid1),
+                    algorithm: Algorithm::RS256,
+                })
+                .is_none(),
+            <span class="string">"Expected to not find a key"
+        </span>);
+
+        <span class="macro">assert!</span>(
+            key_service
+                .get_key(<span class="kw-2">&amp;</span>DecodingKeyInfo {
+                    issuer: <span class="prelude-val">None</span>,
+                    kid: <span class="prelude-val">Some</span>(kid2),
+                    algorithm: Algorithm::HS256,
+                })
+                .is_none(),
             <span class="string">"Expected to not find a key"
         </span>);
     }
 
     <span class="attr">#[tokio::test]
     </span><span class="kw">async fn </span>can_load_jwk_stores_from_multiple_trusted_issuers() {
-        <span class="kw">let </span>kid1 = <span class="string">"a50f6e70ef4b548a5fd9142eecd1fb8f54dce9ee"</span>;
-        <span class="kw">let </span>kid2 = <span class="string">"73e25f9789119c7875d58087a78ac23f5ef2eda3"</span>;
+        <span class="kw">let </span>server1 = MockServer::new_with_defaults().<span class="kw">await</span>.unwrap();
+        <span class="kw">let </span>(_key1, kid1) = server1.jwt_decoding_key_and_id().unwrap();
 
-        <span class="kw">let </span><span class="kw-2">mut </span>mock_server = Server::new_async().<span class="kw">await</span>;
+        <span class="kw">let </span>server2 = MockServer::new_with_defaults().<span class="kw">await</span>.unwrap();
+        <span class="kw">let </span>(_key2, kid2) = server2.jwt_decoding_key_and_id().unwrap();
 
-        <span class="comment">// Setup first OpenID config endpoint
-        </span><span class="kw">let </span>openid_config_endpoint1 = mock_server
-            .mock(<span class="string">"GET"</span>, <span class="string">"/first/.well-known/openid-configuration"</span>)
-            .with_status(<span class="number">200</span>)
-            .with_body(
-                <span class="macro">json!</span>({
-                    <span class="string">"issuer"</span>: mock_server.url(),
-                    <span class="string">"jwks_uri"</span>: <span class="macro">format!</span>(<span class="string">"{}/first/jwks"</span>, mock_server.url())
+        <span class="kw">let </span><span class="kw-2">mut </span>key_service = KeyService::default();
+
+        key_service
+            .get_keys_using_oidc(<span class="kw-2">&amp;</span>server1.openid_config(), <span class="kw-2">&amp;</span><span class="prelude-val">None</span>)
+            .<span class="kw">await
+            </span>.expect(<span class="string">"fetch keys for issuer 1"</span>);
+        key_service
+            .get_keys_using_oidc(<span class="kw-2">&amp;</span>server2.openid_config(), <span class="kw-2">&amp;</span><span class="prelude-val">None</span>)
+            .<span class="kw">await
+            </span>.expect(<span class="string">"fetch keys for issuer 2"</span>);
+
+        <span class="macro">assert!</span>(
+            key_service
+                .get_key(<span class="kw-2">&amp;</span>DecodingKeyInfo {
+                    issuer: <span class="prelude-val">Some</span>(server1.issuer()),
+                    kid: kid1,
+                    algorithm: Algorithm::HS256,
                 })
-                .to_string(),
-            )
-            .expect(<span class="number">1</span>)
-            .create();
-        <span class="comment">// Setup first JWKS endpoint
-        </span><span class="kw">let </span>jwks_endpoint1 = mock_server
-            .mock(<span class="string">"GET"</span>, <span class="string">"/first/jwks"</span>)
-            .with_status(<span class="number">200</span>)
-            .with_body(
-                <span class="macro">json!</span>({
-                <span class="string">"keys"</span>: [
-                    {
-                        <span class="string">"use"</span>: <span class="string">"sig"</span>,
-                        <span class="string">"e"</span>: <span class="string">"AQAB"</span>,
-                        <span class="string">"alg"</span>: <span class="string">"RS256"</span>,
-                        <span class="string">"n"</span>: <span class="string">"4VI56fF0rcWHHVgHFLHrmEO5w8oN9gbSQ9TEQnlIKRg0zCtl2dLKtt0hC6WMrTA9cF7fnK4CLNkfV_Mytk-rydu2qRV_kah62v9uZmpbS5dcz5OMXmPuQdV8fDVIvscDK5dzkwD3_XJ2mzupvQN2reiYgce6-is23vwOyuT-n4vlxSqR7dWdssK5sj9mhPBEIlfbuKNykX5W6Rgu-DyuoKArc_aukWnLxWN-yoroP2IHYdCQm7Ol08vAXmrwMyDfvsmqdXUEx4om1UZ5WLf-JNaZp4lXhgF7Cur5066213jwpp4f_D3MyR-oa43fSa91gqp2berUgUyOWdYSIshABVQ"</span>,
-                        <span class="string">"kty"</span>: <span class="string">"RSA"</span>,
-                        <span class="string">"kid"</span>: kid1,
-                    },
-                ]
-                }).to_string())
-            .expect(<span class="number">1</span>)
-            .create();
+                .is_some(),
+            <span class="string">"expected to find a key from issuer 1"
+        </span>);
 
-        <span class="comment">// Setup second OpenID config endpoint
-        </span><span class="kw">let </span>openid_config_endpoint2 = mock_server
-            .mock(<span class="string">"GET"</span>, <span class="string">"/second/.well-known/openid-configuration"</span>)
-            .with_status(<span class="number">200</span>)
-            .with_body(
-                <span class="macro">json!</span>({
-                    <span class="string">"issuer"</span>: mock_server.url(),
-                    <span class="string">"jwks_uri"</span>: <span class="macro">format!</span>(<span class="string">"{}/second/jwks"</span>, mock_server.url())
+        <span class="macro">assert!</span>(
+            key_service
+                .get_key(<span class="kw-2">&amp;</span>DecodingKeyInfo {
+                    issuer: <span class="prelude-val">Some</span>(server2.issuer()),
+                    kid: kid2.clone(),
+                    algorithm: Algorithm::HS256,
                 })
-                .to_string(),
-            )
-            .expect(<span class="number">1</span>)
-            .create();
-        <span class="comment">// Setup second JWKS endpoint
-        </span><span class="kw">let </span>jwks_endpoint2 = mock_server
-            .mock(<span class="string">"GET"</span>, <span class="string">"/second/jwks"</span>)
-            .with_status(<span class="number">200</span>)
-            .with_body(
-                <span class="macro">json!</span>({
-                <span class="string">"keys"</span>: [
-                    {
-                        <span class="string">"n"</span>: <span class="string">"tMXbmw7xEDVLLkAJdxpI-6pGywn0x9fHbD_mfgtFGZEs1LDjhDAJq6c-SoODeWQstjpetTgNqVCKOuU6zGyFPNtkDjhJqDW6THy06uJ8I85crILo3h-6NPclZ3bK9OzN5bIbzjbSvxrIM7ORZOlWzByOn5qGsMvI3aDrZ0lXNC1eCDWJpoJznG1fWcHYxbUy_CHDC3Cd26jX19aRALEEQU-y-wi9pv86qxEmrYMLsVN3__eWNNPkzxgf0eSOWFDv5_19YK7irYztqiwin6abxr9RHj3Qs21hpJ9A-YfsfmNkxmifgDeiTnXpZY8yfVTCJTtkgT7sjdU1lvhsMa4Z0w"</span>,
-                        <span class="string">"e"</span>: <span class="string">"AQAB"</span>,
-                        <span class="string">"use"</span>: <span class="string">"sig"</span>,
-                        <span class="string">"alg"</span>: <span class="string">"RS256"</span>,
-                        <span class="string">"kty"</span>: <span class="string">"RSA"</span>,
-                        <span class="string">"kid"</span>: kid2,
-                    }
-
-                ]}).to_string())
-            .expect(<span class="number">1</span>)
-            .create();
-
-        <span class="kw">let </span>key_service = KeyService::new_from_trusted_issuers(<span class="kw-2">&amp;</span>HashMap::from([
-            (<span class="string">"first"</span>.to_string(), TrustedIssuer {
-                name: <span class="string">"First IDP"</span>.to_string(),
-                description: <span class="string">""</span>.to_string(),
-                oidc_endpoint: Url::parse(<span class="kw-2">&amp;</span><span class="macro">format!</span>(
-                    <span class="string">"{}/first/.well-known/openid-configuration"</span>,
-                    mock_server.url()
-                ))
-                .expect(<span class="string">"should be a valid URL"</span>),
-                ..Default::default()
-            }),
-            (<span class="string">"second"</span>.to_string(), TrustedIssuer {
-                name: <span class="string">"Second IDP"</span>.to_string(),
-                description: <span class="string">""</span>.to_string(),
-                oidc_endpoint: Url::parse(<span class="kw-2">&amp;</span><span class="macro">format!</span>(
-                    <span class="string">"{}/second/.well-known/openid-configuration"</span>,
-                    mock_server.url()
-                ))
-                .expect(<span class="string">"should be a valid URL"</span>),
-                ..Default::default()
-            }),
-        ]))
-        .<span class="kw">await
-        </span>.expect(<span class="string">"Should load KeyService from trusted issuers"</span>);
-
-        <span class="macro">assert!</span>(
-            key_service.get_key(kid1).is_some(),
-            <span class="string">"Expected to find a key"
-        </span>);
-        <span class="macro">assert!</span>(
-            key_service.get_key(kid2).is_some(),
-            <span class="string">"Expected to find a key"
-        </span>);
-        <span class="macro">assert!</span>(
-            key_service.get_key(<span class="string">"some unknown key id"</span>).is_none(),
-            <span class="string">"Expected to not find a key"
+                .is_some(),
+            <span class="string">"expected to find a key from issuer 2"
         </span>);
 
-        <span class="comment">// Assert that each of the endpoints are only visited once.
-        </span>openid_config_endpoint1.assert();
-        openid_config_endpoint2.assert();
-        jwks_endpoint1.assert();
-        jwks_endpoint2.assert();
+        <span class="macro">assert!</span>(
+            key_service
+                .get_key(<span class="kw-2">&amp;</span>DecodingKeyInfo {
+                    issuer: <span class="prelude-val">Some</span>(server2.issuer()),
+                    kid: kid2,
+                    algorithm: Algorithm::RS256,
+                })
+                .is_none(),
+            <span class="string">"expected not to find a key with a different algorithm"
+        </span>);
+
+        <span class="macro">assert!</span>(
+            key_service
+                .get_key(<span class="kw-2">&amp;</span>DecodingKeyInfo {
+                    issuer: <span class="prelude-val">Some</span>(<span class="string">"http://some_unknown_issuer.com"</span>.into()),
+                    kid: <span class="prelude-val">None</span>,
+                    algorithm: Algorithm::HS256,
+                })
+                .is_none(),
+            <span class="string">"expected to not find a key from an unknown issuer"
+        </span>);
     }
 }
 </code></pre></div></section></main></body></html>
