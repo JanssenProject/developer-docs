@@ -75,7 +75,8 @@
 <a href="#74" id="74">74</a>
 <a href="#75" id="75">75</a>
 <a href="#76" id="76">76</a>
-<a href="#77" id="77">77</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#77" id="77">77</a>
+<a href="#78" id="78">78</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -123,6 +124,7 @@
 <span class="doccomment">/// This is a helper struct for managing the async handles.
 ///
 /// This is needed because the WASM bindings need special treatment.
+</span><span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>JoinHandle&lt;T&gt;
 <span class="kw">where
     </span>T: Send + <span class="lifetime">'static</span>,
