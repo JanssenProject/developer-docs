@@ -152,12 +152,14 @@
 <a href="#151" id="151">151</a>
 <a href="#152" id="152">152</a>
 <a href="#153" id="153">153</a>
-<a href="#154" id="154">154</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
 
-</span><span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::TokenValidationConfig;
+</span><span class="kw">use </span><span class="kw">crate</span>::bootstrap_config::jwt_config::TokenValidationConfig;
 <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::authorization_config::TokenEntityNames;
 <span class="kw">use </span><span class="kw">super</span>::FeatureToggle;
 <span class="kw">use </span>serde::{Deserialize, Serialize};
@@ -185,7 +187,8 @@
     </span>claims: ClaimsValidationConfig,
 }
 
-<span class="attr">#[derive(Debug, Deserialize, PartialEq, Clone, Default, Serialize)]
+<span class="doccomment">/// Claims validation config
+</span><span class="attr">#[derive(Debug, Deserialize, PartialEq, Clone, Default, Serialize)]
 #[serde(default)]
 </span><span class="kw">pub struct </span>ClaimsValidationConfig {
     <span class="doccomment">/// Toggle for validating the `iss` (issuer) claim.
@@ -205,7 +208,8 @@
 }
 
 <span class="kw">impl </span>TokenConfigs {
-    <span class="kw">pub fn </span>without_validation() -&gt; <span class="self">Self </span>{
+    <span class="doccomment">/// Create a config without validation
+    </span><span class="kw">pub fn </span>without_validation() -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>(HashMap::from([
             (<span class="string">"access_token"</span>.to_string(), TokenConfig {
                 entity_type_name: <span class="string">"Jans::Access_token"</span>.to_string(),

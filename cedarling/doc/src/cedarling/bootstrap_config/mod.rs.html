@@ -274,8 +274,7 @@
 <a href="#273" id="273">273</a>
 <a href="#274" id="274">274</a>
 <a href="#275" id="275">275</a>
-<a href="#276" id="276">276</a>
-<a href="#277" id="277">277</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#276" id="276">276</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -285,27 +284,39 @@
 
 </span><span class="kw">mod </span>decode;
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>authorization_config;
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>entity_builder_config;
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>jwt_config;
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>log_config;
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>policy_store_config;
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>raw_config;
+<span class="doccomment">/// Authorization config module
+</span><span class="kw">pub mod </span>authorization_config;
+<span class="doccomment">/// Entity builder config module
+</span><span class="kw">pub mod </span>entity_builder_config;
+<span class="doccomment">/// JWT config module
+</span><span class="kw">pub mod </span>jwt_config;
+<span class="doccomment">/// Log config module
+</span><span class="kw">pub mod </span>log_config;
+<span class="doccomment">/// Policy store config module
+</span><span class="kw">pub mod </span>policy_store_config;
+<span class="doccomment">/// Raw config module
+</span><span class="kw">pub mod </span>raw_config;
+<span class="doccomment">/// Lock config module
+</span><span class="kw">pub mod </span>lock_config;
 
 <span class="attr">#[cfg(not(target_arch = <span class="string">"wasm32"</span>))]
-</span><span class="kw">use </span>std::{fs, io, path::Path};
+</span><span class="kw">use </span>std::{io, path::Path};
 
-<span class="kw">pub use </span>authorization_config::{AuthorizationConfig, IdTokenTrustMode};
-<span class="kw">pub use </span>entity_builder_config::<span class="kw-2">*</span>;
-<span class="kw">pub use </span>jwt_config::<span class="kw-2">*</span>;
-<span class="kw">pub use </span>log_config::<span class="kw-2">*</span>;
-<span class="kw">pub use </span>policy_store_config::<span class="kw-2">*</span>;
-<span class="kw">pub use </span>raw_config::{BootstrapConfigRaw, FeatureToggle, LoggerType};
+<span class="kw">use </span>config::{Config, File};
+
+<span class="comment">// Re-export types that need to be public
+</span><span class="kw">pub use </span>authorization_config::{AuthorizationConfig, AuthorizationConfigRaw, IdTokenTrustMode};
+<span class="kw">pub use </span>entity_builder_config::{EntityBuilderConfig, EntityBuilderConfigRaw, EntityNames, UnsignedRoleIdSrc};
+<span class="kw">pub use </span>jwt_config::{JwtConfig, JwtConfigRaw};
+<span class="kw">pub use </span>log_config::{LogConfig, LogConfigRaw, LogTypeConfig, MemoryLogConfig};
+<span class="kw">pub use </span>policy_store_config::{PolicyStoreConfig, PolicyStoreConfigRaw, PolicyStoreSource};
+<span class="kw">pub use </span>raw_config::{BootstrapConfigRaw, FeatureToggle};
+<span class="kw">pub use </span>lock_config::{LockServiceConfig, LockServiceConfigRaw};
 
 <span class="doccomment">/// Bootstrap configuration
 /// properties for configuration [`Cedarling`](crate::Cedarling) application.
 /// [link](https://github.com/JanssenProject/jans/wiki/Cedarling-Nativity-Plan#bootstrap-properties) to the documentation.
-</span><span class="attr">#[derive(Debug, PartialEq)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq)]
 </span><span class="kw">pub struct </span>BootstrapConfig {
     <span class="doccomment">/// `CEDARLING_APPLICATION_NAME` in [bootstrap properties](https://github.com/JanssenProject/jans/wiki/Cedarling-Nativity-Plan#bootstrap-properties) documentation.
     </span><span class="kw">pub </span>application_name: String,
@@ -319,7 +330,8 @@
     </span><span class="kw">pub </span>authorization_config: AuthorizationConfig,
     <span class="doccomment">/// A set of properties used to configure the JWTs to Cedar Entity mappings
     </span><span class="kw">pub </span>entity_builder_config: EntityBuilderConfig,
-    <span class="doccomment">/// A set of properties used to configure the integrationi with the lock server
+    <span class="doccomment">/// Lock service configuration.
+    /// If `None` then lock service is disabled.
     </span><span class="kw">pub </span>lock_config: <span class="prelude-ty">Option</span>&lt;LockServiceConfig&gt;,
 }
 
@@ -329,6 +341,7 @@
     /// The file format is determined based on its extension:
     /// - `.json`: Parses the file as JSON.
     /// - `.yaml` or `.yml`: Parses the file as YAML.
+    /// - `.toml`: Parses the file as TOML.
     ///
     /// # Example
     ///
@@ -338,43 +351,69 @@
     /// let config = BootstrapConfig::load_from_file("../test_files/bootstrap_props.json").unwrap();
     /// ```
     </span><span class="attr">#[cfg(not(target_arch = <span class="string">"wasm32"</span>))]
-    </span><span class="kw">pub fn </span>load_from_file(path: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, BootstrapConfigLoadingError&gt; {
-        <span class="kw">let </span>file_ext = Path::new(path)
-            .extension()
-            .and_then(|ext| ext.to_str())
-            .map(|x| x.to_lowercase());
-        <span class="kw">let </span>config = <span class="kw">match </span>file_ext.as_deref() {
-            <span class="prelude-val">Some</span>(<span class="string">"json"</span>) =&gt; {
-                <span class="kw">let </span>config_json = fs::read_to_string(path)
-                    .map_err(|e| BootstrapConfigLoadingError::ReadFile(path.to_string(), e))<span class="question-mark">?</span>;
-                <span class="kw">let </span>raw = serde_json::from_str::&lt;BootstrapConfigRaw&gt;(<span class="kw-2">&amp;</span>config_json)<span class="question-mark">?</span>;
-                BootstrapConfig::from_raw_config(<span class="kw-2">&amp;</span>raw)<span class="question-mark">?
-            </span>},
-            <span class="prelude-val">Some</span>(<span class="string">"yaml"</span>) | <span class="prelude-val">Some</span>(<span class="string">"yml"</span>) =&gt; {
-                <span class="kw">let </span>config_json = fs::read_to_string(path)
-                    .map_err(|e| BootstrapConfigLoadingError::ReadFile(path.to_string(), e))<span class="question-mark">?</span>;
-                <span class="kw">let </span>raw = serde_yml::from_str::&lt;BootstrapConfigRaw&gt;(<span class="kw-2">&amp;</span>config_json)<span class="question-mark">?</span>;
-                BootstrapConfig::from_raw_config(<span class="kw-2">&amp;</span>raw)<span class="question-mark">?
-            </span>},
-            <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(BootstrapConfigLoadingError::InvalidFileFormat(
-                path.to_string(),
-            ))<span class="question-mark">?</span>,
-        };
+    </span><span class="kw">pub fn </span>load_from_file&lt;P: AsRef&lt;Path&gt;&gt;(path: P) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, BootstrapConfigLoadingError&gt; {
+        <span class="kw">let </span>config = Config::builder()
+            .add_source(File::from(path.as_ref()))
+            .build()
+            .map_err(|e| BootstrapConfigLoadingError::DecodingJSON(e.to_string()))<span class="question-mark">?</span>;
 
-        <span class="prelude-val">Ok</span>(config)
+        <span class="kw">let </span>raw: BootstrapConfigRaw = config.try_deserialize()
+            .map_err(|e| BootstrapConfigLoadingError::DecodingJSON(e.to_string()))<span class="question-mark">?</span>;
+        raw.try_into()
     }
 
     <span class="doccomment">/// Loads a `BootstrapConfig` from a JSON string
-    </span><span class="kw">pub fn </span>load_from_json(config: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, BootstrapConfigLoadingError&gt; {
-        <span class="kw">let </span>raw = serde_json::from_str::&lt;BootstrapConfigRaw&gt;(config)<span class="question-mark">?</span>;
-        <span class="self">Self</span>::from_raw_config(<span class="kw-2">&amp;</span>raw)
+    </span><span class="kw">pub fn </span>load_from_json(json: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, BootstrapConfigLoadingError&gt; {
+        <span class="kw">let </span>raw: BootstrapConfigRaw = serde_json::from_str(json)
+            .map_err(|e| BootstrapConfigLoadingError::DecodingJSON(e.to_string()))<span class="question-mark">?</span>;
+        raw.try_into()
     }
 
-    <span class="doccomment">/// Load config environment variables.
-    /// If you need with fallback to applied config use [`Self::from_raw_config_and_env].
+    <span class="doccomment">/// Load config from environment variables.
+    /// If you need with fallback to applied config use [`Self::from_raw_config_and_env`].
     </span><span class="attr">#[cfg(not(target_arch = <span class="string">"wasm32"</span>))]
     </span><span class="kw">pub fn </span>from_env() -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, BootstrapConfigLoadingError&gt; {
-        <span class="self">Self</span>::from_raw_config_and_env(<span class="prelude-val">None</span>)
+        <span class="kw">let </span>config = Config::builder()
+            .add_source(config::Environment::with_prefix(<span class="string">"CEDARLING"</span>))
+            .build()
+            .map_err(|e| BootstrapConfigLoadingError::DecodingJSON(e.to_string()))<span class="question-mark">?</span>;
+
+        <span class="kw">let </span>raw: BootstrapConfigRaw = config.try_deserialize()
+            .map_err(|e| BootstrapConfigLoadingError::DecodingJSON(e.to_string()))<span class="question-mark">?</span>;
+
+        raw.try_into()
+    }
+
+    <span class="doccomment">/// Loads the default configuration bundled with the library.
+    /// This configuration provides sensible defaults for all components.
+    /// 
+    /// # Example
+    /// 
+    /// ```rust
+    /// use cedarling::BootstrapConfig;
+    /// 
+    /// let config = BootstrapConfig::load_default().unwrap();
+    /// ```
+    </span><span class="kw">pub fn </span>load_default() -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, BootstrapConfigLoadingError&gt; {
+        <span class="kw">const </span>DEFAULT_CONFIG: <span class="kw-2">&amp;</span>str = <span class="macro">include_str!</span>(<span class="string">"../../config/default_config.yaml"</span>);
+        
+        <span class="kw">let </span>config = Config::builder()
+            .add_source(File::from_str(DEFAULT_CONFIG, config::FileFormat::Yaml))
+            .build()
+            .map_err(|e| BootstrapConfigLoadingError::DecodingYAML(e.to_string()))<span class="question-mark">?</span>;
+
+        <span class="kw">let </span>raw: BootstrapConfigRaw = config.try_deserialize()
+            .map_err(|e| BootstrapConfigLoadingError::DecodingYAML(e.to_string()))<span class="question-mark">?</span>;
+        
+        raw.try_into()
+    }
+}
+
+<span class="kw">impl </span>TryFrom&lt;BootstrapConfigRaw&gt; <span class="kw">for </span>BootstrapConfig {
+    <span class="kw">type </span>Error = BootstrapConfigLoadingError;
+
+    <span class="kw">fn </span>try_from(raw: BootstrapConfigRaw) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
+        <span class="self">Self</span>::from_raw_config(<span class="kw-2">&amp;</span>raw)
     }
 }
 
@@ -386,9 +425,10 @@
     /// Supported formats include:
     /// - `.json`
     /// - `.yaml` or `.yml`
+    /// - `.toml`
     </span><span class="attr">#[cfg(not(target_arch = <span class="string">"wasm32"</span>))]
     #[error(
-        <span class="string">"Unsupported bootstrap config file format for: {0}. Supported formats include: JSON, YAML"
+        <span class="string">"Unsupported bootstrap config file format for: {0}. Supported formats include: JSON, YAML, TOML"
     </span>)]
     </span>InvalidFileFormat(String),
 
@@ -399,11 +439,15 @@
 
     <span class="doccomment">/// Error returned when parsing the file as JSON fails.
     </span><span class="attr">#[error(<span class="string">"Failed to decode JSON string into BootstrapConfig: {0}"</span>)]
-    </span>DecodingJSON(<span class="attr">#[from] </span>serde_json::Error),
+    </span>DecodingJSON(String),
 
     <span class="doccomment">/// Error returned when parsing the file as YAML fails.
     </span><span class="attr">#[error(<span class="string">"Failed to decode YAML string into BootstrapConfig: {0}"</span>)]
-    </span>DecodingYAML(<span class="attr">#[from] </span>serde_yml::Error),
+    </span>DecodingYAML(String),
+
+    <span class="doccomment">/// Error returned when parsing the file as TOML fails.
+    </span><span class="attr">#[error(<span class="string">"Failed to decode TOML string into BootstrapConfig: {0}"</span>)]
+    </span>DecodingTOML(String),
 
     <span class="doccomment">/// Error returned when the boostrap property `CEDARLING_LOG_TTL` is missing.
     </span><span class="attr">#[error(
@@ -445,111 +489,64 @@
     </span>)]
     </span>MissingLockServerConfigUri,
 
-    <span class="doccomment">/// Error returned when `CEDARLING_LOCK` is set to `enabled` but `CEDARLING_LOCK_SERVER_IDPCONFIG_URI` is not set.
-    </span><span class="attr">#[error(
-        <span class="string">"the `CEDARLING_LOCK` is set to `enabled` but `CEDARLING_LOCK_SERVER_IDPCONFIG_URI` is not set."
-    </span>)]
-    </span>MissingLockServerIdpOidcUri,
+    <span class="doccomment">/// Error returned when the lock server configuration URI is invalid.
+    </span><span class="attr">#[error(<span class="string">"Invalid lock server configuration URI: {0}"</span>)]
+    </span>InvalidLockServerConfigUri(url::ParseError),
+}
 
-    <span class="doccomment">/// Error returned when `CEDARLING_LOCK` is set to `enabled` but `CEDARLING_LOCK_SERVER_CONFIGURATION_URI` is not set.
-    </span><span class="attr">#[error(<span class="string">"the value of `CEDARLING_LOCK_SERVER_CONFIGURATION_URI` is not a valid URI: {0}"</span>)]
-    </span>InvalidLockServerConfigUri(<span class="attr">#[from] </span>url::ParseError),
+<span class="kw">impl </span>From&lt;url::ParseError&gt; <span class="kw">for </span>BootstrapConfigLoadingError {
+    <span class="kw">fn </span>from(err: url::ParseError) -&gt; <span class="self">Self </span>{
+        BootstrapConfigLoadingError::InvalidLockServerConfigUri(err)
+    }
+}
 
-    <span class="doccomment">/// Error returned when `CEDARLING_LOCK` is set to `enabled` but `CEDARLING_LOCK_SSA_JWT` is not set.
-    </span><span class="attr">#[error(<span class="string">"the `CEDARLING_LOCK` is set to `enabled` but `CEDARLING_LOCK_SSA_JWT` is not set."</span>)]
-    </span>MissingSsaJwt,
+<span class="kw">impl </span>From&lt;serde_json::Error&gt; <span class="kw">for </span>BootstrapConfigLoadingError {
+    <span class="kw">fn </span>from(err: serde_json::Error) -&gt; <span class="self">Self </span>{
+        <span class="self">Self</span>::DecodingJSON(err.to_string())
+    }
+}
+
+<span class="kw">impl </span>From&lt;std::convert::Infallible&gt; <span class="kw">for </span>BootstrapConfigLoadingError {
+    <span class="kw">fn </span>from(<span class="kw">_</span>: std::convert::Infallible) -&gt; <span class="self">Self </span>{
+        <span class="macro">unreachable!</span>(<span class="string">"Infallible cannot be instantiated"</span>)
+    }
 }
 
 <span class="attr">#[cfg(test)]
-</span><span class="kw">mod </span>test {
-    <span class="kw">use </span><span class="kw">super</span>::raw_config::BootstrapConfigRaw;
-    <span class="kw">use super</span>::<span class="kw-2">*</span>;
-    <span class="kw">use crate</span>::{
-        BootstrapConfig, JsonRule, LogConfig, LogTypeConfig, MemoryLogConfig, PolicyStoreConfig,
-    };
+</span><span class="kw">mod </span>tests {
     <span class="kw">use </span>jsonwebtoken::Algorithm;
-    <span class="kw">use </span>std::collections::HashSet;
-    <span class="kw">use </span>std::path::Path;
-    <span class="kw">use </span>test_utils::assert_eq;
+
+    <span class="kw">use </span><span class="kw">crate</span>::LogLevel;
+
+    <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
     <span class="attr">#[test]
-    </span><span class="kw">fn </span>can_deserialize_from_json() {
-        <span class="kw">let </span>config_json = <span class="macro">include_str!</span>(<span class="string">"../../../test_files/bootstrap_props.json"</span>);
-        <span class="kw">let </span>raw = serde_json::from_str::&lt;BootstrapConfigRaw&gt;(config_json).unwrap();
-        <span class="kw">let </span>deserialized = BootstrapConfig::from_raw_config(<span class="kw-2">&amp;</span>raw)
-            .expect(<span class="string">"Should deserialize bootstrap config from JSON"</span>);
-
-        <span class="kw">let </span>expected = BootstrapConfig {
-            application_name: <span class="string">"My App"</span>.to_string(),
-            log_config: LogConfig {
-                log_type: LogTypeConfig::StdOut,
-                log_level: <span class="kw">crate</span>::LogLevel::DEBUG,
-            },
-            policy_store_config: PolicyStoreConfig {
-                source: <span class="kw">crate</span>::PolicyStoreSource::FileJson(
-                    Path::new(<span class="string">"../test_files/policy-store_blobby.json"</span>).into(),
-                ),
-            },
-            jwt_config: JwtConfig {
-                jwks: <span class="prelude-val">None</span>,
-                jwt_sig_validation: <span class="bool-val">true</span>,
-                jwt_status_validation: <span class="bool-val">false</span>,
-                signature_algorithms_supported: HashSet::from([Algorithm::HS256, Algorithm::RS256]),
-            },
-            authorization_config: AuthorizationConfig {
-                use_user_principal: <span class="bool-val">true</span>,
-                use_workload_principal: <span class="bool-val">true</span>,
-                principal_bool_operator: JsonRule::default(),
-                decision_log_default_jwt_id: <span class="string">"jti"</span>.to_string(),
-                ..Default::default()
-            },
-            entity_builder_config: EntityBuilderConfig::default().with_user().with_workload(),
-            lock_config: <span class="prelude-val">None</span>,
-        };
-
-        <span class="macro">assert_eq!</span>(deserialized, expected);
+    </span><span class="kw">fn </span>test_load_default_config() {
+        <span class="kw">let </span>config = BootstrapConfig::load_default().unwrap();
+        
+        <span class="comment">// Verify basic configuration
+        </span><span class="macro">assert_eq!</span>(config.application_name, <span class="string">"My App"</span>);
+        
+        <span class="comment">// Verify log configuration
+        </span><span class="macro">assert!</span>(<span class="macro">matches!</span>(config.log_config.log_type, LogTypeConfig::Memory(<span class="kw">_</span>)));
+        <span class="macro">assert_eq!</span>(config.log_config.log_level, LogLevel::DEBUG);
+        
+        <span class="comment">// Verify policy store configuration
+        </span><span class="macro">assert!</span>(<span class="macro">matches!</span>(config.policy_store_config.source, PolicyStoreSource::FileJson(<span class="kw">_</span>)));
+        
+        <span class="comment">// Verify JWT configuration
+        </span><span class="macro">assert!</span>(config.jwt_config.jwt_sig_validation);
+        <span class="macro">assert!</span>(!config.jwt_config.jwt_status_validation);
+        <span class="macro">assert!</span>(config.jwt_config.signature_algorithms_supported.contains(<span class="kw-2">&amp;</span>Algorithm::HS256));
+        <span class="macro">assert!</span>(config.jwt_config.signature_algorithms_supported.contains(<span class="kw-2">&amp;</span>Algorithm::RS256));
+        
+        <span class="comment">// Verify authorization configuration
+        </span><span class="macro">assert!</span>(config.authorization_config.use_user_principal);
+        <span class="macro">assert!</span>(config.authorization_config.use_workload_principal);
+        <span class="macro">assert_eq!</span>(config.authorization_config.decision_log_default_jwt_id, <span class="string">"jti"</span>);
+        
+        <span class="comment">// Verify entity builder configuration
+        </span><span class="macro">assert!</span>(config.entity_builder_config.build_user);
+        <span class="macro">assert!</span>(config.entity_builder_config.build_workload);
     }
-
-    <span class="attr">#[test]
-    </span><span class="kw">fn </span>can_deserialize_from_yaml() {
-        <span class="kw">let </span>config_yaml = <span class="macro">include_str!</span>(<span class="string">"../../../test_files/bootstrap_props.yaml"</span>);
-        <span class="kw">let </span>raw = serde_yml::from_str::&lt;BootstrapConfigRaw&gt;(config_yaml).unwrap();
-        <span class="kw">let </span>deserialized = BootstrapConfig::from_raw_config(<span class="kw-2">&amp;</span>raw)
-            .expect(<span class="string">"Should deserialize bootstrap config from YAML"</span>);
-
-        <span class="kw">let </span>expected = BootstrapConfig {
-            application_name: <span class="string">"My App"</span>.to_string(),
-            log_config: LogConfig {
-                log_type: LogTypeConfig::Memory(MemoryLogConfig {
-                    log_ttl: <span class="number">60</span>,
-                    max_item_size: <span class="prelude-val">None</span>,
-                    max_items: <span class="prelude-val">None</span>,
-                }),
-                log_level: <span class="kw">crate</span>::LogLevel::DEBUG,
-            },
-            policy_store_config: PolicyStoreConfig {
-                source: <span class="kw">crate</span>::PolicyStoreSource::FileJson(
-                    Path::new(<span class="string">"../test_files/policy-store_blobby.json"</span>).into(),
-                ),
-            },
-            jwt_config: JwtConfig {
-                jwks: <span class="prelude-val">None</span>,
-                jwt_sig_validation: <span class="bool-val">true</span>,
-                jwt_status_validation: <span class="bool-val">false</span>,
-                signature_algorithms_supported: HashSet::from([Algorithm::HS256, Algorithm::RS256]),
-            },
-            authorization_config: AuthorizationConfig {
-                use_user_principal: <span class="bool-val">true</span>,
-                use_workload_principal: <span class="bool-val">true</span>,
-                principal_bool_operator: JsonRule::default(),
-                decision_log_default_jwt_id: <span class="string">"jti"</span>.to_string(),
-                ..Default::default()
-            },
-            entity_builder_config: EntityBuilderConfig::default().with_user().with_workload(),
-            lock_config: <span class="prelude-val">None</span>,
-        };
-
-        <span class="macro">assert_eq!</span>(deserialized, expected);
-    }
-}
-</code></pre></div></section></main></body></html>
+}</code></pre></div></section></main></body></html>

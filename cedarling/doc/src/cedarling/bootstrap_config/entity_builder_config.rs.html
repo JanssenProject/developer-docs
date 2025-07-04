@@ -134,30 +134,27 @@
 <a href="#133" id="133">133</a>
 <a href="#134" id="134">134</a>
 <a href="#135" id="135">135</a>
-<a href="#136" id="136">136</a>
-<a href="#137" id="137">137</a>
-<a href="#138" id="138">138</a>
-<a href="#139" id="139">139</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#136" id="136">136</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
 
-</span><span class="kw">use </span>derive_more::derive::Deref;
+</span><span class="kw">use </span>derive_more::Deref;
 <span class="kw">use </span>serde::{Deserialize, Serialize};
+<span class="kw">use </span><span class="kw">crate</span>::BootstrapConfigRaw;
 
-<span class="kw">use </span><span class="kw">super</span>::BootstrapConfigRaw;
-
-<span class="kw">const </span>DEFAULT_WORKLOAD_ENTITY_NAME: <span class="kw-2">&amp;</span>str = <span class="string">"Jans::Workload"</span>;
 <span class="kw">const </span>DEFAULT_USER_ENTITY_NAME: <span class="kw-2">&amp;</span>str = <span class="string">"Jans::User"</span>;
-<span class="kw">const </span>DEFAULT_ISS_ENTITY_NAME: <span class="kw-2">&amp;</span>str = <span class="string">"Jans::TrustedIssuer"</span>;
+<span class="kw">const </span>DEFAULT_WORKLOAD_ENTITY_NAME: <span class="kw-2">&amp;</span>str = <span class="string">"Jans::Workload"</span>;
 <span class="kw">const </span>DEFAULT_ROLE_ENTITY_NAME: <span class="kw-2">&amp;</span>str = <span class="string">"Jans::Role"</span>;
+<span class="kw">const </span>DEFAULT_ISS_ENTITY_NAME: <span class="kw-2">&amp;</span>str = <span class="string">"Jans::TrustedIssuer"</span>;
+<span class="kw">const </span>DEFAULT_UNSIGNED_ROLE_ID_SRC: <span class="kw-2">&amp;</span>str = <span class="string">"role"</span>;
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>DEFAULT_ACCESS_TKN_ENTITY_NAME: <span class="kw-2">&amp;</span>str = <span class="string">"Jans::Access_token"</span>;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>DEFAULT_ID_TKN_ENTITY_NAME: <span class="kw-2">&amp;</span>str = <span class="string">"Jans::Id_token"</span>;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>DEFAULT_USERINFO_TKN_ENTITY_NAME: <span class="kw-2">&amp;</span>str = <span class="string">"Jans::Userinfo_token"</span>;
 
 <span class="doccomment">/// Bootstrap Configurations for the JWT to Cedar entity mappings
-</span><span class="attr">#[derive(Debug, PartialEq, Clone, Default)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>EntityBuilderConfig {
     <span class="doccomment">/// The names of the buildable Cedar entity type names
     </span><span class="kw">pub </span>entity_names: EntityNames,
@@ -169,18 +166,41 @@
     </span><span class="kw">pub </span>unsigned_role_id_src: UnsignedRoleIdSrc,
 }
 
-<span class="attr">#[derive(Debug, PartialEq, Clone, Deref, Serialize)]
-</span><span class="doccomment">/// The attribute that will be used to create the Role entity when using the
-/// [`authorize_unsigned`] interface.
-///
-///
-/// This can be set using the `CEDARLING_UNSIGNED_ROLE_ID_SRC` bootstrap property and
-/// defaults to 'role' when not set.
-///
-/// [`authorize_unsigned`]: crate::Cedarling::authorize_unsigned
-</span><span class="kw">pub struct </span>UnsignedRoleIdSrc(String);
+<span class="doccomment">/// Raw entity builder config
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+</span><span class="kw">pub struct </span>EntityBuilderConfigRaw {
+    <span class="doccomment">/// Toggles building the `Workload` entity
+    </span><span class="kw">pub </span>workload_authz: bool,
+    <span class="doccomment">/// Toggles building the `User` entity
+    </span><span class="kw">pub </span>user_authz: bool,
+    <span class="doccomment">/// The attribute to use when creating Role entities in the unsigned interface
+    </span><span class="kw">pub </span>unsigned_role_id_src: UnsignedRoleIdSrc,
+    <span class="doccomment">/// Mapping name of cedar schema User entity
+    </span><span class="kw">pub </span>mapping_user: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="doccomment">/// Mapping name of cedar schema Workload entity
+    </span><span class="kw">pub </span>mapping_workload: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="doccomment">/// Mapping name of cedar schema Role entity
+    </span><span class="kw">pub </span>mapping_role: <span class="prelude-ty">Option</span>&lt;String&gt;,
+    <span class="doccomment">/// Mapping name of cedar schema Issuer entity
+    </span><span class="kw">pub </span>mapping_iss: <span class="prelude-ty">Option</span>&lt;String&gt;,
+}
 
-<span class="kw">const </span>DEFAULT_UNSIGNED_ROLE_ID_SRC: <span class="kw-2">&amp;</span>str = <span class="string">"role"</span>;
+<span class="doccomment">/// Entity names
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+</span><span class="kw">pub struct </span>EntityNames {
+    <span class="doccomment">/// The entity type name of the `User` entity
+    </span><span class="kw">pub </span>user: String,
+    <span class="doccomment">/// The entity type name of the `Workload` entity
+    </span><span class="kw">pub </span>workload: String,
+    <span class="doccomment">/// The entity type name of the `Role` entity
+    </span><span class="kw">pub </span>role: String,
+    <span class="doccomment">/// The entity type name of the `TrustedIssuer` entity
+    </span><span class="kw">pub </span>iss: String,
+}
+
+<span class="doccomment">/// Unsigned role ID source
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Deref, Serialize, Deserialize)]
+</span><span class="kw">pub struct </span>UnsignedRoleIdSrc(<span class="kw">pub </span>String);
 
 <span class="kw">impl </span>Default <span class="kw">for </span>UnsignedRoleIdSrc {
     <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
@@ -188,19 +208,19 @@
     }
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">'de</span>&gt; Deserialize&lt;<span class="lifetime">'de</span>&gt; <span class="kw">for </span>UnsignedRoleIdSrc {
-    <span class="kw">fn </span>deserialize&lt;D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, D::Error&gt;
-    <span class="kw">where
-        </span>D: serde::Deserializer&lt;<span class="lifetime">'de</span>&gt;,
-    {
-        <span class="kw">let </span>role_str = String::deserialize(deserializer)<span class="question-mark">?</span>.trim().to_string();
-        <span class="kw">let </span>src = <span class="kw">if </span>role_str.is_empty() {
-            <span class="self">Self</span>(DEFAULT_UNSIGNED_ROLE_ID_SRC.to_string())
-        } <span class="kw">else </span>{
-            <span class="self">Self</span>(role_str)
-        };
-
-        <span class="prelude-val">Ok</span>(src)
+<span class="kw">impl </span>Default <span class="kw">for </span>EntityBuilderConfig {
+    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            entity_names: EntityNames {
+                user: DEFAULT_USER_ENTITY_NAME.to_string(),
+                workload: DEFAULT_WORKLOAD_ENTITY_NAME.to_string(),
+                role: DEFAULT_ROLE_ENTITY_NAME.to_string(),
+                iss: DEFAULT_ISS_ENTITY_NAME.to_string(),
+            },
+            build_workload: <span class="bool-val">true</span>,
+            build_user: <span class="bool-val">true</span>,
+            unsigned_role_id_src: UnsignedRoleIdSrc(DEFAULT_UNSIGNED_ROLE_ID_SRC.to_string()),
+        }
     }
 }
 
@@ -218,62 +238,36 @@
     </span>}
 }
 
-<span class="doccomment">/// The names of the entities in the schema
-///
-/// Note that the entity names for the tokens can be found in the trusted issuer
-/// struct under their respective token entity metadata. The entity names here
-/// only belong to the entity names that could be set using the bootstrap
-/// properties
-</span><span class="attr">#[derive(Debug, PartialEq, Clone)]
-</span><span class="kw">pub struct </span>EntityNames {
-    <span class="doccomment">/// The entity type name of the `User` entity
-    </span><span class="kw">pub </span>user: String,
-    <span class="doccomment">/// The entity type name of the `Workload` entity
-    </span><span class="kw">pub </span>workload: String,
-    <span class="doccomment">/// The entity type name of the `Role` entity
-    </span><span class="kw">pub </span>role: String,
-    <span class="doccomment">/// The entity type name of the `TrustedIssuer` entity
-    </span><span class="kw">pub </span>iss: String,
-}
+<span class="kw">impl </span>From&lt;EntityBuilderConfigRaw&gt; <span class="kw">for </span>EntityBuilderConfig {
+    <span class="kw">fn </span>from(raw: EntityBuilderConfigRaw) -&gt; <span class="self">Self </span>{
+        <span class="kw">let </span>entity_names = EntityNames {
+            user: raw.mapping_user.unwrap_or_else(|| DEFAULT_USER_ENTITY_NAME.to_string()),
+            workload: raw.mapping_workload.unwrap_or_else(|| DEFAULT_WORKLOAD_ENTITY_NAME.to_string()),
+            role: raw.mapping_role.unwrap_or_else(|| DEFAULT_ROLE_ENTITY_NAME.to_string()),
+            iss: raw.mapping_iss.unwrap_or_else(|| DEFAULT_ISS_ENTITY_NAME.to_string()),
+        };
 
-<span class="kw">impl </span>Default <span class="kw">for </span>EntityNames {
-    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            user: DEFAULT_USER_ENTITY_NAME.to_string(),
-            workload: DEFAULT_WORKLOAD_ENTITY_NAME.to_string(),
-            role: DEFAULT_ROLE_ENTITY_NAME.to_string(),
-            iss: DEFAULT_ISS_ENTITY_NAME.to_string(),
+            entity_names,
+            build_workload: raw.workload_authz,
+            build_user: raw.user_authz,
+            unsigned_role_id_src: raw.unsigned_role_id_src,
         }
     }
 }
 
 <span class="kw">impl </span>From&lt;<span class="kw-2">&amp;</span>BootstrapConfigRaw&gt; <span class="kw">for </span>EntityBuilderConfig {
-    <span class="kw">fn </span>from(config: <span class="kw-2">&amp;</span>BootstrapConfigRaw) -&gt; <span class="self">Self </span>{
-        <span class="kw">let </span>entity_names = EntityNames {
-            user: config
-                .mapping_user
-                .clone()
-                .unwrap_or_else(|| DEFAULT_USER_ENTITY_NAME.to_string())
-                .clone(),
-            workload: config
-                .mapping_workload
-                .clone()
-                .unwrap_or_else(|| DEFAULT_WORKLOAD_ENTITY_NAME.to_string()),
-            role: config
-                .mapping_role
-                .clone()
-                .unwrap_or_else(|| DEFAULT_ROLE_ENTITY_NAME.to_string()),
-            iss: config
-                .mapping_iss
-                .clone()
-                .unwrap_or_else(|| DEFAULT_ISS_ENTITY_NAME.to_string()),
+    <span class="kw">fn </span>from(raw: <span class="kw-2">&amp;</span>BootstrapConfigRaw) -&gt; <span class="self">Self </span>{
+        <span class="kw">let </span>raw_entity = EntityBuilderConfigRaw {
+            workload_authz: raw.workload_authz.is_enabled(),
+            user_authz: raw.user_authz.is_enabled(),
+            unsigned_role_id_src: raw.unsigned_role_id_src.clone(),
+            mapping_user: raw.mapping_user.clone(),
+            mapping_workload: raw.mapping_workload.clone(),
+            mapping_role: raw.mapping_role.clone(),
+            mapping_iss: raw.mapping_iss.clone(),
         };
-        <span class="self">Self </span>{
-            entity_names,
-            build_workload: config.workload_authz.into(),
-            build_user: config.user_authz.into(),
-            unsigned_role_id_src: config.unsigned_role_id_src.clone(),
-        }
+        EntityBuilderConfig::from(raw_entity)
     }
 }
 </code></pre></div></section></main></body></html>

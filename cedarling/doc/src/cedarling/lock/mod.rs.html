@@ -654,8 +654,7 @@
 <a href="#653" id="653">653</a>
 <a href="#654" id="654">654</a>
 <a href="#655" id="655">655</a>
-<a href="#656" id="656">656</a>
-<a href="#657" id="657">657</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#656" id="656">656</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -758,13 +757,12 @@
 <span class="kw">use </span>lock_config::<span class="kw-2">*</span>;
 <span class="kw">use </span>log_entry::LockLogEntry;
 <span class="kw">use </span>log_worker::<span class="kw-2">*</span>;
-<span class="kw">use </span>register_client::<span class="kw-2">*</span>;
+<span class="kw">use </span>register_client::{register_client, ClientRegistrationError};
 <span class="kw">use </span>reqwest::Client;
 <span class="kw">use </span>reqwest::header::{HeaderMap, HeaderValue};
 <span class="kw">use </span>spawn_task::<span class="kw-2">*</span>;
 <span class="kw">use </span>std::sync::{Arc, RwLock};
 <span class="kw">use </span>std::time::Duration;
-<span class="kw">use </span>thiserror::Error;
 <span class="kw">use </span>tokio_util::sync::CancellationToken;
 <span class="kw">use </span>ssa_validation::validate_ssa_jwt;
 
@@ -932,7 +930,7 @@
     }
 }
 
-<span class="attr">#[derive(Debug, Error)]
+<span class="attr">#[derive(Debug, thiserror::Error)]
 </span><span class="kw">pub enum </span>InitLockServiceError {
     <span class="attr">#[error(<span class="string">"the provided CEDARLING_LOCK_SSA_JWT is either malformed or expired: {0}"</span>)]
     </span>InvalidSsaJwt(String),
@@ -949,7 +947,7 @@
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
-    <span class="kw">use </span><span class="kw">crate</span>::LogLevel;
+    <span class="kw">use crate</span>::{lock::register_client::DCR_SCOPE, LogLevel};
     <span class="kw">use </span><span class="kw">crate</span>::log::interface::Indexed;
     <span class="kw">use </span>mockito::{Mock, Server, ServerGuard};
     <span class="kw">use </span>serde::Serialize;

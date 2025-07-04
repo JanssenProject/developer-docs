@@ -437,7 +437,8 @@
 <a href="#436" id="436">436</a>
 <a href="#437" id="437">437</a>
 <a href="#438" id="438">438</a>
-<a href="#439" id="439">439</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#439" id="439">439</a>
+<a href="#440" id="440">440</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -799,7 +800,8 @@
 
         <span class="comment">// Set the custom workload name in the config
         </span><span class="kw">let </span><span class="kw-2">mut </span>config = EntityBuilderConfig::default().with_workload();
-        config.entity_names.workload = <span class="string">"Jans::CustomWorkload"</span>.into();
+        config.build_user = <span class="bool-val">false</span>; <span class="comment">// Explicitly disable user entity building for this test
+        </span>config.entity_names.workload = <span class="string">"Jans::CustomWorkload"</span>.into();
 
         <span class="comment">// Set the custom token names in the IDP metadata
         </span><span class="kw">let </span>iss = TrustedIssuer {

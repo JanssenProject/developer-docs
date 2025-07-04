@@ -128,7 +128,51 @@
 <a href="#127" id="127">127</a>
 <a href="#128" id="128">128</a>
 <a href="#129" id="129">129</a>
-<a href="#130" id="130">130</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+<a href="#161" id="161">161</a>
+<a href="#162" id="162">162</a>
+<a href="#163" id="163">163</a>
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -137,9 +181,10 @@
 <span class="kw">use </span><span class="kw">crate</span>::log::LogLevel;
 <span class="kw">use </span>std::time::Duration;
 <span class="kw">use </span>url::Url;
+<span class="kw">use </span>serde::{Deserialize, Serialize};
 
 <span class="doccomment">/// A set of properties used to configure logging in the `Cedarling` application.
-</span><span class="attr">#[derive(Debug, Clone, PartialEq)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>LogConfig {
     <span class="doccomment">/// `CEDARLING_LOG_TYPE` in [bootstrap properties](https://github.com/JanssenProject/jans/wiki/Cedarling-Nativity-Plan#bootstrap-properties) documentation.
     </span><span class="kw">pub </span>log_type: LogTypeConfig,
@@ -152,7 +197,7 @@
 <span class="doccomment">///  Log type configuration.
 ///  `CEDARLING_LOG_TYPE` in [bootstrap properties](https://github.com/JanssenProject/jans/wiki/Cedarling-Nativity-Plan#bootstrap-properties) documentation.
 ///   Current type represent this value.
-</span><span class="attr">#[derive(Debug, Clone, PartialEq)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 </span><span class="kw">pub enum </span>LogTypeConfig {
     <span class="doccomment">/// Logger do nothing. It means that all logs will be ignored.
     </span>Off,
@@ -163,7 +208,7 @@
 }
 
 <span class="doccomment">/// Configuration for memory log.
-</span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq)]
+</span><span class="attr">#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 </span><span class="kw">pub struct </span>MemoryLogConfig {
     <span class="doccomment">/// `CEDARLING_LOG_TTL` in [bootstrap properties](https://github.com/JanssenProject/jans/wiki/Cedarling-Nativity-Plan#bootstrap-properties) documentation.
     /// The maximum time to live (in seconds) of the log entries.
@@ -256,6 +301,49 @@
             log_level: raw.log_level,
             accept_invalid_certs: raw.accept_invalid_certs.into(),
         })
+    }
+}
+
+<span class="doccomment">/// Raw log config
+</span><span class="kw">pub struct </span>LogConfigRaw {
+    <span class="doccomment">/// Log type
+    </span><span class="kw">pub </span>log_type: String,
+    <span class="doccomment">/// Log level
+    </span><span class="kw">pub </span>log_level: String,
+}
+
+<span class="doccomment">/// Raw memory log config
+</span><span class="kw">pub struct </span>MemoryLogConfigRaw {
+    <span class="doccomment">/// Log TTL
+    </span><span class="kw">pub </span>log_ttl: u64,
+    <span class="doccomment">/// Max item size
+    </span><span class="kw">pub </span>max_item_size: <span class="prelude-ty">Option</span>&lt;usize&gt;,
+    <span class="doccomment">/// Max items
+    </span><span class="kw">pub </span>max_items: <span class="prelude-ty">Option</span>&lt;usize&gt;,
+}
+
+<span class="kw">impl </span>From&lt;LogConfigRaw&gt; <span class="kw">for </span>LogConfig {
+    <span class="kw">fn </span>from(raw: LogConfigRaw) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{
+            log_type: <span class="kw">match </span>raw.log_type.as_str() {
+                <span class="string">"off" </span>=&gt; LogTypeConfig::Off,
+                <span class="string">"memory" </span>=&gt; LogTypeConfig::Memory(MemoryLogConfig {
+                    log_ttl: <span class="number">60</span>,
+                    max_item_size: <span class="prelude-val">None</span>,
+                    max_items: <span class="prelude-val">None</span>,
+                }),
+                <span class="string">"stdout" </span>=&gt; LogTypeConfig::StdOut,
+                <span class="kw">_ </span>=&gt; LogTypeConfig::StdOut,
+            },
+            log_level: <span class="kw">match </span>raw.log_level.as_str() {
+                <span class="string">"TRACE" </span>=&gt; LogLevel::TRACE,
+                <span class="string">"DEBUG" </span>=&gt; LogLevel::DEBUG,
+                <span class="string">"INFO" </span>=&gt; LogLevel::INFO,
+                <span class="string">"WARN" </span>=&gt; LogLevel::WARN,
+                <span class="string">"ERROR" </span>=&gt; LogLevel::ERROR,
+                <span class="kw">_ </span>=&gt; LogLevel::INFO,
+            },
+        }
     }
 }
 </code></pre></div></section></main></body></html>

@@ -141,7 +141,15 @@
 <a href="#140" id="140">140</a>
 <a href="#141" id="141">141</a>
 <a href="#142" id="142">142</a>
-<a href="#143" id="143">143</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -261,27 +269,35 @@
     }
 }
 
-<span class="attr">#[derive(Default, Debug, derive_more::Display, derive_more::Error)]
-#[display(<span class="string">"Could not parce `WorkloadBoolOp` with payload {payload}, should be `AND` or `OR`"</span>)]
+<span class="doccomment">/// Error parsing workload bool op
+</span><span class="attr">#[derive(Default, Debug, derive_more::Display, derive_more::Error)]
+#[display(<span class="string">"Could not parse `WorkloadBoolOp` with payload {payload}, should be `AND` or `OR`"</span>)]
 </span><span class="kw">pub struct </span>ParseWorkloadBoolOpError {
-    payload: String,
+    <span class="doccomment">/// The payload that failed to parse
+    </span>payload: String,
 }
 
-<span class="attr">#[derive(Default, Debug, derive_more::Display, derive_more::Error)]
+<span class="doccomment">/// Error parsing trust mode
+</span><span class="attr">#[derive(Default, Debug, derive_more::Display, derive_more::Error)]
 #[display(<span class="string">"Invalid `TrustMode`: {trust_mode}. should be `strict` or `none`"</span>)]
 </span><span class="kw">pub struct </span>ParseTrustModeError {
-    trust_mode: String,
+    <span class="doccomment">/// The trust mode string that failed to parse
+    </span>trust_mode: String,
 }
 
-<span class="attr">#[derive(Default, Debug, derive_more::Display, derive_more::Error)]
+<span class="doccomment">/// Error parsing logger type
+</span><span class="attr">#[derive(Default, Debug, derive_more::Display, derive_more::Error)]
 #[display(<span class="string">"Invalid `LoggerType`: {logger_type}. should be `memory`, `std_out`, `lock`, or `off`"</span>)]
 </span><span class="kw">pub struct </span>ParseLoggerTypeError {
-    logger_type: String,
+    <span class="doccomment">/// The logger type string that failed to parse
+    </span>logger_type: String,
 }
 
-<span class="attr">#[derive(Default, Debug, derive_more::Display, derive_more::Error)]
+<span class="doccomment">/// Error parsing feature toggle
+</span><span class="attr">#[derive(Default, Debug, derive_more::Display, derive_more::Error)]
 #[display(<span class="string">"Invalid `FeatureToggle`: {value}. should be `enabled`, or `disabled`"</span>)]
 </span><span class="kw">pub struct </span>ParseFeatureToggleError {
-    value: String,
+    <span class="doccomment">/// The value that failed to parse
+    </span>value: String,
 }
 </code></pre></div></section></main></body></html>

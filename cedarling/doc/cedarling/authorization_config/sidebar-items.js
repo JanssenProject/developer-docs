@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["IdTokenTrustMode"],"struct":["AuthorizationConfig","AuthorizationConfigRaw","IdTknTrustModeParseError","TokenEntityNames"]};
