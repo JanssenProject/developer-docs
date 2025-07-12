@@ -1,4 +1,5 @@
 io.jans.ca.plugin.adminui.extensions
+io.jans.ca.plugin.adminui.model.adminui
 io.jans.ca.plugin.adminui.model.auth
 io.jans.ca.plugin.adminui.model.config
 io.jans.ca.plugin.adminui.model.exception
