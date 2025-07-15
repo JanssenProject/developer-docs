@@ -1,0 +1,20 @@
+$dokka.format:javadoc-v1
+$dokka.linkExtension:html
+$dokka.location:uniffi.cedarling_uniffi/AuthorizeException.AuthorizationFailed///PointingToDeclaration/uniffi/cedarling_uniffi/AuthorizeException.AuthorizationFailed.html
+$dokka.location:uniffi.cedarling_uniffi/AuthorizeException.ErrorHandler///PointingToDeclaration/uniffi/cedarling_uniffi/AuthorizeException.ErrorHandler.html
+$dokka.location:uniffi.cedarling_uniffi/AuthorizeException.InvalidContext///PointingToDeclaration/uniffi/cedarling_uniffi/AuthorizeException.InvalidContext.html
+$dokka.location:uniffi.cedarling_uniffi/Cedarling.Companion///PointingToDeclaration/uniffi/cedarling_uniffi/Cedarling.Companion.html
+$dokka.location:uniffi.cedarling_uniffi/CedarlingException.ErrorHandler///PointingToDeclaration/uniffi/cedarling_uniffi/CedarlingException.ErrorHandler.html
+$dokka.location:uniffi.cedarling_uniffi/CedarlingException.InitializationFailed///PointingToDeclaration/uniffi/cedarling_uniffi/CedarlingException.InitializationFailed.html
+$dokka.location:uniffi.cedarling_uniffi/CedarlingInterface.Companion///PointingToDeclaration/uniffi/cedarling_uniffi/CedarlingInterface.Companion.html
+$dokka.location:uniffi.cedarling_uniffi/Decision.Companion///PointingToDeclaration/uniffi/cedarling_uniffi/Decision.Companion.html
+$dokka.location:uniffi.cedarling_uniffi/Disposable.Companion///PointingToDeclaration/uniffi/cedarling_uniffi/Disposable.Companion.html
+$dokka.location:uniffi.cedarling_uniffi/EntityData.Companion///PointingToDeclaration/uniffi/cedarling_uniffi/EntityData.Companion.html
+$dokka.location:uniffi.cedarling_uniffi/EntityDataInterface.Companion///PointingToDeclaration/uniffi/cedarling_uniffi/EntityDataInterface.Companion.html
+$dokka.location:uniffi.cedarling_uniffi/EntityException.ErrorHandler///PointingToDeclaration/uniffi/cedarling_uniffi/EntityException.ErrorHandler.html
+$dokka.location:uniffi.cedarling_uniffi/EntityException.JsonConversion///PointingToDeclaration/uniffi/cedarling_uniffi/EntityException.JsonConversion.html
+$dokka.location:uniffi.cedarling_uniffi/EntityException.JsonConversionPayload///PointingToDeclaration/uniffi/cedarling_uniffi/EntityException.JsonConversionPayload.html
+$dokka.location:uniffi.cedarling_uniffi/LogException.ErrorHandler///PointingToDeclaration/uniffi/cedarling_uniffi/LogException.ErrorHandler.html
+$dokka.location:uniffi.cedarling_uniffi/LogException.LoggingFailed///PointingToDeclaration/uniffi/cedarling_uniffi/LogException.LoggingFailed.html
+io.jans.cedarling.binding.wrapper
+uniffi.cedarling_uniffi
