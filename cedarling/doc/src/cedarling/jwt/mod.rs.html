@@ -408,44 +408,7 @@
 <a href="#407" id="407">407</a>
 <a href="#408" id="408">408</a>
 <a href="#409" id="409">409</a>
-<a href="#410" id="410">410</a>
-<a href="#411" id="411">411</a>
-<a href="#412" id="412">412</a>
-<a href="#413" id="413">413</a>
-<a href="#414" id="414">414</a>
-<a href="#415" id="415">415</a>
-<a href="#416" id="416">416</a>
-<a href="#417" id="417">417</a>
-<a href="#418" id="418">418</a>
-<a href="#419" id="419">419</a>
-<a href="#420" id="420">420</a>
-<a href="#421" id="421">421</a>
-<a href="#422" id="422">422</a>
-<a href="#423" id="423">423</a>
-<a href="#424" id="424">424</a>
-<a href="#425" id="425">425</a>
-<a href="#426" id="426">426</a>
-<a href="#427" id="427">427</a>
-<a href="#428" id="428">428</a>
-<a href="#429" id="429">429</a>
-<a href="#430" id="430">430</a>
-<a href="#431" id="431">431</a>
-<a href="#432" id="432">432</a>
-<a href="#433" id="433">433</a>
-<a href="#434" id="434">434</a>
-<a href="#435" id="435">435</a>
-<a href="#436" id="436">436</a>
-<a href="#437" id="437">437</a>
-<a href="#438" id="438">438</a>
-<a href="#439" id="439">439</a>
-<a href="#440" id="440">440</a>
-<a href="#441" id="441">441</a>
-<a href="#442" id="442">442</a>
-<a href="#443" id="443">443</a>
-<a href="#444" id="444">444</a>
-<a href="#445" id="445">445</a>
-<a href="#446" id="446">446</a>
-<a href="#447" id="447">447</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#410" id="410">410</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -507,19 +470,19 @@
 //! ## Security Features
 //!
 //! - [x] Only Accept tokens defined from the policy store
-//! - [ ] JWK rotation (WIP): The service should automatically fetch new keys if the old
 //!   ones expire.
-//! - [ ] Statuslist Check (WIP): The `status` claim of a JWT should be validated if
-//!   present
+//! - [x] Statuslist Check: The `status` claim of a JWT should be validated if present.
+//!   This is done through the [`status_list`] crate for the implementation.
+//! - [ ] JWK rotation (WIP): The service should automatically fetch new keys if the old
 
 </span><span class="kw">mod </span>decode;
 <span class="kw">mod </span>error;
 <span class="kw">mod </span>http_utils;
 <span class="kw">mod </span>key_service;
 <span class="kw">mod </span>log_entry;
+<span class="kw">mod </span>status_list;
 <span class="kw">mod </span>token;
 <span class="kw">mod </span>validation;
-<span class="kw">mod </span>validator_store;
 
 <span class="attr">#[cfg(test)]
 #[allow(dead_code)]
@@ -537,24 +500,26 @@
 <span class="kw">use </span>http_utils::<span class="kw-2">*</span>;
 <span class="kw">use </span>key_service::<span class="kw-2">*</span>;
 <span class="kw">use </span>log_entry::<span class="kw-2">*</span>;
+<span class="kw">use </span>status_list::<span class="kw-2">*</span>;
 <span class="kw">use </span>std::collections::HashMap;
 <span class="kw">use </span>std::sync::Arc;
 <span class="kw">use </span>validation::<span class="kw-2">*</span>;
-<span class="kw">use </span>validator_store::<span class="kw-2">*</span>;
+
+<span class="doccomment">/// The value of the `iss` claim from a JWT
+</span><span class="kw">type </span>IssClaim = String;
 
 <span class="doccomment">/// Handles JWT validation
 </span><span class="kw">pub struct </span>JwtService {
-    validators: ValidatorStore,
+    validators: JwtValidatorCache,
     key_service: Arc&lt;KeyService&gt;,
-    validate_jwt_signatures: bool,
-    issuer_configs: HashMap&lt;String, IssuerConfig&gt;,
+    issuer_configs: HashMap&lt;IssClaim, IssuerConfig&gt;,
     logger: <span class="prelude-ty">Option</span>&lt;Logger&gt;,
 }
 
 <span class="kw">struct </span>IssuerConfig {
     issuer_id: String,
     <span class="doccomment">/// The [`TrustedIssuer`] config loaded from the policy store
-    </span>policy: TrustedIssuer,
+    </span>policy: Arc&lt;TrustedIssuer&gt;,
     <span class="doccomment">/// The [`OpenIdConfig`] loaded from the IDP's `/.well-known/openid-configuration` endpoint
     </span>openid_config: <span class="prelude-ty">Option</span>&lt;OpenIdConfig&gt;,
 }
@@ -565,8 +530,9 @@
         trusted_issuers: <span class="prelude-ty">Option</span>&lt;HashMap&lt;String, TrustedIssuer&gt;&gt;,
         logger: <span class="prelude-ty">Option</span>&lt;Logger&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, JwtServiceInitError&gt; {
+        <span class="kw">let </span><span class="kw-2">mut </span>status_lists = StatusListCache::default();
         <span class="kw">let </span><span class="kw-2">mut </span>issuer_configs = HashMap::default();
-        <span class="kw">let </span><span class="kw-2">mut </span>validators = ValidatorStore::default();
+        <span class="kw">let </span><span class="kw-2">mut </span>validators = JwtValidatorCache::default();
         <span class="kw">let </span><span class="kw-2">mut </span>key_service = KeyService::new();
 
         <span class="kw">for </span>(issuer_id, iss) <span class="kw">in </span>trusted_issuers.unwrap_or_default().into_iter() {
@@ -575,17 +541,23 @@
 
             <span class="kw">let </span><span class="kw-2">mut </span>iss_config = IssuerConfig {
                 issuer_id,
-                policy: iss,
+                policy: Arc::new(iss),
                 openid_config: <span class="prelude-val">None</span>,
             };
 
-            <span class="kw">if </span>jwt_config.jwt_sig_validation {
+            <span class="kw">if </span>jwt_config.jwt_sig_validation || jwt_config.jwt_status_validation {
                 iss_claim = update_openid_config(<span class="kw-2">&amp;mut </span>iss_config, <span class="kw-2">&amp;</span>logger).<span class="kw">await</span><span class="question-mark">?</span>;
             }
 
             insert_keys(<span class="kw-2">&amp;mut </span>key_service, jwt_config, <span class="kw-2">&amp;</span>iss_config, <span class="kw-2">&amp;</span>logger).<span class="kw">await</span><span class="question-mark">?</span>;
 
-            update_jwt_validators(<span class="kw-2">&amp;mut </span>validators, jwt_config, <span class="kw-2">&amp;</span>iss_config, <span class="kw-2">&amp;</span>logger);
+            validators.init_for_iss(<span class="kw-2">&amp;</span>iss_config, jwt_config, <span class="kw-2">&amp;</span>status_lists, logger.clone());
+
+            <span class="kw">if </span>jwt_config.jwt_status_validation {
+                status_lists
+                    .init_for_iss(<span class="kw-2">&amp;</span>iss_config, <span class="kw-2">&amp;</span>validators, <span class="kw-2">&amp;</span>key_service, logger.clone())
+                    .<span class="kw">await</span><span class="question-mark">?</span>;
+            }
 
             issuer_configs.insert(iss_claim, iss_config);
         }
@@ -600,7 +572,6 @@
         <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
             validators,
             key_service,
-            validate_jwt_signatures: jwt_config.jwt_sig_validation,
             issuer_configs,
             logger,
         })
@@ -609,24 +580,21 @@
     <span class="kw">pub async fn </span>validate_tokens&lt;<span class="lifetime">'a</span>&gt;(
         <span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>,
         tokens: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>HashMap&lt;String, String&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;HashMap&lt;String, Token&lt;<span class="lifetime">'a</span>&gt;&gt;, JwtProcessingError&gt; {
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;HashMap&lt;String, Token&gt;, JwtProcessingError&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>validated_tokens = HashMap::new();
 
         <span class="kw">for </span>(token_name, jwt) <span class="kw">in </span>tokens.iter() {
-            <span class="kw">let </span>validation_result = <span class="self">self</span>.validate_single_token(token_name.clone(), jwt);
-            <span class="kw">let </span><span class="prelude-val">Ok</span>(validated_jwt) = validation_result <span class="kw">else </span>{
-                <span class="kw">match </span>validation_result.unwrap_err() {
-                    ValidateJwtError::MissingValidator(iss) =&gt; {
-                        <span class="self">self</span>.logger.log_any(JwtLogEntry::new(
-                            <span class="macro">format!</span>(
-                                <span class="string">"ignoring {token_name} since it's from an untrusted issuer: '{iss:?}'"
-                            </span>),
-                            <span class="prelude-val">Some</span>(LogLevel::WARN),
-                        ));
+            <span class="kw">let </span>validated_jwt = <span class="kw">match </span><span class="self">self</span>.validate_single_token(token_name.clone(), jwt) {
+                <span class="prelude-val">Ok</span>(jwt) =&gt; jwt,
+                <span class="prelude-val">Err</span>(err) =&gt; {
+                    <span class="kw">if </span><span class="macro">matches!</span>(err, ValidateJwtError::MissingValidator(<span class="kw">_</span>)) {
+                        <span class="self">self</span>.logger
+                            .log_any(JwtLogEntry::new(err.to_string(), <span class="prelude-val">Some</span>(LogLevel::WARN)));
                         <span class="kw">continue</span>;
-                    },
-                    err =&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(JwtProcessingError::ValidateJwt(token_name.clone(), err)),
-                }
+                    } <span class="kw">else </span>{
+                        <span class="kw">return </span><span class="prelude-val">Err</span>(JwtProcessingError::ValidateJwt(token_name.clone(), err));
+                    }
+                },
             };
 
             <span class="kw">let </span>claims = serde_json::from_value::&lt;TokenClaims&gt;(validated_jwt.claims)
@@ -655,38 +623,30 @@
     ) -&gt; <span class="prelude-ty">Result</span>&lt;ValidatedJwt, ValidateJwtError&gt; {
         <span class="kw">let </span>decoded_jwt = decode_jwt(jwt)<span class="question-mark">?</span>;
 
-        <span class="kw">if </span>!<span class="self">self</span>.validate_jwt_signatures {
-            <span class="comment">// The users of the validated JWT will need a reference to the TrustedIssuer
-            // to do some processing so we include it here for convenience
-            </span><span class="kw">let </span>issuer_ref = decoded_jwt.iss().and_then(|iss| <span class="self">self</span>.get_issuer_ref(iss));
-            <span class="kw">return </span><span class="prelude-val">Ok</span>(ValidatedJwt {
-                claims: decoded_jwt.claims.inner,
-                trusted_iss: issuer_ref,
-            });
-        }
-
         <span class="comment">// Get decoding key
         </span><span class="kw">let </span>decoding_key_info = decoded_jwt.decoding_key_info();
-        <span class="kw">let </span>decoding_key = <span class="self">self
-            </span>.key_service
-            .get_key(<span class="kw-2">&amp;</span>decoding_key_info)
-            .ok_or(ValidateJwtError::MissingValidationKey)<span class="question-mark">?</span>;
+        <span class="kw">let </span>decoding_key = <span class="self">self</span>.key_service.get_key(<span class="kw-2">&amp;</span>decoding_key_info);
 
         <span class="comment">// get validator
         </span><span class="kw">let </span>validator_key = ValidatorInfo {
             iss: decoded_jwt.iss(),
-            token_name: <span class="kw-2">&amp;</span>token_name,
+            token_kind: TokenKind::AuthzRequestInput(<span class="kw-2">&amp;</span>token_name),
             algorithm: decoded_jwt.header.alg,
         };
-        <span class="kw">let </span>validator =
-            <span class="self">self</span>.validators
-                .get(<span class="kw-2">&amp;</span>validator_key)
-                .ok_or(ValidateJwtError::MissingValidator(
-                    decoded_jwt.iss().map(|s| s.to_string()),
-                ))<span class="question-mark">?</span>;
+        <span class="kw">let </span>validator = <span class="self">self
+            </span>.validators
+            .get(<span class="kw-2">&amp;</span>validator_key)
+            .ok_or(ValidateJwtError::MissingValidator(validator_key.owned()))<span class="question-mark">?</span>;
 
         <span class="comment">// validate JWT
-        </span><span class="kw">let </span><span class="kw-2">mut </span>validated_jwt = validator.validate_jwt(jwt, decoding_key)<span class="question-mark">?</span>;
+        // NOTE: the JWT will be validated depending on the validator's settings that
+        // was set on initialization
+        </span><span class="kw">let </span><span class="kw-2">mut </span>validated_jwt = {
+            validator
+                .read()
+                .expect(<span class="string">"acquire JwtValidator read lock"</span>)
+                .validate_jwt(jwt, decoding_key)<span class="question-mark">?
+        </span>};
 
         <span class="comment">// The users of the validated JWT will need a reference to the TrustedIssuer
         // to do some processing so we include it here for convenience
@@ -697,10 +657,11 @@
 
     <span class="doccomment">/// Use the `iss` claim of a token to retrieve a reference to a [`TrustedIssuer`]
     </span><span class="attr">#[inline]
-    </span><span class="kw">fn </span>get_issuer_ref(<span class="kw-2">&amp;</span><span class="self">self</span>, iss_claim: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TrustedIssuer&gt; {
+    </span><span class="kw">fn </span>get_issuer_ref(<span class="kw-2">&amp;</span><span class="self">self</span>, iss_claim: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;Arc&lt;TrustedIssuer&gt;&gt; {
         <span class="self">self</span>.issuer_configs
             .get(iss_claim)
             .map(|config| <span class="kw-2">&amp;</span>config.policy)
+            .cloned()
     }
 }
 
@@ -717,7 +678,7 @@
                     iss_config.issuer_id, e
                 ),
                 <span class="prelude-val">Some</span>(LogLevel::ERROR),
-            ))
+            ));
         })<span class="question-mark">?</span>;
 
     <span class="kw">let </span>iss_claim = openid_config.issuer.clone();
@@ -749,43 +710,6 @@
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="kw">fn </span>update_jwt_validators(
-    validators: <span class="kw-2">&amp;mut </span>ValidatorStore,
-    jwt_config: <span class="kw-2">&amp;</span>JwtConfig,
-    iss_config: <span class="kw-2">&amp;</span>IssuerConfig,
-    logger: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;Logger&gt;,
-) {
-    <span class="kw">for </span>(token_name, tkn_metadata) <span class="kw">in </span>iss_config.policy.token_metadata.iter() {
-        <span class="kw">if </span>!tkn_metadata.trusted {
-            logger.log_any(JwtLogEntry::new(
-                <span class="macro">format!</span>(
-                    <span class="string">"skipping metadata for '{}' from '{}' since `trusted == false`"</span>,
-                    token_name, iss_config.issuer_id,
-                ),
-                <span class="prelude-val">Some</span>(LogLevel::WARN),
-            ));
-            <span class="kw">continue</span>;
-        }
-
-        <span class="kw">for </span>algorithm <span class="kw">in </span>jwt_config.signature_algorithms_supported.iter().copied() {
-            <span class="kw">let </span>iss = iss_config
-                .openid_config
-                .as_ref()
-                .map(|oidc| oidc.issuer.clone())
-                .unwrap_or_else(|| {
-                    iss_config
-                        .policy
-                        .oidc_endpoint
-                        .origin()
-                        .ascii_serialization()
-                });
-            <span class="kw">let </span>(validator, key) =
-                JwtValidator::new(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>iss), token_name, tkn_metadata, algorithm);
-            validators.insert(key, validator);
-        }
-    }
-}
-
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span><span class="kw">super</span>::test_utils::<span class="kw-2">*</span>;
@@ -794,14 +718,15 @@
     <span class="kw">use </span>jsonwebtoken::Algorithm;
     <span class="kw">use </span>serde_json::{Value, json};
     <span class="kw">use </span>std::collections::{HashMap, HashSet};
+    <span class="kw">use </span>std::sync::Arc;
     <span class="kw">use </span>tokio::test;
 
     <span class="attr">#[test]
-    </span><span class="kw">pub async fn </span>can_validate_token() {
+    </span><span class="kw">async fn </span>can_validate_token() {
         <span class="kw">let </span><span class="kw-2">mut </span>server = MockServer::new_with_defaults().<span class="kw">await</span>.unwrap();
 
         <span class="comment">// create tokens
-        </span><span class="kw">let </span>access_tkn_claims = <span class="macro">json!</span>({
+        </span><span class="kw">let </span><span class="kw-2">mut </span>access_tkn_claims = <span class="macro">json!</span>({
             <span class="string">"iss"</span>: server.issuer(),
             <span class="string">"sub"</span>: <span class="string">"some_sub"</span>,
             <span class="string">"jti"</span>: <span class="number">1231231231</span>,
@@ -809,9 +734,9 @@
             <span class="string">"client_id"</span>: <span class="string">"test123"</span>,
         });
         <span class="kw">let </span>access_tkn = server
-            .generate_token_string_hs256(TokenTypeHeader::Jwt, <span class="kw-2">&amp;</span>access_tkn_claims)
+            .generate_token_with_hs256sig(<span class="kw-2">&amp;mut </span>access_tkn_claims, <span class="prelude-val">None</span>)
             .unwrap();
-        <span class="kw">let </span>id_tkn_claims = <span class="macro">json!</span>({
+        <span class="kw">let </span><span class="kw-2">mut </span>id_tkn_claims = <span class="macro">json!</span>({
             <span class="string">"iss"</span>: server.issuer(),
             <span class="string">"aud"</span>: <span class="string">"test123"</span>,
             <span class="string">"sub"</span>: <span class="string">"some_sub"</span>,
@@ -819,9 +744,9 @@
             <span class="string">"exp"</span>: u64::MAX,
         });
         <span class="kw">let </span>id_tkn = server
-            .generate_token_string_hs256(TokenTypeHeader::Jwt, <span class="kw-2">&amp;</span>id_tkn_claims)
+            .generate_token_with_hs256sig(<span class="kw-2">&amp;mut </span>id_tkn_claims, <span class="prelude-val">None</span>)
             .unwrap();
-        <span class="kw">let </span>userinfo_tkn_claims = <span class="macro">json!</span>({
+        <span class="kw">let </span><span class="kw-2">mut </span>userinfo_tkn_claims = <span class="macro">json!</span>({
             <span class="string">"iss"</span>: server.issuer(),
             <span class="string">"aud"</span>: <span class="string">"test123"</span>,
             <span class="string">"sub"</span>: <span class="string">"some_sub"</span>,
@@ -829,7 +754,7 @@
             <span class="string">"exp"</span>: u64::MAX,
         });
         <span class="kw">let </span>userinfo_tkn = server
-            .generate_token_string_hs256(TokenTypeHeader::Jwt, <span class="kw-2">&amp;</span>userinfo_tkn_claims)
+            .generate_token_with_hs256sig(<span class="kw-2">&amp;mut </span>userinfo_tkn_claims, <span class="prelude-val">None</span>)
             .unwrap();
 
         <span class="kw">let </span>iss = server.trusted_issuer();
@@ -847,6 +772,7 @@
         .<span class="kw">await
         </span>.inspect_err(|e| <span class="macro">eprintln!</span>(<span class="string">"error msg: {}"</span>, e))
         .expect(<span class="string">"Should create JwtService"</span>);
+        <span class="kw">let </span>iss = Arc::new(iss);
 
         <span class="kw">let </span>tokens = HashMap::from([
             (<span class="string">"access_token"</span>.to_string(), access_tkn),
@@ -866,7 +792,7 @@
             .expect(<span class="string">"Should create expected access_token claims"</span>);
         <span class="macro">assert_eq!</span>(
             token,
-            <span class="kw-2">&amp;</span>Token::new(<span class="string">"access_token"</span>, expected_claims.into(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>iss))
+            <span class="kw-2">&amp;</span>Token::new(<span class="string">"access_token"</span>, expected_claims.into(), <span class="prelude-val">Some</span>(iss.clone()))
         );
 
         <span class="comment">// Test id_token
@@ -877,7 +803,7 @@
             .expect(<span class="string">"Should create expected id_token claims"</span>);
         <span class="macro">assert_eq!</span>(
             token,
-            <span class="kw-2">&amp;</span>Token::new(<span class="string">"id_token"</span>, expected_claims.into(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>iss))
+            <span class="kw-2">&amp;</span>Token::new(<span class="string">"id_token"</span>, expected_claims.into(), <span class="prelude-val">Some</span>(iss.clone()))
         );
 
         <span class="comment">// Test userinfo_token
@@ -888,7 +814,7 @@
             .expect(<span class="string">"Should create expected userinfo_token claims"</span>);
         <span class="macro">assert_eq!</span>(
             token,
-            <span class="kw-2">&amp;</span>Token::new(<span class="string">"userinfo_token"</span>, expected_claims.into(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>iss))
+            <span class="kw-2">&amp;</span>Token::new(<span class="string">"userinfo_token"</span>, expected_claims.into(), <span class="prelude-val">Some</span>(iss))
         );
     }
 }

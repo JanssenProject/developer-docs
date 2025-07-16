@@ -314,7 +314,7 @@
         .expect(<span class="string">"should init entity builder"</span>);
 
         <span class="kw">let </span>type_name = <span class="string">"Test"</span>;
-        <span class="kw">let </span>id_token = Token::new(<span class="string">"token"</span>, HashMap::from([]).into(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>iss));
+        <span class="kw">let </span>id_token = Token::new(<span class="string">"token"</span>, HashMap::from([]).into(), <span class="prelude-val">Some</span>(iss.into()));
         <span class="kw">let </span>attrs_srcs = Vec::default();
         <span class="kw">let </span>tkn_principal_mappings = TokenPrincipalMappings::default();
         <span class="kw">let </span>built_entities = BuiltEntities::default();

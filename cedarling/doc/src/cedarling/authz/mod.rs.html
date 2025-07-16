@@ -763,7 +763,7 @@
     </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>decode_tokens&lt;<span class="lifetime">'a</span>&gt;(
         <span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>,
         request: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>Request,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;HashMap&lt;String, Token&lt;<span class="lifetime">'a</span>&gt;&gt;, AuthorizeError&gt; {
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;HashMap&lt;String, Token&gt;, AuthorizeError&gt; {
         <span class="kw">let </span>tokens = <span class="self">self
             </span>.config
             .jwt_service

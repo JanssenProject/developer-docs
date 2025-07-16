@@ -338,7 +338,14 @@
 <a href="#337" id="337">337</a>
 <a href="#338" id="338">338</a>
 <a href="#339" id="339">339</a>
-<a href="#340" id="340">340</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#340" id="340">340</a>
+<a href="#341" id="341">341</a>
+<a href="#342" id="342">342</a>
+<a href="#343" id="343">343</a>
+<a href="#344" id="344">344</a>
+<a href="#345" id="345">345</a>
+<a href="#346" id="346">346</a>
+<a href="#347" id="347">347</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -410,7 +417,7 @@
     /// - `access_token.aud`
     /// - `access_token.client_id`
     /// - `id_token.aud`
-    </span><span class="kw">pub fn </span>resolve&lt;<span class="lifetime">'a</span>&gt;(tokens: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>HashMap&lt;String, Token&gt;) -&gt; Vec&lt;EntityIdSrc&lt;<span class="lifetime">'a</span>&gt;&gt; {
+    </span><span class="kw">pub fn </span>resolve(tokens: <span class="kw-2">&amp;</span>HashMap&lt;String, Token&gt;) -&gt; Vec&lt;EntityIdSrc&gt; {
         <span class="kw">const </span>DEFAULT_WORKLOAD_ID_SRCS: <span class="kw-2">&amp;</span>[PrincipalIdSrc] = <span class="kw-2">&amp;</span>[
             PrincipalIdSrc {
                 token: <span class="string">"access_token"</span>,
@@ -463,6 +470,7 @@
     <span class="kw">use </span>cedar_policy::Schema;
     <span class="kw">use </span>serde_json::json;
     <span class="kw">use </span>std::collections::HashMap;
+    <span class="kw">use </span>std::sync::Arc;
 
     <span class="attr">#[track_caller]
     </span><span class="kw">fn </span>test_build_workload(
@@ -509,6 +517,8 @@
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
         )
         .expect(<span class="string">"should init entity builder"</span>);
+        <span class="kw">let </span>iss = Arc::new(iss);
+
         <span class="kw">let </span>tkn_principal_mappings = TokenPrincipalMappings::from(
             [TokenPrincipalMapping {
                 principal: <span class="string">"Jans::Workload"</span>.into(),
@@ -529,7 +539,7 @@
                 (<span class="string">"jti"</span>.to_string(), <span class="macro">json!</span>(<span class="string">"some_jti"</span>)),
             ])
             .into(),
-            <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>iss),
+            <span class="prelude-val">Some</span>(iss),
         );
 
         test_build_workload(
@@ -580,6 +590,8 @@
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
         )
         .expect(<span class="string">"should init entity builder"</span>);
+        <span class="kw">let </span>iss = Arc::new(iss);
+
         <span class="kw">let </span>tkn_principal_mappings = TokenPrincipalMappings::from(
             [TokenPrincipalMapping {
                 principal: <span class="string">"Jans::Workload"</span>.into(),
@@ -600,7 +612,7 @@
                 (<span class="string">"jti"</span>.to_string(), <span class="macro">json!</span>(<span class="string">"some_jti"</span>)),
             ])
             .into(),
-            <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>iss),
+            <span class="prelude-val">Some</span>(iss),
         );
 
         test_build_workload(
@@ -636,6 +648,8 @@
             <span class="prelude-val">None</span>,
         )
         .expect(<span class="string">"should init entity builder"</span>);
+        <span class="kw">let </span>iss = Arc::new(iss);
+
         <span class="kw">let </span>tkn_principal_mappings = TokenPrincipalMappings::from(
             [TokenPrincipalMapping {
                 principal: <span class="string">"Jans::Workload"</span>.into(),
@@ -656,7 +670,7 @@
                 (<span class="string">"jti"</span>.to_string(), <span class="macro">json!</span>(<span class="string">"some_jti"</span>)),
             ])
             .into(),
-            <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>iss),
+            <span class="prelude-val">Some</span>(iss),
         );
         test_build_workload(
             access_token,

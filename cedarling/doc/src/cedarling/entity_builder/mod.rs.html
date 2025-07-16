@@ -438,7 +438,11 @@
 <a href="#437" id="437">437</a>
 <a href="#438" id="438">438</a>
 <a href="#439" id="439">439</a>
-<a href="#440" id="440">440</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#440" id="440">440</a>
+<a href="#441" id="441">441</a>
+<a href="#442" id="442">442</a>
+<a href="#443" id="443">443</a>
+<a href="#444" id="444">444</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -527,6 +531,7 @@
         <span class="kw">for </span>(tkn_name, tkn) <span class="kw">in </span>tokens.iter() {
             <span class="kw">let </span>entity_name = tkn
                 .iss
+                .as_ref()
                 .and_then(|iss| iss.token_metadata.get(tkn_name))
                 .map(|metadata| metadata.entity_type_name.as_str())
                 .or_else(|| default_tkn_entity_name(tkn_name));
@@ -834,7 +839,7 @@
                 Token::new(
                     <span class="string">"access_token"</span>,
                     <span class="macro">json!</span>({<span class="string">"jti"</span>: <span class="string">"some_jti"</span>, <span class="string">"aud"</span>: <span class="string">"some_aud"</span>}).into(),
-                    <span class="prelude-val">Some</span>(issuers.get(<span class="string">"some_iss"</span>).unwrap()),
+                    <span class="prelude-val">Some</span>(issuers.get(<span class="string">"some_iss"</span>).unwrap().clone().into()),
                 ),
             ),
             (
@@ -842,7 +847,7 @@
                 Token::new(
                     <span class="string">"custom_token"</span>,
                     <span class="macro">json!</span>({<span class="string">"jti"</span>: <span class="string">"some_jti"</span>}).into(),
-                    <span class="prelude-val">Some</span>(issuers.get(<span class="string">"some_iss"</span>).unwrap()),
+                    <span class="prelude-val">Some</span>(issuers.get(<span class="string">"some_iss"</span>).unwrap().clone().into()),
                 ),
             ),
         ]);
@@ -851,11 +856,14 @@
             .expect(<span class="string">"init entity builder"</span>);
 
         <span class="kw">let </span>entities = entity_builder
-            .build_entities(<span class="kw-2">&amp;</span>tokens, <span class="kw-2">&amp;</span>EntityData {
-                entity_type: <span class="string">"Jans::Resource"</span>.into(),
-                id: <span class="string">"some_id"</span>.into(),
-                attributes: HashMap::new(),
-            })
+            .build_entities(
+                <span class="kw-2">&amp;</span>tokens,
+                <span class="kw-2">&amp;</span>EntityData {
+                    entity_type: <span class="string">"Jans::Resource"</span>.into(),
+                    id: <span class="string">"some_id"</span>.into(),
+                    attributes: HashMap::new(),
+                },
+            )
             .expect(<span class="string">"build entities"</span>);
 
         assert_entity_eq(

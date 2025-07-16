@@ -438,7 +438,16 @@
 <a href="#437" id="437">437</a>
 <a href="#438" id="438">438</a>
 <a href="#439" id="439">439</a>
-<a href="#440" id="440">440</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#440" id="440">440</a>
+<a href="#441" id="441">441</a>
+<a href="#442" id="442">442</a>
+<a href="#443" id="443">443</a>
+<a href="#444" id="444">444</a>
+<a href="#445" id="445">445</a>
+<a href="#446" id="446">446</a>
+<a href="#447" id="447">447</a>
+<a href="#448" id="448">448</a>
+<a href="#449" id="449">449</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -505,7 +514,7 @@
     /// The method checks the following tokens and claims in order:
     /// - `userinfo_token.sub`
     /// - `id_token.sub`
-    </span><span class="kw">pub fn </span>resolve&lt;<span class="lifetime">'a</span>&gt;(tokens: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>HashMap&lt;String, Token&gt;) -&gt; Vec&lt;EntityIdSrc&lt;<span class="lifetime">'a</span>&gt;&gt; {
+    </span><span class="kw">pub fn </span>resolve(tokens: <span class="kw-2">&amp;</span>HashMap&lt;String, Token&gt;) -&gt; Vec&lt;EntityIdSrc&gt; {
         <span class="kw">const </span>DEFAULT_USER_ID_SRCS: <span class="kw-2">&amp;</span>[PrincipalIdSrc] = <span class="kw-2">&amp;</span>[
             PrincipalIdSrc {
                 token: <span class="string">"userinfo_token"</span>,
@@ -553,6 +562,7 @@
     <span class="kw">use </span>cedar_policy::Schema;
     <span class="kw">use </span>serde_json::json;
     <span class="kw">use </span>std::collections::HashMap;
+    <span class="kw">use </span>std::sync::Arc;
 
     <span class="attr">#[track_caller]
     </span><span class="kw">fn </span>test_build_user(
@@ -601,6 +611,8 @@
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
         )
         .expect(<span class="string">"should init entity builder"</span>);
+        <span class="kw">let </span>iss = Arc::new(iss);
+
         <span class="kw">let </span>tkn_principal_mappings = TokenPrincipalMappings::from(
             [TokenPrincipalMapping {
                 principal: <span class="string">"Jans::User"</span>.into(),
@@ -621,7 +633,7 @@
                 (<span class="string">"sub"</span>.to_string(), <span class="macro">json!</span>(<span class="string">"some_sub"</span>)),
             ])
             .into(),
-            <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>iss),
+            <span class="prelude-val">Some</span>(iss),
         );
 
         <span class="kw">let </span>tokens = HashMap::from([(<span class="string">"id_token"</span>.into(), id_token)]);
@@ -675,6 +687,8 @@
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
         )
         .expect(<span class="string">"should init entity builder"</span>);
+        <span class="kw">let </span>iss = Arc::new(iss);
+
         <span class="kw">let </span>tkn_principal_mappings = TokenPrincipalMappings::from(
             [TokenPrincipalMapping {
                 principal: <span class="string">"Jans::User"</span>.into(),
@@ -695,7 +709,7 @@
                 (<span class="string">"sub"</span>.to_string(), <span class="macro">json!</span>(<span class="string">"some_sub"</span>)),
             ])
             .into(),
-            <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>iss),
+            <span class="prelude-val">Some</span>(iss),
         );
 
         <span class="kw">let </span>tokens = HashMap::from([(<span class="string">"userinfo_token"</span>.into(), userinfo_token)]);
@@ -753,6 +767,8 @@
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
         )
         .expect(<span class="string">"should init entity builder"</span>);
+        <span class="kw">let </span>iss = Arc::new(iss);
+
         <span class="kw">let </span>tkn_principal_mappings = TokenPrincipalMappings::from(
             [TokenPrincipalMapping {
                 principal: <span class="string">"Jans::User"</span>.into(),
@@ -774,7 +790,7 @@
                 (<span class="string">"from_id_tkn"</span>.to_string(), <span class="macro">json!</span>(<span class="string">"from_id_tkn"</span>)),
             ])
             .into(),
-            <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>iss),
+            <span class="prelude-val">Some</span>(iss.clone()),
         );
         <span class="kw">let </span>userinfo_token = Token::new(
             <span class="string">"userinfo_token"</span>,
@@ -784,7 +800,7 @@
                 (<span class="string">"from_userinfo_tkn"</span>.to_string(), <span class="macro">json!</span>(<span class="string">"from_userinfo_tkn"</span>)),
             ])
             .into(),
-            <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>iss),
+            <span class="prelude-val">Some</span>(iss),
         );
 
         <span class="kw">let </span>tokens = HashMap::from([
@@ -832,6 +848,8 @@
             <span class="prelude-val">None</span>,
         )
         .expect(<span class="string">"should init entity builder"</span>);
+        <span class="kw">let </span>iss = Arc::new(iss);
+
         <span class="kw">let </span>tkn_principal_mappings = TokenPrincipalMappings::from(
             [TokenPrincipalMapping {
                 principal: <span class="string">"Jans::User"</span>.into(),
@@ -852,7 +870,7 @@
                 (<span class="string">"sub"</span>.to_string(), <span class="macro">json!</span>(<span class="string">"some_sub"</span>)),
             ])
             .into(),
-            <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>iss),
+            <span class="prelude-val">Some</span>(iss),
         );
 
         <span class="kw">let </span>tokens = HashMap::from([(<span class="string">"id_token"</span>.into(), id_token)]);

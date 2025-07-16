@@ -86,19 +86,74 @@
 <a href="#85" id="85">85</a>
 <a href="#86" id="86">86</a>
 <a href="#87" id="87">87</a>
-<a href="#88" id="88">88</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#88" id="88">88</a>
+<a href="#89" id="89">89</a>
+<a href="#90" id="90">90</a>
+<a href="#91" id="91">91</a>
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
+<a href="#108" id="108">108</a>
+<a href="#109" id="109">109</a>
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
 
 </span><span class="kw">use </span>std::sync::LazyLock;
 
+<span class="kw">use </span><span class="kw">super</span>::key_service::JwkSet;
+<span class="kw">use </span><span class="kw">super</span>::status_list::StatusListJwtStr;
 <span class="kw">use </span>async_trait::async_trait;
-<span class="kw">use </span>reqwest::Client;
+<span class="kw">use </span>reqwest::{Client, header::ToStrError};
 <span class="kw">use </span>serde::{Deserialize, Deserializer, de};
 <span class="kw">use </span>url::Url;
-
-<span class="kw">use </span><span class="kw">super</span>::key_service::JwkSet;
 
 <span class="kw">static </span>HTTP_CLIENT: LazyLock&lt;Client&gt; = LazyLock::new(Client::new);
 
@@ -117,6 +172,8 @@
     <span class="kw">pub </span>issuer: String,
     <span class="attr">#[serde(deserialize_with = <span class="string">"deserialize_url"</span>)]
     </span><span class="kw">pub </span>jwks_uri: Url,
+    <span class="attr">#[serde(deserialize_with = <span class="string">"deserialize_opt_url"</span>, default)]
+    </span><span class="kw">pub </span>status_list_endpoint: <span class="prelude-ty">Option</span>&lt;Url&gt;,
 }
 
 <span class="kw">pub fn </span>deserialize_url&lt;<span class="lifetime">'de</span>, D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;Url, D::Error&gt;
@@ -126,6 +183,21 @@
     <span class="kw">let </span>url_str = String::deserialize(deserializer)<span class="question-mark">?</span>;
     <span class="kw">let </span>url = Url::parse(<span class="kw-2">&amp;</span>url_str)
         .map_err(|e| de::Error::custom(<span class="macro">format!</span>(<span class="string">"invalid url '{url_str}': {e}"</span>)))<span class="question-mark">?</span>;
+    <span class="prelude-val">Ok</span>(url)
+}
+
+<span class="kw">pub fn </span>deserialize_opt_url&lt;<span class="lifetime">'de</span>, D&gt;(deserializer: D) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;Url&gt;, D::Error&gt;
+<span class="kw">where
+    </span>D: Deserializer&lt;<span class="lifetime">'de</span>&gt;,
+{
+    <span class="kw">let </span>url_str = <span class="prelude-ty">Option</span>::&lt;String&gt;::deserialize(deserializer)<span class="question-mark">?</span>;
+    <span class="kw">let </span>url = url_str
+        .as_ref()
+        .map(|url_str| {
+            Url::parse(url_str)
+                .map_err(|e| de::Error::custom(<span class="macro">format!</span>(<span class="string">"invalid url '{url_str}': {e}"</span>)))
+        })
+        .transpose()<span class="question-mark">?</span>;
     <span class="prelude-val">Ok</span>(url)
 }
 
@@ -165,6 +237,38 @@
     }
 }
 
+<span class="comment">// NOTE: we cant use the async_trait here since this is called from another aysnc 
+// function which requires this to be Send.
+</span><span class="kw">impl </span>StatusListJwtStr {
+    <span class="kw">pub async fn </span>get_from_url(url: <span class="kw-2">&amp;</span>Url) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, HttpError&gt; {
+        <span class="kw">let </span>response = HTTP_CLIENT
+            .get(url.as_str())
+            .header(<span class="string">"Content-Type"</span>, <span class="string">"application/statuslist+jwt"</span>)
+            .send()
+            .<span class="kw">await
+            </span>.map_err(HttpError::GetRequest)<span class="question-mark">?
+            </span>.error_for_status()
+            .map_err(HttpError::ErrorCode)<span class="question-mark">?</span>;
+
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(content_type) = response.headers().get(<span class="string">"Content-Type"</span>) {
+            <span class="kw">let </span>content_type = content_type
+                .to_str()
+                .map_err(|e| HttpError::InvalidHeader(<span class="string">"Content-Type"</span>.to_string(), e))<span class="question-mark">?</span>;
+            <span class="kw">if </span>content_type != <span class="string">"application/statuslist+jwt" </span>{
+                <span class="kw">return </span><span class="prelude-val">Err</span>(HttpError::Unsupported(<span class="macro">format!</span>(
+                    <span class="string">"got unsupported status list type, '{0}', from '{1}'. Cedarling currently only supports 'application/statuslist+jwt'"</span>,
+                    content_type,
+                    url.as_str(),
+                )));
+            }
+        }
+
+        <span class="kw">let </span>status_list_jwt = response.text().<span class="kw">await</span>.map_err(HttpError::ReadTextResponse)<span class="question-mark">?</span>;
+
+        <span class="prelude-val">Ok</span>(StatusListJwtStr::new(status_list_jwt))
+    }
+}
+
 <span class="attr">#[derive(Debug, thiserror::Error)]
 </span><span class="kw">pub enum </span>HttpError {
     <span class="attr">#[error(<span class="string">"failed to complete GET request: {0}"</span>)]
@@ -173,5 +277,11 @@
     </span>ErrorCode(<span class="attr">#[source] </span>reqwest::Error),
     <span class="attr">#[error(<span class="string">"failed to deserialize respose from JSON: {0}"</span>)]
     </span>JsonDeserializeResponse(<span class="attr">#[source] </span>reqwest::Error),
+    <span class="attr">#[error(<span class="string">"failed to read the respose text: {0}"</span>)]
+    </span>ReadTextResponse(<span class="attr">#[source] </span>reqwest::Error),
+    <span class="attr">#[error(<span class="string">"the value of the '{0}' header is invalid: {1}"</span>)]
+    </span>InvalidHeader(String, ToStrError),
+    <span class="attr">#[error(<span class="string">"{0}"</span>)]
+    </span>Unsupported(String),
 }
 </code></pre></div></section></main></body></html>

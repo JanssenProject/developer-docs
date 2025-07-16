@@ -144,17 +144,17 @@
 </span><span class="kw">use </span><span class="kw">crate</span>::common::policy_store::{ClaimMappings, TokenEntityMetadata, TrustedIssuer};
 <span class="kw">use </span>serde::Deserialize;
 <span class="kw">use </span>serde_json::Value;
-<span class="kw">use </span>std::collections::HashMap;
+<span class="kw">use </span>std::{collections::HashMap, sync::Arc};
 
 <span class="attr">#[derive(Debug, PartialEq)]
-</span><span class="kw">pub struct </span>Token&lt;<span class="lifetime">'a</span>&gt; {
+</span><span class="kw">pub struct </span>Token {
     <span class="kw">pub </span>name: String,
-    <span class="kw">pub </span>iss: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>TrustedIssuer&gt;,
+    <span class="kw">pub </span>iss: <span class="prelude-ty">Option</span>&lt;Arc&lt;TrustedIssuer&gt;&gt;,
     claims: TokenClaims,
 }
 
-<span class="kw">impl</span>&lt;<span class="lifetime">'a</span>&gt; Token&lt;<span class="lifetime">'a</span>&gt; {
-    <span class="kw">pub fn </span>new(name: <span class="kw-2">&amp;</span>str, claims: TokenClaims, iss: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>TrustedIssuer&gt;) -&gt; Token&lt;<span class="lifetime">'a</span>&gt; {
+<span class="kw">impl </span>Token {
+    <span class="kw">pub fn </span>new(name: <span class="kw-2">&amp;</span>str, claims: TokenClaims, iss: <span class="prelude-ty">Option</span>&lt;Arc&lt;TrustedIssuer&gt;&gt;) -&gt; Token {
         <span class="self">Self </span>{
             name: name.to_string(),
             iss,
@@ -163,11 +163,11 @@
     }
 
     <span class="kw">pub fn </span>get_metadata(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>TokenEntityMetadata&gt; {
-        <span class="self">self</span>.iss.and_then(|iss| iss.get_token_metadata(<span class="kw-2">&amp;</span><span class="self">self</span>.name))
+        <span class="self">self</span>.iss.as_ref()<span class="question-mark">?</span>.get_token_metadata(<span class="kw-2">&amp;</span><span class="self">self</span>.name)
     }
 
     <span class="kw">pub fn </span>claim_mappings(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ClaimMappings&gt; {
-        <span class="self">self</span>.iss.and_then(|iss| iss.get_claim_mapping(<span class="kw-2">&amp;</span><span class="self">self</span>.name))
+        <span class="self">self</span>.iss.as_ref()<span class="question-mark">?</span>.get_claim_mapping(<span class="kw-2">&amp;</span><span class="self">self</span>.name)
     }
 
     <span class="kw">pub fn </span>get_claim(<span class="kw-2">&amp;</span><span class="self">self</span>, name: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;TokenClaim&gt; {
@@ -178,7 +178,7 @@
         <span class="self">self</span>.claims.claims.get(name)
     }
 
-    <span class="kw">pub fn </span>logging_info(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>, claim: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str) -&gt; HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>str, <span class="kw-2">&amp;</span><span class="lifetime">'a </span>serde_json::Value&gt; {
+    <span class="kw">pub fn </span>logging_info&lt;<span class="lifetime">'a</span>&gt;(<span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>, claim: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str) -&gt; HashMap&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>str, <span class="kw-2">&amp;</span><span class="lifetime">'a </span>serde_json::Value&gt; {
         <span class="self">self</span>.claims.logging_info(claim)
     }
 

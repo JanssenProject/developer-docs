@@ -654,49 +654,55 @@
 <a href="#653" id="653">653</a>
 <a href="#654" id="654">654</a>
 <a href="#655" id="655">655</a>
-<a href="#656" id="656">656</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#656" id="656">656</a>
+<a href="#657" id="657">657</a>
+<a href="#658" id="658">658</a>
+<a href="#659" id="659">659</a>
+<a href="#660" id="660">660</a>
+<a href="#661" id="661">661</a>
+<a href="#662" id="662">662</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
 
 </span><span class="doccomment">//! # Lock Server Integration Module
-//! 
+//!
 //! This module provides integration with the Lock Server for centralized logging and monitoring.
 //! It includes support for Software Statement Assertion (SSA) JWT validation for secure client registration.
-//! 
+//!
 //! ## Overview
-//! 
+//!
 //! The Lock Server integration allows Cedarling to:
 //! - Send authorization decision logs to a centralized Lock Server
 //! - Register as a client using Dynamic Client Registration (DCR)
 //! - Validate SSA JWTs for enhanced security
 //! - Handle authentication and authorization with the Lock Server
-//! 
+//!
 //! ## Architecture
-//! 
+//!
 //! ### Components
-//! 
+//!
 //! - **LockService**: Main service that manages communication with the Lock Server
 //! - **LogWorker**: Background worker that sends logs to the Lock Server
 //! - **SSA Validation**: Validates Software Statement Assertion JWTs
 //! - **Client Registration**: Handles Dynamic Client Registration with the IDP
-//! 
+//!
 //! ### Flow
-//! 
+//!
 //! 1. **Initialization**: LockService is created with configuration
 //! 2. **SSA Validation**: If SSA JWT is provided, it's validated against the IDP's JWKS
 //! 3. **Client Registration**: DCR request is sent to the IDP (with SSA JWT if available)
 //! 4. **Access Token**: Client credentials are obtained for Lock Server communication
 //! 5. **Logging**: Authorization decisions are sent to the Lock Server's audit endpoint
-//! 
+//!
 //! ## SSA JWT Validation
-//! 
+//!
 //! Software Statement Assertion (SSA) JWTs provide a secure way to register clients
 //! with the Identity Provider. The SSA JWT contains claims about the software's
 //! identity, permissions, and configuration.
-//! 
+//!
 //! ### SSA JWT Structure
-//! 
+//!
 //! The SSA JWT must contain the following claims:
 //! - `software_id`: Unique identifier for the software
 //! - `grant_types`: Array of OAuth2 grant types the software can use
@@ -706,36 +712,36 @@
 //! - `exp`: Expiration time
 //! - `iat`: Issued at time
 //! - `jti`: JWT ID (unique identifier)
-//! 
+//!
 //! ### Validation Process
-//! 
+//!
 //! 1. **Decode JWT**: Parse and decode the JWT structure
 //! 2. **Validate Structure**: Check for required claims and correct data types
 //! 3. **Fetch JWKS**: Retrieve JSON Web Key Set from the IDP
 //! 4. **Find Key**: Locate the appropriate key using the JWT's `kid` header
 //! 5. **Verify Signature**: Validate the JWT signature using the public key
 //! 6. **Validate Claims**: Check expiration and other claims
-//! 
+//!
 //! ## Error Handling
-//! 
+//!
 //! The module provides comprehensive error handling for various scenarios:
-//! 
+//!
 //! - **InvalidSsaJwt**: SSA JWT validation failed
 //! - **GetLockConfig**: Failed to retrieve Lock Server configuration
 //! - **ClientRegistration**: Failed to register client with IDP
 //! - **InitHttpClient**: Failed to initialize HTTP client
-//! 
+//!
 //! ## Integration with IDP
-//! 
+//!
 //! The Lock Server integration works with Identity Providers that support:
-//! 
+//!
 //! - Dynamic Client Registration (RFC 7591)
 //! - OAuth2 Client Credentials flow
 //! - JSON Web Key Set (JWKS) endpoint
 //! - Software Statement Assertion (SSA) validation
-//! 
+//!
 //! ### IDP Configuration
-//! 
+//!
 //! The IDP must be configured to:
 //! - Accept DCR requests with SSA JWTs
 //! - Validate SSA JWT signatures and claims
@@ -746,7 +752,6 @@
 <span class="kw">mod </span>log_entry;
 <span class="kw">mod </span>log_worker;
 <span class="kw">mod </span>register_client;
-<span class="kw">mod </span>spawn_task;
 <span class="kw">pub mod </span>ssa_validation;
 
 <span class="kw">use </span><span class="kw">crate</span>::app_types::PdpID;
@@ -757,14 +762,13 @@
 <span class="kw">use </span>lock_config::<span class="kw-2">*</span>;
 <span class="kw">use </span>log_entry::LockLogEntry;
 <span class="kw">use </span>log_worker::<span class="kw-2">*</span>;
-<span class="kw">use </span>register_client::{register_client, ClientRegistrationError};
+<span class="kw">use </span>register_client::{ClientRegistrationError, register_client};
 <span class="kw">use </span>reqwest::Client;
 <span class="kw">use </span>reqwest::header::{HeaderMap, HeaderValue};
-<span class="kw">use </span>spawn_task::<span class="kw-2">*</span>;
+<span class="kw">use </span>ssa_validation::validate_ssa_jwt;
 <span class="kw">use </span>std::sync::{Arc, RwLock};
 <span class="kw">use </span>std::time::Duration;
 <span class="kw">use </span>tokio_util::sync::CancellationToken;
-<span class="kw">use </span>ssa_validation::validate_ssa_jwt;
 
 <span class="doccomment">/// The base duration to wait for if an http request fails for workers.
 </span><span class="kw">pub const </span>WORKER_HTTP_RETRY_DUR: Duration = Duration::from_secs(<span class="number">10</span>);
@@ -772,7 +776,7 @@
 <span class="attr">#[derive(Debug)]
 </span><span class="kw">struct </span>WorkerSenderAndHandle {
     tx: RwLock&lt;mpsc::Sender&lt;SerializedLogEntry&gt;&gt;,
-    handle: JoinHandle&lt;()&gt;,
+    handle: <span class="kw">crate</span>::http::JoinHandle&lt;()&gt;,
 }
 
 <span class="doccomment">/// Stores logs in a buffer then sends them to the lock server in the background
@@ -824,9 +828,11 @@
         <span class="comment">// Validate SSA JWT if provided
         </span><span class="kw">if let </span><span class="prelude-val">Some</span>(ssa_jwt) = <span class="kw-2">&amp;</span>bootstrap_conf.ssa_jwt {
             <span class="comment">// Get the JWKS URI from the IDP URL (not the lock server URL)
-            </span><span class="kw">let </span>jwks_uri = <span class="macro">format!</span>(<span class="string">"{}/jans-auth/restv1/jwks"</span>, 
-                lock_config.issuer_oidc_url.<span class="number">0</span>.origin().ascii_serialization());
-            
+            </span><span class="kw">let </span>jwks_uri = <span class="macro">format!</span>(
+                <span class="string">"{}/jans-auth/restv1/jwks"</span>,
+                lock_config.issuer_oidc_url.<span class="number">0</span>.origin().ascii_serialization()
+            );
+
             <span class="comment">// Validate the SSA JWT
             </span>validate_ssa_jwt(ssa_jwt, <span class="kw-2">&amp;</span>jwks_uri, bootstrap_conf.accept_invalid_certs)
                 .<span class="kw">await
@@ -874,7 +880,10 @@
 
                 <span class="kw">let </span>cancel_tkn = cancel_tkn.clone();
 
-                <span class="kw">let </span>handle = spawn_task(<span class="kw">async move </span>{ log_worker.run(log_rx, cancel_tkn).<span class="kw">await </span>});
+                <span class="kw">let </span>handle =
+                    <span class="kw">crate</span>::http::spawn_task(
+                        <span class="kw">async move </span>{ log_worker.run(log_rx, cancel_tkn).<span class="kw">await </span>},
+                    );
 
                 <span class="prelude-val">Some</span>(WorkerSenderAndHandle {
                     tx: log_tx.into(),
@@ -947,15 +956,15 @@
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
-    <span class="kw">use crate</span>::{lock::register_client::DCR_SCOPE, LogLevel};
     <span class="kw">use </span><span class="kw">crate</span>::log::interface::Indexed;
+    <span class="kw">use crate</span>::{LogLevel, lock::register_client::DCR_SCOPE};
+    <span class="kw">use </span>jsonwebtoken::{EncodingKey, Header, encode};
     <span class="kw">use </span>mockito::{Mock, Server, ServerGuard};
     <span class="kw">use </span>serde::Serialize;
     <span class="kw">use </span>serde_json::json;
     <span class="kw">use </span>std::time::Duration;
     <span class="kw">use </span>tokio::time::sleep;
     <span class="kw">use </span>uuid7::Uuid;
-    <span class="kw">use </span>jsonwebtoken::{encode, Header, EncodingKey};
 
     <span class="kw">fn </span>generate_test_jwt() -&gt; String {
         <span class="kw">let </span><span class="kw-2">mut </span>header = Header::new(jsonwebtoken::Algorithm::HS256);
@@ -988,7 +997,7 @@
         <span class="kw">let </span>dcr_endpoint = mock_dcr_endpoint(<span class="kw-2">&amp;mut </span>mock_idp_server, pdp_id, <span class="kw-2">&amp;</span>ssa_jwt);
         <span class="kw">let </span>token_endpoint = mock_token_endpoint(<span class="kw-2">&amp;mut </span>mock_idp_server);
         <span class="kw">let </span>log_endpoint = mock_log_endpoint(<span class="kw-2">&amp;mut </span>mock_lock_server);
-        
+
         <span class="kw">let </span>config = LockServiceConfig {
             config_uri: lock_config_uri,
             dynamic_config: <span class="bool-val">false</span>,
@@ -1102,7 +1111,10 @@
         <span class="comment">// Test startup with invalid SSA should fail
         </span><span class="kw">let </span>result = LockService::new(pdp_id, <span class="kw-2">&amp;</span>config, <span class="prelude-val">None</span>).<span class="kw">await</span>;
         <span class="macro">assert!</span>(result.is_err());
-        <span class="macro">assert!</span>(<span class="macro">matches!</span>(result.unwrap_err(), InitLockServiceError::InvalidSsaJwt(<span class="kw">_</span>)));
+        <span class="macro">assert!</span>(<span class="macro">matches!</span>(
+            result.unwrap_err(),
+            InitLockServiceError::InvalidSsaJwt(<span class="kw">_</span>)
+        ));
     }
 
     <span class="doccomment">/// Mocks the `.well-known/lock-server-configuration` endpoint

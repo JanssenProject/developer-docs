@@ -396,7 +396,8 @@
 <a href="#395" id="395">395</a>
 <a href="#396" id="396">396</a>
 <a href="#397" id="397">397</a>
-<a href="#398" id="398">398</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#398" id="398">398</a>
+<a href="#399" id="399">399</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -584,6 +585,7 @@
 }
 
 <span class="doccomment">/// Tries to Casts a [`jsonwebtoken::jwk::KeyAlgorithm`] into a [`jsonwebtoken::Algorithm`].
+</span><span class="attr">#[inline]
 </span><span class="kw">fn </span>cast_to_algorithm(
     key_alg: jsonwebtoken::jwk::KeyAlgorithm,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;jsonwebtoken::Algorithm, jsonwebtoken::jwk::KeyAlgorithm&gt; {
