@@ -720,6 +720,7 @@
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">crate</span>::common::policy_store::TokenEntityMetadata;
+    <span class="kw">use </span><span class="kw">crate</span>::CedarEntityMapping;
     <span class="kw">use </span>cedar_policy::{Entities, Schema};
     <span class="kw">use </span>serde_json::{Value, json};
     <span class="kw">use </span>std::collections::HashMap;
@@ -856,14 +857,13 @@
             .expect(<span class="string">"init entity builder"</span>);
 
         <span class="kw">let </span>entities = entity_builder
-            .build_entities(
-                <span class="kw-2">&amp;</span>tokens,
-                <span class="kw-2">&amp;</span>EntityData {
-                    entity_type: <span class="string">"Jans::Resource"</span>.into(),
-                    id: <span class="string">"some_id"</span>.into(),
-                    attributes: HashMap::new(),
+            .build_entities(<span class="kw-2">&amp;</span>tokens, <span class="kw-2">&amp;</span>EntityData {
+                cedar_mapping: CedarEntityMapping {
+                entity_type: <span class="string">"Jans::Resource"</span>.into(),
+                id: <span class="string">"some_id"</span>.into(),
                 },
-            )
+                attributes: HashMap::new(),
+            })
             .expect(<span class="string">"build entities"</span>);
 
         assert_entity_eq(

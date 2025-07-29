@@ -108,17 +108,22 @@
 <a href="#107" id="107">107</a>
 <a href="#108" id="108">108</a>
 <a href="#109" id="109">109</a>
-<a href="#110" id="110">110</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
 
 </span><span class="kw">use super</span>::<span class="kw-2">*</span>;
-<span class="kw">use </span><span class="kw">crate</span>::EntityData;
+<span class="kw">use crate</span>::{EntityData};
 
 <span class="kw">impl </span>EntityBuilder {
     <span class="kw">pub fn </span>build_resource_entity(<span class="kw-2">&amp;</span><span class="self">self</span>, resource: <span class="kw-2">&amp;</span>EntityData) -&gt; <span class="prelude-ty">Result</span>&lt;Entity, BuildEntityError&gt; {
-        <span class="kw">let </span>resource_type_name = <span class="kw-2">&amp;</span>resource.entity_type;
+        <span class="kw">let </span>resource_type_name = <span class="kw-2">&amp;</span>resource.cedar_mapping.entity_type;
 
         <span class="kw">let </span>attrs_shape = <span class="self">self
             </span>.schema
@@ -132,7 +137,7 @@
         )
         .map_err(|e| BuildEntityErrorKind::from(e).while_building(resource_type_name))<span class="question-mark">?</span>;
 
-        <span class="kw">let </span>resource = build_cedar_entity(resource_type_name, <span class="kw-2">&amp;</span>resource.id, attrs, HashSet::new())<span class="question-mark">?</span>;
+        <span class="kw">let </span>resource = build_cedar_entity(resource_type_name, <span class="kw-2">&amp;</span>resource.cedar_mapping.id, attrs, HashSet::new())<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(resource)
     }
@@ -150,6 +155,7 @@
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::test::<span class="kw-2">*</span>;
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::<span class="kw-2">*</span>;
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
+    <span class="kw">use </span><span class="kw">crate</span>::CedarEntityMapping;
     <span class="kw">use </span>serde_json::json;
 
     <span class="attr">#[test]
@@ -161,8 +167,10 @@
         )
         .expect(<span class="string">"should init entity builder"</span>);
         <span class="kw">let </span>resource_data = EntityData {
+            cedar_mapping: CedarEntityMapping {
             entity_type: <span class="string">"Jans::HTTP_Request"</span>.to_string(),
             id: <span class="string">"some_request"</span>.to_string(),
+            },
             attributes: HashMap::from([
                 (<span class="string">"header"</span>.to_string(), <span class="macro">json!</span>({<span class="string">"Accept"</span>: <span class="string">"test"</span>})),
                 (
@@ -204,8 +212,10 @@
         )
         .expect(<span class="string">"should init entity builder"</span>);
         <span class="kw">let </span>resource_data = EntityData {
+            cedar_mapping: CedarEntityMapping {
             entity_type: <span class="string">"Jans::HTTP_Request"</span>.to_string(),
             id: <span class="string">"some_request"</span>.to_string(),
+            },
             attributes: HashMap::new(),
         };
         <span class="kw">let </span>entity = builder

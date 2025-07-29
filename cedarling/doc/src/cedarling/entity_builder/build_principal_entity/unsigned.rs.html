@@ -200,7 +200,16 @@
 <a href="#199" id="199">199</a>
 <a href="#200" id="200">200</a>
 <a href="#201" id="201">201</a>
-<a href="#202" id="202">202</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -215,8 +224,8 @@
         principal: <span class="kw-2">&amp;</span>EntityData,
         built_entities: <span class="kw-2">&amp;</span>BuiltEntities,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;BuiltPrincipalUnsigned, BuildUnsignedEntityError&gt; {
-        <span class="kw">let </span>type_name: <span class="kw-2">&amp;</span>str = <span class="kw-2">&amp;</span>principal.entity_type;
-        <span class="kw">let </span>id_srcs = <span class="macro">vec!</span>[EntityIdSrc::String(<span class="kw-2">&amp;</span>principal.id)];
+        <span class="kw">let </span>type_name: <span class="kw-2">&amp;</span>str = <span class="kw-2">&amp;</span>principal.cedar_mapping.entity_type;
+        <span class="kw">let </span>id_srcs = <span class="macro">vec!</span>[EntityIdSrc::String(<span class="kw-2">&amp;</span>principal.cedar_mapping.id)];
 
         <span class="kw">let </span>roles = <span class="self">self</span>.build_role_entities_unsigned(principal)<span class="question-mark">?</span>;
         <span class="kw">let </span>role_uids = roles
@@ -292,6 +301,7 @@
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span><span class="kw">super</span>::<span class="kw">super</span>::<span class="kw">super</span>::test::<span class="kw-2">*</span>;
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
+    <span class="kw">use </span><span class="kw">crate</span>::CedarEntityMapping;
     <span class="kw">use </span>cedar_policy::Schema;
     <span class="kw">use </span>serde_json::json;
     <span class="kw">use </span>std::collections::HashMap;
@@ -315,8 +325,10 @@
 
         <span class="comment">// Case: String in the `role` attribute
         </span><span class="kw">let </span>principal = EntityData {
+            cedar_mapping: CedarEntityMapping {
             entity_type: <span class="string">"Jans::User"</span>.to_string(),
             id: <span class="string">"some_user"</span>.to_string(),
+            },
             attributes: HashMap::from([(<span class="string">"role"</span>.to_string(), <span class="macro">json!</span>(<span class="string">"some_role"</span>))]),
         };
         <span class="kw">let </span>token_entities = builder
@@ -335,8 +347,10 @@
 
         <span class="comment">// Case: Array in the `role` attribute
         </span><span class="kw">let </span>principal = EntityData {
+            cedar_mapping: CedarEntityMapping {
             entity_type: <span class="string">"Jans::User"</span>.to_string(),
             id: <span class="string">"some_user"</span>.to_string(),
+            },
             attributes: HashMap::from([(<span class="string">"role"</span>.to_string(), <span class="macro">json!</span>([<span class="string">"some_role"</span>, <span class="string">"another_role"</span>]))]),
         };
         <span class="kw">let </span>token_entities = builder
@@ -363,8 +377,10 @@
         );
         <span class="comment">// Case: Array in the `role` attribute
         </span><span class="kw">let </span>principal = EntityData {
+            cedar_mapping: CedarEntityMapping {
             entity_type: <span class="string">"Jans::User"</span>.to_string(),
             id: <span class="string">"some_user"</span>.to_string(),
+            },
             attributes: HashMap::from([(<span class="string">"role"</span>.to_string(), <span class="macro">json!</span>([<span class="string">"some_role"</span>, <span class="string">"another_role"</span>]))]),
         };
         <span class="kw">let </span>token_entities = builder
@@ -392,8 +408,10 @@
 
         <span class="comment">// Case: no `role` attribute
         </span><span class="kw">let </span>principal = EntityData {
+            cedar_mapping: CedarEntityMapping {
             entity_type: <span class="string">"Jans::User"</span>.to_string(),
             id: <span class="string">"some_user"</span>.to_string(),
+            },
             attributes: HashMap::new(),
         };
         <span class="kw">let </span>token_entities = builder

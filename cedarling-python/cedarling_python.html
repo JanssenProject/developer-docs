@@ -30,6 +30,7 @@
 <dt class="heading-text">builtins.AuthorizeResult
 </dt><dt class="heading-text">builtins.AuthorizeResultResponse
 </dt><dt class="heading-text">builtins.BootstrapConfig
+</dt><dt class="heading-text">builtins.CedarEntityMapping
 </dt><dt class="heading-text">builtins.Cedarling
 </dt><dt class="heading-text">builtins.Decision
 </dt><dt class="heading-text">builtins.Diagnostics
@@ -159,6 +160,27 @@ Methods<br>
 
 <dl><dt><a name="BootstrapConfig-load_from_json"><strong>load_from_json</strong></a>(config_json)</dt></dl>
 
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="CedarEntityMapping">class <strong>CedarEntityMapping</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#CedarEntityMapping">CedarEntityMapping</a>(entity_type,&nbsp;id)<br>
+&nbsp;<br>
+Cedar&nbsp;entity&nbsp;mapping&nbsp;information<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Static methods defined here:<br>
+<dl><dt><a name="CedarEntityMapping-__new__"><strong>__new__</strong></a>(*args, **kwargs)</dt><dd><span class="code">Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>entity_type</strong></dt>
+<dd><span class="code">entity&nbsp;type&nbsp;name</span></dd>
+</dl>
+<dl><dt><strong>id</strong></dt>
+<dd><span class="code">entity&nbsp;id</span></dd>
+</dl>
 </td></tr></table> <p>
 <table class="section">
 <tr class="decor title-decor heading-text">
@@ -351,19 +373,18 @@ If&nbsp;no&nbsp;policies&nbsp;applied&nbsp;to&nbsp;the&nbsp;request,&nbsp;this&n
 <td class="section-title" colspan=3>&nbsp;<br><a name="EntityData">class <strong>EntityData</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
     
 <tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
-<td class="decor title-decor" colspan=2><span class="code"><a href="#EntityData">EntityData</a>(entity_type,&nbsp;id,&nbsp;**kwargs)<br>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#EntityData">EntityData</a>(cedar_entity_mapping,&nbsp;**kwargs)<br>
 &nbsp;<br>
 <a href="#EntityData">EntityData</a><br>
 ============<br>
 &nbsp;<br>
 A&nbsp;Python&nbsp;wrapper&nbsp;for&nbsp;the&nbsp;Rust&nbsp;`cedarling::<a href="#EntityData">EntityData</a>`&nbsp;struct.&nbsp;This&nbsp;class&nbsp;represents<br>
-a&nbsp;resource&nbsp;entity&nbsp;with&nbsp;a&nbsp;type,&nbsp;ID,&nbsp;and&nbsp;attributes.&nbsp;Attributes&nbsp;are&nbsp;stored&nbsp;as&nbsp;a&nbsp;payload<br>
+a&nbsp;resource&nbsp;entity&nbsp;with&nbsp;Cedar&nbsp;mapping&nbsp;information&nbsp;and&nbsp;attributes.&nbsp;Attributes&nbsp;are&nbsp;stored&nbsp;as&nbsp;a&nbsp;payload<br>
 in&nbsp;a&nbsp;dictionary&nbsp;format.<br>
 &nbsp;<br>
 Attributes<br>
 ----------<br>
-:param&nbsp;entity_type:&nbsp;Type&nbsp;of&nbsp;the&nbsp;entity.<br>
-:param&nbsp;id:&nbsp;ID&nbsp;of&nbsp;the&nbsp;entity.<br>
+:param&nbsp;cedar_entity_mapping:&nbsp;Cedar&nbsp;entity&nbsp;mapping&nbsp;information&nbsp;containing&nbsp;entity_type&nbsp;and&nbsp;id.<br>
 :param&nbsp;payload:&nbsp;Optional&nbsp;dictionary&nbsp;of&nbsp;attributes.<br>
 &nbsp;<br>
 Methods<br>
@@ -373,7 +394,7 @@ Methods<br>
 &nbsp;<br>
 ..&nbsp;method::&nbsp;<a href="#EntityData-from_dict">from_dict</a>(cls,&nbsp;value:&nbsp;dict)&nbsp;-&gt;&nbsp;<a href="#EntityData">EntityData</a><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Initialize&nbsp;a&nbsp;new&nbsp;<a href="#EntityData">EntityData</a>&nbsp;from&nbsp;a&nbsp;dictionary.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;To&nbsp;pass&nbsp;`entity_type`&nbsp;you&nbsp;need&nbsp;to&nbsp;use&nbsp;`type`&nbsp;key.<br>&nbsp;</span></td></tr>
+&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;dictionary&nbsp;should&nbsp;contain&nbsp;a&nbsp;`cedar_entity_mapping`&nbsp;field&nbsp;with&nbsp;`entity_type`&nbsp;and&nbsp;`id`&nbsp;subfields.<br>&nbsp;</span></td></tr>
 <tr><td>&nbsp;</td>
 <td class="singlecolumn">Class methods defined here:<br>
 <dl><dt><a name="EntityData-from_dict"><strong>from_dict</strong></a>(value)</dt><dd><span class="code">method&nbsp;to&nbsp;build&nbsp;a&nbsp;resource&nbsp;data&nbsp;<a href="builtins.html#object">object</a>&nbsp;from&nbsp;a&nbsp;python&nbsp;dictionary</span></dd></dl>
@@ -384,11 +405,8 @@ Static methods defined here:<br>
 
 <hr>
 Data descriptors defined here:<br>
-<dl><dt><strong>entity_type</strong></dt>
-<dd><span class="code">entity&nbsp;type&nbsp;name</span></dd>
-</dl>
-<dl><dt><strong>id</strong></dt>
-<dd><span class="code">entity&nbsp;id</span></dd>
+<dl><dt><strong>cedar_mapping</strong></dt>
+<dd><span class="code">Cedar&nbsp;entity&nbsp;mapping&nbsp;info</span></dd>
 </dl>
 <dl><dt><strong>payload</strong></dt>
 <dd><span class="code">setter&nbsp;for&nbsp;payload&nbsp;attribute</span></dd>
@@ -516,5 +534,5 @@ Data descriptors defined here:<br>
 <td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
     
 <tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
-<td class="singlecolumn"><strong>__all__</strong> = ['BootstrapConfig', 'PolicyEvaluationError', 'Diagnostics', 'Decision', 'EntityData', 'Request', 'RequestUnsigned', 'AuthorizeResultResponse', 'AuthorizeResult', 'authorize_errors', 'Cedarling']</td></tr></table>
+<td class="singlecolumn"><strong>__all__</strong> = ['BootstrapConfig', 'PolicyEvaluationError', 'Diagnostics', 'Decision', 'EntityData', 'CedarEntityMapping', 'Request', 'RequestUnsigned', 'AuthorizeResultResponse', 'AuthorizeResult', 'authorize_errors', 'Cedarling']</td></tr></table>
 </body></html>
