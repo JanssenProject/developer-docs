@@ -13,6 +13,7 @@ io.jans.model.custom.script.type.authzen
 io.jans.model.custom.script.type.ciba
 io.jans.model.custom.script.type.client
 io.jans.model.custom.script.type.configapi
+io.jans.model.custom.script.type.cookie
 io.jans.model.custom.script.type.createuser
 io.jans.model.custom.script.type.discovery
 io.jans.model.custom.script.type.fido2

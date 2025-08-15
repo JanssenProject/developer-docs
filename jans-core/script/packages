@@ -23,6 +23,7 @@ io.jans.model.custom.script.type.ssa
 io.jans.model.custom.script.type.authzchallenge
 io.jans.model.custom.script.type.postauthn
 io.jans.model.custom.script.type.createuser
+io.jans.model.custom.script.type.cookie
 io.jans.model.custom.script.type.idp
 io.jans.model.custom.script.type.scim
 io.jans.model.custom.script.type.ciba
