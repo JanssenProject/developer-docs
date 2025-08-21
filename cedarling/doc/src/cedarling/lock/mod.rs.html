@@ -660,7 +660,8 @@
 <a href="#659" id="659">659</a>
 <a href="#660" id="660">660</a>
 <a href="#661" id="661">661</a>
-<a href="#662" id="662">662</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#662" id="662">662</a>
+<a href="#663" id="663">663</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -755,6 +756,7 @@
 <span class="kw">pub mod </span>ssa_validation;
 
 <span class="kw">use </span><span class="kw">crate</span>::app_types::PdpID;
+<span class="kw">use </span><span class="kw">crate</span>::common::issuer_utils::normalize_issuer;
 <span class="kw">use </span><span class="kw">crate</span>::log::LoggerWeak;
 <span class="kw">use </span><span class="kw">crate</span>::log::interface::Loggable;
 <span class="kw">use crate</span>::{LockServiceConfig, LogWriter};
@@ -830,7 +832,7 @@
             <span class="comment">// Get the JWKS URI from the IDP URL (not the lock server URL)
             </span><span class="kw">let </span>jwks_uri = <span class="macro">format!</span>(
                 <span class="string">"{}/jans-auth/restv1/jwks"</span>,
-                lock_config.issuer_oidc_url.<span class="number">0</span>.origin().ascii_serialization()
+                normalize_issuer(<span class="kw-2">&amp;</span>lock_config.issuer_oidc_url.<span class="number">0</span>.origin().ascii_serialization())
             );
 
             <span class="comment">// Validate the SSA JWT

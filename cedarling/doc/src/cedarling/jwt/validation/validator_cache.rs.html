@@ -287,13 +287,15 @@
 <a href="#286" id="286">286</a>
 <a href="#287" id="287">287</a>
 <a href="#288" id="288">288</a>
-<a href="#289" id="289">289</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
 
 </span><span class="kw">use </span><span class="kw">crate</span>::jwt::log_entry::JwtLogEntry;
 <span class="kw">use </span><span class="kw">crate</span>::jwt::{IssuerConfig, StatusListCache};
+<span class="kw">use </span><span class="kw">crate</span>::common::issuer_utils::normalize_issuer;
 <span class="kw">use </span><span class="kw">crate</span>::log::Logger;
 <span class="kw">use crate</span>::{JwtConfig, LogLevel, LogWriter};
 
@@ -333,13 +335,13 @@
         <span class="kw">let </span>iss = iss_config
             .openid_config
             .as_ref()
-            .map(|oidc| oidc.issuer.clone())
+            .map(|oidc| normalize_issuer(<span class="kw-2">&amp;</span>oidc.issuer))
             .unwrap_or_else(|| {
-                iss_config
+                normalize_issuer(<span class="kw-2">&amp;</span>iss_config
                     .policy
                     .oidc_endpoint
                     .origin()
-                    .ascii_serialization()
+                    .ascii_serialization())
             });
 
         <span class="kw">for </span>(token_name, tkn_metadata) <span class="kw">in </span>iss_config.policy.token_metadata.iter() {
@@ -529,7 +531,7 @@
             <span class="kw">return </span><span class="bool-val">false</span>;
         }
 
-        <span class="kw">if </span><span class="self">self</span>.token_kind.is_equal_to(<span class="kw-2">&amp;</span>other.token_kind) {
+        <span class="kw">if </span>!<span class="self">self</span>.token_kind.is_equal_to(<span class="kw-2">&amp;</span>other.token_kind) {
             <span class="kw">return </span><span class="bool-val">false</span>;
         }
 

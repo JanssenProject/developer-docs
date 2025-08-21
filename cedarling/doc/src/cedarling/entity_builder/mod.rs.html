@@ -442,7 +442,8 @@
 <a href="#441" id="441">441</a>
 <a href="#442" id="442">442</a>
 <a href="#443" id="443">443</a>
-<a href="#444" id="444">444</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#444" id="444">444</a>
+<a href="#445" id="445">445</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -468,6 +469,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::authz::request::EntityData;
 <span class="kw">use </span><span class="kw">crate</span>::common::PartitionResult;
 <span class="kw">use </span><span class="kw">crate</span>::common::policy_store::{ClaimMappings, TrustedIssuer};
+<span class="kw">use </span><span class="kw">crate</span>::common::issuer_utils::normalize_issuer;
 <span class="kw">use </span><span class="kw">crate</span>::entity_builder::build_principal_entity::BuiltPrincipalUnsigned;
 <span class="kw">use </span><span class="kw">crate</span>::jwt::Token;
 <span class="kw">use crate</span>::{RequestUnsigned, entity_builder_config::<span class="kw-2">*</span>};
@@ -501,7 +503,7 @@
         <span class="kw">let </span>(ok, errs) = trusted_issuers
             .values()
             .map(|iss| {
-                <span class="kw">let </span>iss_id = iss.oidc_endpoint.origin().ascii_serialization();
+                <span class="kw">let </span>iss_id = normalize_issuer(<span class="kw-2">&amp;</span>iss.oidc_endpoint.origin().ascii_serialization());
                 build_iss_entity(<span class="kw-2">&amp;</span>config.entity_names.iss, <span class="kw-2">&amp;</span>iss_id, iss, schema.as_ref())
             })
             .partition_result();

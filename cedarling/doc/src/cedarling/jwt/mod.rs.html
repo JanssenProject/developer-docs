@@ -408,7 +408,9 @@
 <a href="#407" id="407">407</a>
 <a href="#408" id="408">408</a>
 <a href="#409" id="409">409</a>
-<a href="#410" id="410">410</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#410" id="410">410</a>
+<a href="#411" id="411">411</a>
+<a href="#412" id="412">412</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -496,6 +498,7 @@
 <span class="kw">use </span><span class="kw">crate</span>::LogLevel;
 <span class="kw">use </span><span class="kw">crate</span>::LogWriter;
 <span class="kw">use </span><span class="kw">crate</span>::common::policy_store::TrustedIssuer;
+<span class="kw">use </span><span class="kw">crate</span>::common::issuer_utils::normalize_issuer;
 <span class="kw">use </span><span class="kw">crate</span>::log::Logger;
 <span class="kw">use </span>http_utils::<span class="kw-2">*</span>;
 <span class="kw">use </span>key_service::<span class="kw-2">*</span>;
@@ -559,7 +562,7 @@
                     .<span class="kw">await</span><span class="question-mark">?</span>;
             }
 
-            issuer_configs.insert(iss_claim, iss_config);
+            issuer_configs.insert(normalize_issuer(<span class="kw-2">&amp;</span>iss_claim), iss_config);
         }
 
         <span class="comment">// quick check so we don't get surprised if the program runs but can't validate
@@ -628,8 +631,9 @@
         <span class="kw">let </span>decoding_key = <span class="self">self</span>.key_service.get_key(<span class="kw-2">&amp;</span>decoding_key_info);
 
         <span class="comment">// get validator
-        </span><span class="kw">let </span>validator_key = ValidatorInfo {
-            iss: decoded_jwt.iss(),
+        </span><span class="kw">let </span>normalized_iss = decoded_jwt.iss().map(normalize_issuer);
+        <span class="kw">let </span>validator_key = ValidatorInfo {
+            iss: normalized_iss.as_deref(),
             token_kind: TokenKind::AuthzRequestInput(<span class="kw-2">&amp;</span>token_name),
             algorithm: decoded_jwt.header.alg,
         };
@@ -659,7 +663,7 @@
     </span><span class="attr">#[inline]
     </span><span class="kw">fn </span>get_issuer_ref(<span class="kw-2">&amp;</span><span class="self">self</span>, iss_claim: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;Arc&lt;TrustedIssuer&gt;&gt; {
         <span class="self">self</span>.issuer_configs
-            .get(iss_claim)
+            .get(<span class="kw-2">&amp;</span>normalize_issuer(iss_claim))
             .map(|config| <span class="kw-2">&amp;</span>config.policy)
             .cloned()
     }
