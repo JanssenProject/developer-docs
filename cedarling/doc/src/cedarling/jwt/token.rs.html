@@ -136,7 +136,20 @@
 <a href="#135" id="135">135</a>
 <a href="#136" id="136">136</a>
 <a href="#137" id="137">137</a>
-<a href="#138" id="138">138</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -223,6 +236,15 @@
 
         HashMap::from_iter(iter)
     }
+
+    <span class="comment">// Update TokenClaims claim value by consuming itself.
+    // Consuming allows to be sure that only one instance exist.
+    </span><span class="kw">pub fn </span>with_claim(<span class="self">self</span>, k: String, v: Value) -&gt; <span class="self">Self </span>{
+        <span class="kw">let </span><span class="kw-2">mut </span>claims = <span class="self">self</span>;
+        claims.claims.insert(k, v);
+        
+        claims
+    }
 }
 
 <span class="kw">pub struct </span>TokenClaim&lt;<span class="lifetime">'a</span>&gt; {
@@ -237,6 +259,10 @@
             .ok_or(TokenClaimTypeError::type_mismatch(
                 <span class="kw-2">&amp;</span><span class="self">self</span>.key, <span class="string">"String"</span>, <span class="self">self</span>.value,
             ))
+    }
+
+    <span class="kw">pub fn </span>value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Value {
+        <span class="self">self</span>.value
     }
 }
 
