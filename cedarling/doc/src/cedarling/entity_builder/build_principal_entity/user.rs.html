@@ -447,7 +447,11 @@
 <a href="#446" id="446">446</a>
 <a href="#447" id="447">447</a>
 <a href="#448" id="448">448</a>
-<a href="#449" id="449">449</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#449" id="449">449</a>
+<a href="#450" id="450">450</a>
+<a href="#451" id="451">451</a>
+<a href="#452" id="452">452</a>
+<a href="#453" id="453">453</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -605,10 +609,12 @@
             ValidatorSchema::from_str(schema_src).expect(<span class="string">"build cedar ValidatorSchema"</span>);
         <span class="kw">let </span>iss = TrustedIssuer::default();
         <span class="kw">let </span>issuers = HashMap::from([(<span class="string">"some_iss"</span>.into(), iss.clone())]);
+
         <span class="kw">let </span>builder = EntityBuilder::new(
             EntityBuilderConfig::default().with_workload(),
             <span class="kw-2">&amp;</span>issuers,
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
+            <span class="prelude-val">None</span>,
         )
         .expect(<span class="string">"should init entity builder"</span>);
         <span class="kw">let </span>iss = Arc::new(iss);
@@ -681,10 +687,12 @@
             ValidatorSchema::from_str(schema_src).expect(<span class="string">"build cedar ValidatorSchema"</span>);
         <span class="kw">let </span>iss = TrustedIssuer::default();
         <span class="kw">let </span>issuers = HashMap::from([(<span class="string">"some_iss"</span>.into(), iss.clone())]);
+
         <span class="kw">let </span>builder = EntityBuilder::new(
             EntityBuilderConfig::default().with_workload(),
             <span class="kw-2">&amp;</span>issuers,
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
+            <span class="prelude-val">None</span>,
         )
         .expect(<span class="string">"should init entity builder"</span>);
         <span class="kw">let </span>iss = Arc::new(iss);
@@ -761,10 +769,12 @@
             ValidatorSchema::from_str(schema_src).expect(<span class="string">"build cedar ValidatorSchema"</span>);
         <span class="kw">let </span>iss = TrustedIssuer::default();
         <span class="kw">let </span>issuers = HashMap::from([(<span class="string">"some_iss"</span>.into(), iss.clone())]);
+
         <span class="kw">let </span>builder = EntityBuilder::new(
             EntityBuilderConfig::default().with_workload(),
             <span class="kw-2">&amp;</span>issuers,
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
+            <span class="prelude-val">None</span>,
         )
         .expect(<span class="string">"should init entity builder"</span>);
         <span class="kw">let </span>iss = Arc::new(iss);
@@ -826,10 +836,6 @@
                         <span class="string">"type"</span>: <span class="string">"Jans::Userinfo_token"</span>,
                         <span class="string">"id"</span>: <span class="string">"some_jti"</span>,
                     }},
-                    <span class="string">"userinfo_token"</span>: {<span class="string">"__entity"</span>: {
-                        <span class="string">"type"</span>: <span class="string">"Jans::Userinfo_token"</span>,
-                        <span class="string">"id"</span>: <span class="string">"some_jti"</span>,
-                    }},
                 },
                 <span class="string">"parents"</span>: [{<span class="string">"type"</span>: <span class="string">"Jans::Role"</span>, <span class="string">"id"</span>: <span class="string">"some_role"</span>}],
             }),
@@ -842,9 +848,11 @@
     </span><span class="kw">fn </span>can_build_user_without_schema() {
         <span class="kw">let </span>iss = TrustedIssuer::default();
         <span class="kw">let </span>issuers = HashMap::from([(<span class="string">"some_iss"</span>.into(), iss.clone())]);
+
         <span class="kw">let </span>builder = EntityBuilder::new(
             EntityBuilderConfig::default().with_workload(),
             <span class="kw-2">&amp;</span>issuers,
+            <span class="prelude-val">None</span>,
             <span class="prelude-val">None</span>,
         )
         .expect(<span class="string">"should init entity builder"</span>);

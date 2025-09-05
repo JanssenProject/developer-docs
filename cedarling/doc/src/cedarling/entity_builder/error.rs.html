@@ -139,7 +139,9 @@
 <a href="#138" id="138">138</a>
 <a href="#139" id="139">139</a>
 <a href="#140" id="140">140</a>
-<a href="#141" id="141">141</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -199,6 +201,8 @@
     </span>NoAvailableTokensToBuildEntity(Vec&lt;String&gt;),
     <span class="attr">#[error(<span class="string">"the entity was not in the schema"</span>)]
     </span>EntityNotInSchema,
+    <span class="attr">#[error(<span class="string">"invalid entity data: {0}"</span>)]
+    </span>InvalidEntityData(String),
 }
 
 <span class="attr">#[derive(Debug, Error)]

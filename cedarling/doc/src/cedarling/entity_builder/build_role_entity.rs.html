@@ -236,7 +236,13 @@
 <a href="#235" id="235">235</a>
 <a href="#236" id="236">236</a>
 <a href="#237" id="237">237</a>
-<a href="#238" id="238">238</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -331,10 +337,12 @@
         <span class="kw">let </span>validator_schema =
             ValidatorSchema::from_str(schema_src).expect(<span class="string">"build cedar ValidatorSchema"</span>);
         <span class="kw">let </span>iss = Arc::new(TrustedIssuer::default());
+
         <span class="kw">let </span>builder = EntityBuilder::new(
             EntityBuilderConfig::default().with_workload(),
             <span class="kw-2">&amp;</span>HashMap::new(),
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
+            <span class="prelude-val">None</span>,
         )
         .expect(<span class="string">"should init entity builder"</span>);
 
@@ -373,10 +381,12 @@
         <span class="kw">let </span>validator_schema =
             ValidatorSchema::from_str(schema_src).expect(<span class="string">"build cedar ValidatorSchema"</span>);
         <span class="kw">let </span>iss = Arc::new(TrustedIssuer::default());
+
         <span class="kw">let </span>builder = EntityBuilder::new(
             EntityBuilderConfig::default().with_workload(),
             <span class="kw-2">&amp;</span>HashMap::new(),
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
+            <span class="prelude-val">None</span>,
         )
         .expect(<span class="string">"should init entity builder"</span>);
 
@@ -425,10 +435,12 @@
         <span class="kw">let </span>validator_schema =
             ValidatorSchema::from_str(schema_src).expect(<span class="string">"build cedar ValidatorSchema"</span>);
         <span class="kw">let </span>iss = Arc::new(TrustedIssuer::default());
+
         <span class="kw">let </span>builder = EntityBuilder::new(
             EntityBuilderConfig::default().with_workload(),
             <span class="kw-2">&amp;</span>HashMap::new(),
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
+            <span class="prelude-val">None</span>,
         )
         .expect(<span class="string">"should init entity builder"</span>);
 

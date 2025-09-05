@@ -204,7 +204,10 @@
 <a href="#203" id="203">203</a>
 <a href="#204" id="204">204</a>
 <a href="#205" id="205">205</a>
-<a href="#206" id="206">206</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -321,10 +324,12 @@
             ValidatorSchema::from_str(schema_src).expect(<span class="string">"build ValidatorSchema"</span>);
         <span class="kw">let </span>iss = TrustedIssuer::default();
         <span class="kw">let </span>issuers = HashMap::from([(<span class="string">"some_iss"</span>.into(), iss.clone())]);
+
         <span class="kw">let </span>builder = EntityBuilder::new(
             EntityBuilderConfig::default(),
             <span class="kw-2">&amp;</span>issuers,
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
+            <span class="prelude-val">None</span>,
         )
         .expect(<span class="string">"should init entity builder"</span>);
         <span class="kw">let </span>access_token = Token::new(
@@ -371,7 +376,8 @@
     </span><span class="kw">fn </span>can_build_tkn_entity_without_schema() {
         <span class="kw">let </span>iss = TrustedIssuer::default();
         <span class="kw">let </span>issuers = HashMap::from([(<span class="string">"some_iss"</span>.into(), iss.clone())]);
-        <span class="kw">let </span>builder = EntityBuilder::new(EntityBuilderConfig::default(), <span class="kw-2">&amp;</span>issuers, <span class="prelude-val">None</span>)
+
+        <span class="kw">let </span>builder = EntityBuilder::new(EntityBuilderConfig::default(), <span class="kw-2">&amp;</span>issuers, <span class="prelude-val">None</span>, <span class="prelude-val">None</span>)
             .expect(<span class="string">"should init entity builder"</span>);
         <span class="kw">let </span>access_token = Token::new(
             <span class="string">"access_token"</span>,

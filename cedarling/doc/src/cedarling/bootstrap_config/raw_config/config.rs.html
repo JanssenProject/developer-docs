@@ -472,7 +472,21 @@
 <a href="#471" id="471">471</a>
 <a href="#472" id="472">472</a>
 <a href="#473" id="473">473</a>
-<a href="#474" id="474">474</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#474" id="474">474</a>
+<a href="#475" id="475">475</a>
+<a href="#476" id="476">476</a>
+<a href="#477" id="477">477</a>
+<a href="#478" id="478">478</a>
+<a href="#479" id="479">479</a>
+<a href="#480" id="480">480</a>
+<a href="#481" id="481">481</a>
+<a href="#482" id="482">482</a>
+<a href="#483" id="483">483</a>
+<a href="#484" id="484">484</a>
+<a href="#485" id="485">485</a>
+<a href="#486" id="486">486</a>
+<a href="#487" id="487">487</a>
+<a href="#488" id="488">488</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -631,6 +645,20 @@
         deserialize_with = <span class="string">"parse_option_string"
     </span>)]
     </span><span class="kw">pub </span>policy_store_local_fn: <span class="prelude-ty">Option</span>&lt;String&gt;,
+
+    <span class="doccomment">/// Maximum number of default entities allowed in a policy store.
+    /// This prevents DoS attacks by limiting the number of entities that can be loaded.
+    /// If value is 0, there is no limit. But if None, default value is applied.
+    </span><span class="attr">#[serde(rename = <span class="string">"CEDARLING_MAX_DEFAULT_ENTITIES"</span>, default)]
+    #[serde(deserialize_with = <span class="string">"deserialize_or_parse_string_as_json"</span>)]
+    </span><span class="kw">pub </span>max_default_entities: <span class="prelude-ty">Option</span>&lt;usize&gt;,
+
+    <span class="doccomment">/// Maximum size of base64-encoded default entity strings in bytes.
+    /// This prevents memory exhaustion attacks from extremely large base64 strings.
+    /// If value is 0, there is no limit. But if None, default value is applied.
+    </span><span class="attr">#[serde(rename = <span class="string">"CEDARLING_MAX_BASE64_SIZE"</span>, default)]
+    #[serde(deserialize_with = <span class="string">"deserialize_or_parse_string_as_json"</span>)]
+    </span><span class="kw">pub </span>max_base64_size: <span class="prelude-ty">Option</span>&lt;usize&gt;,
 
     <span class="doccomment">/// Whether to check the signature of all JWT tokens.
     ///

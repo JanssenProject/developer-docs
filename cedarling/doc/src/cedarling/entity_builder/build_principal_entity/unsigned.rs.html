@@ -209,7 +209,9 @@
 <a href="#208" id="208">208</a>
 <a href="#209" id="209">209</a>
 <a href="#210" id="210">210</a>
-<a href="#211" id="211">211</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -316,10 +318,12 @@
         <span class="kw">let </span>schema = Schema::from_str(schema_src).expect(<span class="string">"build cedar Schema"</span>);
         <span class="kw">let </span>validator_schema =
             ValidatorSchema::from_str(schema_src).expect(<span class="string">"build cedar ValidatorSchema"</span>);
+
         <span class="kw">let </span>builder = EntityBuilder::new(
             EntityBuilderConfig::default().with_workload(),
             <span class="kw-2">&amp;</span>HashMap::new(),
             <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
+            <span class="prelude-val">None</span>,
         )
         .expect(<span class="string">"should init entity builder"</span>);
 
