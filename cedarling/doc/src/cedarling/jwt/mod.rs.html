@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `cedarling/src/jwt/mod.rs`."><title>mod.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b0742ba02757f159.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="cedarling" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0 (90b35a623 2024-11-26)" data-channel="1.83.0" data-search-js="search-f0d225181b97f9a4.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f070b9041d14864c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">cedarling/jwt/</div>mod.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `cedarling/src/jwt/mod.rs`."><title>mod.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="cedarling" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0 (9fc6b4312 2025-01-07)" data-channel="1.84.0" data-search-js="search-92e6798f.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">cedarling/jwt/</div>mod.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -440,7 +440,109 @@
 <a href="#439" id="439">439</a>
 <a href="#440" id="440">440</a>
 <a href="#441" id="441">441</a>
-<a href="#442" id="442">442</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#442" id="442">442</a>
+<a href="#443" id="443">443</a>
+<a href="#444" id="444">444</a>
+<a href="#445" id="445">445</a>
+<a href="#446" id="446">446</a>
+<a href="#447" id="447">447</a>
+<a href="#448" id="448">448</a>
+<a href="#449" id="449">449</a>
+<a href="#450" id="450">450</a>
+<a href="#451" id="451">451</a>
+<a href="#452" id="452">452</a>
+<a href="#453" id="453">453</a>
+<a href="#454" id="454">454</a>
+<a href="#455" id="455">455</a>
+<a href="#456" id="456">456</a>
+<a href="#457" id="457">457</a>
+<a href="#458" id="458">458</a>
+<a href="#459" id="459">459</a>
+<a href="#460" id="460">460</a>
+<a href="#461" id="461">461</a>
+<a href="#462" id="462">462</a>
+<a href="#463" id="463">463</a>
+<a href="#464" id="464">464</a>
+<a href="#465" id="465">465</a>
+<a href="#466" id="466">466</a>
+<a href="#467" id="467">467</a>
+<a href="#468" id="468">468</a>
+<a href="#469" id="469">469</a>
+<a href="#470" id="470">470</a>
+<a href="#471" id="471">471</a>
+<a href="#472" id="472">472</a>
+<a href="#473" id="473">473</a>
+<a href="#474" id="474">474</a>
+<a href="#475" id="475">475</a>
+<a href="#476" id="476">476</a>
+<a href="#477" id="477">477</a>
+<a href="#478" id="478">478</a>
+<a href="#479" id="479">479</a>
+<a href="#480" id="480">480</a>
+<a href="#481" id="481">481</a>
+<a href="#482" id="482">482</a>
+<a href="#483" id="483">483</a>
+<a href="#484" id="484">484</a>
+<a href="#485" id="485">485</a>
+<a href="#486" id="486">486</a>
+<a href="#487" id="487">487</a>
+<a href="#488" id="488">488</a>
+<a href="#489" id="489">489</a>
+<a href="#490" id="490">490</a>
+<a href="#491" id="491">491</a>
+<a href="#492" id="492">492</a>
+<a href="#493" id="493">493</a>
+<a href="#494" id="494">494</a>
+<a href="#495" id="495">495</a>
+<a href="#496" id="496">496</a>
+<a href="#497" id="497">497</a>
+<a href="#498" id="498">498</a>
+<a href="#499" id="499">499</a>
+<a href="#500" id="500">500</a>
+<a href="#501" id="501">501</a>
+<a href="#502" id="502">502</a>
+<a href="#503" id="503">503</a>
+<a href="#504" id="504">504</a>
+<a href="#505" id="505">505</a>
+<a href="#506" id="506">506</a>
+<a href="#507" id="507">507</a>
+<a href="#508" id="508">508</a>
+<a href="#509" id="509">509</a>
+<a href="#510" id="510">510</a>
+<a href="#511" id="511">511</a>
+<a href="#512" id="512">512</a>
+<a href="#513" id="513">513</a>
+<a href="#514" id="514">514</a>
+<a href="#515" id="515">515</a>
+<a href="#516" id="516">516</a>
+<a href="#517" id="517">517</a>
+<a href="#518" id="518">518</a>
+<a href="#519" id="519">519</a>
+<a href="#520" id="520">520</a>
+<a href="#521" id="521">521</a>
+<a href="#522" id="522">522</a>
+<a href="#523" id="523">523</a>
+<a href="#524" id="524">524</a>
+<a href="#525" id="525">525</a>
+<a href="#526" id="526">526</a>
+<a href="#527" id="527">527</a>
+<a href="#528" id="528">528</a>
+<a href="#529" id="529">529</a>
+<a href="#530" id="530">530</a>
+<a href="#531" id="531">531</a>
+<a href="#532" id="532">532</a>
+<a href="#533" id="533">533</a>
+<a href="#534" id="534">534</a>
+<a href="#535" id="535">535</a>
+<a href="#536" id="536">536</a>
+<a href="#537" id="537">537</a>
+<a href="#538" id="538">538</a>
+<a href="#539" id="539">539</a>
+<a href="#540" id="540">540</a>
+<a href="#541" id="541">541</a>
+<a href="#542" id="542">542</a>
+<a href="#543" id="543">543</a>
+<a href="#544" id="544">544</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
@@ -520,24 +622,29 @@
 #[allow(dead_code)]
 </span><span class="kw">mod </span>test_utils;
 
+<span class="kw">use </span>chrono::DateTime;
+<span class="kw">use </span>chrono::Duration;
+<span class="kw">pub use </span>decode::<span class="kw-2">*</span>;
 <span class="kw">pub use </span>error::<span class="kw-2">*</span>;
 <span class="kw">pub use </span>token::{Token, TokenClaimTypeError, TokenClaims};
-<span class="kw">pub use </span>decode::<span class="kw-2">*</span>;
 
 <span class="kw">use </span><span class="kw">crate</span>::JwtConfig;
 <span class="kw">use </span><span class="kw">crate</span>::LogLevel;
 <span class="kw">use </span><span class="kw">crate</span>::LogWriter;
-<span class="kw">use </span><span class="kw">crate</span>::common::policy_store::TrustedIssuer;
 <span class="kw">use </span><span class="kw">crate</span>::common::issuer_utils::normalize_issuer;
+<span class="kw">use </span><span class="kw">crate</span>::common::policy_store::TrustedIssuer;
 <span class="kw">use </span><span class="kw">crate</span>::log::Logger;
+<span class="kw">use </span>chrono::Utc;
 <span class="kw">use </span>http_utils::<span class="kw-2">*</span>;
 <span class="kw">use </span>key_service::<span class="kw-2">*</span>;
 <span class="kw">use </span>log_entry::<span class="kw-2">*</span>;
+<span class="kw">use </span>serde_json::json;
+<span class="kw">use </span>sparkv::SparKV;
 <span class="kw">use </span>status_list::<span class="kw-2">*</span>;
 <span class="kw">use </span>std::collections::HashMap;
 <span class="kw">use </span>std::sync::Arc;
+<span class="kw">use </span>std::sync::RwLock;
 <span class="kw">use </span>validation::<span class="kw-2">*</span>;
-<span class="kw">use </span>serde_json::json;
 
 <span class="doccomment">/// The value of the `iss` claim from a JWT
 </span><span class="kw">type </span>IssClaim = String;
@@ -548,6 +655,8 @@
     key_service: Arc&lt;KeyService&gt;,
     issuer_configs: HashMap&lt;IssClaim, IssuerConfig&gt;,
     logger: <span class="prelude-ty">Option</span>&lt;Logger&gt;,
+    token_cache: Arc&lt;RwLock&lt;SparKV&lt;Arc&lt;Token&gt;&gt;&gt;&gt;,
+    token_cache_max_ttl: usize,
 }
 
 <span class="kw">struct </span>IssuerConfig {
@@ -563,6 +672,7 @@
         jwt_config: <span class="kw-2">&amp;</span>JwtConfig,
         trusted_issuers: <span class="prelude-ty">Option</span>&lt;HashMap&lt;String, TrustedIssuer&gt;&gt;,
         logger: <span class="prelude-ty">Option</span>&lt;Logger&gt;,
+        token_cache_max_ttl_sec: usize,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, JwtServiceInitError&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>status_lists = StatusListCache::default();
         <span class="kw">let </span><span class="kw-2">mut </span>issuer_configs = HashMap::default();
@@ -608,51 +718,125 @@
             key_service,
             issuer_configs,
             logger,
+            token_cache: Arc::new(RwLock::new(SparKV::new())),
+            token_cache_max_ttl: token_cache_max_ttl_sec,
         })
     }
 
     <span class="kw">pub async fn </span>validate_tokens&lt;<span class="lifetime">'a</span>&gt;(
         <span class="kw-2">&amp;</span><span class="lifetime">'a </span><span class="self">self</span>,
         tokens: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>HashMap&lt;String, String&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;HashMap&lt;String, Token&gt;, JwtProcessingError&gt; {
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;HashMap&lt;String, Arc&lt;Token&gt;&gt;, JwtProcessingError&gt; {
         <span class="kw">let </span><span class="kw-2">mut </span>validated_tokens = HashMap::new();
         <span class="kw">const </span>ID_TOKEN_NAME: <span class="kw-2">&amp;</span>str = <span class="string">"id_token"</span>;
 
+        <span class="kw">let </span>now = Utc::now();
+
+        <span class="comment">// clear expired tokens from cache
+        </span><span class="self">self</span>.token_cache
+            .write()
+            .expect(<span class="string">"validated_jwt_cache mutex shouldn't be poisoned"</span>)
+            .clear_expired();
+
         <span class="kw">for </span>(token_name, jwt) <span class="kw">in </span>tokens.iter() {
-            <span class="kw">let </span>validated_jwt = <span class="kw">match </span><span class="self">self</span>.validate_single_token(token_name.clone(), jwt) {
-                <span class="prelude-val">Ok</span>(jwt) =&gt; jwt,
-                <span class="prelude-val">Err</span>(err) =&gt; {
-                    <span class="kw">if </span><span class="macro">matches!</span>(err, ValidateJwtError::MissingValidator(<span class="kw">_</span>)) {
-                        <span class="self">self</span>.logger
-                            .log_any(JwtLogEntry::new(err.to_string(), <span class="prelude-val">Some</span>(LogLevel::WARN)));
-                        <span class="kw">continue</span>;
-                    } <span class="kw">else </span>{
-                        <span class="kw">return </span><span class="prelude-val">Err</span>(JwtProcessingError::ValidateJwt(token_name.clone(), err));
-                    }
-                },
+            <span class="kw">let </span>token = <span class="kw">if let </span><span class="prelude-val">Some</span>(validated_token) = <span class="self">self</span>.find_token_in_cache(jwt) {
+                validated_token
+            } <span class="kw">else </span>{
+                <span class="comment">// validate token and save to cache
+                </span><span class="kw">let </span>validated_jwt = <span class="kw">match </span><span class="self">self</span>.validate_single_token(token_name.clone(), jwt) {
+                    <span class="prelude-val">Ok</span>(jwt) =&gt; jwt,
+                    <span class="prelude-val">Err</span>(err) =&gt; {
+                        <span class="kw">if </span><span class="macro">matches!</span>(err, ValidateJwtError::MissingValidator(<span class="kw">_</span>)) {
+                            <span class="self">self</span>.logger
+                                .log_any(JwtLogEntry::new(err.to_string(), <span class="prelude-val">Some</span>(LogLevel::WARN)));
+                            <span class="kw">continue</span>;
+                        } <span class="kw">else </span>{
+                            <span class="kw">return </span><span class="prelude-val">Err</span>(JwtProcessingError::ValidateJwt(token_name.clone(), err));
+                        }
+                    },
+                };
+
+                <span class="kw">let </span><span class="kw-2">mut </span>claims = serde_json::from_value::&lt;TokenClaims&gt;(validated_jwt.claims)
+                    .map_err(|err| {
+                        <span class="self">self</span>.logger.log_any(JwtLogEntry::new(
+                            <span class="macro">format!</span>(<span class="string">"failed to deserialize token claims: {err}"</span>),
+                            <span class="prelude-val">Some</span>(LogLevel::ERROR),
+                        ));
+                        err
+                    })
+                    .map_err(JwtProcessingError::StringDeserialization)<span class="question-mark">?</span>;
+
+                <span class="kw">if </span>token_name == ID_TOKEN_NAME {
+                    claims = fix_aud_claim_value_to_array(claims);
+                };
+
+                <span class="kw">let </span>token = Arc::new(Token::new(token_name, claims, validated_jwt.trusted_iss));
+                <span class="self">self</span>.save_token_in_cache(jwt, token.clone(), now);
+                token
             };
 
-            <span class="kw">let </span><span class="kw-2">mut </span>claims = serde_json::from_value::&lt;TokenClaims&gt;(validated_jwt.claims)
-                .map_err(|err| {
-                    <span class="self">self</span>.logger.log_any(JwtLogEntry::new(
-                        <span class="macro">format!</span>(<span class="string">"failed to deserialize token claims: {err}"</span>),
-                        <span class="prelude-val">Some</span>(LogLevel::ERROR),
-                    ));
-                    err
-                })
-                .map_err(JwtProcessingError::StringDeserialization)<span class="question-mark">?</span>;
-
-            <span class="kw">if </span>token_name == ID_TOKEN_NAME {
-                claims = fix_aud_claim_value_to_array(claims);
-            }
-
-            validated_tokens.insert(
-                token_name.to_string(),
-                Token::new(token_name, claims, validated_jwt.trusted_iss),
-            );
+            validated_tokens.insert(token_name.to_string(), token);
         }
 
         <span class="prelude-val">Ok</span>(validated_tokens)
+    }
+
+    <span class="kw">fn </span>find_token_in_cache(<span class="kw-2">&amp;</span><span class="self">self</span>, jwt: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;Arc&lt;Token&gt;&gt; {
+        <span class="self">self</span>.token_cache
+            .read()
+            .expect(<span class="string">"validated_jwt_cache mutex shouldn't be poisoned"</span>)
+            .get(<span class="kw-2">&amp;</span>hash_str(jwt))
+            .map(|v| v.to_owned())
+    }
+
+    <span class="kw">fn </span>save_token_in_cache(<span class="kw-2">&amp;</span><span class="self">self</span>, jwt: <span class="kw-2">&amp;</span>str, token: Arc&lt;Token&gt;, now: DateTime&lt;Utc&gt;) {
+        <span class="kw">let </span>key = hash_str(jwt);
+
+        <span class="kw">let </span>cache_duration_opt = token
+            .claims
+            .get_claim(<span class="string">"exp"</span>)
+            .and_then(|exp| exp.value().as_i64())
+            .and_then(|exp| {
+                <span class="comment">// calculate duration until token expiration
+                </span><span class="kw">let </span>duration = exp - now.timestamp();
+                <span class="kw">if </span>duration &gt; <span class="number">0 </span>{
+                    <span class="comment">// if duration bigger than configured max ttl, use the max ttl
+                    </span><span class="prelude-val">Some</span>(
+                        <span class="kw">if </span><span class="self">self</span>.token_cache_max_ttl &gt; <span class="number">0
+                            </span>&amp;&amp; duration &gt; <span class="self">self</span>.token_cache_max_ttl <span class="kw">as </span>i64
+                        {
+                            <span class="self">self</span>.token_cache_max_ttl <span class="kw">as </span>i64
+                        } <span class="kw">else </span>{
+                            duration
+                        },
+                    )
+                } <span class="kw">else </span>{
+                    <span class="prelude-val">None
+                </span>}
+            })
+            .or({
+                <span class="comment">// if no exp claim, use the configured max ttl if set
+                </span><span class="kw">if </span><span class="self">self</span>.token_cache_max_ttl &gt; <span class="number">0 </span>{
+                    <span class="prelude-val">Some</span>(<span class="self">self</span>.token_cache_max_ttl <span class="kw">as </span>i64)
+                } <span class="kw">else </span>{
+                    <span class="prelude-val">None
+                </span>}
+            });
+
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(duration) = cache_duration_opt {
+            <span class="kw">let _ </span>= <span class="self">self
+                </span>.token_cache
+                .write()
+                .expect(<span class="string">"validated_jwt_cache mutex shouldn't be poisoned"</span>)
+                .set_with_ttl(<span class="kw-2">&amp;</span>key, token, Duration::seconds(duration), <span class="kw-2">&amp;</span>[]);
+        } <span class="kw">else </span>{
+            <span class="comment">// set with SparkKV default TTL (5 minutes)
+            </span><span class="kw">let _ </span>= <span class="self">self
+                </span>.token_cache
+                .write()
+                .expect(<span class="string">"validated_jwt_cache mutex shouldn't be poisoned"</span>)
+                .set(<span class="kw-2">&amp;</span>key, token, <span class="kw-2">&amp;</span>[]);
+        }
     }
 
     <span class="kw">fn </span>validate_single_token(
@@ -673,7 +857,7 @@
             token_kind: TokenKind::AuthzRequestInput(<span class="kw-2">&amp;</span>token_name),
             algorithm: decoded_jwt.header.alg,
         };
-        <span class="kw">let </span>validator = <span class="self">self
+        <span class="kw">let </span>validator: Arc&lt;RwLock&lt;JwtValidator&gt;&gt; = <span class="self">self
             </span>.validators
             .get(<span class="kw-2">&amp;</span>validator_key)
             .ok_or(ValidateJwtError::MissingValidator(validator_key.owned()))<span class="question-mark">?</span>;
@@ -700,8 +884,7 @@
     </span><span class="kw">fn </span>get_issuer_ref(<span class="kw-2">&amp;</span><span class="self">self</span>, iss_claim: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;Arc&lt;TrustedIssuer&gt;&gt; {
         <span class="self">self</span>.issuer_configs
             .get(<span class="kw-2">&amp;</span>normalize_issuer(iss_claim))
-            .map(|config| <span class="kw-2">&amp;</span>config.policy)
-            .cloned()
+            .map(|config| config.policy.clone())
     }
 }
 
@@ -774,6 +957,26 @@
     claims
 }
 
+<span class="doccomment">/// Hash a string using `ahash` and return the hash value as a string
+/// This is used to create a key for caching tokens
+/// The hash value is used instead of the original string to have shorter keys for SparKV which utilizes BTree.
+</span><span class="kw">fn </span>hash_str(s: <span class="kw-2">&amp;</span>str) -&gt; String {
+    <span class="kw">use </span>std::sync::LazyLock;
+    <span class="kw">static </span>HASHER_KEYS: LazyLock&lt;(u64, u64, u64, u64)&gt; = LazyLock::new(|| {
+        (
+            rand::random(),
+            rand::random(),
+            rand::random(),
+            rand::random(),
+        )
+    });
+
+    <span class="kw">let </span>hasher =
+        ahash::RandomState::with_seeds(HASHER_KEYS.<span class="number">0</span>, HASHER_KEYS.<span class="number">1</span>, HASHER_KEYS.<span class="number">2</span>, HASHER_KEYS.<span class="number">3</span>);
+
+    hasher.hash_one(s).to_string()
+}
+
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use </span><span class="kw">super</span>::test_utils::<span class="kw-2">*</span>;
@@ -832,6 +1035,7 @@
             },
             <span class="prelude-val">Some</span>(HashMap::from([(<span class="string">"Jans"</span>.into(), iss.clone())])),
             <span class="prelude-val">None</span>,
+            <span class="number">0</span>,
         )
         .<span class="kw">await
         </span>.inspect_err(|e| <span class="macro">eprintln!</span>(<span class="string">"error msg: {}"</span>, e))
@@ -855,7 +1059,7 @@
         <span class="kw">let </span>expected_claims = serde_json::from_value::&lt;HashMap&lt;String, Value&gt;&gt;(access_tkn_claims)
             .expect(<span class="string">"Should create expected access_token claims"</span>);
         <span class="macro">assert_eq!</span>(
-            token,
+            token.as_ref(),
             <span class="kw-2">&amp;</span>Token::new(<span class="string">"access_token"</span>, expected_claims.into(), <span class="prelude-val">Some</span>(iss.clone()))
         );
 
@@ -866,7 +1070,7 @@
         <span class="kw">let </span>expected_claims = serde_json::from_value::&lt;HashMap&lt;String, Value&gt;&gt;(id_tkn_claims)
             .expect(<span class="string">"Should create expected id_token claims"</span>);
         <span class="macro">assert_eq!</span>(
-            token,
+            token.as_ref(),
             <span class="kw-2">&amp;</span>Token::new(<span class="string">"id_token"</span>, expected_claims.into(), <span class="prelude-val">Some</span>(iss.clone()))
         );
 
@@ -877,7 +1081,7 @@
         <span class="kw">let </span>expected_claims = serde_json::from_value::&lt;HashMap&lt;String, Value&gt;&gt;(userinfo_tkn_claims)
             .expect(<span class="string">"Should create expected userinfo_token claims"</span>);
         <span class="macro">assert_eq!</span>(
-            token,
+            token.as_ref(),
             <span class="kw-2">&amp;</span>Token::new(<span class="string">"userinfo_token"</span>, expected_claims.into(), <span class="prelude-val">Some</span>(iss))
         );
     }

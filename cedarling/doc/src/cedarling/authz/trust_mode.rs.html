@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `cedarling/src/authz/trust_mode.rs`."><title>trust_mode.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-46f98efaafac5295.ttf.woff2,FiraSans-Regular-018c141bf0843ffd.woff2,FiraSans-Medium-8f9a781e4970d388.woff2,SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2,SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-b0742ba02757f159.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="cedarling" data-themes="" data-resource-suffix="" data-rustdoc-version="1.83.0 (90b35a623 2024-11-26)" data-channel="1.83.0" data-search-js="search-f0d225181b97f9a4.js" data-settings-js="settings-805db61a62df4bd2.js" ><script src="../../../static.files/storage-1d39b6787ed640ff.js"></script><script defer src="../../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-f070b9041d14864c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-0111fcff984fae8f.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">cedarling/authz/</div>trust_mode.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `cedarling/src/authz/trust_mode.rs`."><title>trust_mode.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-42caa33d.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="cedarling" data-themes="" data-resource-suffix="" data-rustdoc-version="1.84.0 (9fc6b4312 2025-01-07)" data-channel="1.84.0" data-search-js="search-92e6798f.js" data-settings-js="settings-0f613d39.js" ><script src="../../../static.files/storage-59e33391.js"></script><script defer src="../../../static.files/src-script-56102188.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5f194d8c.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-893ab5e7.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">cedarling/authz/</div>trust_mode.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers">
 <a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
@@ -355,12 +355,14 @@
 <a href="#354" id="354">354</a>
 <a href="#355" id="355">355</a>
 <a href="#356" id="356">356</a>
-<a href="#357" id="357">357</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
+<a href="#357" id="357">357</a>
+<a href="#358" id="358">358</a>
+<a href="#359" id="359">359</a></pre></div><pre class="rust"><code><span class="comment">// This software is available under the Apache-2.0 license.
 // See https://www.apache.org/licenses/LICENSE-2.0.txt for full text.
 //
 // Copyright (c) 2024, Gluu, Inc.
 
-</span><span class="kw">use </span>std::collections::HashMap;
+</span><span class="kw">use </span>std::{collections::HashMap, sync::Arc};
 
 <span class="kw">use </span><span class="kw">crate</span>::jwt::{Token, TokenClaimTypeError};
 
@@ -381,7 +383,7 @@
 ///     - `userinfo_token.aud` == `access_token.client_id`
 ///     - `userinfo_token.sub` == `id_token.sub`
 </span><span class="kw">pub fn </span>validate_id_tkn_trust_mode(
-    tokens: <span class="kw-2">&amp;</span>HashMap&lt;String, Token&gt;,
+    tokens: <span class="kw-2">&amp;</span>HashMap&lt;String, Arc&lt;Token&gt;&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), IdTokenTrustModeError&gt; {
     <span class="kw">let </span>access_tkn = tokens
         .get(<span class="string">"access_token"</span>)
@@ -391,7 +393,7 @@
         .ok_or(IdTokenTrustModeError::MissingIdToken)<span class="question-mark">?</span>;
 
     <span class="kw">let </span>access_tkn_client_id = get_tkn_claim_as_str(access_tkn, <span class="string">"client_id"</span>)<span class="question-mark">?</span>;
-    
+
     <span class="kw">if </span>!aud_claim_contains_value(id_tkn, <span class="kw-2">&amp;</span>access_tkn_client_id)<span class="question-mark">? </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(IdTokenTrustModeError::AccessTokenClientIdMismatch);
     }
@@ -400,7 +402,7 @@
         <span class="prelude-val">Some</span>(token) =&gt; token,
         <span class="prelude-val">None </span>=&gt; <span class="kw">return </span><span class="prelude-val">Ok</span>(()),
     };
-    
+
     <span class="kw">if </span>!aud_claim_contains_value(userinfo_tkn, <span class="kw-2">&amp;</span>access_tkn_client_id)<span class="question-mark">? </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(IdTokenTrustModeError::ClientIdUserinfoAudMismatch);
     }
@@ -425,14 +427,15 @@
                 },
                 serde_json::Value::Array(arr) =&gt; {
                     <span class="comment">// Array aud claim - check if it contains the expected value
-                    </span><span class="prelude-val">Ok</span>(arr.iter()
+                    </span><span class="prelude-val">Ok</span>(arr
+                        .iter()
                         .filter_map(|item| item.as_str())
                         .any(|s| s == expected_value))
                 },
                 <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(IdTokenTrustModeError::TokenClaimTypeError(
                     token.name.clone(),
-                    TokenClaimTypeError::type_mismatch(<span class="string">"aud"</span>, <span class="string">"string or array"</span>, claim.value())
-                ))
+                    TokenClaimTypeError::type_mismatch(<span class="string">"aud"</span>, <span class="string">"string or array"</span>, claim.value()),
+                )),
             }
         })
 }
@@ -478,7 +481,7 @@
     <span class="kw">use super</span>::{IdTokenTrustModeError, validate_id_tkn_trust_mode};
     <span class="kw">use </span><span class="kw">crate</span>::jwt::Token;
     <span class="kw">use </span>serde_json::json;
-    <span class="kw">use </span>std::collections::HashMap;
+    <span class="kw">use </span>std::{collections::HashMap, sync::Arc};
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>success_without_userinfo_tkn() {
@@ -487,16 +490,18 @@
             serde_json::from_value(<span class="macro">json!</span>({<span class="string">"client_id"</span>: <span class="string">"some-id-123"</span>}))
                 .expect(<span class="string">"valid token claims"</span>),
             <span class="prelude-val">None</span>,
-        );
+        )
+        .into();
         <span class="kw">let </span>id_token = Token::new(
             <span class="string">"id_token"</span>,
             serde_json::from_value(<span class="macro">json!</span>({<span class="string">"aud"</span>: [<span class="string">"some-id-123"</span>]})).expect(<span class="string">"valid token claims"</span>),
             <span class="prelude-val">None</span>,
         );
         <span class="kw">let </span>tokens = HashMap::from([
-            (<span class="string">"access_token"</span>.to_string(), access_token),
-            (<span class="string">"id_token"</span>.to_string(), id_token),
-        ]);
+            (<span class="string">"access_token"</span>.to_string(), Arc::new(access_token)),
+            (<span class="string">"id_token"</span>.to_string(), Arc::new(id_token)),
+        ])
+        .into();
         validate_id_tkn_trust_mode(<span class="kw-2">&amp;</span>tokens).expect(<span class="string">"should not error"</span>);
     }
 
@@ -507,7 +512,7 @@
             serde_json::from_value(<span class="macro">json!</span>({<span class="string">"aud"</span>: <span class="string">"some-id-123"</span>})).expect(<span class="string">"valid token claims"</span>),
             <span class="prelude-val">None</span>,
         );
-        <span class="kw">let </span>tokens = HashMap::from([(<span class="string">"id_token"</span>.to_string(), id_token)]);
+        <span class="kw">let </span>tokens = HashMap::from([(<span class="string">"id_token"</span>.to_string(), Arc::new(id_token))]);
         <span class="kw">let </span>err = validate_id_tkn_trust_mode(<span class="kw-2">&amp;</span>tokens).expect_err(<span class="string">"should error"</span>);
         <span class="macro">assert!</span>(
             <span class="macro">matches!</span>(err, IdTokenTrustModeError::MissingAccessToken),
@@ -529,8 +534,8 @@
             <span class="prelude-val">None</span>,
         );
         <span class="kw">let </span>tokens = HashMap::from([
-            (<span class="string">"access_token"</span>.to_string(), access_token),
-            (<span class="string">"id_token"</span>.to_string(), id_token),
+            (<span class="string">"access_token"</span>.to_string(), Arc::new(access_token)),
+            (<span class="string">"id_token"</span>.to_string(), Arc::new(id_token)),
         ]);
         <span class="kw">let </span>err = validate_id_tkn_trust_mode(<span class="kw-2">&amp;</span>tokens).expect_err(<span class="string">"should error"</span>);
         <span class="macro">assert!</span>(
@@ -553,7 +558,7 @@
                 .expect(<span class="string">"valid token claims"</span>),
             <span class="prelude-val">None</span>,
         );
-        <span class="kw">let </span>tokens = HashMap::from([(<span class="string">"access_token"</span>.to_string(), access_token)]);
+        <span class="kw">let </span>tokens = HashMap::from([(<span class="string">"access_token"</span>.to_string(), Arc::new(access_token))]);
         <span class="kw">let </span>err = validate_id_tkn_trust_mode(<span class="kw-2">&amp;</span>tokens).expect_err(<span class="string">"should error"</span>);
         <span class="macro">assert!</span>(
             <span class="macro">matches!</span>(err, IdTokenTrustModeError::MissingIdToken),
@@ -577,8 +582,8 @@
             <span class="prelude-val">None</span>,
         );
         <span class="kw">let </span>tokens = HashMap::from([
-            (<span class="string">"access_token"</span>.to_string(), access_token),
-            (<span class="string">"id_token"</span>.to_string(), id_token),
+            (<span class="string">"access_token"</span>.to_string(), Arc::new(access_token)),
+            (<span class="string">"id_token"</span>.to_string(), Arc::new(id_token)),
         ]);
         <span class="kw">let </span>err = validate_id_tkn_trust_mode(<span class="kw-2">&amp;</span>tokens).expect_err(<span class="string">"should error"</span>);
         <span class="macro">assert!</span>(
@@ -607,8 +612,8 @@
             <span class="prelude-val">None</span>,
         );
         <span class="kw">let </span>tokens = HashMap::from([
-            (<span class="string">"access_token"</span>.to_string(), access_token),
-            (<span class="string">"id_token"</span>.to_string(), id_token),
+            (<span class="string">"access_token"</span>.to_string(), Arc::new(access_token)),
+            (<span class="string">"id_token"</span>.to_string(), Arc::new(id_token)),
         ]);
         <span class="kw">let </span>err = validate_id_tkn_trust_mode(<span class="kw-2">&amp;</span>tokens).expect_err(<span class="string">"should error"</span>);
         <span class="macro">assert!</span>(
@@ -637,9 +642,9 @@
             <span class="prelude-val">None</span>,
         );
         <span class="kw">let </span>tokens = HashMap::from([
-            (<span class="string">"access_token"</span>.to_string(), access_token),
-            (<span class="string">"id_token"</span>.to_string(), id_token),
-            (<span class="string">"userinfo_token"</span>.to_string(), userinfo_token),
+            (<span class="string">"access_token"</span>.to_string(), Arc::new(access_token)),
+            (<span class="string">"id_token"</span>.to_string(), Arc::new(id_token)),
+            (<span class="string">"userinfo_token"</span>.to_string(), Arc::new(userinfo_token)),
         ]);
         validate_id_tkn_trust_mode(<span class="kw-2">&amp;</span>tokens).expect(<span class="string">"should not error"</span>);
     }
@@ -663,9 +668,9 @@
             <span class="prelude-val">None</span>,
         );
         <span class="kw">let </span>tokens = HashMap::from([
-            (<span class="string">"access_token"</span>.to_string(), access_token),
-            (<span class="string">"id_token"</span>.to_string(), id_token),
-            (<span class="string">"userinfo_token"</span>.to_string(), userinfo_token),
+            (<span class="string">"access_token"</span>.to_string(), Arc::new(access_token)),
+            (<span class="string">"id_token"</span>.to_string(), Arc::new(id_token)),
+            (<span class="string">"userinfo_token"</span>.to_string(), Arc::new(userinfo_token)),
         ]);
         <span class="kw">let </span>err = validate_id_tkn_trust_mode(<span class="kw-2">&amp;</span>tokens).expect_err(<span class="string">"should error"</span>);
         <span class="macro">assert!</span>(
@@ -679,7 +684,6 @@
             err
         )
     }
-
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>errors_when_userinfo_tkn_aud_does_not_contain_client_id() {
@@ -700,9 +704,9 @@
             <span class="prelude-val">None</span>,
         );
         <span class="kw">let </span>tokens = HashMap::from([
-            (<span class="string">"access_token"</span>.to_string(), access_token),
-            (<span class="string">"id_token"</span>.to_string(), id_token),
-            (<span class="string">"userinfo_token"</span>.to_string(), userinfo_token),
+            (<span class="string">"access_token"</span>.to_string(), Arc::new(access_token)),
+            (<span class="string">"id_token"</span>.to_string(), Arc::new(id_token)),
+            (<span class="string">"userinfo_token"</span>.to_string(), Arc::new(userinfo_token)),
         ]);
         <span class="kw">let </span>err = validate_id_tkn_trust_mode(<span class="kw-2">&amp;</span>tokens).expect_err(<span class="string">"should error"</span>);
         <span class="macro">assert!</span>(
