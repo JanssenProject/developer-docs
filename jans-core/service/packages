@@ -6,6 +6,7 @@ io.jans.model.security.protect
 io.jans.model.token
 io.jans.model.uma
 io.jans.model.net
+io.jans.model.status
 io.jans.exception
 io.jans.service
 io.jans.service.external
