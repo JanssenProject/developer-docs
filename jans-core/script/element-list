@@ -24,6 +24,7 @@ io.jans.model.custom.script.type.introspection
 io.jans.model.custom.script.type.lock
 io.jans.model.custom.script.type.logout
 io.jans.model.custom.script.type.owner
+io.jans.model.custom.script.type.par
 io.jans.model.custom.script.type.persistence
 io.jans.model.custom.script.type.postauthn
 io.jans.model.custom.script.type.revoke
