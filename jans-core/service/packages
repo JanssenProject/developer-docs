@@ -11,6 +11,7 @@ io.jans.exception
 io.jans.service
 io.jans.service.external
 io.jans.service.external.context
+io.jans.service.cluster
 io.jans.service.custom
 io.jans.service.custom.lib
 io.jans.service.logger

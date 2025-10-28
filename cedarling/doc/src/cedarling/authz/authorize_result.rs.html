@@ -157,47 +157,45 @@
 <a href=#157 id=157 data-nosnippet>157</a>        <span class="kw">let </span><span class="kw-2">mut </span>person_result: <span class="prelude-ty">Option</span>&lt;Response&gt; = <span class="prelude-val">None</span>;
 <a href=#158 id=158 data-nosnippet>158</a>
 <a href=#159 id=159 data-nosnippet>159</a>        <span class="kw">for </span>(principal_uid, response) <span class="kw">in </span>principal_responses.into_iter() {
-<a href=#160 id=160 data-nosnippet>160</a>            <span class="kw">if let </span><span class="prelude-val">Some</span>(uid) = <span class="kw-2">&amp;</span>workload_uid {
-<a href=#161 id=161 data-nosnippet>161</a>                <span class="kw">if </span>uid == <span class="kw-2">&amp;</span>principal_uid {
+<a href=#160 id=160 data-nosnippet>160</a>            <span class="kw">if let </span><span class="prelude-val">Some</span>(uid) = <span class="kw-2">&amp;</span>workload_uid
+<a href=#161 id=161 data-nosnippet>161</a>                &amp;&amp; uid == <span class="kw-2">&amp;</span>principal_uid {
 <a href=#162 id=162 data-nosnippet>162</a>                    workload_result = <span class="prelude-val">Some</span>(response.to_owned());
 <a href=#163 id=163 data-nosnippet>163</a>                }
-<a href=#164 id=164 data-nosnippet>164</a>            }
-<a href=#165 id=165 data-nosnippet>165</a>            <span class="kw">if let </span><span class="prelude-val">Some</span>(uid) = <span class="kw-2">&amp;</span>person_uid {
-<a href=#166 id=166 data-nosnippet>166</a>                <span class="kw">if </span>uid == <span class="kw-2">&amp;</span>principal_uid {
-<a href=#167 id=167 data-nosnippet>167</a>                    person_result = <span class="prelude-val">Some</span>(response.to_owned());
-<a href=#168 id=168 data-nosnippet>168</a>                }
-<a href=#169 id=169 data-nosnippet>169</a>            }
-<a href=#170 id=170 data-nosnippet>170</a>
-<a href=#171 id=171 data-nosnippet>171</a>            <span class="kw">let </span>principal_typename = principal_uid.type_name().to_smolstr();
-<a href=#172 id=172 data-nosnippet>172</a>            <span class="kw">let </span>principal_id = principal_uid.to_smolstr();
-<a href=#173 id=173 data-nosnippet>173</a>            <span class="comment">// Insert typename and principal id into hashmap.
-<a href=#174 id=174 data-nosnippet>174</a>            // This allows us to easily access the decision for a given principal by type name and and uid.
-<a href=#175 id=175 data-nosnippet>175</a>            </span>principals_decision_info.insert(principal_typename.clone(), response.decision().into());
-<a href=#176 id=176 data-nosnippet>176</a>            principals_decision_info.insert(principal_id.clone(), response.decision().into());
-<a href=#177 id=177 data-nosnippet>177</a>
-<a href=#178 id=178 data-nosnippet>178</a>            principals_response.insert(principal_typename.clone(), response.clone());
-<a href=#179 id=179 data-nosnippet>179</a>            principals_response.insert(principal_id, response);
-<a href=#180 id=180 data-nosnippet>180</a>        }
-<a href=#181 id=181 data-nosnippet>181</a>
-<a href=#182 id=182 data-nosnippet>182</a>        <span class="kw">let </span>decision =
-<a href=#183 id=183 data-nosnippet>183</a>            RuleApplier::new(principal_bool_operator, principals_decision_info).apply()<span class="question-mark">?</span>;
-<a href=#184 id=184 data-nosnippet>184</a>
-<a href=#185 id=185 data-nosnippet>185</a>        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
-<a href=#186 id=186 data-nosnippet>186</a>            decision,
-<a href=#187 id=187 data-nosnippet>187</a>            workload: workload_result,
-<a href=#188 id=188 data-nosnippet>188</a>            person: person_result,
-<a href=#189 id=189 data-nosnippet>189</a>            principals: principals_response,
-<a href=#190 id=190 data-nosnippet>190</a>            request_id: request_id.to_string(),
-<a href=#191 id=191 data-nosnippet>191</a>        })
-<a href=#192 id=192 data-nosnippet>192</a>    }
-<a href=#193 id=193 data-nosnippet>193</a>
-<a href=#194 id=194 data-nosnippet>194</a>    <span class="doccomment">/// Decision of result
-<a href=#195 id=195 data-nosnippet>195</a>    /// works based on [`AuthorizeResult::is_allowed`]
-<a href=#196 id=196 data-nosnippet>196</a>    </span><span class="kw">pub fn </span>cedar_decision(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Decision {
-<a href=#197 id=197 data-nosnippet>197</a>        <span class="kw">if </span><span class="self">self</span>.decision {
-<a href=#198 id=198 data-nosnippet>198</a>            Decision::Allow
-<a href=#199 id=199 data-nosnippet>199</a>        } <span class="kw">else </span>{
-<a href=#200 id=200 data-nosnippet>200</a>            Decision::Deny
-<a href=#201 id=201 data-nosnippet>201</a>        }
-<a href=#202 id=202 data-nosnippet>202</a>    }
-<a href=#203 id=203 data-nosnippet>203</a>}</code></pre></div></section></main></body></html>
+<a href=#164 id=164 data-nosnippet>164</a>            <span class="kw">if let </span><span class="prelude-val">Some</span>(uid) = <span class="kw-2">&amp;</span>person_uid
+<a href=#165 id=165 data-nosnippet>165</a>                &amp;&amp; uid == <span class="kw-2">&amp;</span>principal_uid {
+<a href=#166 id=166 data-nosnippet>166</a>                    person_result = <span class="prelude-val">Some</span>(response.to_owned());
+<a href=#167 id=167 data-nosnippet>167</a>                }
+<a href=#168 id=168 data-nosnippet>168</a>
+<a href=#169 id=169 data-nosnippet>169</a>            <span class="kw">let </span>principal_typename = principal_uid.type_name().to_smolstr();
+<a href=#170 id=170 data-nosnippet>170</a>            <span class="kw">let </span>principal_id = principal_uid.to_smolstr();
+<a href=#171 id=171 data-nosnippet>171</a>            <span class="comment">// Insert typename and principal id into hashmap.
+<a href=#172 id=172 data-nosnippet>172</a>            // This allows us to easily access the decision for a given principal by type name and and uid.
+<a href=#173 id=173 data-nosnippet>173</a>            </span>principals_decision_info.insert(principal_typename.clone(), response.decision().into());
+<a href=#174 id=174 data-nosnippet>174</a>            principals_decision_info.insert(principal_id.clone(), response.decision().into());
+<a href=#175 id=175 data-nosnippet>175</a>
+<a href=#176 id=176 data-nosnippet>176</a>            principals_response.insert(principal_typename.clone(), response.clone());
+<a href=#177 id=177 data-nosnippet>177</a>            principals_response.insert(principal_id, response);
+<a href=#178 id=178 data-nosnippet>178</a>        }
+<a href=#179 id=179 data-nosnippet>179</a>
+<a href=#180 id=180 data-nosnippet>180</a>        <span class="kw">let </span>decision =
+<a href=#181 id=181 data-nosnippet>181</a>            RuleApplier::new(principal_bool_operator, principals_decision_info).apply()<span class="question-mark">?</span>;
+<a href=#182 id=182 data-nosnippet>182</a>
+<a href=#183 id=183 data-nosnippet>183</a>        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+<a href=#184 id=184 data-nosnippet>184</a>            decision,
+<a href=#185 id=185 data-nosnippet>185</a>            workload: workload_result,
+<a href=#186 id=186 data-nosnippet>186</a>            person: person_result,
+<a href=#187 id=187 data-nosnippet>187</a>            principals: principals_response,
+<a href=#188 id=188 data-nosnippet>188</a>            request_id: request_id.to_string(),
+<a href=#189 id=189 data-nosnippet>189</a>        })
+<a href=#190 id=190 data-nosnippet>190</a>    }
+<a href=#191 id=191 data-nosnippet>191</a>
+<a href=#192 id=192 data-nosnippet>192</a>    <span class="doccomment">/// Decision of result
+<a href=#193 id=193 data-nosnippet>193</a>    /// works based on [`AuthorizeResult::is_allowed`]
+<a href=#194 id=194 data-nosnippet>194</a>    </span><span class="kw">pub fn </span>cedar_decision(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Decision {
+<a href=#195 id=195 data-nosnippet>195</a>        <span class="kw">if </span><span class="self">self</span>.decision {
+<a href=#196 id=196 data-nosnippet>196</a>            Decision::Allow
+<a href=#197 id=197 data-nosnippet>197</a>        } <span class="kw">else </span>{
+<a href=#198 id=198 data-nosnippet>198</a>            Decision::Deny
+<a href=#199 id=199 data-nosnippet>199</a>        }
+<a href=#200 id=200 data-nosnippet>200</a>    }
+<a href=#201 id=201 data-nosnippet>201</a>}</code></pre></div></section></main></body></html>

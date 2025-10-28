@@ -15,6 +15,7 @@ io.jans.service
 io.jans.service.cdi.async
 io.jans.service.cdi.event
 io.jans.service.cdi.util
+io.jans.service.cluster
 io.jans.service.custom
 io.jans.service.custom.lib
 io.jans.service.external
