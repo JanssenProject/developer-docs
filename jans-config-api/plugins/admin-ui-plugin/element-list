@@ -17,3 +17,4 @@ io.jans.ca.plugin.adminui.service.config
 io.jans.ca.plugin.adminui.service.license
 io.jans.ca.plugin.adminui.service.webhook
 io.jans.ca.plugin.adminui.utils
+io.jans.ca.plugin.adminui.utils.security
