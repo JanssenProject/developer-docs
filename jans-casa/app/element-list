@@ -14,7 +14,6 @@ io.jans.casa.plugins.authnmethod.conf
 io.jans.casa.plugins.authnmethod.conf.otp
 io.jans.casa.plugins.authnmethod.rs
 io.jans.casa.plugins.authnmethod.rs.status.otp
-io.jans.casa.plugins.authnmethod.rs.status.sg
 io.jans.casa.plugins.authnmethod.rs.status.sms
 io.jans.casa.plugins.authnmethod.rs.status.u2f
 io.jans.casa.plugins.authnmethod.service
