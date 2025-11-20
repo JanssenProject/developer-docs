@@ -916,11 +916,13 @@
 <a href=#916 id=916 data-nosnippet>916</a>            claims: <span class="kw">crate</span>::jwt::DecodedJwtClaims { inner: claims },
 <a href=#917 id=917 data-nosnippet>917</a>        };
 <a href=#918 id=918 data-nosnippet>918</a>        
-<a href=#919 id=919 data-nosnippet>919</a>        <span class="kw">let </span><span class="kw-2">mut </span>config = SsaValidationConfig::default();
-<a href=#920 id=920 data-nosnippet>920</a>        config.validate_grant_types_array = <span class="bool-val">false</span>;
-<a href=#921 id=921 data-nosnippet>921</a>        config.validate_software_roles_array = <span class="bool-val">false</span>;
-<a href=#922 id=922 data-nosnippet>922</a>        
-<a href=#923 id=923 data-nosnippet>923</a>        <span class="kw">let </span>result = validate_ssa_structure_with_config(<span class="kw-2">&amp;</span>decoded_jwt, <span class="kw-2">&amp;</span>config);
-<a href=#924 id=924 data-nosnippet>924</a>        <span class="macro">assert!</span>(result.is_ok());
-<a href=#925 id=925 data-nosnippet>925</a>    }
-<a href=#926 id=926 data-nosnippet>926</a>} </code></pre></div></section></main></body></html>
+<a href=#919 id=919 data-nosnippet>919</a>        <span class="kw">let </span>config = SsaValidationConfig {
+<a href=#920 id=920 data-nosnippet>920</a>            validate_grant_types_array: <span class="bool-val">false</span>,
+<a href=#921 id=921 data-nosnippet>921</a>            validate_software_roles_array: <span class="bool-val">false</span>,
+<a href=#922 id=922 data-nosnippet>922</a>            ..Default::default()
+<a href=#923 id=923 data-nosnippet>923</a>        };
+<a href=#924 id=924 data-nosnippet>924</a>        
+<a href=#925 id=925 data-nosnippet>925</a>        <span class="kw">let </span>result = validate_ssa_structure_with_config(<span class="kw-2">&amp;</span>decoded_jwt, <span class="kw-2">&amp;</span>config);
+<a href=#926 id=926 data-nosnippet>926</a>        <span class="macro">assert!</span>(result.is_ok());
+<a href=#927 id=927 data-nosnippet>927</a>    }
+<a href=#928 id=928 data-nosnippet>928</a>} </code></pre></div></section></main></body></html>

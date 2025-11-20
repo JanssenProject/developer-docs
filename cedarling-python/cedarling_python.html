@@ -27,7 +27,8 @@
 <dt class="heading-text"><a href="builtins.html#object">builtins.object</a>
 </dt><dd>
 <dl>
-<dt class="heading-text">builtins.AuthorizeResult
+<dt class="heading-text">builtins.AuthorizeMultiIssuerRequest
+</dt><dt class="heading-text">builtins.AuthorizeResult
 </dt><dt class="heading-text">builtins.AuthorizeResultResponse
 </dt><dt class="heading-text">builtins.BootstrapConfig
 </dt><dt class="heading-text">builtins.CedarEntityMapping
@@ -35,13 +36,69 @@
 </dt><dt class="heading-text">builtins.Decision
 </dt><dt class="heading-text">builtins.Diagnostics
 </dt><dt class="heading-text">builtins.EntityData
+</dt><dt class="heading-text">builtins.MultiIssuerAuthorizeResult
 </dt><dt class="heading-text">builtins.PolicyEvaluationError
 </dt><dt class="heading-text">builtins.Request
 </dt><dt class="heading-text">builtins.RequestUnsigned
+</dt><dt class="heading-text">builtins.TokenInput
 </dt></dl>
 </dd>
 </dl>
  <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="AuthorizeMultiIssuerRequest">class <strong>AuthorizeMultiIssuerRequest</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#AuthorizeMultiIssuerRequest">AuthorizeMultiIssuerRequest</a>(tokens,&nbsp;resource,&nbsp;action,&nbsp;context=None)<br>
+&nbsp;<br>
+<a href="#AuthorizeMultiIssuerRequest">AuthorizeMultiIssuerRequest</a><br>
+===========================<br>
+&nbsp;<br>
+A&nbsp;Python&nbsp;wrapper&nbsp;for&nbsp;the&nbsp;Rust&nbsp;`cedarling::<a href="#AuthorizeMultiIssuerRequest">AuthorizeMultiIssuerRequest</a>`&nbsp;struct.<br>
+Represents&nbsp;a&nbsp;multi-issuer&nbsp;authorization&nbsp;request&nbsp;with&nbsp;multiple&nbsp;JWT&nbsp;tokens&nbsp;from&nbsp;different&nbsp;issuers.<br>
+&nbsp;<br>
+Attributes<br>
+----------<br>
+:param&nbsp;tokens:&nbsp;List&nbsp;of&nbsp;<a href="#TokenInput">TokenInput</a>&nbsp;objects&nbsp;containing&nbsp;JWT&nbsp;tokens&nbsp;with&nbsp;explicit&nbsp;type&nbsp;mappings<br>
+:param&nbsp;resource:&nbsp;Resource&nbsp;data&nbsp;(wrapped&nbsp;`<a href="#EntityData">EntityData</a>`&nbsp;<a href="builtins.html#object">object</a>)<br>
+:param&nbsp;action:&nbsp;The&nbsp;action&nbsp;to&nbsp;be&nbsp;authorized<br>
+:param&nbsp;context:&nbsp;Optional&nbsp;Python&nbsp;dictionary&nbsp;with&nbsp;additional&nbsp;context<br>
+&nbsp;<br>
+Example<br>
+-------<br>
+```python<br>
+#&nbsp;Create&nbsp;a&nbsp;multi-issuer&nbsp;authorization&nbsp;request<br>
+tokens&nbsp;=&nbsp;[<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#TokenInput">TokenInput</a>(mapping="Jans::Access_Token",&nbsp;payload="eyJhbGc..."),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#TokenInput">TokenInput</a>(mapping="Acme::DolphinToken",&nbsp;payload="eyJhbGc...")<br>
+]<br>
+request&nbsp;=&nbsp;<a href="#AuthorizeMultiIssuerRequest">AuthorizeMultiIssuerRequest</a>(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;tokens=tokens,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;resource=resource,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;action="Read",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;context={"location":&nbsp;"miami"}<br>
+)<br>
+```<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Static methods defined here:<br>
+<dl><dt><a name="AuthorizeMultiIssuerRequest-__new__"><strong>__new__</strong></a>(*args, **kwargs)</dt><dd><span class="code">Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>action</strong></dt>
+<dd><span class="code">cedar_policy&nbsp;action</span></dd>
+</dl>
+<dl><dt><strong>context</strong></dt>
+<dd><span class="code">Optional&nbsp;context&nbsp;to&nbsp;be&nbsp;used&nbsp;in&nbsp;cedar_policy</span></dd>
+</dl>
+<dl><dt><strong>resource</strong></dt>
+<dd><span class="code">cedar_policy&nbsp;resource&nbsp;data</span></dd>
+</dl>
+<dl><dt><strong>tokens</strong></dt>
+<dd><span class="code">List&nbsp;of&nbsp;TokenInput&nbsp;objects</span></dd>
+</dl>
+</td></tr></table> <p>
 <table class="section">
 <tr class="decor title-decor heading-text">
 <td class="section-title" colspan=3>&nbsp;<br><a name="AuthorizeResult">class <strong>AuthorizeResult</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
@@ -213,6 +270,17 @@ Methods<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Execute&nbsp;authorize&nbsp;request<br>
 &nbsp;&nbsp;&nbsp;&nbsp;:param&nbsp;request:&nbsp;<a href="#Request">Request</a>&nbsp;struct&nbsp;for&nbsp;authorize.<br>
 &nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#Cedarling-authorize_unsigned">authorize_unsigned</a>(self,&nbsp;request:&nbsp;<a href="#RequestUnsigned">RequestUnsigned</a>)&nbsp;-&gt;&nbsp;<a href="#AuthorizeResult">AuthorizeResult</a><br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Authorize&nbsp;request&nbsp;with&nbsp;unsigned&nbsp;data.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:param&nbsp;request:&nbsp;<a href="#RequestUnsigned">RequestUnsigned</a>&nbsp;struct&nbsp;for&nbsp;authorize.<br>
+&nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#Cedarling-authorize_multi_issuer">authorize_multi_issuer</a>(self,&nbsp;request:&nbsp;<a href="#AuthorizeMultiIssuerRequest">AuthorizeMultiIssuerRequest</a>)&nbsp;-&gt;&nbsp;<a href="#MultiIssuerAuthorizeResult">MultiIssuerAuthorizeResult</a><br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Authorize&nbsp;multi-issuer&nbsp;request.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Makes&nbsp;authorization&nbsp;decision&nbsp;based&nbsp;on&nbsp;multiple&nbsp;JWT&nbsp;tokens&nbsp;from&nbsp;different&nbsp;issuers.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;:param&nbsp;request:&nbsp;<a href="#AuthorizeMultiIssuerRequest">AuthorizeMultiIssuerRequest</a>&nbsp;struct&nbsp;for&nbsp;authorize.<br>
+&nbsp;<br>
 ..&nbsp;method::&nbsp;<a href="#Cedarling-pop_logs">pop_logs</a>(self)&nbsp;-&gt;&nbsp;List[dict]<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;Retrieves&nbsp;and&nbsp;removes&nbsp;all&nbsp;logs&nbsp;from&nbsp;storage.<br>
@@ -261,6 +329,9 @@ Methods<br>
 <tr><td>&nbsp;</td>
 <td class="singlecolumn">Methods defined here:<br>
 <dl><dt><a name="Cedarling-authorize"><strong>authorize</strong></a>(self, /, request)</dt><dd><span class="code">Authorize&nbsp;request</span></dd></dl>
+
+<dl><dt><a name="Cedarling-authorize_multi_issuer"><strong>authorize_multi_issuer</strong></a>(self, /, request)</dt><dd><span class="code">Authorize&nbsp;multi-issuer&nbsp;request.<br>
+Makes&nbsp;authorization&nbsp;decision&nbsp;based&nbsp;on&nbsp;multiple&nbsp;JWT&nbsp;tokens&nbsp;from&nbsp;different&nbsp;issuers.</span></dd></dl>
 
 <dl><dt><a name="Cedarling-authorize_unsigned"><strong>authorize_unsigned</strong></a>(self, /, request)</dt><dd><span class="code">Authorize&nbsp;request&nbsp;with&nbsp;unsigned&nbsp;data.</span></dd></dl>
 
@@ -414,6 +485,40 @@ Data descriptors defined here:<br>
 </td></tr></table> <p>
 <table class="section">
 <tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="MultiIssuerAuthorizeResult">class <strong>MultiIssuerAuthorizeResult</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#MultiIssuerAuthorizeResult">MultiIssuerAuthorizeResult</a><br>
+==========================<br>
+&nbsp;<br>
+A&nbsp;Python&nbsp;wrapper&nbsp;for&nbsp;the&nbsp;Rust&nbsp;`cedarling::<a href="#MultiIssuerAuthorizeResult">MultiIssuerAuthorizeResult</a>`&nbsp;struct.<br>
+Represents&nbsp;the&nbsp;result&nbsp;of&nbsp;a&nbsp;multi-issuer&nbsp;authorization&nbsp;request.<br>
+&nbsp;<br>
+Methods<br>
+-------<br>
+..&nbsp;method::&nbsp;<a href="#MultiIssuerAuthorizeResult-is_allowed">is_allowed</a>(self)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;whether&nbsp;the&nbsp;request&nbsp;is&nbsp;allowed.<br>
+&nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#MultiIssuerAuthorizeResult-response">response</a>(self)&nbsp;-&gt;&nbsp;<a href="#AuthorizeResultResponse">AuthorizeResultResponse</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;the&nbsp;detailed&nbsp;Cedar&nbsp;policy&nbsp;response.<br>
+&nbsp;<br>
+..&nbsp;method::&nbsp;<a href="#MultiIssuerAuthorizeResult-request_id">request_id</a>(self)&nbsp;-&gt;&nbsp;str<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Returns&nbsp;the&nbsp;unique&nbsp;request&nbsp;ID&nbsp;for&nbsp;this&nbsp;authorization.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="MultiIssuerAuthorizeResult-is_allowed"><strong>is_allowed</strong></a>(self, /)</dt><dd><span class="code">Returns&nbsp;true&nbsp;if&nbsp;request&nbsp;is&nbsp;allowed</span></dd></dl>
+
+<dl><dt><a name="MultiIssuerAuthorizeResult-request_id"><strong>request_id</strong></a>(self, /)</dt><dd><span class="code">Get&nbsp;the&nbsp;request&nbsp;ID&nbsp;associated&nbsp;with&nbsp;this&nbsp;result</span></dd></dl>
+
+<dl><dt><a name="MultiIssuerAuthorizeResult-response"><strong>response</strong></a>(self, /)</dt><dd><span class="code">Get&nbsp;the&nbsp;Cedar&nbsp;policy&nbsp;response</span></dd></dl>
+
+<hr>
+Static methods defined here:<br>
+<dl><dt><a name="MultiIssuerAuthorizeResult-__new__"><strong>__new__</strong></a>(*args, **kwargs)</dt><dd><span class="code">Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</span></dd></dl>
+
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
 <td class="section-title" colspan=3>&nbsp;<br><a name="PolicyEvaluationError">class <strong>PolicyEvaluationError</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
     
 <tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
@@ -528,11 +633,48 @@ Data descriptors defined here:<br>
 <dl><dt><strong>resource</strong></dt>
 <dd><span class="code">cedar_policy&nbsp;resource&nbsp;data</span></dd>
 </dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="TokenInput">class <strong>TokenInput</strong></a>(<a href="builtins.html#object">object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#TokenInput">TokenInput</a>(mapping,&nbsp;payload)<br>
+&nbsp;<br>
+<a href="#TokenInput">TokenInput</a><br>
+==========<br>
+&nbsp;<br>
+A&nbsp;Python&nbsp;wrapper&nbsp;for&nbsp;the&nbsp;Rust&nbsp;`cedarling::<a href="#TokenInput">TokenInput</a>`&nbsp;struct.<br>
+Represents&nbsp;a&nbsp;JWT&nbsp;token&nbsp;with&nbsp;explicit&nbsp;type&nbsp;mapping&nbsp;for&nbsp;multi-issuer&nbsp;authorization.<br>
+&nbsp;<br>
+Attributes<br>
+----------<br>
+:param&nbsp;mapping:&nbsp;Token&nbsp;mapping&nbsp;type&nbsp;(e.g.,&nbsp;"Jans::Access_Token",&nbsp;"Acme::DolphinToken")<br>
+:param&nbsp;payload:&nbsp;JWT&nbsp;token&nbsp;string<br>
+&nbsp;<br>
+Example<br>
+-------<br>
+```python<br>
+#&nbsp;Create&nbsp;a&nbsp;token&nbsp;input&nbsp;for&nbsp;multi-issuer&nbsp;authorization<br>
+token&nbsp;=&nbsp;<a href="#TokenInput">TokenInput</a>(mapping="Jans::Access_Token",&nbsp;payload="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...")<br>
+```<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Static methods defined here:<br>
+<dl><dt><a name="TokenInput-__new__"><strong>__new__</strong></a>(*args, **kwargs)</dt><dd><span class="code">Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;<a href="builtins.html#object">object</a>.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>mapping</strong></dt>
+<dd><span class="code">Token&nbsp;mapping&nbsp;type</span></dd>
+</dl>
+<dl><dt><strong>payload</strong></dt>
+<dd><span class="code">JWT&nbsp;token&nbsp;string</span></dd>
+</dl>
 </td></tr></table></td></tr></table><p>
 <table class="section">
 <tr class="decor data-decor heading-text">
 <td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
     
 <tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
-<td class="singlecolumn"><strong>__all__</strong> = ['BootstrapConfig', 'PolicyEvaluationError', 'Diagnostics', 'Decision', 'EntityData', 'CedarEntityMapping', 'Request', 'RequestUnsigned', 'AuthorizeResultResponse', 'AuthorizeResult', 'authorize_errors', 'Cedarling']</td></tr></table>
+<td class="singlecolumn"><strong>__all__</strong> = ['BootstrapConfig', 'PolicyEvaluationError', 'Diagnostics', 'Decision', 'EntityData', 'CedarEntityMapping', 'Request', 'RequestUnsigned', 'TokenInput', 'AuthorizeMultiIssuerRequest', 'AuthorizeResultResponse', 'AuthorizeResult', 'MultiIssuerAuthorizeResult', 'authorize_errors', 'Cedarling']</td></tr></table>
 </body></html>
