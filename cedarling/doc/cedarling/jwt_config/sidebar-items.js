@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":["JwtConfig","JwtConfigRaw","TokenValidationConfig"]};
+window.SIDEBAR_ITEMS = {"struct":["JwtConfig","TokenValidationConfig"]};
