@@ -159,7 +159,7 @@
 <a href=#159 id=159 data-nosnippet>159</a>
 <a href=#160 id=160 data-nosnippet>160</a>        <span class="kw">let </span>builder = EntityBuilder::new(
 <a href=#161 id=161 data-nosnippet>161</a>            EntityBuilderConfig::default().with_workload(),
-<a href=#162 id=162 data-nosnippet>162</a>            <span class="kw-2">&amp;</span>issuers,
+<a href=#162 id=162 data-nosnippet>162</a>            TrustedIssuerIndex::new(<span class="kw-2">&amp;</span>issuers, <span class="prelude-val">None</span>),
 <a href=#163 id=163 data-nosnippet>163</a>            <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
 <a href=#164 id=164 data-nosnippet>164</a>            DefaultEntities::default(),
 <a href=#165 id=165 data-nosnippet>165</a>        )
@@ -237,7 +237,7 @@
 <a href=#237 id=237 data-nosnippet>237</a>
 <a href=#238 id=238 data-nosnippet>238</a>        <span class="kw">let </span>builder = EntityBuilder::new(
 <a href=#239 id=239 data-nosnippet>239</a>            EntityBuilderConfig::default().with_workload(),
-<a href=#240 id=240 data-nosnippet>240</a>            <span class="kw-2">&amp;</span>issuers,
+<a href=#240 id=240 data-nosnippet>240</a>            TrustedIssuerIndex::new(<span class="kw-2">&amp;</span>issuers, <span class="prelude-val">None</span>),
 <a href=#241 id=241 data-nosnippet>241</a>            <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
 <a href=#242 id=242 data-nosnippet>242</a>            DefaultEntities::default(),
 <a href=#243 id=243 data-nosnippet>243</a>        )
@@ -319,7 +319,7 @@
 <a href=#319 id=319 data-nosnippet>319</a>
 <a href=#320 id=320 data-nosnippet>320</a>        <span class="kw">let </span>builder = EntityBuilder::new(
 <a href=#321 id=321 data-nosnippet>321</a>            EntityBuilderConfig::default().with_workload(),
-<a href=#322 id=322 data-nosnippet>322</a>            <span class="kw-2">&amp;</span>issuers,
+<a href=#322 id=322 data-nosnippet>322</a>            TrustedIssuerIndex::new(<span class="kw-2">&amp;</span>issuers, <span class="prelude-val">None</span>),
 <a href=#323 id=323 data-nosnippet>323</a>            <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
 <a href=#324 id=324 data-nosnippet>324</a>            DefaultEntities::default(),
 <a href=#325 id=325 data-nosnippet>325</a>        )
@@ -398,7 +398,7 @@
 <a href=#398 id=398 data-nosnippet>398</a>
 <a href=#399 id=399 data-nosnippet>399</a>        <span class="kw">let </span>builder = EntityBuilder::new(
 <a href=#400 id=400 data-nosnippet>400</a>            EntityBuilderConfig::default().with_workload(),
-<a href=#401 id=401 data-nosnippet>401</a>            <span class="kw-2">&amp;</span>issuers,
+<a href=#401 id=401 data-nosnippet>401</a>            TrustedIssuerIndex::new(<span class="kw-2">&amp;</span>issuers, <span class="prelude-val">None</span>),
 <a href=#402 id=402 data-nosnippet>402</a>            <span class="prelude-val">None</span>,
 <a href=#403 id=403 data-nosnippet>403</a>            DefaultEntities::default(),
 <a href=#404 id=404 data-nosnippet>404</a>        )

@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["LogTypeConfig"],"struct":["LockServiceConfig","LogConfig","LogConfigRaw","MemoryLogConfig","MemoryLogConfigRaw"]};
+window.SIDEBAR_ITEMS = {"enum":["LogTypeConfig","StdOutLoggerMode","StdOutMode"],"struct":["LockServiceConfig","LogConfig","MemoryLogConfig","MemoryLogConfigRaw"]};

@@ -125,7 +125,7 @@
 <a href=#125 id=125 data-nosnippet>125</a>
 <a href=#126 id=126 data-nosnippet>126</a>        <span class="kw">let </span>builder = EntityBuilder::new(
 <a href=#127 id=127 data-nosnippet>127</a>            EntityBuilderConfig::default().with_workload(),
-<a href=#128 id=128 data-nosnippet>128</a>            <span class="kw-2">&amp;</span>issuers,
+<a href=#128 id=128 data-nosnippet>128</a>            TrustedIssuerIndex::new(<span class="kw-2">&amp;</span>issuers, <span class="prelude-val">None</span>),
 <a href=#129 id=129 data-nosnippet>129</a>            <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>validator_schema),
 <a href=#130 id=130 data-nosnippet>130</a>            DefaultEntities::default(),
 <a href=#131 id=131 data-nosnippet>131</a>        )
