@@ -3,7 +3,7 @@
 <a href=#3 id=3 data-nosnippet>3</a>//
 <a href=#4 id=4 data-nosnippet>4</a>// Copyright (c) 2024, Gluu, Inc.
 <a href=#5 id=5 data-nosnippet>5</a>
-<a href=#6 id=6 data-nosnippet>6</a></span><span class="kw">use </span>cedar_policy_validator::types::{EntityRecordKind, Primitive, Type};
+<a href=#6 id=6 data-nosnippet>6</a></span><span class="kw">use </span>cedar_policy_core::validator::types::{EntityRecordKind, Primitive, Type};
 <a href=#7 id=7 data-nosnippet>7</a><span class="kw">use </span>derive_more::derive::Deref;
 <a href=#8 id=8 data-nosnippet>8</a><span class="kw">use </span>smol_str::{SmolStr, ToSmolStr};
 <a href=#9 id=9 data-nosnippet>9</a><span class="kw">use </span>std::collections::HashMap;
@@ -49,7 +49,7 @@
 <a href=#49 id=49 data-nosnippet>49</a>}
 <a href=#50 id=50 data-nosnippet>50</a>
 <a href=#51 id=51 data-nosnippet>51</a><span class="kw">impl </span>AttrSrc {
-<a href=#52 id=52 data-nosnippet>52</a>    <span class="doccomment">/// Resolves [`AttrSrc`] from [`cedar_policy_validator::types::Type`]
+<a href=#52 id=52 data-nosnippet>52</a>    <span class="doccomment">/// Resolves [`AttrSrc`] from [`cedar_policy_core::validator::types::Type`]
 <a href=#53 id=53 data-nosnippet>53</a>    </span><span class="kw">pub fn </span>from_type(attr_name: <span class="kw-2">&amp;</span>str, value: <span class="kw-2">&amp;</span>Type) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, BuildAttrSrcError&gt; {
 <a href=#54 id=54 data-nosnippet>54</a>        <span class="kw">let </span>attr_src: <span class="self">Self </span>= <span class="kw">match </span>value {
 <a href=#55 id=55 data-nosnippet>55</a>            Type::Never =&gt; {
@@ -122,28 +122,28 @@
 <a href=#122 id=122 data-nosnippet>122</a>                <span class="kw">let </span>attrs = attrs
 <a href=#123 id=123 data-nosnippet>123</a>                    .iter()
 <a href=#124 id=124 data-nosnippet>124</a>                    .map(|(name, attr_kind)| {
-<a href=#125 id=125 data-nosnippet>125</a>                        (name.clone(), ExpectedClaimType::from(<span class="kw-2">&amp;</span>attr_kind.attr_type))
-<a href=#126 id=126 data-nosnippet>126</a>                    })
-<a href=#127 id=127 data-nosnippet>127</a>                    .collect::&lt;HashMap&lt;SmolStr, ExpectedClaimType&gt;&gt;();
-<a href=#128 id=128 data-nosnippet>128</a>                <span class="self">Self</span>::JwtClaim(TknClaimAttrSrc {
-<a href=#129 id=129 data-nosnippet>129</a>                    claim: attr_name.to_string(),
-<a href=#130 id=130 data-nosnippet>130</a>                    expected_type: ExpectedClaimType::Object(attrs),
-<a href=#131 id=131 data-nosnippet>131</a>                })
-<a href=#132 id=132 data-nosnippet>132</a>            },
-<a href=#133 id=133 data-nosnippet>133</a>            EntityRecordKind::AnyEntity =&gt; {
-<a href=#134 id=134 data-nosnippet>134</a>                <span class="kw">return </span><span class="prelude-val">Err</span>(
-<a href=#135 id=135 data-nosnippet>135</a>                    BuildAttrSrcErrorKind::InvalidEntityRecordKind(value.clone())
-<a href=#136 id=136 data-nosnippet>136</a>                        .while_building(attr_name),
-<a href=#137 id=137 data-nosnippet>137</a>                );
-<a href=#138 id=138 data-nosnippet>138</a>            },
-<a href=#139 id=139 data-nosnippet>139</a>            EntityRecordKind::Entity(entity_lub) =&gt; {
-<a href=#140 id=140 data-nosnippet>140</a>                <span class="kw">let </span>entity = entity_lub.get_single_entity().ok_or(
-<a href=#141 id=141 data-nosnippet>141</a>                    BuildAttrSrcErrorKind::MissingEntityTypeName.while_building(attr_name),
-<a href=#142 id=142 data-nosnippet>142</a>                )<span class="question-mark">?</span>;
-<a href=#143 id=143 data-nosnippet>143</a>                <span class="self">Self</span>::EntityRef(EntityRefAttrSrc(entity.name().to_smolstr()))
-<a href=#144 id=144 data-nosnippet>144</a>            },
-<a href=#145 id=145 data-nosnippet>145</a>            EntityRecordKind::ActionEntity { .. } =&gt; {
-<a href=#146 id=146 data-nosnippet>146</a>                <span class="kw">return </span><span class="prelude-val">Err</span>(BuildAttrSrcErrorKind::ActionAttrNotAllowed.while_building(attr_name));
+<a href=#125 id=125 data-nosnippet>125</a>                        (
+<a href=#126 id=126 data-nosnippet>126</a>                            name.clone(),
+<a href=#127 id=127 data-nosnippet>127</a>                            ExpectedClaimType::from(attr_kind.attr_type.as_ref()),
+<a href=#128 id=128 data-nosnippet>128</a>                        )
+<a href=#129 id=129 data-nosnippet>129</a>                    })
+<a href=#130 id=130 data-nosnippet>130</a>                    .collect::&lt;HashMap&lt;SmolStr, ExpectedClaimType&gt;&gt;();
+<a href=#131 id=131 data-nosnippet>131</a>                <span class="self">Self</span>::JwtClaim(TknClaimAttrSrc {
+<a href=#132 id=132 data-nosnippet>132</a>                    claim: attr_name.to_string(),
+<a href=#133 id=133 data-nosnippet>133</a>                    expected_type: ExpectedClaimType::Object(attrs),
+<a href=#134 id=134 data-nosnippet>134</a>                })
+<a href=#135 id=135 data-nosnippet>135</a>            },
+<a href=#136 id=136 data-nosnippet>136</a>            EntityRecordKind::AnyEntity =&gt; {
+<a href=#137 id=137 data-nosnippet>137</a>                <span class="kw">return </span><span class="prelude-val">Err</span>(
+<a href=#138 id=138 data-nosnippet>138</a>                    BuildAttrSrcErrorKind::InvalidEntityRecordKind(value.clone())
+<a href=#139 id=139 data-nosnippet>139</a>                        .while_building(attr_name),
+<a href=#140 id=140 data-nosnippet>140</a>                );
+<a href=#141 id=141 data-nosnippet>141</a>            },
+<a href=#142 id=142 data-nosnippet>142</a>            EntityRecordKind::Entity(entity_lub) =&gt; {
+<a href=#143 id=143 data-nosnippet>143</a>                <span class="kw">let </span>entity = entity_lub.get_single_entity().ok_or(
+<a href=#144 id=144 data-nosnippet>144</a>                    BuildAttrSrcErrorKind::MissingEntityTypeName.while_building(attr_name),
+<a href=#145 id=145 data-nosnippet>145</a>                )<span class="question-mark">?</span>;
+<a href=#146 id=146 data-nosnippet>146</a>                <span class="self">Self</span>::EntityRef(EntityRefAttrSrc(entity.name().to_smolstr()))
 <a href=#147 id=147 data-nosnippet>147</a>            },
 <a href=#148 id=148 data-nosnippet>148</a>        };
 <a href=#149 id=149 data-nosnippet>149</a>
@@ -168,54 +168,54 @@
 <a href=#168 id=168 data-nosnippet>168</a>    </span>InvalidEntityRecordKind(EntityRecordKind),
 <a href=#169 id=169 data-nosnippet>169</a>    <span class="attr">#[error(<span class="string">"the entity type name was not defined"</span>)]
 <a href=#170 id=170 data-nosnippet>170</a>    </span>MissingEntityTypeName,
-<a href=#171 id=171 data-nosnippet>171</a>    <span class="attr">#[error(<span class="string">"action entities cannot become attributes to other entities"</span>)]
-<a href=#172 id=172 data-nosnippet>172</a>    </span>ActionAttrNotAllowed,
-<a href=#173 id=173 data-nosnippet>173</a>}
-<a href=#174 id=174 data-nosnippet>174</a>
-<a href=#175 id=175 data-nosnippet>175</a><span class="kw">impl </span>BuildAttrSrcErrorKind {
-<a href=#176 id=176 data-nosnippet>176</a>    <span class="kw">fn </span>while_building(<span class="self">self</span>, attr_name: <span class="kw-2">&amp;</span>str) -&gt; BuildAttrSrcError {
-<a href=#177 id=177 data-nosnippet>177</a>        BuildAttrSrcError {
-<a href=#178 id=178 data-nosnippet>178</a>            attr_name: attr_name.to_string(),
-<a href=#179 id=179 data-nosnippet>179</a>            kind: <span class="self">self</span>,
-<a href=#180 id=180 data-nosnippet>180</a>        }
-<a href=#181 id=181 data-nosnippet>181</a>    }
-<a href=#182 id=182 data-nosnippet>182</a>}
-<a href=#183 id=183 data-nosnippet>183</a>
-<a href=#184 id=184 data-nosnippet>184</a><span class="kw">impl </span>From&lt;<span class="kw-2">&amp;</span>Type&gt; <span class="kw">for </span>ExpectedClaimType {
-<a href=#185 id=185 data-nosnippet>185</a>    <span class="kw">fn </span>from(value: <span class="kw-2">&amp;</span>Type) -&gt; <span class="self">Self </span>{
-<a href=#186 id=186 data-nosnippet>186</a>        <span class="kw">match </span>value {
-<a href=#187 id=187 data-nosnippet>187</a>            Type::Never =&gt; ExpectedClaimType::Null,
-<a href=#188 id=188 data-nosnippet>188</a>            Type::True =&gt; ExpectedClaimType::Bool,
-<a href=#189 id=189 data-nosnippet>189</a>            Type::False =&gt; ExpectedClaimType::Bool,
-<a href=#190 id=190 data-nosnippet>190</a>            Type::Primitive { primitive_type } =&gt; primitive_type.into(),
-<a href=#191 id=191 data-nosnippet>191</a>            Type::Set { element_type } =&gt; element_type
-<a href=#192 id=192 data-nosnippet>192</a>                .as_ref()
-<a href=#193 id=193 data-nosnippet>193</a>                .map(|t| <span class="self">Self</span>::from(<span class="kw-2">&amp;**</span>t))
-<a href=#194 id=194 data-nosnippet>194</a>                <span class="comment">// see: https://docs.rs/cedar-policy-validator/4.3.3/cedar_policy_validator/types/enum.Type.html#variant.Set
-<a href=#195 id=195 data-nosnippet>195</a>                </span>.expect(<span class="string">"this should always be `Some`"</span>),
-<a href=#196 id=196 data-nosnippet>196</a>            Type::EntityOrRecord(entity_record_kind) =&gt; entity_record_kind.into(),
-<a href=#197 id=197 data-nosnippet>197</a>            Type::ExtensionType { name } =&gt; <span class="self">Self</span>::Extension(name.to_smolstr()),
-<a href=#198 id=198 data-nosnippet>198</a>        }
-<a href=#199 id=199 data-nosnippet>199</a>    }
-<a href=#200 id=200 data-nosnippet>200</a>}
-<a href=#201 id=201 data-nosnippet>201</a>
-<a href=#202 id=202 data-nosnippet>202</a><span class="kw">impl </span>From&lt;<span class="kw-2">&amp;</span>Primitive&gt; <span class="kw">for </span>ExpectedClaimType {
-<a href=#203 id=203 data-nosnippet>203</a>    <span class="kw">fn </span>from(value: <span class="kw-2">&amp;</span>Primitive) -&gt; <span class="self">Self </span>{
-<a href=#204 id=204 data-nosnippet>204</a>        <span class="kw">match </span>value {
-<a href=#205 id=205 data-nosnippet>205</a>            Primitive::Bool =&gt; <span class="self">Self</span>::Bool,
-<a href=#206 id=206 data-nosnippet>206</a>            Primitive::Long =&gt; <span class="self">Self</span>::Number,
-<a href=#207 id=207 data-nosnippet>207</a>            Primitive::String =&gt; <span class="self">Self</span>::String,
-<a href=#208 id=208 data-nosnippet>208</a>        }
-<a href=#209 id=209 data-nosnippet>209</a>    }
-<a href=#210 id=210 data-nosnippet>210</a>}
-<a href=#211 id=211 data-nosnippet>211</a>
-<a href=#212 id=212 data-nosnippet>212</a><span class="kw">impl </span>From&lt;<span class="kw-2">&amp;</span>EntityRecordKind&gt; <span class="kw">for </span>ExpectedClaimType {
-<a href=#213 id=213 data-nosnippet>213</a>    <span class="kw">fn </span>from(value: <span class="kw-2">&amp;</span>EntityRecordKind) -&gt; <span class="self">Self </span>{
-<a href=#214 id=214 data-nosnippet>214</a>        <span class="kw">match </span>value {
-<a href=#215 id=215 data-nosnippet>215</a>            EntityRecordKind::Record { attrs, .. } =&gt; {
-<a href=#216 id=216 data-nosnippet>216</a>                <span class="kw">let </span>attrs = attrs
-<a href=#217 id=217 data-nosnippet>217</a>                    .iter()
-<a href=#218 id=218 data-nosnippet>218</a>                    .map(|(name, attr_kind)| (name.clone(), <span class="self">Self</span>::from(<span class="kw-2">&amp;</span>attr_kind.attr_type)))
+<a href=#171 id=171 data-nosnippet>171</a>}
+<a href=#172 id=172 data-nosnippet>172</a>
+<a href=#173 id=173 data-nosnippet>173</a><span class="kw">impl </span>BuildAttrSrcErrorKind {
+<a href=#174 id=174 data-nosnippet>174</a>    <span class="kw">fn </span>while_building(<span class="self">self</span>, attr_name: <span class="kw-2">&amp;</span>str) -&gt; BuildAttrSrcError {
+<a href=#175 id=175 data-nosnippet>175</a>        BuildAttrSrcError {
+<a href=#176 id=176 data-nosnippet>176</a>            attr_name: attr_name.to_string(),
+<a href=#177 id=177 data-nosnippet>177</a>            kind: <span class="self">self</span>,
+<a href=#178 id=178 data-nosnippet>178</a>        }
+<a href=#179 id=179 data-nosnippet>179</a>    }
+<a href=#180 id=180 data-nosnippet>180</a>}
+<a href=#181 id=181 data-nosnippet>181</a>
+<a href=#182 id=182 data-nosnippet>182</a><span class="kw">impl </span>From&lt;<span class="kw-2">&amp;</span>Type&gt; <span class="kw">for </span>ExpectedClaimType {
+<a href=#183 id=183 data-nosnippet>183</a>    <span class="kw">fn </span>from(value: <span class="kw-2">&amp;</span>Type) -&gt; <span class="self">Self </span>{
+<a href=#184 id=184 data-nosnippet>184</a>        <span class="kw">match </span>value {
+<a href=#185 id=185 data-nosnippet>185</a>            Type::Never =&gt; ExpectedClaimType::Null,
+<a href=#186 id=186 data-nosnippet>186</a>            Type::True =&gt; ExpectedClaimType::Bool,
+<a href=#187 id=187 data-nosnippet>187</a>            Type::False =&gt; ExpectedClaimType::Bool,
+<a href=#188 id=188 data-nosnippet>188</a>            Type::Primitive { primitive_type } =&gt; primitive_type.into(),
+<a href=#189 id=189 data-nosnippet>189</a>            Type::Set { element_type } =&gt; element_type
+<a href=#190 id=190 data-nosnippet>190</a>                .as_ref()
+<a href=#191 id=191 data-nosnippet>191</a>                .map(|t| <span class="self">Self</span>::from(<span class="kw-2">&amp;**</span>t))
+<a href=#192 id=192 data-nosnippet>192</a>                <span class="comment">// see: https://docs.rs/cedar-policy-core/latest/cedar_policy_core/validator/types/enum.Type.html#variant.Set
+<a href=#193 id=193 data-nosnippet>193</a>                </span>.expect(<span class="string">"cedar-policy-core type `Type::Set` should always be `Some`, according to the documentation"</span>),
+<a href=#194 id=194 data-nosnippet>194</a>            Type::EntityOrRecord(entity_record_kind) =&gt; entity_record_kind.into(),
+<a href=#195 id=195 data-nosnippet>195</a>            Type::ExtensionType { name } =&gt; <span class="self">Self</span>::Extension(name.to_smolstr()),
+<a href=#196 id=196 data-nosnippet>196</a>        }
+<a href=#197 id=197 data-nosnippet>197</a>    }
+<a href=#198 id=198 data-nosnippet>198</a>}
+<a href=#199 id=199 data-nosnippet>199</a>
+<a href=#200 id=200 data-nosnippet>200</a><span class="kw">impl </span>From&lt;<span class="kw-2">&amp;</span>Primitive&gt; <span class="kw">for </span>ExpectedClaimType {
+<a href=#201 id=201 data-nosnippet>201</a>    <span class="kw">fn </span>from(value: <span class="kw-2">&amp;</span>Primitive) -&gt; <span class="self">Self </span>{
+<a href=#202 id=202 data-nosnippet>202</a>        <span class="kw">match </span>value {
+<a href=#203 id=203 data-nosnippet>203</a>            Primitive::Bool =&gt; <span class="self">Self</span>::Bool,
+<a href=#204 id=204 data-nosnippet>204</a>            Primitive::Long =&gt; <span class="self">Self</span>::Number,
+<a href=#205 id=205 data-nosnippet>205</a>            Primitive::String =&gt; <span class="self">Self</span>::String,
+<a href=#206 id=206 data-nosnippet>206</a>        }
+<a href=#207 id=207 data-nosnippet>207</a>    }
+<a href=#208 id=208 data-nosnippet>208</a>}
+<a href=#209 id=209 data-nosnippet>209</a>
+<a href=#210 id=210 data-nosnippet>210</a><span class="kw">impl </span>From&lt;<span class="kw-2">&amp;</span>EntityRecordKind&gt; <span class="kw">for </span>ExpectedClaimType {
+<a href=#211 id=211 data-nosnippet>211</a>    <span class="kw">fn </span>from(value: <span class="kw-2">&amp;</span>EntityRecordKind) -&gt; <span class="self">Self </span>{
+<a href=#212 id=212 data-nosnippet>212</a>        <span class="kw">match </span>value {
+<a href=#213 id=213 data-nosnippet>213</a>            EntityRecordKind::Record { attrs, .. } =&gt; {
+<a href=#214 id=214 data-nosnippet>214</a>                <span class="kw">let </span>attrs = attrs
+<a href=#215 id=215 data-nosnippet>215</a>                    .iter()
+<a href=#216 id=216 data-nosnippet>216</a>                    .map(|(name, attr_kind)| {
+<a href=#217 id=217 data-nosnippet>217</a>                        (name.clone(), <span class="self">Self</span>::from(attr_kind.attr_type.as_ref()))
+<a href=#218 id=218 data-nosnippet>218</a>                    })
 <a href=#219 id=219 data-nosnippet>219</a>                    .collect::&lt;HashMap&lt;SmolStr, <span class="self">Self</span>&gt;&gt;();
 <a href=#220 id=220 data-nosnippet>220</a>                <span class="self">Self</span>::Object(attrs)
 <a href=#221 id=221 data-nosnippet>221</a>            },
@@ -223,7 +223,6 @@
 <a href=#223 id=223 data-nosnippet>223</a>            // ... should we use TryFrom instead of returning null?
 <a href=#224 id=224 data-nosnippet>224</a>            </span>EntityRecordKind::AnyEntity =&gt; <span class="self">Self</span>::Null,
 <a href=#225 id=225 data-nosnippet>225</a>            EntityRecordKind::Entity(_entity_lub) =&gt; <span class="self">Self</span>::Null,
-<a href=#226 id=226 data-nosnippet>226</a>            EntityRecordKind::ActionEntity { .. } =&gt; <span class="self">Self</span>::Null,
-<a href=#227 id=227 data-nosnippet>227</a>        }
-<a href=#228 id=228 data-nosnippet>228</a>    }
-<a href=#229 id=229 data-nosnippet>229</a>}</code></pre></div></section></main></body></html>
+<a href=#226 id=226 data-nosnippet>226</a>        }
+<a href=#227 id=227 data-nosnippet>227</a>    }
+<a href=#228 id=228 data-nosnippet>228</a>}</code></pre></div></section></main></body></html>
