@@ -86,73 +86,85 @@
 <a href=#86 id=86 data-nosnippet>86</a>            </span>(<span class="prelude-val">Some</span>(policy_store), <span class="prelude-val">None</span>, <span class="prelude-val">None</span>) =&gt; PolicyStoreConfig {
 <a href=#87 id=87 data-nosnippet>87</a>                source: PolicyStoreSource::Json(policy_store),
 <a href=#88 id=88 data-nosnippet>88</a>            },
-<a href=#89 id=89 data-nosnippet>89</a>            <span class="comment">// Case: get the policy store from the lock server
-<a href=#90 id=90 data-nosnippet>90</a>            </span>(<span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(policy_store_uri), <span class="prelude-val">None</span>) =&gt; PolicyStoreConfig {
-<a href=#91 id=91 data-nosnippet>91</a>                source: PolicyStoreSource::LockServer(policy_store_uri),
-<a href=#92 id=92 data-nosnippet>92</a>            },
-<a href=#93 id=93 data-nosnippet>93</a>            <span class="comment">// Case: get the policy store from a local JSON file
-<a href=#94 id=94 data-nosnippet>94</a>            </span>(<span class="prelude-val">None</span>, <span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(raw_path)) =&gt; {
-<a href=#95 id=95 data-nosnippet>95</a>                <span class="kw">let </span>path = Path::new(<span class="kw-2">&amp;</span>raw_path);
-<a href=#96 id=96 data-nosnippet>96</a>                <span class="kw">let </span>file_ext = Path::new(<span class="kw-2">&amp;</span>path)
-<a href=#97 id=97 data-nosnippet>97</a>                    .extension()
-<a href=#98 id=98 data-nosnippet>98</a>                    .and_then(|ext| ext.to_str())
-<a href=#99 id=99 data-nosnippet>99</a>                    .map(|x| x.to_lowercase());
-<a href=#100 id=100 data-nosnippet>100</a>
-<a href=#101 id=101 data-nosnippet>101</a>                <span class="kw">let </span>source = <span class="kw">match </span>file_ext.as_deref() {
-<a href=#102 id=102 data-nosnippet>102</a>                    <span class="prelude-val">Some</span>(<span class="string">"json"</span>) =&gt; PolicyStoreSource::FileJson(path.into()),
-<a href=#103 id=103 data-nosnippet>103</a>                    <span class="prelude-val">Some</span>(<span class="string">"yaml"</span>) | <span class="prelude-val">Some</span>(<span class="string">"yml"</span>) =&gt; PolicyStoreSource::FileYaml(path.into()),
-<a href=#104 id=104 data-nosnippet>104</a>                    <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(
-<a href=#105 id=105 data-nosnippet>105</a>                        BootstrapConfigLoadingError::UnsupportedPolicyStoreFileFormat(raw_path),
-<a href=#106 id=106 data-nosnippet>106</a>                    )<span class="question-mark">?</span>,
-<a href=#107 id=107 data-nosnippet>107</a>                };
-<a href=#108 id=108 data-nosnippet>108</a>                PolicyStoreConfig { source }
-<a href=#109 id=109 data-nosnippet>109</a>            },
-<a href=#110 id=110 data-nosnippet>110</a>            <span class="comment">// Case: multiple polict stores were set
-<a href=#111 id=111 data-nosnippet>111</a>            </span><span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(BootstrapConfigLoadingError::ConflictingPolicyStores)<span class="question-mark">?</span>,
-<a href=#112 id=112 data-nosnippet>112</a>        };
-<a href=#113 id=113 data-nosnippet>113</a>
-<a href=#114 id=114 data-nosnippet>114</a>        <span class="comment">// Load the jwks from a local file
-<a href=#115 id=115 data-nosnippet>115</a>        </span><span class="kw">let </span>jwks = raw
-<a href=#116 id=116 data-nosnippet>116</a>            .local_jwks
-<a href=#117 id=117 data-nosnippet>117</a>            .as_ref()
-<a href=#118 id=118 data-nosnippet>118</a>            .map(|path| {
-<a href=#119 id=119 data-nosnippet>119</a>                fs::read_to_string(path).map_err(|e| {
-<a href=#120 id=120 data-nosnippet>120</a>                    BootstrapConfigLoadingError::LoadLocalJwks(path.to_string(), e.to_string())
-<a href=#121 id=121 data-nosnippet>121</a>                })
-<a href=#122 id=122 data-nosnippet>122</a>            })
-<a href=#123 id=123 data-nosnippet>123</a>            .transpose()<span class="question-mark">?</span>;
-<a href=#124 id=124 data-nosnippet>124</a>
-<a href=#125 id=125 data-nosnippet>125</a>        <span class="comment">// JWT Config
-<a href=#126 id=126 data-nosnippet>126</a>        </span><span class="kw">let </span>jwt_config = JwtConfig {
-<a href=#127 id=127 data-nosnippet>127</a>            jwks,
-<a href=#128 id=128 data-nosnippet>128</a>            jwt_sig_validation: raw.jwt_sig_validation.into(),
-<a href=#129 id=129 data-nosnippet>129</a>            jwt_status_validation: raw.jwt_status_validation.into(),
-<a href=#130 id=130 data-nosnippet>130</a>            signature_algorithms_supported: raw.jwt_signature_algorithms_supported.clone(),
-<a href=#131 id=131 data-nosnippet>131</a>            token_cache_max_ttl_secs: raw.token_cache_max_ttl,
-<a href=#132 id=132 data-nosnippet>132</a>            token_cache_capacity: raw.token_cache_capacity,
-<a href=#133 id=133 data-nosnippet>133</a>            token_cache_earliest_expiration_eviction: raw.token_cache_earliest_expiration_eviction,
-<a href=#134 id=134 data-nosnippet>134</a>        };
-<a href=#135 id=135 data-nosnippet>135</a>
-<a href=#136 id=136 data-nosnippet>136</a>        <span class="kw">let </span>authorization_config = AuthorizationConfig {
-<a href=#137 id=137 data-nosnippet>137</a>            use_user_principal: raw.user_authz.is_enabled(),
-<a href=#138 id=138 data-nosnippet>138</a>            use_workload_principal: raw.workload_authz.is_enabled(),
-<a href=#139 id=139 data-nosnippet>139</a>            principal_bool_operator: raw.principal_bool_operation.clone(),
-<a href=#140 id=140 data-nosnippet>140</a>            decision_log_user_claims: raw.decision_log_user_claims.clone(),
-<a href=#141 id=141 data-nosnippet>141</a>            decision_log_workload_claims: raw.decision_log_workload_claims.clone(),
-<a href=#142 id=142 data-nosnippet>142</a>            decision_log_default_jwt_id: raw.decision_log_default_jwt_id.clone(),
-<a href=#143 id=143 data-nosnippet>143</a>            id_token_trust_mode: raw.id_token_trust_mode.clone(),
-<a href=#144 id=144 data-nosnippet>144</a>        };
-<a href=#145 id=145 data-nosnippet>145</a>
-<a href=#146 id=146 data-nosnippet>146</a>        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
-<a href=#147 id=147 data-nosnippet>147</a>            application_name: raw.application_name.clone(),
-<a href=#148 id=148 data-nosnippet>148</a>            log_config,
-<a href=#149 id=149 data-nosnippet>149</a>            policy_store_config,
-<a href=#150 id=150 data-nosnippet>150</a>            jwt_config,
-<a href=#151 id=151 data-nosnippet>151</a>            authorization_config,
-<a href=#152 id=152 data-nosnippet>152</a>            entity_builder_config: raw.into(),
-<a href=#153 id=153 data-nosnippet>153</a>            lock_config,
-<a href=#154 id=154 data-nosnippet>154</a>            max_default_entities: raw.max_default_entities,
-<a href=#155 id=155 data-nosnippet>155</a>            max_base64_size: raw.max_base64_size,
-<a href=#156 id=156 data-nosnippet>156</a>        })
-<a href=#157 id=157 data-nosnippet>157</a>    }
-<a href=#158 id=158 data-nosnippet>158</a>}</code></pre></div></section></main></body></html>
+<a href=#89 id=89 data-nosnippet>89</a>            <span class="comment">// Case: get the policy store from a URI (auto-detect .cjar archives)
+<a href=#90 id=90 data-nosnippet>90</a>            </span>(<span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(policy_store_uri), <span class="prelude-val">None</span>) =&gt; {
+<a href=#91 id=91 data-nosnippet>91</a>                <span class="kw">let </span>source = <span class="kw">if </span>policy_store_uri.to_lowercase().ends_with(<span class="string">".cjar"</span>) {
+<a href=#92 id=92 data-nosnippet>92</a>                    PolicyStoreSource::CjarUrl(policy_store_uri)
+<a href=#93 id=93 data-nosnippet>93</a>                } <span class="kw">else </span>{
+<a href=#94 id=94 data-nosnippet>94</a>                    PolicyStoreSource::LockServer(policy_store_uri)
+<a href=#95 id=95 data-nosnippet>95</a>                };
+<a href=#96 id=96 data-nosnippet>96</a>                PolicyStoreConfig { source }
+<a href=#97 id=97 data-nosnippet>97</a>            },
+<a href=#98 id=98 data-nosnippet>98</a>            <span class="comment">// Case: get the policy store from a local file or directory
+<a href=#99 id=99 data-nosnippet>99</a>            </span>(<span class="prelude-val">None</span>, <span class="prelude-val">None</span>, <span class="prelude-val">Some</span>(raw_path)) =&gt; {
+<a href=#100 id=100 data-nosnippet>100</a>                <span class="kw">let </span>path = Path::new(<span class="kw-2">&amp;</span>raw_path);
+<a href=#101 id=101 data-nosnippet>101</a>
+<a href=#102 id=102 data-nosnippet>102</a>                <span class="comment">// Check if it's a directory first
+<a href=#103 id=103 data-nosnippet>103</a>                </span><span class="kw">let </span>source = <span class="kw">if </span>path.is_dir() {
+<a href=#104 id=104 data-nosnippet>104</a>                    PolicyStoreSource::Directory(path.into())
+<a href=#105 id=105 data-nosnippet>105</a>                } <span class="kw">else </span>{
+<a href=#106 id=106 data-nosnippet>106</a>                    <span class="kw">let </span>file_ext = path
+<a href=#107 id=107 data-nosnippet>107</a>                        .extension()
+<a href=#108 id=108 data-nosnippet>108</a>                        .and_then(|ext| ext.to_str())
+<a href=#109 id=109 data-nosnippet>109</a>                        .map(|x| x.to_lowercase());
+<a href=#110 id=110 data-nosnippet>110</a>
+<a href=#111 id=111 data-nosnippet>111</a>                    <span class="kw">match </span>file_ext.as_deref() {
+<a href=#112 id=112 data-nosnippet>112</a>                        <span class="prelude-val">Some</span>(<span class="string">"json"</span>) =&gt; PolicyStoreSource::FileJson(path.into()),
+<a href=#113 id=113 data-nosnippet>113</a>                        <span class="prelude-val">Some</span>(<span class="string">"yaml"</span>) | <span class="prelude-val">Some</span>(<span class="string">"yml"</span>) =&gt; PolicyStoreSource::FileYaml(path.into()),
+<a href=#114 id=114 data-nosnippet>114</a>                        <span class="prelude-val">Some</span>(<span class="string">"cjar"</span>) =&gt; PolicyStoreSource::CjarFile(path.into()),
+<a href=#115 id=115 data-nosnippet>115</a>                        <span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(
+<a href=#116 id=116 data-nosnippet>116</a>                            BootstrapConfigLoadingError::UnsupportedPolicyStoreFileFormat(raw_path),
+<a href=#117 id=117 data-nosnippet>117</a>                        )<span class="question-mark">?</span>,
+<a href=#118 id=118 data-nosnippet>118</a>                    }
+<a href=#119 id=119 data-nosnippet>119</a>                };
+<a href=#120 id=120 data-nosnippet>120</a>                PolicyStoreConfig { source }
+<a href=#121 id=121 data-nosnippet>121</a>            },
+<a href=#122 id=122 data-nosnippet>122</a>            <span class="comment">// Case: multiple polict stores were set
+<a href=#123 id=123 data-nosnippet>123</a>            </span><span class="kw">_ </span>=&gt; <span class="prelude-val">Err</span>(BootstrapConfigLoadingError::ConflictingPolicyStores)<span class="question-mark">?</span>,
+<a href=#124 id=124 data-nosnippet>124</a>        };
+<a href=#125 id=125 data-nosnippet>125</a>
+<a href=#126 id=126 data-nosnippet>126</a>        <span class="comment">// Load the jwks from a local file
+<a href=#127 id=127 data-nosnippet>127</a>        </span><span class="kw">let </span>jwks = raw
+<a href=#128 id=128 data-nosnippet>128</a>            .local_jwks
+<a href=#129 id=129 data-nosnippet>129</a>            .as_ref()
+<a href=#130 id=130 data-nosnippet>130</a>            .map(|path| {
+<a href=#131 id=131 data-nosnippet>131</a>                fs::read_to_string(path).map_err(|e| {
+<a href=#132 id=132 data-nosnippet>132</a>                    BootstrapConfigLoadingError::LoadLocalJwks(path.to_string(), e.to_string())
+<a href=#133 id=133 data-nosnippet>133</a>                })
+<a href=#134 id=134 data-nosnippet>134</a>            })
+<a href=#135 id=135 data-nosnippet>135</a>            .transpose()<span class="question-mark">?</span>;
+<a href=#136 id=136 data-nosnippet>136</a>
+<a href=#137 id=137 data-nosnippet>137</a>        <span class="comment">// JWT Config
+<a href=#138 id=138 data-nosnippet>138</a>        </span><span class="kw">let </span>jwt_config = JwtConfig {
+<a href=#139 id=139 data-nosnippet>139</a>            jwks,
+<a href=#140 id=140 data-nosnippet>140</a>            jwt_sig_validation: raw.jwt_sig_validation.into(),
+<a href=#141 id=141 data-nosnippet>141</a>            jwt_status_validation: raw.jwt_status_validation.into(),
+<a href=#142 id=142 data-nosnippet>142</a>            signature_algorithms_supported: raw.jwt_signature_algorithms_supported.clone(),
+<a href=#143 id=143 data-nosnippet>143</a>            token_cache_max_ttl_secs: raw.token_cache_max_ttl,
+<a href=#144 id=144 data-nosnippet>144</a>            token_cache_capacity: raw.token_cache_capacity,
+<a href=#145 id=145 data-nosnippet>145</a>            token_cache_earliest_expiration_eviction: raw.token_cache_earliest_expiration_eviction,
+<a href=#146 id=146 data-nosnippet>146</a>        };
+<a href=#147 id=147 data-nosnippet>147</a>
+<a href=#148 id=148 data-nosnippet>148</a>        <span class="kw">let </span>authorization_config = AuthorizationConfig {
+<a href=#149 id=149 data-nosnippet>149</a>            use_user_principal: raw.user_authz.is_enabled(),
+<a href=#150 id=150 data-nosnippet>150</a>            use_workload_principal: raw.workload_authz.is_enabled(),
+<a href=#151 id=151 data-nosnippet>151</a>            principal_bool_operator: raw.principal_bool_operation.clone(),
+<a href=#152 id=152 data-nosnippet>152</a>            decision_log_user_claims: raw.decision_log_user_claims.clone(),
+<a href=#153 id=153 data-nosnippet>153</a>            decision_log_workload_claims: raw.decision_log_workload_claims.clone(),
+<a href=#154 id=154 data-nosnippet>154</a>            decision_log_default_jwt_id: raw.decision_log_default_jwt_id.clone(),
+<a href=#155 id=155 data-nosnippet>155</a>            id_token_trust_mode: raw.id_token_trust_mode.clone(),
+<a href=#156 id=156 data-nosnippet>156</a>        };
+<a href=#157 id=157 data-nosnippet>157</a>
+<a href=#158 id=158 data-nosnippet>158</a>        <span class="prelude-val">Ok</span>(<span class="self">Self </span>{
+<a href=#159 id=159 data-nosnippet>159</a>            application_name: raw.application_name.clone(),
+<a href=#160 id=160 data-nosnippet>160</a>            log_config,
+<a href=#161 id=161 data-nosnippet>161</a>            policy_store_config,
+<a href=#162 id=162 data-nosnippet>162</a>            jwt_config,
+<a href=#163 id=163 data-nosnippet>163</a>            authorization_config,
+<a href=#164 id=164 data-nosnippet>164</a>            entity_builder_config: raw.into(),
+<a href=#165 id=165 data-nosnippet>165</a>            lock_config,
+<a href=#166 id=166 data-nosnippet>166</a>            max_default_entities: raw.max_default_entities,
+<a href=#167 id=167 data-nosnippet>167</a>            max_base64_size: raw.max_base64_size,
+<a href=#168 id=168 data-nosnippet>168</a>        })
+<a href=#169 id=169 data-nosnippet>169</a>    }
+<a href=#170 id=170 data-nosnippet>170</a>}</code></pre></div></section></main></body></html>
