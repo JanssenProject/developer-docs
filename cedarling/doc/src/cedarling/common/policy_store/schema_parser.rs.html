@@ -18,7 +18,7 @@
 <a href=#18 id=18 data-nosnippet>18</a>///
 <a href=#19 id=19 data-nosnippet>19</a>/// Contains the schema and metadata about the source file.
 <a href=#20 id=20 data-nosnippet>20</a></span><span class="attr">#[derive(Debug, Clone)]
-<a href=#21 id=21 data-nosnippet>21</a></span><span class="kw">pub struct </span>ParsedSchema {
+<a href=#21 id=21 data-nosnippet>21</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>ParsedSchema {
 <a href=#22 id=22 data-nosnippet>22</a>    <span class="doccomment">/// The Cedar schema
 <a href=#23 id=23 data-nosnippet>23</a>    </span><span class="kw">pub </span>schema: Schema,
 <a href=#24 id=24 data-nosnippet>24</a>    <span class="doccomment">/// Source filename
@@ -33,7 +33,7 @@
 <a href=#33 id=33 data-nosnippet>33</a>    /// Parses the schema content using Cedar's schema parser and returns
 <a href=#34 id=34 data-nosnippet>34</a>    /// a `ParsedSchema` with metadata. The schema is validated for correct
 <a href=#35 id=35 data-nosnippet>35</a>    /// syntax and structure during parsing.
-<a href=#36 id=36 data-nosnippet>36</a>    </span><span class="kw">pub fn </span>parse(content: <span class="kw-2">&amp;</span>str, filename: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, PolicyStoreError&gt; {
+<a href=#36 id=36 data-nosnippet>36</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>parse(content: <span class="kw-2">&amp;</span>str, filename: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, PolicyStoreError&gt; {
 <a href=#37 id=37 data-nosnippet>37</a>        <span class="comment">// Parse the schema using Cedar's schema parser
 <a href=#38 id=38 data-nosnippet>38</a>        // Cedar uses SchemaFragment to parse human-readable schema syntax
 <a href=#39 id=39 data-nosnippet>39</a>        </span><span class="kw">let </span>fragment =
@@ -60,7 +60,7 @@
 <a href=#60 id=60 data-nosnippet>60</a>    <span class="doccomment">/// Get a reference to the Cedar Schema.
 <a href=#61 id=61 data-nosnippet>61</a>    ///
 <a href=#62 id=62 data-nosnippet>62</a>    /// Returns the validated Cedar Schema that can be used for policy validation.
-<a href=#63 id=63 data-nosnippet>63</a>    </span><span class="kw">pub fn </span>get_schema(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Schema {
+<a href=#63 id=63 data-nosnippet>63</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>get_schema(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Schema {
 <a href=#64 id=64 data-nosnippet>64</a>        <span class="kw-2">&amp;</span><span class="self">self</span>.schema
 <a href=#65 id=65 data-nosnippet>65</a>    }
 <a href=#66 id=66 data-nosnippet>66</a>
@@ -72,7 +72,7 @@
 <a href=#72 id=72 data-nosnippet>72</a>    ///
 <a href=#73 id=73 data-nosnippet>73</a>    /// # Errors
 <a href=#74 id=74 data-nosnippet>74</a>    /// Returns `PolicyStoreError::CedarSchemaError` if the schema file is empty.
-<a href=#75 id=75 data-nosnippet>75</a>    </span><span class="kw">pub fn </span>validate(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), PolicyStoreError&gt; {
+<a href=#75 id=75 data-nosnippet>75</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>validate(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), PolicyStoreError&gt; {
 <a href=#76 id=76 data-nosnippet>76</a>        <span class="comment">// Check that content is not empty
 <a href=#77 id=77 data-nosnippet>77</a>        </span><span class="kw">if </span><span class="self">self</span>.content.trim().is_empty() {
 <a href=#78 id=78 data-nosnippet>78</a>            <span class="kw">return </span><span class="prelude-val">Err</span>(PolicyStoreError::CedarSchemaError {

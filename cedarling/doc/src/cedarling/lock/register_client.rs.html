@@ -14,10 +14,10 @@
 <a href=#14 id=14 data-nosnippet>14</a><span class="kw">use </span>serde_json::json;
 <a href=#15 id=15 data-nosnippet>15</a><span class="kw">use </span>thiserror::Error;
 <a href=#16 id=16 data-nosnippet>16</a>
-<a href=#17 id=17 data-nosnippet>17</a><span class="kw">pub const </span>DCR_SCOPE: <span class="kw-2">&amp;</span>str = <span class="string">"cedarling"</span>;
-<a href=#18 id=18 data-nosnippet>18</a><span class="kw">pub const </span>ACCESS_TKN_SCOPE: <span class="kw-2">&amp;</span>str = <span class="string">"https://jans.io/oauth/lock/log.write https://jans.io/oauth/lock/health.write https://jans.io/oauth/lock/telemetry.write"</span>;
+<a href=#17 id=17 data-nosnippet>17</a><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">const </span>DCR_SCOPE: <span class="kw-2">&amp;</span>str = <span class="string">"cedarling"</span>;
+<a href=#18 id=18 data-nosnippet>18</a><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">const </span>ACCESS_TKN_SCOPE: <span class="kw-2">&amp;</span>str = <span class="string">"https://jans.io/oauth/lock/log.write https://jans.io/oauth/lock/health.write https://jans.io/oauth/lock/telemetry.write"</span>;
 <a href=#19 id=19 data-nosnippet>19</a>
-<a href=#20 id=20 data-nosnippet>20</a><span class="kw">pub async fn </span>register_client(
+<a href=#20 id=20 data-nosnippet>20</a><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">async fn </span>register_client(
 <a href=#21 id=21 data-nosnippet>21</a>    pdp_id: PdpID,
 <a href=#22 id=22 data-nosnippet>22</a>    oidc_endpoint: <span class="kw-2">&amp;</span>Url,
 <a href=#23 id=23 data-nosnippet>23</a>    ssa_jwt: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>String&gt;,
@@ -96,7 +96,7 @@
 <a href=#96 id=96 data-nosnippet>96</a>
 <a href=#97 id=97 data-nosnippet>97</a><span class="attr">#[derive(Debug, PartialEq, Clone)]
 <a href=#98 id=98 data-nosnippet>98</a>#[allow(dead_code)]
-<a href=#99 id=99 data-nosnippet>99</a></span><span class="kw">pub struct </span>ClientCredentials {
+<a href=#99 id=99 data-nosnippet>99</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>ClientCredentials {
 <a href=#100 id=100 data-nosnippet>100</a>    <span class="kw">pub </span>client_id: String,
 <a href=#101 id=101 data-nosnippet>101</a>    <span class="kw">pub </span>client_secret: String,
 <a href=#102 id=102 data-nosnippet>102</a>    <span class="kw">pub </span>access_token: String,

@@ -16,7 +16,7 @@
 <a href=#16 id=16 data-nosnippet>16</a>
 <a href=#17 id=17 data-nosnippet>17</a><span class="doccomment">/// A parsed trusted issuer configuration with metadata.
 <a href=#18 id=18 data-nosnippet>18</a></span><span class="attr">#[derive(Debug, Clone)]
-<a href=#19 id=19 data-nosnippet>19</a></span><span class="kw">pub struct </span>ParsedIssuer {
+<a href=#19 id=19 data-nosnippet>19</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>ParsedIssuer {
 <a href=#20 id=20 data-nosnippet>20</a>    <span class="doccomment">/// The issuer name (used as key/id)
 <a href=#21 id=21 data-nosnippet>21</a>    </span><span class="kw">pub </span>id: String,
 <a href=#22 id=22 data-nosnippet>22</a>    <span class="doccomment">/// The trusted issuer configuration
@@ -26,13 +26,13 @@
 <a href=#26 id=26 data-nosnippet>26</a>}
 <a href=#27 id=27 data-nosnippet>27</a>
 <a href=#28 id=28 data-nosnippet>28</a><span class="doccomment">/// Issuer parser for loading and validating trusted issuer configurations.
-<a href=#29 id=29 data-nosnippet>29</a></span><span class="kw">pub struct </span>IssuerParser;
+<a href=#29 id=29 data-nosnippet>29</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>IssuerParser;
 <a href=#30 id=30 data-nosnippet>30</a>
 <a href=#31 id=31 data-nosnippet>31</a><span class="kw">impl </span>IssuerParser {
 <a href=#32 id=32 data-nosnippet>32</a>    <span class="doccomment">/// Parse a trusted issuer configuration from JSON content.
 <a href=#33 id=33 data-nosnippet>33</a>    ///
 <a href=#34 id=34 data-nosnippet>34</a>    /// Validates the required fields and token metadata structure.
-<a href=#35 id=35 data-nosnippet>35</a>    </span><span class="kw">pub fn </span>parse_issuer(
+<a href=#35 id=35 data-nosnippet>35</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>parse_issuer(
 <a href=#36 id=36 data-nosnippet>36</a>        content: <span class="kw-2">&amp;</span>str,
 <a href=#37 id=37 data-nosnippet>37</a>        filename: <span class="kw-2">&amp;</span>str,
 <a href=#38 id=38 data-nosnippet>38</a>    ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;ParsedIssuer&gt;, PolicyStoreError&gt; {
@@ -198,7 +198,7 @@
 <a href=#198 id=198 data-nosnippet>198</a>    }
 <a href=#199 id=199 data-nosnippet>199</a>
 <a href=#200 id=200 data-nosnippet>200</a>    <span class="doccomment">/// Validate a collection of parsed issuers for conflicts and completeness.
-<a href=#201 id=201 data-nosnippet>201</a>    </span><span class="kw">pub fn </span>validate_issuers(issuers: <span class="kw-2">&amp;</span>[ParsedIssuer]) -&gt; <span class="prelude-ty">Result</span>&lt;(), Vec&lt;String&gt;&gt; {
+<a href=#201 id=201 data-nosnippet>201</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>validate_issuers(issuers: <span class="kw-2">&amp;</span>[ParsedIssuer]) -&gt; <span class="prelude-ty">Result</span>&lt;(), Vec&lt;String&gt;&gt; {
 <a href=#202 id=202 data-nosnippet>202</a>        <span class="kw">let </span><span class="kw-2">mut </span>errors = Vec::new();
 <a href=#203 id=203 data-nosnippet>203</a>        <span class="kw">let </span><span class="kw-2">mut </span>seen_ids = HashMap::with_capacity(issuers.len());
 <a href=#204 id=204 data-nosnippet>204</a>
@@ -229,7 +229,7 @@
 <a href=#229 id=229 data-nosnippet>229</a>    }
 <a href=#230 id=230 data-nosnippet>230</a>
 <a href=#231 id=231 data-nosnippet>231</a>    <span class="doccomment">/// Create a consolidated map of all issuers.
-<a href=#232 id=232 data-nosnippet>232</a>    </span><span class="kw">pub fn </span>create_issuer_map(
+<a href=#232 id=232 data-nosnippet>232</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>create_issuer_map(
 <a href=#233 id=233 data-nosnippet>233</a>        issuers: Vec&lt;ParsedIssuer&gt;,
 <a href=#234 id=234 data-nosnippet>234</a>    ) -&gt; <span class="prelude-ty">Result</span>&lt;HashMap&lt;String, TrustedIssuer&gt;, PolicyStoreError&gt; {
 <a href=#235 id=235 data-nosnippet>235</a>        <span class="kw">let </span><span class="kw-2">mut </span>issuer_map = HashMap::with_capacity(issuers.len());

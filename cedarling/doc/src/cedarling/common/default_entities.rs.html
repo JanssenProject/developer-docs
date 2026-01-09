@@ -138,7 +138,7 @@
 <a href=#138 id=138 data-nosnippet>138</a>}
 <a href=#139 id=139 data-nosnippet>139</a>
 <a href=#140 id=140 data-nosnippet>140</a><span class="doccomment">/// Parse default entities from raw data, returning entities and warnings
-<a href=#141 id=141 data-nosnippet>141</a></span><span class="kw">pub fn </span>parse_default_entities_with_warns(
+<a href=#141 id=141 data-nosnippet>141</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>parse_default_entities_with_warns(
 <a href=#142 id=142 data-nosnippet>142</a>    raw_data: <span class="prelude-ty">Option</span>&lt;HashMap&lt;String, Value&gt;&gt;,
 <a href=#143 id=143 data-nosnippet>143</a>) -&gt; <span class="prelude-ty">Result</span>&lt;DefaultEntitiesWithWarns, ParseDefaultEntityError&gt; {
 <a href=#144 id=144 data-nosnippet>144</a>    <span class="kw">let </span>limits = DefaultEntitiesLimits::default();
@@ -202,13 +202,13 @@
 <a href=#202 id=202 data-nosnippet>202</a>
 <a href=#203 id=203 data-nosnippet>203</a><span class="attr">#[derive(Debug, thiserror::Error)]
 <a href=#204 id=204 data-nosnippet>204</a>#[error(<span class="string">"failed to parse default entity, id: \"{entry_id}\" error: {error}"</span>)]
-<a href=#205 id=205 data-nosnippet>205</a></span><span class="kw">pub struct </span>ParseDefaultEntityError {
+<a href=#205 id=205 data-nosnippet>205</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>ParseDefaultEntityError {
 <a href=#206 id=206 data-nosnippet>206</a>    <span class="kw">pub </span>entry_id: String,
 <a href=#207 id=207 data-nosnippet>207</a>    <span class="kw">pub </span>error: Box&lt;ParseEntityErrorKind&gt;,
 <a href=#208 id=208 data-nosnippet>208</a>}
 <a href=#209 id=209 data-nosnippet>209</a>
 <a href=#210 id=210 data-nosnippet>210</a><span class="attr">#[derive(Debug, thiserror::Error)]
-<a href=#211 id=211 data-nosnippet>211</a></span><span class="kw">pub enum </span>ParseEntityErrorKind {
+<a href=#211 id=211 data-nosnippet>211</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">enum </span>ParseEntityErrorKind {
 <a href=#212 id=212 data-nosnippet>212</a>    <span class="attr">#[error(<span class="string">"unable to decode base64 string: {0}"</span>)]
 <a href=#213 id=213 data-nosnippet>213</a>    </span>Base64Decode(<span class="attr">#[from] </span>base64::DecodeError),
 <a href=#214 id=214 data-nosnippet>214</a>    <span class="attr">#[error(<span class="string">"unable to decode base64 string as utf8: {0}"</span>)]
@@ -341,7 +341,7 @@
 <a href=#341 id=341 data-nosnippet>341</a>}
 <a href=#342 id=342 data-nosnippet>342</a>
 <a href=#343 id=343 data-nosnippet>343</a><span class="doccomment">/// Result structure for entity parsing with named parameters
-<a href=#344 id=344 data-nosnippet>344</a></span><span class="kw">pub struct </span>EntityParseResultData&lt;<span class="lifetime">'a</span>&gt; {
+<a href=#344 id=344 data-nosnippet>344</a></span><span class="kw">struct </span>EntityParseResultData&lt;<span class="lifetime">'a</span>&gt; {
 <a href=#345 id=345 data-nosnippet>345</a>    <span class="kw">pub </span>entity_type: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
 <a href=#346 id=346 data-nosnippet>346</a>    <span class="kw">pub </span>entity_id: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
 <a href=#347 id=347 data-nosnippet>347</a>    <span class="kw">pub </span>cedar_attrs: HashMap&lt;String, RestrictedExpression&gt;,

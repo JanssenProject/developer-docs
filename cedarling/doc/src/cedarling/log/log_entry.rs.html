@@ -219,7 +219,7 @@
 <a href=#219 id=219 data-nosnippet>219</a>}
 <a href=#220 id=220 data-nosnippet>220</a>
 <a href=#221 id=221 data-nosnippet>221</a><span class="attr">#[derive(Debug, Default, Clone, PartialEq, serde::Serialize)]
-<a href=#222 id=222 data-nosnippet>222</a></span><span class="kw">pub struct </span>DiagnosticsSummary {
+<a href=#222 id=222 data-nosnippet>222</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>DiagnosticsSummary {
 <a href=#223 id=223 data-nosnippet>223</a>    <span class="doccomment">/// `PolicyId`s of the policies that contributed to the decision.
 <a href=#224 id=224 data-nosnippet>224</a>    </span><span class="kw">pub </span>reason: HashSet&lt;PolicyInfo&gt;,
 <a href=#225 id=225 data-nosnippet>225</a>    <span class="doccomment">/// Errors that occurred during authorization.
@@ -227,7 +227,7 @@
 <a href=#227 id=227 data-nosnippet>227</a>}
 <a href=#228 id=228 data-nosnippet>228</a>
 <a href=#229 id=229 data-nosnippet>229</a><span class="kw">impl </span>DiagnosticsSummary {
-<a href=#230 id=230 data-nosnippet>230</a>    <span class="kw">pub fn </span>from_diagnostics(diagnostics: <span class="kw-2">&amp;</span>[Diagnostics]) -&gt; <span class="self">Self </span>{
+<a href=#230 id=230 data-nosnippet>230</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>from_diagnostics(diagnostics: <span class="kw-2">&amp;</span>[Diagnostics]) -&gt; <span class="self">Self </span>{
 <a href=#231 id=231 data-nosnippet>231</a>        <span class="kw">let </span><span class="kw-2">mut </span>reason: HashSet&lt;PolicyInfo&gt; = HashSet::new();
 <a href=#232 id=232 data-nosnippet>232</a>        <span class="kw">let </span><span class="kw-2">mut </span>errors = Vec::new();
 <a href=#233 id=233 data-nosnippet>233</a>
@@ -278,7 +278,7 @@
 <a href=#278 id=278 data-nosnippet>278</a>
 <a href=#279 id=279 data-nosnippet>279</a><span class="doccomment">/// log entry for decision
 <a href=#280 id=280 data-nosnippet>280</a></span><span class="attr">#[derive(Debug, Clone, PartialEq, serde::Serialize)]
-<a href=#281 id=281 data-nosnippet>281</a></span><span class="kw">pub struct </span>DecisionLogEntry {
+<a href=#281 id=281 data-nosnippet>281</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>DecisionLogEntry {
 <a href=#282 id=282 data-nosnippet>282</a>    <span class="doccomment">/// base information of entry
 <a href=#283 id=283 data-nosnippet>283</a>    /// it is unwrap to flatten structure
 <a href=#284 id=284 data-nosnippet>284</a>    </span><span class="attr">#[serde(flatten)]
@@ -316,7 +316,7 @@
 <a href=#316 id=316 data-nosnippet>316</a>}
 <a href=#317 id=317 data-nosnippet>317</a>
 <a href=#318 id=318 data-nosnippet>318</a><span class="kw">impl </span>DecisionLogEntry {
-<a href=#319 id=319 data-nosnippet>319</a>    <span class="kw">pub fn </span>principal(user: bool, workload: bool) -&gt; Vec&lt;SmolStr&gt; {
+<a href=#319 id=319 data-nosnippet>319</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>principal(user: bool, workload: bool) -&gt; Vec&lt;SmolStr&gt; {
 <a href=#320 id=320 data-nosnippet>320</a>        <span class="kw">let </span><span class="kw-2">mut </span>tags = Vec::with_capacity(<span class="number">2</span>);
 <a href=#321 id=321 data-nosnippet>321</a>        <span class="kw">if </span>user {
 <a href=#322 id=322 data-nosnippet>322</a>            tags.push(<span class="string">"User"</span>.into());
@@ -327,7 +327,7 @@
 <a href=#327 id=327 data-nosnippet>327</a>        tags
 <a href=#328 id=328 data-nosnippet>328</a>    }
 <a href=#329 id=329 data-nosnippet>329</a>
-<a href=#330 id=330 data-nosnippet>330</a>    <span class="kw">pub fn </span>all_principals(principals: <span class="kw-2">&amp;</span>[EntityUid]) -&gt; Vec&lt;SmolStr&gt; {
+<a href=#330 id=330 data-nosnippet>330</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>all_principals(principals: <span class="kw-2">&amp;</span>[EntityUid]) -&gt; Vec&lt;SmolStr&gt; {
 <a href=#331 id=331 data-nosnippet>331</a>        principals
 <a href=#332 id=332 data-nosnippet>332</a>            .iter()
 <a href=#333 id=333 data-nosnippet>333</a>            .map(|uid| uid.type_name().to_smolstr())
@@ -360,7 +360,7 @@
 <a href=#360 id=360 data-nosnippet>360</a>// TODO: maybe using wasm we can use `js_sys::Date::now()`
 <a href=#361 id=361 data-nosnippet>361</a>// Static variable initialize only once at start of program and available during all program live cycle.
 <a href=#362 id=362 data-nosnippet>362</a>// Import inside function guarantee that it is used only inside function.
-<a href=#363 id=363 data-nosnippet>363</a></span><span class="kw">pub fn </span>gen_uuid7() -&gt; Uuid {
+<a href=#363 id=363 data-nosnippet>363</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>gen_uuid7() -&gt; Uuid {
 <a href=#364 id=364 data-nosnippet>364</a>    <span class="kw">use </span>std::sync::{LazyLock, Mutex};
 <a href=#365 id=365 data-nosnippet>365</a>    <span class="kw">use </span>uuid7::V7Generator;
 <a href=#366 id=366 data-nosnippet>366</a>
@@ -496,10 +496,10 @@
 <a href=#496 id=496 data-nosnippet>496</a>}
 <a href=#497 id=497 data-nosnippet>497</a>
 <a href=#498 id=498 data-nosnippet>498</a><span class="attr">#[derive(Debug, Clone, PartialEq, serde::Serialize)]
-<a href=#499 id=499 data-nosnippet>499</a></span><span class="kw">pub struct </span>LogTokensInfo(<span class="kw">pub </span>HashMap&lt;String, HashMap&lt;String, serde_json::Value&gt;&gt;);
+<a href=#499 id=499 data-nosnippet>499</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>LogTokensInfo(<span class="kw">pub </span>HashMap&lt;String, HashMap&lt;String, serde_json::Value&gt;&gt;);
 <a href=#500 id=500 data-nosnippet>500</a>
 <a href=#501 id=501 data-nosnippet>501</a><span class="kw">impl </span>LogTokensInfo {
-<a href=#502 id=502 data-nosnippet>502</a>    <span class="kw">pub fn </span>new(tokens: <span class="kw-2">&amp;</span>HashMap&lt;String, Arc&lt;Token&gt;&gt;, decision_log_jwt_id: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
+<a href=#502 id=502 data-nosnippet>502</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(tokens: <span class="kw-2">&amp;</span>HashMap&lt;String, Arc&lt;Token&gt;&gt;, decision_log_jwt_id: <span class="kw-2">&amp;</span>str) -&gt; <span class="self">Self </span>{
 <a href=#503 id=503 data-nosnippet>503</a>        <span class="kw">let </span>tokens_logging_info = tokens
 <a href=#504 id=504 data-nosnippet>504</a>            .iter()
 <a href=#505 id=505 data-nosnippet>505</a>            .map(|(tkn_name, tkn)| (tkn_name.clone(), tkn.logging_info(decision_log_jwt_id)))
@@ -512,7 +512,7 @@
 <a href=#512 id=512 data-nosnippet>512</a>        <span class="self">Self</span>(HashMap::new())
 <a href=#513 id=513 data-nosnippet>513</a>    }
 <a href=#514 id=514 data-nosnippet>514</a>
-<a href=#515 id=515 data-nosnippet>515</a>    <span class="kw">pub fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+<a href=#515 id=515 data-nosnippet>515</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>is_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
 <a href=#516 id=516 data-nosnippet>516</a>        <span class="self">self</span>.<span class="number">0</span>.is_empty()
 <a href=#517 id=517 data-nosnippet>517</a>    }
 <a href=#518 id=518 data-nosnippet>518</a>}</code></pre></div></section></main></body></html>

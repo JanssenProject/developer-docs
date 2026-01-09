@@ -23,7 +23,7 @@
 <a href=#23 id=23 data-nosnippet>23</a>/// will be used for origin-based lookups. A warning is logged when this occurs. Full URL lookups
 <a href=#24 id=24 data-nosnippet>24</a>/// remain unaffected and will correctly resolve to each specific issuer.
 <a href=#25 id=25 data-nosnippet>25</a></span><span class="attr">#[derive(Debug, Clone)]
-<a href=#26 id=26 data-nosnippet>26</a></span><span class="kw">pub struct </span>TrustedIssuerIndex {
+<a href=#26 id=26 data-nosnippet>26</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>TrustedIssuerIndex {
 <a href=#27 id=27 data-nosnippet>27</a>    <span class="doccomment">/// Index mapping full URL to trusted issuer
 <a href=#28 id=28 data-nosnippet>28</a>    </span>url_index: HashMap&lt;String, Arc&lt;TrustedIssuer&gt;&gt;,
 <a href=#29 id=29 data-nosnippet>29</a>    <span class="doccomment">/// Index mapping origin to trusted issuer
@@ -31,7 +31,7 @@
 <a href=#31 id=31 data-nosnippet>31</a>}
 <a href=#32 id=32 data-nosnippet>32</a>
 <a href=#33 id=33 data-nosnippet>33</a><span class="kw">impl </span>TrustedIssuerIndex {
-<a href=#34 id=34 data-nosnippet>34</a>    <span class="kw">pub fn </span>new(issuers: <span class="kw-2">&amp;</span>HashMap&lt;String, TrustedIssuer&gt;, logger: <span class="prelude-ty">Option</span>&lt;Logger&gt;) -&gt; <span class="self">Self </span>{
+<a href=#34 id=34 data-nosnippet>34</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(issuers: <span class="kw-2">&amp;</span>HashMap&lt;String, TrustedIssuer&gt;, logger: <span class="prelude-ty">Option</span>&lt;Logger&gt;) -&gt; <span class="self">Self </span>{
 <a href=#35 id=35 data-nosnippet>35</a>        <span class="kw">let </span><span class="kw-2">mut </span>origin_index: HashMap&lt;String, Arc&lt;TrustedIssuer&gt;&gt; = HashMap::new();
 <a href=#36 id=36 data-nosnippet>36</a>        <span class="kw">let </span><span class="kw-2">mut </span>url_index = HashMap::new();
 <a href=#37 id=37 data-nosnippet>37</a>
@@ -62,14 +62,14 @@
 <a href=#62 id=62 data-nosnippet>62</a>    }
 <a href=#63 id=63 data-nosnippet>63</a>
 <a href=#64 id=64 data-nosnippet>64</a>    <span class="doccomment">/// Finds a trusted issuer by URL, checking full URL first, then origin.
-<a href=#65 id=65 data-nosnippet>65</a>    </span><span class="kw">pub fn </span>find(<span class="kw-2">&amp;</span><span class="self">self</span>, url: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Arc&lt;TrustedIssuer&gt;&gt; {
+<a href=#65 id=65 data-nosnippet>65</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>find(<span class="kw-2">&amp;</span><span class="self">self</span>, url: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Arc&lt;TrustedIssuer&gt;&gt; {
 <a href=#66 id=66 data-nosnippet>66</a>        <span class="self">self</span>.url_index
 <a href=#67 id=67 data-nosnippet>67</a>            .get(url)
 <a href=#68 id=68 data-nosnippet>68</a>            .or_else(|| <span class="self">self</span>.origin_index.get(url))
 <a href=#69 id=69 data-nosnippet>69</a>    }
 <a href=#70 id=70 data-nosnippet>70</a>
 <a href=#71 id=71 data-nosnippet>71</a>    <span class="doccomment">/// Returns an iterator over references to all trusted issuers.
-<a href=#72 id=72 data-nosnippet>72</a>    </span><span class="kw">pub fn </span>values(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw">impl </span>Iterator&lt;Item = <span class="kw-2">&amp;</span>TrustedIssuer&gt; + <span class="lifetime">'_ </span>{
+<a href=#72 id=72 data-nosnippet>72</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>values(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw">impl </span>Iterator&lt;Item = <span class="kw-2">&amp;</span>TrustedIssuer&gt; + <span class="lifetime">'_ </span>{
 <a href=#73 id=73 data-nosnippet>73</a>        <span class="self">self</span>.url_index.values().map(AsRef::as_ref)
 <a href=#74 id=74 data-nosnippet>74</a>    }
 <a href=#75 id=75 data-nosnippet>75</a>}

@@ -18,7 +18,7 @@
 <a href=#18 id=18 data-nosnippet>18</a><span class="kw">use </span><span class="kw">crate</span>::log::loggable_fn::LoggableFn;
 <a href=#19 id=19 data-nosnippet>19</a><span class="kw">use </span>serde::Serialize;
 <a href=#20 id=20 data-nosnippet>20</a>
-<a href=#21 id=21 data-nosnippet>21</a><span class="kw">pub struct </span>LogStrategy {
+<a href=#21 id=21 data-nosnippet>21</a><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>LogStrategy {
 <a href=#22 id=22 data-nosnippet>22</a>    logger: LogStrategyLogger,
 <a href=#23 id=23 data-nosnippet>23</a>    pdp_id: PdpID,
 <a href=#24 id=24 data-nosnippet>24</a>    app_name: <span class="prelude-ty">Option</span>&lt;ApplicationName&gt;,
@@ -125,14 +125,14 @@
 <a href=#125 id=125 data-nosnippet>125</a>        }
 <a href=#126 id=126 data-nosnippet>126</a>    }
 <a href=#127 id=127 data-nosnippet>127</a>
-<a href=#128 id=128 data-nosnippet>128</a>    <span class="kw">pub fn </span>set_lock_service(<span class="kw-2">&amp;</span><span class="self">self</span>, lock_service: LockService) {
+<a href=#128 id=128 data-nosnippet>128</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>set_lock_service(<span class="kw-2">&amp;</span><span class="self">self</span>, lock_service: LockService) {
 <a href=#129 id=129 data-nosnippet>129</a>        <span class="kw-2">*</span><span class="self">self
 <a href=#130 id=130 data-nosnippet>130</a>            </span>.lock_service
 <a href=#131 id=131 data-nosnippet>131</a>            .write()
 <a href=#132 id=132 data-nosnippet>132</a>            .expect(<span class="string">"obtain lock_service write lock"</span>) = <span class="prelude-val">Some</span>(lock_service);
 <a href=#133 id=133 data-nosnippet>133</a>    }
 <a href=#134 id=134 data-nosnippet>134</a>
-<a href=#135 id=135 data-nosnippet>135</a>    <span class="kw">pub async fn </span>shut_down(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+<a href=#135 id=135 data-nosnippet>135</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>shut_down(<span class="kw-2">&amp;</span><span class="self">self</span>) {
 <a href=#136 id=136 data-nosnippet>136</a>        <span class="kw">let </span>lock = <span class="self">self
 <a href=#137 id=137 data-nosnippet>137</a>            </span>.lock_service
 <a href=#138 id=138 data-nosnippet>138</a>            .write()
@@ -190,7 +190,7 @@
 <a href=#190 id=190 data-nosnippet>190</a>}
 <a href=#191 id=191 data-nosnippet>191</a>
 <a href=#192 id=192 data-nosnippet>192</a><span class="kw">impl</span>&lt;E: Loggable&gt; LogEntryWithClientInfo&lt;E&gt; {
-<a href=#193 id=193 data-nosnippet>193</a>    <span class="kw">pub fn </span>from_loggable(entry: E, pdp_id: PdpID, app_name: <span class="prelude-ty">Option</span>&lt;ApplicationName&gt;) -&gt; <span class="self">Self </span>{
+<a href=#193 id=193 data-nosnippet>193</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>from_loggable(entry: E, pdp_id: PdpID, app_name: <span class="prelude-ty">Option</span>&lt;ApplicationName&gt;) -&gt; <span class="self">Self </span>{
 <a href=#194 id=194 data-nosnippet>194</a>        <span class="self">Self </span>{
 <a href=#195 id=195 data-nosnippet>195</a>            entry,
 <a href=#196 id=196 data-nosnippet>196</a>            pdp_id,

@@ -20,7 +20,7 @@
 <a href=#20 id=20 data-nosnippet>20</a>
 <a href=#21 id=21 data-nosnippet>21</a><span class="doccomment">/// Represents a directory entry from VFS.
 <a href=#22 id=22 data-nosnippet>22</a></span><span class="attr">#[derive(Debug, Clone)]
-<a href=#23 id=23 data-nosnippet>23</a></span><span class="kw">pub struct </span>DirEntry {
+<a href=#23 id=23 data-nosnippet>23</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>DirEntry {
 <a href=#24 id=24 data-nosnippet>24</a>    <span class="doccomment">/// The file name
 <a href=#25 id=25 data-nosnippet>25</a>    </span><span class="kw">pub </span>name: String,
 <a href=#26 id=26 data-nosnippet>26</a>    <span class="doccomment">/// The full path
@@ -32,7 +32,7 @@
 <a href=#32 id=32 data-nosnippet>32</a><span class="doccomment">/// Trait for virtual filesystem operations.
 <a href=#33 id=33 data-nosnippet>33</a>///
 <a href=#34 id=34 data-nosnippet>34</a>/// This trait abstracts filesystem operations to enable testing and cross-platform support.
-<a href=#35 id=35 data-nosnippet>35</a></span><span class="kw">pub trait </span>VfsFileSystem: Send + Sync + <span class="lifetime">'static </span>{
+<a href=#35 id=35 data-nosnippet>35</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">trait </span>VfsFileSystem: Send + Sync + <span class="lifetime">'static </span>{
 <a href=#36 id=36 data-nosnippet>36</a>    <span class="doccomment">/// Open a file and return a reader.
 <a href=#37 id=37 data-nosnippet>37</a>    ///
 <a href=#38 id=38 data-nosnippet>38</a>    /// This is the primary method for reading files, allowing callers to:
@@ -72,14 +72,14 @@
 <a href=#72 id=72 data-nosnippet>72</a>/// Uses the actual filesystem via the `vfs::PhysicalFS` backend.
 <a href=#73 id=73 data-nosnippet>73</a></span><span class="attr">#[cfg(not(target_arch = <span class="string">"wasm32"</span>))]
 <a href=#74 id=74 data-nosnippet>74</a>#[derive(Debug)]
-<a href=#75 id=75 data-nosnippet>75</a></span><span class="kw">pub struct </span>PhysicalVfs {
+<a href=#75 id=75 data-nosnippet>75</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>PhysicalVfs {
 <a href=#76 id=76 data-nosnippet>76</a>    root: vfs::VfsPath,
 <a href=#77 id=77 data-nosnippet>77</a>}
 <a href=#78 id=78 data-nosnippet>78</a>
 <a href=#79 id=79 data-nosnippet>79</a><span class="attr">#[cfg(not(target_arch = <span class="string">"wasm32"</span>))]
 <a href=#80 id=80 data-nosnippet>80</a></span><span class="kw">impl </span>PhysicalVfs {
 <a href=#81 id=81 data-nosnippet>81</a>    <span class="doccomment">/// Create a new physical VFS rooted at the system root.
-<a href=#82 id=82 data-nosnippet>82</a>    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
+<a href=#82 id=82 data-nosnippet>82</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
 <a href=#83 id=83 data-nosnippet>83</a>        <span class="kw">let </span>root = vfs::PhysicalFS::new(<span class="string">"/"</span>).into();
 <a href=#84 id=84 data-nosnippet>84</a>        <span class="self">Self </span>{ root }
 <a href=#85 id=85 data-nosnippet>85</a>    }
@@ -161,14 +161,14 @@
 <a href=#161 id=161 data-nosnippet>161</a>/// - Building policy stores programmatically in memory for tests
 <a href=#162 id=162 data-nosnippet>162</a></span><span class="attr">#[cfg(test)]
 <a href=#163 id=163 data-nosnippet>163</a>#[derive(Debug)]
-<a href=#164 id=164 data-nosnippet>164</a></span><span class="kw">pub struct </span>MemoryVfs {
+<a href=#164 id=164 data-nosnippet>164</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>MemoryVfs {
 <a href=#165 id=165 data-nosnippet>165</a>    root: vfs::VfsPath,
 <a href=#166 id=166 data-nosnippet>166</a>}
 <a href=#167 id=167 data-nosnippet>167</a>
 <a href=#168 id=168 data-nosnippet>168</a><span class="attr">#[cfg(test)]
 <a href=#169 id=169 data-nosnippet>169</a></span><span class="kw">impl </span>MemoryVfs {
 <a href=#170 id=170 data-nosnippet>170</a>    <span class="doccomment">/// Create a new empty in-memory VFS.
-<a href=#171 id=171 data-nosnippet>171</a>    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
+<a href=#171 id=171 data-nosnippet>171</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
 <a href=#172 id=172 data-nosnippet>172</a>        <span class="kw">let </span>root = vfs::MemoryFS::new().into();
 <a href=#173 id=173 data-nosnippet>173</a>        <span class="self">Self </span>{ root }
 <a href=#174 id=174 data-nosnippet>174</a>    }
@@ -181,7 +181,7 @@
 <a href=#181 id=181 data-nosnippet>181</a>    }
 <a href=#182 id=182 data-nosnippet>182</a>
 <a href=#183 id=183 data-nosnippet>183</a>    <span class="doccomment">/// Create a file with the given content.
-<a href=#184 id=184 data-nosnippet>184</a>    </span><span class="kw">pub fn </span>create_file(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>str, content: <span class="kw-2">&amp;</span>[u8]) -&gt; io::Result&lt;()&gt; {
+<a href=#184 id=184 data-nosnippet>184</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>create_file(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>str, content: <span class="kw-2">&amp;</span>[u8]) -&gt; io::Result&lt;()&gt; {
 <a href=#185 id=185 data-nosnippet>185</a>        <span class="kw">let </span>vfs_path = <span class="self">self</span>.get_path(path)<span class="question-mark">?</span>;
 <a href=#186 id=186 data-nosnippet>186</a>
 <a href=#187 id=187 data-nosnippet>187</a>        <span class="comment">// Create parent directories if needed
@@ -200,7 +200,7 @@
 <a href=#200 id=200 data-nosnippet>200</a>    }
 <a href=#201 id=201 data-nosnippet>201</a>
 <a href=#202 id=202 data-nosnippet>202</a>    <span class="doccomment">/// Create a directory and all of its parents.
-<a href=#203 id=203 data-nosnippet>203</a>    </span><span class="kw">pub fn </span>create_dir_all(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>str) -&gt; io::Result&lt;()&gt; {
+<a href=#203 id=203 data-nosnippet>203</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>create_dir_all(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span>str) -&gt; io::Result&lt;()&gt; {
 <a href=#204 id=204 data-nosnippet>204</a>        <span class="kw">let </span>vfs_path = <span class="self">self</span>.get_path(path)<span class="question-mark">?</span>;
 <a href=#205 id=205 data-nosnippet>205</a>        vfs_path.create_dir_all().map_err(io::Error::other)
 <a href=#206 id=206 data-nosnippet>206</a>    }

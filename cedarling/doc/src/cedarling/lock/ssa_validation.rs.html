@@ -87,7 +87,7 @@
 <a href=#87 id=87 data-nosnippet>87</a>/// This struct allows customization of validation behavior including
 <a href=#88 id=88 data-nosnippet>88</a>/// required claims, allowed algorithms, and validation behavior.
 <a href=#89 id=89 data-nosnippet>89</a></span><span class="attr">#[derive(Debug, Clone)]
-<a href=#90 id=90 data-nosnippet>90</a></span><span class="kw">pub struct </span>SsaValidationConfig {
+<a href=#90 id=90 data-nosnippet>90</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>SsaValidationConfig {
 <a href=#91 id=91 data-nosnippet>91</a>    <span class="doccomment">/// Set of required claims that must be present in the SSA JWT.
 <a href=#92 id=92 data-nosnippet>92</a>    /// Default includes: software_id, grant_types, iss, exp, iat, jti (RFC 7591/RFC 7519)
 <a href=#93 id=93 data-nosnippet>93</a>    /// plus org_id, software_roles (Cedarling custom requirements)
@@ -155,7 +155,7 @@
 <a href=#155 id=155 data-nosnippet>155</a>/// 
 <a href=#156 id=156 data-nosnippet>156</a>/// This struct includes both RFC 7591 defined claims and custom Cedarling requirements.
 <a href=#157 id=157 data-nosnippet>157</a></span><span class="attr">#[derive(Debug, Deserialize, Serialize, PartialEq)]
-<a href=#158 id=158 data-nosnippet>158</a></span><span class="kw">pub struct </span>SsaClaims {
+<a href=#158 id=158 data-nosnippet>158</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>SsaClaims {
 <a href=#159 id=159 data-nosnippet>159</a>    <span class="doccomment">/// Software identifier (RFC 7591)
 <a href=#160 id=160 data-nosnippet>160</a>    </span><span class="kw">pub </span>software_id: String,
 <a href=#161 id=161 data-nosnippet>161</a>    <span class="doccomment">/// Grant types the software is authorized to use (RFC 7591)
@@ -181,7 +181,7 @@
 <a href=#181 id=181 data-nosnippet>181</a>///
 <a href=#182 id=182 data-nosnippet>182</a>/// This is a convenience function that uses the default validation settings.
 <a href=#183 id=183 data-nosnippet>183</a>/// For custom validation options, use `validate_ssa_jwt_with_config`.
-<a href=#184 id=184 data-nosnippet>184</a></span><span class="kw">pub async fn </span>validate_ssa_jwt(
+<a href=#184 id=184 data-nosnippet>184</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>validate_ssa_jwt(
 <a href=#185 id=185 data-nosnippet>185</a>    ssa_jwt: <span class="kw-2">&amp;</span>str,
 <a href=#186 id=186 data-nosnippet>186</a>    jwks_uri: <span class="kw-2">&amp;</span>str,
 <a href=#187 id=187 data-nosnippet>187</a>    accept_invalid_certs: bool,
@@ -197,7 +197,7 @@
 <a href=#197 id=197 data-nosnippet>197</a>///
 <a href=#198 id=198 data-nosnippet>198</a>/// This function allows full customization of validation behavior including
 <a href=#199 id=199 data-nosnippet>199</a>/// required claims, allowed algorithms, and validation options.
-<a href=#200 id=200 data-nosnippet>200</a></span><span class="kw">pub async fn </span>validate_ssa_jwt_with_config(
+<a href=#200 id=200 data-nosnippet>200</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>validate_ssa_jwt_with_config(
 <a href=#201 id=201 data-nosnippet>201</a>    ssa_jwt: <span class="kw-2">&amp;</span>str,
 <a href=#202 id=202 data-nosnippet>202</a>    jwks_uri: <span class="kw-2">&amp;</span>str,
 <a href=#203 id=203 data-nosnippet>203</a>    config: <span class="kw-2">&amp;</span>SsaValidationConfig,
@@ -228,7 +228,7 @@
 <a href=#228 id=228 data-nosnippet>228</a>}
 <a href=#229 id=229 data-nosnippet>229</a>
 <a href=#230 id=230 data-nosnippet>230</a><span class="doccomment">/// Validates the basic structure and required claims of an SSA JWT with custom configuration
-<a href=#231 id=231 data-nosnippet>231</a></span><span class="kw">pub fn </span>validate_ssa_structure_with_config(
+<a href=#231 id=231 data-nosnippet>231</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>validate_ssa_structure_with_config(
 <a href=#232 id=232 data-nosnippet>232</a>    decoded_jwt: <span class="kw-2">&amp;</span>DecodedJwt,
 <a href=#233 id=233 data-nosnippet>233</a>    config: <span class="kw-2">&amp;</span>SsaValidationConfig,
 <a href=#234 id=234 data-nosnippet>234</a>) -&gt; <span class="prelude-ty">Result</span>&lt;(), SsaValidationError&gt; {
@@ -405,7 +405,7 @@
 <a href=#405 id=405 data-nosnippet>405</a>
 <a href=#406 id=406 data-nosnippet>406</a><span class="doccomment">/// Errors that can occur during SSA JWT validation
 <a href=#407 id=407 data-nosnippet>407</a></span><span class="attr">#[derive(Debug, Error)]
-<a href=#408 id=408 data-nosnippet>408</a></span><span class="kw">pub enum </span>SsaValidationError {
+<a href=#408 id=408 data-nosnippet>408</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">enum </span>SsaValidationError {
 <a href=#409 id=409 data-nosnippet>409</a>    <span class="doccomment">/// Failed to decode the JWT structure
 <a href=#410 id=410 data-nosnippet>410</a>    </span><span class="attr">#[error(<span class="string">"failed to decode JWT: {0}"</span>)]
 <a href=#411 id=411 data-nosnippet>411</a>    </span>DecodeJwt(<span class="attr">#[from] </span>DecodeJwtError),

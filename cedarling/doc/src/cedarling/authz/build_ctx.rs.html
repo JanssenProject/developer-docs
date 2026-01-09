@@ -16,7 +16,7 @@
 <a href=#16 id=16 data-nosnippet>16</a><span class="kw">use </span><span class="kw">super</span>::errors::BuildContextError;
 <a href=#17 id=17 data-nosnippet>17</a>
 <a href=#18 id=18 data-nosnippet>18</a><span class="doccomment">/// Constructs the authorization context by adding the built entities from the tokens
-<a href=#19 id=19 data-nosnippet>19</a></span><span class="kw">pub fn </span>build_context(
+<a href=#19 id=19 data-nosnippet>19</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>build_context(
 <a href=#20 id=20 data-nosnippet>20</a>    config: <span class="kw-2">&amp;</span>AuthzConfig,
 <a href=#21 id=21 data-nosnippet>21</a>    request_context: Value,
 <a href=#22 id=22 data-nosnippet>22</a>    build_entities: <span class="kw-2">&amp;</span>BuiltEntities,
@@ -96,7 +96,7 @@
 <a href=#96 id=96 data-nosnippet>96</a>/// - Individual token entities are accessible via context.tokens.{issuer}_{token_type}
 <a href=#97 id=97 data-nosnippet>97</a>/// - All JWT claims are stored as entity tags (Set of String by default)
 <a href=#98 id=98 data-nosnippet>98</a>/// - Provides ergonomic policy syntax for cross-token validation
-<a href=#99 id=99 data-nosnippet>99</a></span><span class="kw">pub fn </span>build_multi_issuer_context(
+<a href=#99 id=99 data-nosnippet>99</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>build_multi_issuer_context(
 <a href=#100 id=100 data-nosnippet>100</a>    request_context: Value,
 <a href=#101 id=101 data-nosnippet>101</a>    token_entities: <span class="kw-2">&amp;</span>HashMap&lt;String, Entity&gt;,
 <a href=#102 id=102 data-nosnippet>102</a>    schema: <span class="kw-2">&amp;</span>cedar_policy::Schema,
@@ -204,7 +204,7 @@
 <a href=#204 id=204 data-nosnippet>204</a>    }
 <a href=#205 id=205 data-nosnippet>205</a>}
 <a href=#206 id=206 data-nosnippet>206</a>
-<a href=#207 id=207 data-nosnippet>207</a><span class="kw">pub fn </span>merge_json_values(<span class="kw-2">mut </span>base: Value, other: Value) -&gt; <span class="prelude-ty">Result</span>&lt;Value, BuildContextError&gt; {
+<a href=#207 id=207 data-nosnippet>207</a><span class="kw">fn </span>merge_json_values(<span class="kw-2">mut </span>base: Value, other: Value) -&gt; <span class="prelude-ty">Result</span>&lt;Value, BuildContextError&gt; {
 <a href=#208 id=208 data-nosnippet>208</a>    <span class="kw">if let </span>(<span class="prelude-val">Some</span>(base_map), <span class="prelude-val">Some</span>(additional_map)) = (base.as_object_mut(), other.as_object()) {
 <a href=#209 id=209 data-nosnippet>209</a>        <span class="kw">for </span>(key, value) <span class="kw">in </span>additional_map {
 <a href=#210 id=210 data-nosnippet>210</a>            <span class="kw">if let </span>Entry::Vacant(entry) = base_map.entry(key) {

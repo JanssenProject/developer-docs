@@ -17,7 +17,7 @@
 <a href=#17 id=17 data-nosnippet>17</a><span class="kw">type </span>TokenClaims = HashMap&lt;String, Value&gt;;
 <a href=#18 id=18 data-nosnippet>18</a>
 <a href=#19 id=19 data-nosnippet>19</a><span class="attr">#[derive(Clone, Copy)]
-<a href=#20 id=20 data-nosnippet>20</a></span><span class="kw">pub enum </span>AttrSrc&lt;<span class="lifetime">'a</span>&gt; {
+<a href=#20 id=20 data-nosnippet>20</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">enum </span>AttrSrc&lt;<span class="lifetime">'a</span>&gt; {
 <a href=#21 id=21 data-nosnippet>21</a>    Token {
 <a href=#22 id=22 data-nosnippet>22</a>        claims: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>TokenClaims,
 <a href=#23 id=23 data-nosnippet>23</a>        mappings: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>ClaimMappings&gt;,
@@ -89,7 +89,7 @@
 <a href=#89 id=89 data-nosnippet>89</a>    errs: Vec&lt;BuildAttrsErrorVec&gt;,
 <a href=#90 id=90 data-nosnippet>90</a>}
 <a href=#91 id=91 data-nosnippet>91</a>
-<a href=#92 id=92 data-nosnippet>92</a><span class="kw">pub struct </span>BuiltPrincipalUnsigned {
+<a href=#92 id=92 data-nosnippet>92</a><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>BuiltPrincipalUnsigned {
 <a href=#93 id=93 data-nosnippet>93</a>    <span class="kw">pub </span>principal: Entity,
 <a href=#94 id=94 data-nosnippet>94</a>    <span class="kw">pub </span>parents: Vec&lt;Entity&gt;,
 <a href=#95 id=95 data-nosnippet>95</a>}
@@ -101,7 +101,7 @@
 <a href=#101 id=101 data-nosnippet>101</a>/// - [`user::UserIdSrcResolver`]     
 <a href=#102 id=102 data-nosnippet>102</a>/// - [`workload::WorkloadIdSrcResolver`]     
 <a href=#103 id=103 data-nosnippet>103</a></span><span class="attr">#[derive(Clone, Copy)]
-<a href=#104 id=104 data-nosnippet>104</a></span><span class="kw">pub struct </span>PrincipalIdSrc&lt;<span class="lifetime">'a</span>&gt; {
+<a href=#104 id=104 data-nosnippet>104</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>PrincipalIdSrc&lt;<span class="lifetime">'a</span>&gt; {
 <a href=#105 id=105 data-nosnippet>105</a>    token: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
 <a href=#106 id=106 data-nosnippet>106</a>    claim: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
 <a href=#107 id=107 data-nosnippet>107</a>}

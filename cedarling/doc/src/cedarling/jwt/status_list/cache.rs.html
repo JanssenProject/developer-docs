@@ -28,17 +28,17 @@
 <a href=#28 id=28 data-nosnippet>28</a><span class="kw">use super</span>::{StatusList, StatusListJwt, StatusListJwtStr, UpdateStatusListError};
 <a href=#29 id=29 data-nosnippet>29</a>
 <a href=#30 id=30 data-nosnippet>30</a><span class="doccomment">/// The value of the `status_list_uri` claim from a JWT
-<a href=#31 id=31 data-nosnippet>31</a></span><span class="kw">pub type </span>StatusListUri = String;
+<a href=#31 id=31 data-nosnippet>31</a></span><span class="kw">type </span>StatusListUri = String;
 <a href=#32 id=32 data-nosnippet>32</a>
 <a href=#33 id=33 data-nosnippet>33</a><span class="doccomment">/// Contains an Arc&lt;RwLock&lt;_&gt;&gt; internally so clone should be fine
 <a href=#34 id=34 data-nosnippet>34</a></span><span class="attr">#[derive(Debug, Default, Clone)]
-<a href=#35 id=35 data-nosnippet>35</a></span><span class="kw">pub struct </span>StatusListCache {
+<a href=#35 id=35 data-nosnippet>35</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>StatusListCache {
 <a href=#36 id=36 data-nosnippet>36</a>    <span class="kw">pub </span>status_lists: Arc&lt;RwLock&lt;HashMap&lt;StatusListUri, StatusList&gt;&gt;&gt;,
 <a href=#37 id=37 data-nosnippet>37</a>}
 <a href=#38 id=38 data-nosnippet>38</a>
 <a href=#39 id=39 data-nosnippet>39</a><span class="kw">impl </span>StatusListCache {
 <a href=#40 id=40 data-nosnippet>40</a>    <span class="doccomment">/// Initializes the statuslist for the given issuer
-<a href=#41 id=41 data-nosnippet>41</a>    </span><span class="kw">pub async fn </span>init_for_iss(
+<a href=#41 id=41 data-nosnippet>41</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>init_for_iss(
 <a href=#42 id=42 data-nosnippet>42</a>        <span class="kw-2">&amp;mut </span><span class="self">self</span>,
 <a href=#43 id=43 data-nosnippet>43</a>        iss_config: <span class="kw-2">&amp;</span>IssuerConfig,
 <a href=#44 id=44 data-nosnippet>44</a>        validators: <span class="kw-2">&amp;</span>JwtValidatorCache,

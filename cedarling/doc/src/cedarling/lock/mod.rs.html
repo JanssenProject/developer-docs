@@ -90,7 +90,7 @@
 <a href=#90 id=90 data-nosnippet>90</a><span class="kw">mod </span>log_entry;
 <a href=#91 id=91 data-nosnippet>91</a><span class="kw">mod </span>log_worker;
 <a href=#92 id=92 data-nosnippet>92</a><span class="kw">mod </span>register_client;
-<a href=#93 id=93 data-nosnippet>93</a><span class="kw">pub mod </span>ssa_validation;
+<a href=#93 id=93 data-nosnippet>93</a><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>ssa_validation;
 <a href=#94 id=94 data-nosnippet>94</a>
 <a href=#95 id=95 data-nosnippet>95</a><span class="kw">use </span><span class="kw">crate</span>::app_types::PdpID;
 <a href=#96 id=96 data-nosnippet>96</a><span class="kw">use </span><span class="kw">crate</span>::common::issuer_utils::normalize_issuer;
@@ -110,7 +110,7 @@
 <a href=#110 id=110 data-nosnippet>110</a><span class="kw">use </span>tokio_util::sync::CancellationToken;
 <a href=#111 id=111 data-nosnippet>111</a>
 <a href=#112 id=112 data-nosnippet>112</a><span class="doccomment">/// The base duration to wait for if an http request fails for workers.
-<a href=#113 id=113 data-nosnippet>113</a></span><span class="kw">pub const </span>WORKER_HTTP_RETRY_DUR: Duration = Duration::from_secs(<span class="number">10</span>);
+<a href=#113 id=113 data-nosnippet>113</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">const </span>WORKER_HTTP_RETRY_DUR: Duration = Duration::from_secs(<span class="number">10</span>);
 <a href=#114 id=114 data-nosnippet>114</a>
 <a href=#115 id=115 data-nosnippet>115</a><span class="attr">#[derive(Debug)]
 <a href=#116 id=116 data-nosnippet>116</a></span><span class="kw">struct </span>WorkerSenderAndHandle {
@@ -120,13 +120,13 @@
 <a href=#120 id=120 data-nosnippet>120</a>
 <a href=#121 id=121 data-nosnippet>121</a><span class="doccomment">/// Stores logs in a buffer then sends them to the lock server in the background
 <a href=#122 id=122 data-nosnippet>122</a></span><span class="attr">#[derive(Debug)]
-<a href=#123 id=123 data-nosnippet>123</a></span><span class="kw">pub struct </span>LockService {
+<a href=#123 id=123 data-nosnippet>123</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>LockService {
 <a href=#124 id=124 data-nosnippet>124</a>    log_worker: <span class="prelude-ty">Option</span>&lt;WorkerSenderAndHandle&gt;,
 <a href=#125 id=125 data-nosnippet>125</a>    logger: <span class="prelude-ty">Option</span>&lt;LoggerWeak&gt;,
 <a href=#126 id=126 data-nosnippet>126</a>    cancel_tkn: CancellationToken,
 <a href=#127 id=127 data-nosnippet>127</a>}
 <a href=#128 id=128 data-nosnippet>128</a>
-<a href=#129 id=129 data-nosnippet>129</a><span class="kw">pub fn </span>init_http_client(
+<a href=#129 id=129 data-nosnippet>129</a><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>init_http_client(
 <a href=#130 id=130 data-nosnippet>130</a>    default_headers: <span class="prelude-ty">Option</span>&lt;HeaderMap&gt;,
 <a href=#131 id=131 data-nosnippet>131</a>    accept_invalid_certs: bool,
 <a href=#132 id=132 data-nosnippet>132</a>) -&gt; <span class="prelude-ty">Result</span>&lt;Client, reqwest::Error&gt; {
@@ -152,7 +152,7 @@
 <a href=#152 id=152 data-nosnippet>152</a>}
 <a href=#153 id=153 data-nosnippet>153</a>
 <a href=#154 id=154 data-nosnippet>154</a><span class="kw">impl </span>LockService {
-<a href=#155 id=155 data-nosnippet>155</a>    <span class="kw">pub async fn </span>new(
+<a href=#155 id=155 data-nosnippet>155</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>new(
 <a href=#156 id=156 data-nosnippet>156</a>        pdp_id: PdpID,
 <a href=#157 id=157 data-nosnippet>157</a>        bootstrap_conf: <span class="kw-2">&amp;</span>LockServiceConfig,
 <a href=#158 id=158 data-nosnippet>158</a>        logger: <span class="prelude-ty">Option</span>&lt;LoggerWeak&gt;,
@@ -240,7 +240,7 @@
 <a href=#240 id=240 data-nosnippet>240</a>        })
 <a href=#241 id=241 data-nosnippet>241</a>    }
 <a href=#242 id=242 data-nosnippet>242</a>
-<a href=#243 id=243 data-nosnippet>243</a>    <span class="kw">pub async fn </span>shut_down(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+<a href=#243 id=243 data-nosnippet>243</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>shut_down(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
 <a href=#244 id=244 data-nosnippet>244</a>        <span class="self">self</span>.cancel_tkn.cancel();
 <a href=#245 id=245 data-nosnippet>245</a>        <span class="kw">if let </span><span class="prelude-val">Some</span>(log_worker) = <span class="self">self</span>.log_worker.take() {
 <a href=#246 id=246 data-nosnippet>246</a>            <span class="kw">_ </span>= log_worker.handle.await_result().<span class="kw">await</span>;

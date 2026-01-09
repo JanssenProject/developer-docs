@@ -13,7 +13,7 @@
 <a href=#13 id=13 data-nosnippet>13</a><span class="kw">impl </span>EntityBuilder {
 <a href=#14 id=14 data-nosnippet>14</a>    <span class="comment">// TODO: we might need to add support for setting the 'spiffe_id' attribute to be
 <a href=#15 id=15 data-nosnippet>15</a>    // either the 'aud' or 'client_id' claim eventually
-<a href=#16 id=16 data-nosnippet>16</a>    </span><span class="kw">pub fn </span>build_workload_entity(
+<a href=#16 id=16 data-nosnippet>16</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>build_workload_entity(
 <a href=#17 id=17 data-nosnippet>17</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
 <a href=#18 id=18 data-nosnippet>18</a>        tokens: <span class="kw-2">&amp;</span>HashMap&lt;String, Arc&lt;Token&gt;&gt;,
 <a href=#19 id=19 data-nosnippet>19</a>        tkn_principal_mappings: <span class="kw-2">&amp;</span>TokenPrincipalMappings,
@@ -57,7 +57,7 @@
 <a href=#57 id=57 data-nosnippet>57</a>///
 <a href=#58 id=58 data-nosnippet>58</a>/// This struct provides a method to extract workload-related entity IDs from a set of
 <a href=#59 id=59 data-nosnippet>59</a>/// tokens. It looks for predefined claims within specific tokens to identify workloads.
-<a href=#60 id=60 data-nosnippet>60</a></span><span class="kw">pub struct </span>WorkloadIdSrcResolver;
+<a href=#60 id=60 data-nosnippet>60</a></span><span class="kw">struct </span>WorkloadIdSrcResolver;
 <a href=#61 id=61 data-nosnippet>61</a>
 <a href=#62 id=62 data-nosnippet>62</a><span class="kw">impl </span>WorkloadIdSrcResolver {
 <a href=#63 id=63 data-nosnippet>63</a>    <span class="doccomment">/// Resolves workload entity IDs from the provided authentication tokens.
@@ -71,7 +71,7 @@
 <a href=#71 id=71 data-nosnippet>71</a>    /// - `access_token.aud`
 <a href=#72 id=72 data-nosnippet>72</a>    /// - `access_token.client_id`
 <a href=#73 id=73 data-nosnippet>73</a>    /// - `id_token.aud`
-<a href=#74 id=74 data-nosnippet>74</a>    </span><span class="kw">pub fn </span>resolve(tokens: <span class="kw-2">&amp;</span>HashMap&lt;String, Arc&lt;Token&gt;&gt;) -&gt; Vec&lt;EntityIdSrc&lt;<span class="lifetime">'_</span>&gt;&gt; {
+<a href=#74 id=74 data-nosnippet>74</a>    </span><span class="kw">fn </span>resolve(tokens: <span class="kw-2">&amp;</span>HashMap&lt;String, Arc&lt;Token&gt;&gt;) -&gt; Vec&lt;EntityIdSrc&lt;<span class="lifetime">'_</span>&gt;&gt; {
 <a href=#75 id=75 data-nosnippet>75</a>        <span class="kw">const </span>DEFAULT_WORKLOAD_ID_SRCS: <span class="kw-2">&amp;</span>[PrincipalIdSrc] = <span class="kw-2">&amp;</span>[
 <a href=#76 id=76 data-nosnippet>76</a>            PrincipalIdSrc {
 <a href=#77 id=77 data-nosnippet>77</a>                token: <span class="string">"access_token"</span>,

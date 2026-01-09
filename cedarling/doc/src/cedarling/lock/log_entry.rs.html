@@ -9,7 +9,7 @@
 <a href=#9 id=9 data-nosnippet>9</a><span class="kw">use </span>serde::Serialize;
 <a href=#10 id=10 data-nosnippet>10</a>
 <a href=#11 id=11 data-nosnippet>11</a><span class="attr">#[derive(Serialize, Clone)]
-<a href=#12 id=12 data-nosnippet>12</a></span><span class="kw">pub struct </span>LockLogEntry {
+<a href=#12 id=12 data-nosnippet>12</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>LockLogEntry {
 <a href=#13 id=13 data-nosnippet>13</a>    message: String,
 <a href=#14 id=14 data-nosnippet>14</a>    level: LogLevel,
 <a href=#15 id=15 data-nosnippet>15</a>    id: uuid7::Uuid,
@@ -17,7 +17,7 @@
 <a href=#17 id=17 data-nosnippet>17</a>
 <a href=#18 id=18 data-nosnippet>18</a><span class="kw">impl </span>LockLogEntry {
 <a href=#19 id=19 data-nosnippet>19</a>    <span class="doccomment">/// Helper function to create a [`LogLevel::ERROR`] entry.
-<a href=#20 id=20 data-nosnippet>20</a>    </span><span class="kw">pub fn </span>error(msg: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
+<a href=#20 id=20 data-nosnippet>20</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>error(msg: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
 <a href=#21 id=21 data-nosnippet>21</a>        <span class="self">Self </span>{
 <a href=#22 id=22 data-nosnippet>22</a>            message: msg.into(),
 <a href=#23 id=23 data-nosnippet>23</a>            level: LogLevel::ERROR,
@@ -26,7 +26,7 @@
 <a href=#26 id=26 data-nosnippet>26</a>    }
 <a href=#27 id=27 data-nosnippet>27</a>
 <a href=#28 id=28 data-nosnippet>28</a>    <span class="doccomment">/// Helper function to create a [`LogLevel::INFO`] entry.
-<a href=#29 id=29 data-nosnippet>29</a>    </span><span class="kw">pub fn </span>info(msg: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
+<a href=#29 id=29 data-nosnippet>29</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>info(msg: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
 <a href=#30 id=30 data-nosnippet>30</a>        <span class="self">Self </span>{
 <a href=#31 id=31 data-nosnippet>31</a>            message: msg.into(),
 <a href=#32 id=32 data-nosnippet>32</a>            level: LogLevel::INFO,
@@ -35,7 +35,7 @@
 <a href=#35 id=35 data-nosnippet>35</a>    }
 <a href=#36 id=36 data-nosnippet>36</a>
 <a href=#37 id=37 data-nosnippet>37</a>    <span class="doccomment">/// Helper function to create a [`LogLevel::WARN`] entry.
-<a href=#38 id=38 data-nosnippet>38</a>    </span><span class="kw">pub fn </span>warn(msg: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
+<a href=#38 id=38 data-nosnippet>38</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>warn(msg: <span class="kw">impl </span>Into&lt;String&gt;) -&gt; <span class="self">Self </span>{
 <a href=#39 id=39 data-nosnippet>39</a>        <span class="self">Self </span>{
 <a href=#40 id=40 data-nosnippet>40</a>            message: msg.into(),
 <a href=#41 id=41 data-nosnippet>41</a>            level: LogLevel::WARN,

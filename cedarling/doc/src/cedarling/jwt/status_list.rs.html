@@ -16,8 +16,8 @@
 <a href=#16 id=16 data-nosnippet>16</a><span class="attr">#[cfg(test)]
 <a href=#17 id=17 data-nosnippet>17</a></span><span class="kw">mod </span>ietf_test_samples;
 <a href=#18 id=18 data-nosnippet>18</a>
-<a href=#19 id=19 data-nosnippet>19</a><span class="kw">pub use </span>cache::<span class="kw-2">*</span>;
-<a href=#20 id=20 data-nosnippet>20</a><span class="kw">pub use </span>error::<span class="kw-2">*</span>;
+<a href=#19 id=19 data-nosnippet>19</a><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">use </span>cache::<span class="kw-2">*</span>;
+<a href=#20 id=20 data-nosnippet>20</a><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">use </span>error::<span class="kw-2">*</span>;
 <a href=#21 id=21 data-nosnippet>21</a>
 <a href=#22 id=22 data-nosnippet>22</a><span class="kw">use </span><span class="kw">super</span>::validation::ValidatedJwt;
 <a href=#23 id=23 data-nosnippet>23</a><span class="kw">use </span>base64::prelude::{BASE64_URL_SAFE_NO_PAD, Engine};
@@ -27,7 +27,7 @@
 <a href=#27 id=27 data-nosnippet>27</a><span class="kw">use </span>std::io::Read;
 <a href=#28 id=28 data-nosnippet>28</a>
 <a href=#29 id=29 data-nosnippet>29</a><span class="attr">#[derive(Debug, PartialEq, Clone)]
-<a href=#30 id=30 data-nosnippet>30</a></span><span class="kw">pub struct </span>StatusList {
+<a href=#30 id=30 data-nosnippet>30</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>StatusList {
 <a href=#31 id=31 data-nosnippet>31</a>    <span class="doccomment">/// The number of bits used to encode a single status
 <a href=#32 id=32 data-nosnippet>32</a>    </span><span class="kw">pub </span>bit_size: StatusBitSize,
 <a href=#33 id=33 data-nosnippet>33</a>    <span class="doccomment">/// The status list
@@ -35,7 +35,7 @@
 <a href=#35 id=35 data-nosnippet>35</a>}
 <a href=#36 id=36 data-nosnippet>36</a>
 <a href=#37 id=37 data-nosnippet>37</a><span class="kw">impl </span>StatusList {
-<a href=#38 id=38 data-nosnippet>38</a>    <span class="kw">pub fn </span>parse(encoded: <span class="kw-2">&amp;</span>str, bits: u8) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ParseStatusListError&gt; {
+<a href=#38 id=38 data-nosnippet>38</a>    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>parse(encoded: <span class="kw-2">&amp;</span>str, bits: u8) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, ParseStatusListError&gt; {
 <a href=#39 id=39 data-nosnippet>39</a>        <span class="kw">let </span>list = BASE64_URL_SAFE_NO_PAD.decode(encoded)<span class="question-mark">?</span>;
 <a href=#40 id=40 data-nosnippet>40</a>        <span class="kw">let </span><span class="kw-2">mut </span>decoder = ZlibDecoder::new(list.as_slice());
 <a href=#41 id=41 data-nosnippet>41</a>        <span class="kw">let </span><span class="kw-2">mut </span>list = Vec::new();
@@ -51,7 +51,7 @@
 <a href=#51 id=51 data-nosnippet>51</a>    /// Validation rules can be found in [`IETF Status List Spec. sec. 8.3 v10`]
 <a href=#52 id=52 data-nosnippet>52</a>    ///
 <a href=#53 id=53 data-nosnippet>53</a>    /// [`IETF Status List Spec. sec. 8.3 v10`]: https://www.ietf.org/archive/id/draft-ietf-oauth-status-list-10.html#section-8.3
-<a href=#54 id=54 data-nosnippet>54</a>    </span><span class="kw">pub fn </span>get_status(<span class="kw-2">&amp;</span><span class="self">self</span>, index: usize) -&gt; <span class="prelude-ty">Result</span>&lt;JwtStatus, JwtStatusError&gt; {
+<a href=#54 id=54 data-nosnippet>54</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>get_status(<span class="kw-2">&amp;</span><span class="self">self</span>, index: usize) -&gt; <span class="prelude-ty">Result</span>&lt;JwtStatus, JwtStatusError&gt; {
 <a href=#55 id=55 data-nosnippet>55</a>        <span class="kw">let </span>scale = (<span class="number">8 </span>/ <span class="self">self</span>.bit_size.<span class="number">0</span>) <span class="kw">as </span>usize;
 <a href=#56 id=56 data-nosnippet>56</a>
 <a href=#57 id=57 data-nosnippet>57</a>        <span class="kw">let </span>byte_idx = index / scale;
@@ -70,17 +70,17 @@
 <a href=#70 id=70 data-nosnippet>70</a>
 <a href=#71 id=71 data-nosnippet>71</a><span class="doccomment">/// Status list JWT from an IDP's status list endpoint
 <a href=#72 id=72 data-nosnippet>72</a></span><span class="attr">#[derive(Debug, Deserialize, PartialEq)]
-<a href=#73 id=73 data-nosnippet>73</a></span><span class="kw">pub struct </span>StatusListJwtStr(<span class="kw">pub </span>String);
+<a href=#73 id=73 data-nosnippet>73</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>StatusListJwtStr(<span class="kw">pub </span>String);
 <a href=#74 id=74 data-nosnippet>74</a>
 <a href=#75 id=75 data-nosnippet>75</a><span class="kw">impl </span>StatusListJwtStr {
-<a href=#76 id=76 data-nosnippet>76</a>    <span class="kw">pub fn </span>new(jwt_str: String) -&gt; <span class="self">Self </span>{
+<a href=#76 id=76 data-nosnippet>76</a>    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>new(jwt_str: String) -&gt; <span class="self">Self </span>{
 <a href=#77 id=77 data-nosnippet>77</a>        <span class="self">Self</span>(jwt_str)
 <a href=#78 id=78 data-nosnippet>78</a>    }
 <a href=#79 id=79 data-nosnippet>79</a>}
 <a href=#80 id=80 data-nosnippet>80</a>
 <a href=#81 id=81 data-nosnippet>81</a><span class="doccomment">/// Status list JWT from an IDP's status list endpoint
 <a href=#82 id=82 data-nosnippet>82</a></span><span class="attr">#[derive(Debug, Deserialize, PartialEq)]
-<a href=#83 id=83 data-nosnippet>83</a></span><span class="kw">pub struct </span>StatusListJwt {
+<a href=#83 id=83 data-nosnippet>83</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>StatusListJwt {
 <a href=#84 id=84 data-nosnippet>84</a>    sub: String,
 <a href=#85 id=85 data-nosnippet>85</a>    iat: u32,
 <a href=#86 id=86 data-nosnippet>86</a>    <span class="attr">#[serde(default)]
@@ -234,7 +234,7 @@
 <a href=#234 id=234 data-nosnippet>234</a>///
 <a href=#235 id=235 data-nosnippet>235</a>/// [`status list spec sec. 5.1 v10`]: https://www.ietf.org/archive/id/draft-ietf-oauth-status-list-10.html#section-5.1
 <a href=#236 id=236 data-nosnippet>236</a></span><span class="attr">#[cfg(test)]
-<a href=#237 id=237 data-nosnippet>237</a></span><span class="kw">pub fn </span>compress_and_encode(status_list: <span class="kw-2">&amp;</span>[u8]) -&gt; String {
+<a href=#237 id=237 data-nosnippet>237</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>compress_and_encode(status_list: <span class="kw-2">&amp;</span>[u8]) -&gt; String {
 <a href=#238 id=238 data-nosnippet>238</a>    <span class="kw">use </span>flate2::{Compression, write::ZlibEncoder};
 <a href=#239 id=239 data-nosnippet>239</a>    <span class="kw">use </span>std::io::Write;
 <a href=#240 id=240 data-nosnippet>240</a>

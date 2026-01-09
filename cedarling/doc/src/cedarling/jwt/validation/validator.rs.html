@@ -15,7 +15,7 @@
 <a href=#15 id=15 data-nosnippet>15</a><span class="kw">use </span>serde_json::Value;
 <a href=#16 id=16 data-nosnippet>16</a>
 <a href=#17 id=17 data-nosnippet>17</a><span class="attr">#[derive(Debug, PartialEq, Deserialize, Clone)]
-<a href=#18 id=18 data-nosnippet>18</a></span><span class="kw">pub struct </span>ValidatedJwt {
+<a href=#18 id=18 data-nosnippet>18</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>ValidatedJwt {
 <a href=#19 id=19 data-nosnippet>19</a>    <span class="attr">#[serde(flatten)]
 <a href=#20 id=20 data-nosnippet>20</a>    </span><span class="kw">pub </span>claims: Value,
 <a href=#21 id=21 data-nosnippet>21</a>    <span class="attr">#[serde(skip)]
@@ -26,7 +26,7 @@
 <a href=#26 id=26 data-nosnippet>26</a>    <span class="doccomment">/// Gets the value of the status list claim in the [`referenced token`]
 <a href=#27 id=27 data-nosnippet>27</a>    ///
 <a href=#28 id=28 data-nosnippet>28</a>    /// [`referenced token`]: https://www.ietf.org/archive/id/draft-ietf-oauth-status-list-10.html#name-referenced-token
-<a href=#29 id=29 data-nosnippet>29</a>    </span><span class="kw">pub fn </span>get_ref_status(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;RefJwtStatusList&gt;, serde_json::Error&gt; {
+<a href=#29 id=29 data-nosnippet>29</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>get_ref_status(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;RefJwtStatusList&gt;, serde_json::Error&gt; {
 <a href=#30 id=30 data-nosnippet>30</a>        <span class="kw">let </span><span class="prelude-val">Some</span>(status) = <span class="self">self</span>.claims.get(<span class="string">"status"</span>) <span class="kw">else </span>{
 <a href=#31 id=31 data-nosnippet>31</a>            <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>);
 <a href=#32 id=32 data-nosnippet>32</a>        };
@@ -41,7 +41,7 @@
 <a href=#41 id=41 data-nosnippet>41</a>///
 <a href=#42 id=42 data-nosnippet>42</a>/// [`referenced token`]: https://www.ietf.org/archive/id/draft-ietf-oauth-status-list-10.html#name-referenced-token
 <a href=#43 id=43 data-nosnippet>43</a></span><span class="attr">#[derive(Debug, Deserialize, PartialEq)]
-<a href=#44 id=44 data-nosnippet>44</a></span><span class="kw">pub struct </span>RefJwtStatusListClaim {
+<a href=#44 id=44 data-nosnippet>44</a></span><span class="kw">struct </span>RefJwtStatusListClaim {
 <a href=#45 id=45 data-nosnippet>45</a>    status_list: RefJwtStatusList,
 <a href=#46 id=46 data-nosnippet>46</a>}
 <a href=#47 id=47 data-nosnippet>47</a>
@@ -49,7 +49,7 @@
 <a href=#49 id=49 data-nosnippet>49</a>///
 <a href=#50 id=50 data-nosnippet>50</a>/// [`referenced token`]: https://www.ietf.org/archive/id/draft-ietf-oauth-status-list-10.html#name-referenced-token
 <a href=#51 id=51 data-nosnippet>51</a></span><span class="attr">#[derive(Debug, Deserialize, PartialEq, Serialize)]
-<a href=#52 id=52 data-nosnippet>52</a></span><span class="kw">pub struct </span>RefJwtStatusList {
+<a href=#52 id=52 data-nosnippet>52</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>RefJwtStatusList {
 <a href=#53 id=53 data-nosnippet>53</a>    <span class="kw">pub </span>idx: usize,
 <a href=#54 id=54 data-nosnippet>54</a>    <span class="kw">pub </span>uri: String,
 <a href=#55 id=55 data-nosnippet>55</a>    <span class="doccomment">/// Maximum amount of time, in seconds, that the Status List Token can be cached
@@ -61,7 +61,7 @@
 <a href=#61 id=61 data-nosnippet>61</a><span class="doccomment">/// This struct is a wrapper over [`jsonwebtoken::Validation`] which implements an
 <a href=#62 id=62 data-nosnippet>62</a>/// additional check for requiring custom JWT claims.
 <a href=#63 id=63 data-nosnippet>63</a></span><span class="attr">#[derive(Debug, Clone)]
-<a href=#64 id=64 data-nosnippet>64</a></span><span class="kw">pub struct </span>JwtValidator {
+<a href=#64 id=64 data-nosnippet>64</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>JwtValidator {
 <a href=#65 id=65 data-nosnippet>65</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) validation: Validation,
 <a href=#66 id=66 data-nosnippet>66</a>    required_claims: HashSet&lt;String&gt;,
 <a href=#67 id=67 data-nosnippet>67</a>    validate_signature: bool,
@@ -71,7 +71,7 @@
 <a href=#71 id=71 data-nosnippet>71</a>
 <a href=#72 id=72 data-nosnippet>72</a><span class="kw">impl </span>JwtValidator {
 <a href=#73 id=73 data-nosnippet>73</a>    <span class="doccomment">/// Creates a new validator for the tokens passed through [`crate::Cedarling::authorize`]
-<a href=#74 id=74 data-nosnippet>74</a>    </span><span class="kw">pub fn </span>new_input_tkn_validator&lt;<span class="lifetime">'a</span>&gt;(
+<a href=#74 id=74 data-nosnippet>74</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>new_input_tkn_validator&lt;<span class="lifetime">'a</span>&gt;(
 <a href=#75 id=75 data-nosnippet>75</a>        iss: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>str&gt;,
 <a href=#76 id=76 data-nosnippet>76</a>        tkn_name: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
 <a href=#77 id=77 data-nosnippet>77</a>        token_metadata: <span class="kw-2">&amp;</span>TokenEntityMetadata,
@@ -119,7 +119,7 @@
 <a href=#119 id=119 data-nosnippet>119</a>    }
 <a href=#120 id=120 data-nosnippet>120</a>
 <a href=#121 id=121 data-nosnippet>121</a>    <span class="doccomment">/// Creates a new validator for multi-issuer tokens passed through [`crate::Cedarling::authorize_multi_issuer`]
-<a href=#122 id=122 data-nosnippet>122</a>    </span><span class="kw">pub fn </span>new_multi_issuer_tkn_validator&lt;<span class="lifetime">'a</span>&gt;(
+<a href=#122 id=122 data-nosnippet>122</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>new_multi_issuer_tkn_validator&lt;<span class="lifetime">'a</span>&gt;(
 <a href=#123 id=123 data-nosnippet>123</a>        iss: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'a </span>str&gt;,
 <a href=#124 id=124 data-nosnippet>124</a>        tkn_name: <span class="kw-2">&amp;</span><span class="lifetime">'a </span>str,
 <a href=#125 id=125 data-nosnippet>125</a>        token_metadata: <span class="kw-2">&amp;</span>TokenEntityMetadata,
@@ -164,7 +164,7 @@
 <a href=#164 id=164 data-nosnippet>164</a>    }
 <a href=#165 id=165 data-nosnippet>165</a>
 <a href=#166 id=166 data-nosnippet>166</a>    <span class="doccomment">/// Creates a new validator for status list tokens
-<a href=#167 id=167 data-nosnippet>167</a>    </span><span class="kw">pub fn </span>new_status_list_tkn_validator(
+<a href=#167 id=167 data-nosnippet>167</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>new_status_list_tkn_validator(
 <a href=#168 id=168 data-nosnippet>168</a>        iss: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'_ </span>str&gt;,
 <a href=#169 id=169 data-nosnippet>169</a>        status_list_uri: <span class="prelude-ty">Option</span>&lt;String&gt;,
 <a href=#170 id=170 data-nosnippet>170</a>        algorithm: Algorithm,
@@ -216,7 +216,7 @@
 <a href=#216 id=216 data-nosnippet>216</a>    ///
 <a href=#217 id=217 data-nosnippet>217</a>    /// [`invalid`]: JwtStatus::Invalid
 <a href=#218 id=218 data-nosnippet>218</a>    /// [`suspended`]: JwtStatus::Suspended
-<a href=#219 id=219 data-nosnippet>219</a>    </span><span class="kw">pub fn </span>validate_jwt(
+<a href=#219 id=219 data-nosnippet>219</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>validate_jwt(
 <a href=#220 id=220 data-nosnippet>220</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
 <a href=#221 id=221 data-nosnippet>221</a>        jwt: <span class="kw-2">&amp;</span>str,
 <a href=#222 id=222 data-nosnippet>222</a>        decoding_key: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>DecodingKey&gt;,
@@ -273,11 +273,11 @@
 <a href=#273 id=273 data-nosnippet>273</a>}
 <a href=#274 id=274 data-nosnippet>274</a>
 <a href=#275 id=275 data-nosnippet>275</a><span class="kw">impl </span>DecodedJwt {
-<a href=#276 id=276 data-nosnippet>276</a>    <span class="kw">pub fn </span>iss(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt; {
+<a href=#276 id=276 data-nosnippet>276</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>iss(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt; {
 <a href=#277 id=277 data-nosnippet>277</a>        <span class="self">self</span>.claims.inner.get(<span class="string">"iss"</span>).and_then(|x| x.as_str())
 <a href=#278 id=278 data-nosnippet>278</a>    }
 <a href=#279 id=279 data-nosnippet>279</a>
-<a href=#280 id=280 data-nosnippet>280</a>    <span class="kw">pub fn </span>decoding_key_info(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; DecodingKeyInfo {
+<a href=#280 id=280 data-nosnippet>280</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>decoding_key_info(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; DecodingKeyInfo {
 <a href=#281 id=281 data-nosnippet>281</a>        DecodingKeyInfo {
 <a href=#282 id=282 data-nosnippet>282</a>            issuer: <span class="self">self</span>.iss().map(|x| x.to_string()),
 <a href=#283 id=283 data-nosnippet>283</a>            kid: <span class="self">self</span>.header.kid.clone(),

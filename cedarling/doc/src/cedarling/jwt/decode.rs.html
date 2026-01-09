@@ -13,7 +13,7 @@
 <a href=#13 id=13 data-nosnippet>13</a>/// We need to decode the header and the `iss` claim in order to fetch the right
 <a href=#14 id=14 data-nosnippet>14</a>/// validation key.
 <a href=#15 id=15 data-nosnippet>15</a></span><span class="attr">#[derive(Debug, PartialEq)]
-<a href=#16 id=16 data-nosnippet>16</a></span><span class="kw">pub struct </span>DecodedJwt {
+<a href=#16 id=16 data-nosnippet>16</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>DecodedJwt {
 <a href=#17 id=17 data-nosnippet>17</a>    <span class="kw">pub </span>header: DecodedJwtHeader,
 <a href=#18 id=18 data-nosnippet>18</a>    <span class="kw">pub </span>claims: DecodedJwtClaims,
 <a href=#19 id=19 data-nosnippet>19</a>}
@@ -22,7 +22,7 @@
 <a href=#22 id=22 data-nosnippet>22</a>///
 <a href=#23 id=23 data-nosnippet>23</a>/// [`RFC 7515 Section 4.1`]: https://datatracker.ietf.org/doc/html/rfc7515#section-4.1
 <a href=#24 id=24 data-nosnippet>24</a></span><span class="attr">#[derive(Debug, Deserialize, PartialEq)]
-<a href=#25 id=25 data-nosnippet>25</a></span><span class="kw">pub struct </span>DecodedJwtHeader {
+<a href=#25 id=25 data-nosnippet>25</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>DecodedJwtHeader {
 <a href=#26 id=26 data-nosnippet>26</a>    <span class="kw">pub </span>typ: <span class="prelude-ty">Option</span>&lt;String&gt;,
 <a href=#27 id=27 data-nosnippet>27</a>    <span class="kw">pub </span>cty: <span class="prelude-ty">Option</span>&lt;String&gt;,
 <a href=#28 id=28 data-nosnippet>28</a>    <span class="kw">pub </span>kid: <span class="prelude-ty">Option</span>&lt;String&gt;,
@@ -33,12 +33,12 @@
 <a href=#33 id=33 data-nosnippet>33</a>///
 <a href=#34 id=34 data-nosnippet>34</a>/// [`RFC 7515 Section 4.1`]: https://datatracker.ietf.org/doc/html/rfc7519#section-4.1
 <a href=#35 id=35 data-nosnippet>35</a></span><span class="attr">#[derive(Debug, Deserialize, PartialEq)]
-<a href=#36 id=36 data-nosnippet>36</a></span><span class="kw">pub struct </span>DecodedJwtClaims {
+<a href=#36 id=36 data-nosnippet>36</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>DecodedJwtClaims {
 <a href=#37 id=37 data-nosnippet>37</a>    <span class="attr">#[serde(flatten)]
 <a href=#38 id=38 data-nosnippet>38</a>    </span><span class="kw">pub </span>inner: Value,
 <a href=#39 id=39 data-nosnippet>39</a>}
 <a href=#40 id=40 data-nosnippet>40</a>
-<a href=#41 id=41 data-nosnippet>41</a><span class="kw">pub fn </span>decode_jwt(jwt: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;DecodedJwt, DecodeJwtError&gt; {
+<a href=#41 id=41 data-nosnippet>41</a><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>decode_jwt(jwt: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;DecodedJwt, DecodeJwtError&gt; {
 <a href=#42 id=42 data-nosnippet>42</a>    <span class="kw">let </span>split = jwt.split(<span class="string">"."</span>).collect::&lt;Vec&lt;<span class="kw-2">&amp;</span>str&gt;&gt;();
 <a href=#43 id=43 data-nosnippet>43</a>    <span class="kw">if </span>split.len() != <span class="number">3 </span>{
 <a href=#44 id=44 data-nosnippet>44</a>        <span class="kw">return </span><span class="prelude-val">Err</span>(DecodeJwtError::InvalidJwtFormat);

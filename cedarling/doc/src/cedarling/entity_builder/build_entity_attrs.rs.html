@@ -18,7 +18,7 @@
 <a href=#18 id=18 data-nosnippet>18</a><span class="doccomment">/// Builds Cedar entity attributes using the given attribute source
 <a href=#19 id=19 data-nosnippet>19</a>///
 <a href=#20 id=20 data-nosnippet>20</a>/// This function will *JOIN* the token attributes built from each token
-<a href=#21 id=21 data-nosnippet>21</a></span><span class="kw">pub fn </span>build_entity_attrs(
+<a href=#21 id=21 data-nosnippet>21</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>build_entity_attrs(
 <a href=#22 id=22 data-nosnippet>22</a>    attrs_src: <span class="kw-2">&amp;</span>HashMap&lt;String, Value&gt;,
 <a href=#23 id=23 data-nosnippet>23</a>    entities: <span class="kw-2">&amp;</span>BuiltEntities,
 <a href=#24 id=24 data-nosnippet>24</a>    attrs_shape: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>HashMap&lt;SmolStr, AttrsShape&gt;&gt;,
@@ -32,7 +32,7 @@
 <a href=#32 id=32 data-nosnippet>32</a>}
 <a href=#33 id=33 data-nosnippet>33</a>
 <a href=#34 id=34 data-nosnippet>34</a><span class="doccomment">/// Uses the schema as guide in building the attributes
-<a href=#35 id=35 data-nosnippet>35</a></span><span class="kw">pub fn </span>build_entity_attrs_with_shape(
+<a href=#35 id=35 data-nosnippet>35</a></span><span class="kw">fn </span>build_entity_attrs_with_shape(
 <a href=#36 id=36 data-nosnippet>36</a>    attrs_src: <span class="kw-2">&amp;</span>HashMap&lt;String, Value&gt;,
 <a href=#37 id=37 data-nosnippet>37</a>    entities: <span class="kw-2">&amp;</span>BuiltEntities,
 <a href=#38 id=38 data-nosnippet>38</a>    attrs_shape: <span class="kw-2">&amp;</span>HashMap&lt;SmolStr, AttrsShape&gt;,
@@ -155,7 +155,7 @@
 <a href=#155 id=155 data-nosnippet>155</a>}
 <a href=#156 id=156 data-nosnippet>156</a>
 <a href=#157 id=157 data-nosnippet>157</a><span class="doccomment">/// Will do it's best to create the entity without a schema
-<a href=#158 id=158 data-nosnippet>158</a></span><span class="kw">pub fn </span>build_entity_attrs_without_schema(
+<a href=#158 id=158 data-nosnippet>158</a></span><span class="kw">fn </span>build_entity_attrs_without_schema(
 <a href=#159 id=159 data-nosnippet>159</a>    attrs_src: <span class="kw-2">&amp;</span>HashMap&lt;String, Value&gt;,
 <a href=#160 id=160 data-nosnippet>160</a>    claim_mappings: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ClaimMappings&gt;,
 <a href=#161 id=161 data-nosnippet>161</a>) -&gt; <span class="prelude-ty">Result</span>&lt;HashMap&lt;String, RestrictedExpression&gt;, BuildAttrsErrorVec&gt; {

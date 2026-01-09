@@ -23,7 +23,7 @@
 <a href=#23 id=23 data-nosnippet>23</a>///
 <a href=#24 id=24 data-nosnippet>24</a>/// Contains the Cedar entity and metadata about the source file.
 <a href=#25 id=25 data-nosnippet>25</a></span><span class="attr">#[derive(Debug, Clone)]
-<a href=#26 id=26 data-nosnippet>26</a></span><span class="kw">pub struct </span>ParsedEntity {
+<a href=#26 id=26 data-nosnippet>26</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>ParsedEntity {
 <a href=#27 id=27 data-nosnippet>27</a>    <span class="doccomment">/// The Cedar entity
 <a href=#28 id=28 data-nosnippet>28</a>    </span><span class="kw">pub </span>entity: Entity,
 <a href=#29 id=29 data-nosnippet>29</a>    <span class="doccomment">/// The entity's UID
@@ -38,7 +38,7 @@
 <a href=#38 id=38 data-nosnippet>38</a>///
 <a href=#39 id=39 data-nosnippet>39</a>/// This matches Cedar's JSON entity format with uid, attrs, and parents fields.
 <a href=#40 id=40 data-nosnippet>40</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
-<a href=#41 id=41 data-nosnippet>41</a></span><span class="kw">pub struct </span>RawEntityJson {
+<a href=#41 id=41 data-nosnippet>41</a></span><span class="kw">struct </span>RawEntityJson {
 <a href=#42 id=42 data-nosnippet>42</a>    <span class="doccomment">/// Entity unique identifier
 <a href=#43 id=43 data-nosnippet>43</a>    </span><span class="kw">pub </span>uid: EntityUidJson,
 <a href=#44 id=44 data-nosnippet>44</a>    <span class="doccomment">/// Entity attributes as a map of attribute names to values (optional)
@@ -51,7 +51,7 @@
 <a href=#51 id=51 data-nosnippet>51</a>
 <a href=#52 id=52 data-nosnippet>52</a><span class="doccomment">/// Entity UID in JSON format.
 <a href=#53 id=53 data-nosnippet>53</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Hash)]
-<a href=#54 id=54 data-nosnippet>54</a></span><span class="kw">pub struct </span>EntityUidJson {
+<a href=#54 id=54 data-nosnippet>54</a></span><span class="kw">struct </span>EntityUidJson {
 <a href=#55 id=55 data-nosnippet>55</a>    <span class="doccomment">/// Entity type (e.g., "Jans::User")
 <a href=#56 id=56 data-nosnippet>56</a>    </span><span class="attr">#[serde(rename = <span class="string">"type"</span>)]
 <a href=#57 id=57 data-nosnippet>57</a>    </span><span class="kw">pub </span>entity_type: String,
@@ -74,7 +74,7 @@
 <a href=#74 id=74 data-nosnippet>74</a>}
 <a href=#75 id=75 data-nosnippet>75</a>
 <a href=#76 id=76 data-nosnippet>76</a><span class="doccomment">/// Entity parser for loading and validating Cedar entities.
-<a href=#77 id=77 data-nosnippet>77</a></span><span class="kw">pub struct </span>EntityParser;
+<a href=#77 id=77 data-nosnippet>77</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>EntityParser;
 <a href=#78 id=78 data-nosnippet>78</a>
 <a href=#79 id=79 data-nosnippet>79</a><span class="kw">impl </span>EntityParser {
 <a href=#80 id=80 data-nosnippet>80</a>    <span class="doccomment">/// Parse a single Cedar entity from JSON value.
@@ -89,7 +89,7 @@
 <a href=#89 id=89 data-nosnippet>89</a>    /// - UID format is invalid
 <a href=#90 id=90 data-nosnippet>90</a>    /// - Parent UID format is invalid
 <a href=#91 id=91 data-nosnippet>91</a>    /// - Schema validation fails (if schema provided)
-<a href=#92 id=92 data-nosnippet>92</a>    </span><span class="kw">pub fn </span>parse_entity(
+<a href=#92 id=92 data-nosnippet>92</a>    </span><span class="kw">fn </span>parse_entity(
 <a href=#93 id=93 data-nosnippet>93</a>        entity_json: <span class="kw-2">&amp;</span>JsonValue,
 <a href=#94 id=94 data-nosnippet>94</a>        filename: <span class="kw-2">&amp;</span>str,
 <a href=#95 id=95 data-nosnippet>95</a>        schema: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Schema&gt;,
@@ -150,7 +150,7 @@
 <a href=#150 id=150 data-nosnippet>150</a>    ///
 <a href=#151 id=151 data-nosnippet>151</a>    /// Supports both array format: `[{entity1}, {entity2}]`
 <a href=#152 id=152 data-nosnippet>152</a>    /// And object format: `{"entity_id1": {entity1}, "entity_id2": {entity2}}`
-<a href=#153 id=153 data-nosnippet>153</a>    </span><span class="kw">pub fn </span>parse_entities(
+<a href=#153 id=153 data-nosnippet>153</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>parse_entities(
 <a href=#154 id=154 data-nosnippet>154</a>        content: <span class="kw-2">&amp;</span>str,
 <a href=#155 id=155 data-nosnippet>155</a>        filename: <span class="kw-2">&amp;</span>str,
 <a href=#156 id=156 data-nosnippet>156</a>        schema: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Schema&gt;,
@@ -220,7 +220,7 @@
 <a href=#220 id=220 data-nosnippet>220</a>    /// If duplicates are found, logs warnings and uses the latest entity (last-write-wins).
 <a href=#221 id=221 data-nosnippet>221</a>    /// This approach ensures Cedarling can start even with duplicate entities,
 <a href=#222 id=222 data-nosnippet>222</a>    /// avoiding crashes of dependent applications while still alerting developers.
-<a href=#223 id=223 data-nosnippet>223</a>    </span><span class="kw">pub fn </span>detect_duplicates(
+<a href=#223 id=223 data-nosnippet>223</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>detect_duplicates(
 <a href=#224 id=224 data-nosnippet>224</a>        entities: Vec&lt;ParsedEntity&gt;,
 <a href=#225 id=225 data-nosnippet>225</a>        logger: <span class="kw-2">&amp;</span><span class="prelude-ty">Option</span>&lt;Logger&gt;,
 <a href=#226 id=226 data-nosnippet>226</a>    ) -&gt; HashMap&lt;EntityUid, ParsedEntity&gt; {
@@ -245,7 +245,7 @@
 <a href=#245 id=245 data-nosnippet>245</a>    <span class="doccomment">/// Create a Cedar Entities store from parsed entities.
 <a href=#246 id=246 data-nosnippet>246</a>    ///
 <a href=#247 id=247 data-nosnippet>247</a>    /// Validates that all entities are compatible and can be used together.
-<a href=#248 id=248 data-nosnippet>248</a>    </span><span class="kw">pub fn </span>create_entities_store(
+<a href=#248 id=248 data-nosnippet>248</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>create_entities_store(
 <a href=#249 id=249 data-nosnippet>249</a>        entities: Vec&lt;ParsedEntity&gt;,
 <a href=#250 id=250 data-nosnippet>250</a>    ) -&gt; <span class="prelude-ty">Result</span>&lt;Entities, PolicyStoreError&gt; {
 <a href=#251 id=251 data-nosnippet>251</a>        <span class="kw">let </span>entity_list: Vec&lt;Entity&gt; = entities.into_iter().map(|p| p.entity).collect();
@@ -259,7 +259,7 @@
 <a href=#259 id=259 data-nosnippet>259</a>    <span class="doccomment">/// Validate entity hierarchy.
 <a href=#260 id=260 data-nosnippet>260</a>    ///
 <a href=#261 id=261 data-nosnippet>261</a>    /// Ensures that all parent references point to entities that exist in the collection.
-<a href=#262 id=262 data-nosnippet>262</a>    </span><span class="kw">pub fn </span>validate_hierarchy(entities: <span class="kw-2">&amp;</span>[ParsedEntity]) -&gt; <span class="prelude-ty">Result</span>&lt;(), Vec&lt;String&gt;&gt; {
+<a href=#262 id=262 data-nosnippet>262</a>    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>validate_hierarchy(entities: <span class="kw-2">&amp;</span>[ParsedEntity]) -&gt; <span class="prelude-ty">Result</span>&lt;(), Vec&lt;String&gt;&gt; {
 <a href=#263 id=263 data-nosnippet>263</a>        <span class="kw">let </span>entity_uids: HashSet&lt;<span class="kw-2">&amp;</span>EntityUid&gt; = entities.iter().map(|e| <span class="kw-2">&amp;</span>e.uid).collect();
 <a href=#264 id=264 data-nosnippet>264</a>        <span class="kw">let </span><span class="kw-2">mut </span>errors: Vec&lt;String&gt; = Vec::new();
 <a href=#265 id=265 data-nosnippet>265</a>

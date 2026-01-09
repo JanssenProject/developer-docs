@@ -14,7 +14,7 @@
 <a href=#14 id=14 data-nosnippet>14</a>
 <a href=#15 id=15 data-nosnippet>15</a><span class="attr">#[derive(Debug, Deserialize, PartialEq, Clone)]
 <a href=#16 id=16 data-nosnippet>16</a>#[allow(dead_code)]
-<a href=#17 id=17 data-nosnippet>17</a></span><span class="kw">pub struct </span>LockConfig {
+<a href=#17 id=17 data-nosnippet>17</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>LockConfig {
 <a href=#18 id=18 data-nosnippet>18</a>    <span class="kw">pub </span>version: String,
 <a href=#19 id=19 data-nosnippet>19</a>    <span class="attr">#[serde(rename = <span class="string">"issuer"</span>, deserialize_with = <span class="string">"host_to_oidc"</span>)]
 <a href=#20 id=20 data-nosnippet>20</a>    </span><span class="kw">pub </span>issuer_oidc_url: Url,
@@ -26,7 +26,7 @@
 <a href=#26 id=26 data-nosnippet>26</a>
 <a href=#27 id=27 data-nosnippet>27</a><span class="attr">#[derive(Debug, Deserialize, PartialEq, Clone, Default)]
 <a href=#28 id=28 data-nosnippet>28</a>#[allow(dead_code)]
-<a href=#29 id=29 data-nosnippet>29</a></span><span class="kw">pub struct </span>AuditEndpoints {
+<a href=#29 id=29 data-nosnippet>29</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>AuditEndpoints {
 <a href=#30 id=30 data-nosnippet>30</a>    <span class="attr">#[serde(
 <a href=#31 id=31 data-nosnippet>31</a>        rename = <span class="string">"log_endpoint"</span>,
 <a href=#32 id=32 data-nosnippet>32</a>        deserialize_with = <span class="string">"deserialize_to_bulk_endpoint"</span>,
@@ -49,7 +49,7 @@
 <a href=#49 id=49 data-nosnippet>49</a>
 <a href=#50 id=50 data-nosnippet>50</a><span class="attr">#[derive(Debug, Deserialize, PartialEq, Clone, Default)]
 <a href=#51 id=51 data-nosnippet>51</a>#[allow(dead_code)]
-<a href=#52 id=52 data-nosnippet>52</a></span><span class="kw">pub struct </span>ConfigEndpoints {
+<a href=#52 id=52 data-nosnippet>52</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>ConfigEndpoints {
 <a href=#53 id=53 data-nosnippet>53</a>    <span class="attr">#[serde(rename = <span class="string">"config_endpoint"</span>, default)]
 <a href=#54 id=54 data-nosnippet>54</a>    </span><span class="kw">pub </span>config: <span class="prelude-ty">Option</span>&lt;Url&gt;,
 <a href=#55 id=55 data-nosnippet>55</a>    <span class="attr">#[serde(rename = <span class="string">"issuers_endpoint"</span>, default)]
@@ -63,7 +63,7 @@
 <a href=#63 id=63 data-nosnippet>63</a>}
 <a href=#64 id=64 data-nosnippet>64</a>
 <a href=#65 id=65 data-nosnippet>65</a><span class="kw">impl </span>LockConfig {
-<a href=#66 id=66 data-nosnippet>66</a>    <span class="kw">pub async fn </span>get(
+<a href=#66 id=66 data-nosnippet>66</a>    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">async fn </span>get(
 <a href=#67 id=67 data-nosnippet>67</a>        lock_config_url: <span class="kw-2">&amp;</span>url::Url,
 <a href=#68 id=68 data-nosnippet>68</a>        accept_invalid_certs: bool,
 <a href=#69 id=69 data-nosnippet>69</a>    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, HttpRequestError&gt; {
@@ -80,7 +80,7 @@
 <a href=#80 id=80 data-nosnippet>80</a>
 <a href=#81 id=81 data-nosnippet>81</a><span class="doccomment">/// A wrapper for [`url::Url`] that implements [`serde::de::Deserialize`].
 <a href=#82 id=82 data-nosnippet>82</a></span><span class="attr">#[derive(Debug, Clone, PartialEq, Eq, Hash)]
-<a href=#83 id=83 data-nosnippet>83</a></span><span class="kw">pub struct </span>Url(<span class="kw">pub </span>url::Url);
+<a href=#83 id=83 data-nosnippet>83</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">struct </span>Url(<span class="kw">pub</span>(<span class="kw">super</span>) url::Url);
 <a href=#84 id=84 data-nosnippet>84</a>
 <a href=#85 id=85 data-nosnippet>85</a><span class="kw">impl </span>AsRef&lt;url::Url&gt; <span class="kw">for </span>Url {
 <a href=#86 id=86 data-nosnippet>86</a>    <span class="kw">fn </span>as_ref(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>url::Url {
@@ -188,20 +188,23 @@
 <a href=#188 id=188 data-nosnippet>188</a>        <span class="kw">let </span>deserialized =
 <a href=#189 id=189 data-nosnippet>189</a>            serde_json::from_value::&lt;LockConfig&gt;(src).expect(<span class="string">"deserialize audit endpoints"</span>);
 <a href=#190 id=190 data-nosnippet>190</a>
-<a href=#191 id=191 data-nosnippet>191</a>        <span class="macro">assert_eq!</span>(deserialized, LockConfig {
-<a href=#192 id=192 data-nosnippet>192</a>            version: <span class="string">"1.0"</span>.into(),
-<a href=#193 id=193 data-nosnippet>193</a>            <span class="comment">// NOTE: resolving this url in tests will always be `http` instead of `https`
-<a href=#194 id=194 data-nosnippet>194</a>            // to support mocking using mockito
-<a href=#195 id=195 data-nosnippet>195</a>            </span>issuer_oidc_url: <span class="string">"http://test.com/.well-known/openid-configuration"
-<a href=#196 id=196 data-nosnippet>196</a>                </span>.parse()
-<a href=#197 id=197 data-nosnippet>197</a>                .unwrap(),
-<a href=#198 id=198 data-nosnippet>198</a>            audit_endpoints: AuditEndpoints {
-<a href=#199 id=199 data-nosnippet>199</a>                <span class="comment">// should resolve to the `/bulk` endpoint automatically
-<a href=#200 id=200 data-nosnippet>200</a>                </span>log: <span class="prelude-val">Some</span>(<span class="string">"https://test.com/audit/log/bulk"</span>.parse().unwrap()),
-<a href=#201 id=201 data-nosnippet>201</a>                health: <span class="prelude-val">None</span>,
-<a href=#202 id=202 data-nosnippet>202</a>                telemetry: <span class="prelude-val">None
-<a href=#203 id=203 data-nosnippet>203</a>            </span>},
-<a href=#204 id=204 data-nosnippet>204</a>            config_endpoints: ConfigEndpoints::default(),
-<a href=#205 id=205 data-nosnippet>205</a>        })
-<a href=#206 id=206 data-nosnippet>206</a>    }
-<a href=#207 id=207 data-nosnippet>207</a>}</code></pre></div></section></main></body></html>
+<a href=#191 id=191 data-nosnippet>191</a>        <span class="macro">assert_eq!</span>(
+<a href=#192 id=192 data-nosnippet>192</a>            deserialized,
+<a href=#193 id=193 data-nosnippet>193</a>            LockConfig {
+<a href=#194 id=194 data-nosnippet>194</a>                version: <span class="string">"1.0"</span>.into(),
+<a href=#195 id=195 data-nosnippet>195</a>                <span class="comment">// NOTE: resolving this url in tests will always be `http` instead of `https`
+<a href=#196 id=196 data-nosnippet>196</a>                // to support mocking using mockito
+<a href=#197 id=197 data-nosnippet>197</a>                </span>issuer_oidc_url: <span class="string">"http://test.com/.well-known/openid-configuration"
+<a href=#198 id=198 data-nosnippet>198</a>                    </span>.parse()
+<a href=#199 id=199 data-nosnippet>199</a>                    .unwrap(),
+<a href=#200 id=200 data-nosnippet>200</a>                audit_endpoints: AuditEndpoints {
+<a href=#201 id=201 data-nosnippet>201</a>                    <span class="comment">// should resolve to the `/bulk` endpoint automatically
+<a href=#202 id=202 data-nosnippet>202</a>                    </span>log: <span class="prelude-val">Some</span>(<span class="string">"https://test.com/audit/log/bulk"</span>.parse().unwrap()),
+<a href=#203 id=203 data-nosnippet>203</a>                    health: <span class="prelude-val">None</span>,
+<a href=#204 id=204 data-nosnippet>204</a>                    telemetry: <span class="prelude-val">None
+<a href=#205 id=205 data-nosnippet>205</a>                </span>},
+<a href=#206 id=206 data-nosnippet>206</a>                config_endpoints: ConfigEndpoints::default(),
+<a href=#207 id=207 data-nosnippet>207</a>            }
+<a href=#208 id=208 data-nosnippet>208</a>        )
+<a href=#209 id=209 data-nosnippet>209</a>    }
+<a href=#210 id=210 data-nosnippet>210</a>}</code></pre></div></section></main></body></html>
