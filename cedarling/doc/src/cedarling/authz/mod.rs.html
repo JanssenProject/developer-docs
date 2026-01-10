@@ -680,11 +680,11 @@
 <a href=#680 id=680 data-nosnippet>680</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
 <a href=#681 id=681 data-nosnippet>681</a>        request: <span class="kw-2">&amp;</span>Request,
 <a href=#682 id=682 data-nosnippet>682</a>        tokens: <span class="kw-2">&amp;</span>HashMap&lt;String, Arc&lt;Token&gt;&gt;,
-<a href=#683 id=683 data-nosnippet>683</a>    ) -&gt; <span class="prelude-ty">Result</span>&lt;AuthorizeEntitiesData, AuthorizeError&gt; {
-<a href=#684 id=684 data-nosnippet>684</a>        <span class="prelude-val">Ok</span>(<span class="self">self
-<a href=#685 id=685 data-nosnippet>685</a>            </span>.config
-<a href=#686 id=686 data-nosnippet>686</a>            .entity_builder
-<a href=#687 id=687 data-nosnippet>687</a>            .build_entities(tokens, <span class="kw-2">&amp;</span>request.resource)<span class="question-mark">?</span>)
+<a href=#683 id=683 data-nosnippet>683</a>    ) -&gt; <span class="prelude-ty">Result</span>&lt;AuthorizeEntitiesData, Box&lt;AuthorizeError&gt;&gt; {
+<a href=#684 id=684 data-nosnippet>684</a>        <span class="self">self</span>.config
+<a href=#685 id=685 data-nosnippet>685</a>            .entity_builder
+<a href=#686 id=686 data-nosnippet>686</a>            .build_entities(tokens, <span class="kw-2">&amp;</span>request.resource)
+<a href=#687 id=687 data-nosnippet>687</a>            .map_err(|e| Box::new(AuthorizeError::from(e)))
 <a href=#688 id=688 data-nosnippet>688</a>    }
 <a href=#689 id=689 data-nosnippet>689</a>
 <a href=#690 id=690 data-nosnippet>690</a>    <span class="doccomment">/// Log policy evaluation errors for diagnostics

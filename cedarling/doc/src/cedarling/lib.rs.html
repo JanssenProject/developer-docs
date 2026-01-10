@@ -190,8 +190,8 @@
 <a href=#190 id=190 data-nosnippet>190</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>build_entities(
 <a href=#191 id=191 data-nosnippet>191</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
 <a href=#192 id=192 data-nosnippet>192</a>        request: <span class="kw-2">&amp;</span>Request,
-<a href=#193 id=193 data-nosnippet>193</a>    ) -&gt; <span class="prelude-ty">Result</span>&lt;AuthorizeEntitiesData, AuthorizeError&gt; {
-<a href=#194 id=194 data-nosnippet>194</a>        <span class="kw">let </span>tokens = <span class="self">self</span>.authz.decode_tokens(request).<span class="kw">await</span><span class="question-mark">?</span>;
+<a href=#193 id=193 data-nosnippet>193</a>    ) -&gt; <span class="prelude-ty">Result</span>&lt;AuthorizeEntitiesData, Box&lt;AuthorizeError&gt;&gt; {
+<a href=#194 id=194 data-nosnippet>194</a>        <span class="kw">let </span>tokens = <span class="self">self</span>.authz.decode_tokens(request).<span class="kw">await</span>.map_err(Box::new)<span class="question-mark">?</span>;
 <a href=#195 id=195 data-nosnippet>195</a>        <span class="self">self</span>.authz.build_entities(request, <span class="kw-2">&amp;</span>tokens)
 <a href=#196 id=196 data-nosnippet>196</a>    }
 <a href=#197 id=197 data-nosnippet>197</a>
