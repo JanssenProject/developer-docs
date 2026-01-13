@@ -2,6 +2,7 @@ io.jans.configapi.core.annotation
 io.jans.configapi.core.configuration
 io.jans.configapi.core.interceptor
 io.jans.configapi.core.model
+io.jans.configapi.core.model.adminui
 io.jans.configapi.core.model.exception
 io.jans.configapi.core.protect
 io.jans.configapi.core.rest
