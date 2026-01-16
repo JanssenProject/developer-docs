@@ -7,6 +7,7 @@ io.jans.as.model.common.converter
 io.jans.as.model.config
 io.jans.as.model.config.adminui
 io.jans.as.model.configuration
+io.jans.as.model.configuration.rate
 io.jans.as.model.crypto
 io.jans.as.model.crypto.binding
 io.jans.as.model.crypto.encryption
