@@ -12,6 +12,7 @@ io.jans.ca.plugin.adminui.rest.license
 io.jans.ca.plugin.adminui.rest.auth
 io.jans.ca.plugin.adminui.rest
 io.jans.ca.plugin.adminui.rest.logging
+io.jans.ca.plugin.adminui.filters
 io.jans.ca.plugin.adminui.service.adminui
 io.jans.ca.plugin.adminui.service.webhook
 io.jans.ca.plugin.adminui.service.license
