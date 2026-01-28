@@ -39,6 +39,7 @@ io.jans.as.server.register.ws.rs.action
 io.jans.as.server.revoke
 io.jans.as.server.security
 io.jans.as.server.service
+io.jans.as.server.service.cdi
 io.jans.as.server.service.cdi.event
 io.jans.as.server.service.ciba
 io.jans.as.server.service.cluster
