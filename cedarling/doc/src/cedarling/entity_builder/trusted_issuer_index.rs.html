@@ -31,7 +31,7 @@
 <a href=#31 id=31 data-nosnippet>31</a>}
 <a href=#32 id=32 data-nosnippet>32</a>
 <a href=#33 id=33 data-nosnippet>33</a><span class="kw">impl </span>TrustedIssuerIndex {
-<a href=#34 id=34 data-nosnippet>34</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(issuers: <span class="kw-2">&amp;</span>HashMap&lt;String, TrustedIssuer&gt;, logger: <span class="prelude-ty">Option</span>&lt;Logger&gt;) -&gt; <span class="self">Self </span>{
+<a href=#34 id=34 data-nosnippet>34</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(issuers: <span class="kw-2">&amp;</span>HashMap&lt;String, TrustedIssuer&gt;, logger: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Logger&gt;) -&gt; <span class="self">Self </span>{
 <a href=#35 id=35 data-nosnippet>35</a>        <span class="kw">let </span><span class="kw-2">mut </span>origin_index: HashMap&lt;String, Arc&lt;TrustedIssuer&gt;&gt; = HashMap::new();
 <a href=#36 id=36 data-nosnippet>36</a>        <span class="kw">let </span><span class="kw-2">mut </span>url_index = HashMap::new();
 <a href=#37 id=37 data-nosnippet>37</a>

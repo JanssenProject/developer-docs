@@ -3,7 +3,7 @@
 <a href=#3 id=3 data-nosnippet>3</a>//
 <a href=#4 id=4 data-nosnippet>4</a>// Copyright (c) 2024, Gluu, Inc.
 <a href=#5 id=5 data-nosnippet>5</a>
-<a href=#6 id=6 data-nosnippet>6</a></span><span class="kw">use super</span>::<span class="kw-2">*</span>;
+<a href=#6 id=6 data-nosnippet>6</a></span><span class="kw">use super</span>::{Attribute, AttributeName};
 <a href=#7 id=7 data-nosnippet>7</a><span class="kw">use </span>serde::de;
 <a href=#8 id=8 data-nosnippet>8</a><span class="kw">use </span>serde_json::Value;
 <a href=#9 id=9 data-nosnippet>9</a><span class="kw">use </span>std::collections::HashMap;
@@ -23,7 +23,7 @@
 <a href=#23 id=23 data-nosnippet>23</a>
 <a href=#24 id=24 data-nosnippet>24</a>    <span class="comment">// loop through each attr then deserialize into Self
 <a href=#25 id=25 data-nosnippet>25</a>    </span><span class="kw">let </span><span class="kw-2">mut </span>attrs = HashMap::&lt;AttributeName, Attribute&gt;::new();
-<a href=#26 id=26 data-nosnippet>26</a>    <span class="kw">for </span>(key, val) <span class="kw">in </span>attrs_json.into_iter() {
+<a href=#26 id=26 data-nosnippet>26</a>    <span class="kw">for </span>(key, val) <span class="kw">in </span>attrs_json {
 <a href=#27 id=27 data-nosnippet>27</a>        <span class="kw">let </span>val = serde_json::from_value::&lt;Attribute&gt;(val).map_err(|e| {
 <a href=#28 id=28 data-nosnippet>28</a>            de::Error::custom(<span class="macro">format!</span>(
 <a href=#29 id=29 data-nosnippet>29</a>                <span class="string">"error while deserializing cedar record attribute: {e}"

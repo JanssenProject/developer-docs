@@ -1,7 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `cedarling/src/bootstrap_config/lock_config.rs`."><title>lock_config.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-aa0817cf.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="cedarling" data-themes="" data-resource-suffix="" data-rustdoc-version="1.90.0 (1159e78c4 2025-09-14)" data-channel="1.90.0" data-search-js="search-fa3e91e5.js" data-settings-js="settings-5514c975.js" ><script src="../../../static.files/storage-68b7e25d.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-eebb9057.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-32bb7600.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">cedarling/bootstrap_config/</div>lock_config.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="kw">use crate</span>::{BootstrapConfigRaw, BootstrapConfigLoadingError};
-<a href=#2 id=2 data-nosnippet>2</a><span class="kw">use </span><span class="kw">crate</span>::log::LogLevel;
-<a href=#3 id=3 data-nosnippet>3</a><span class="kw">use </span>url::Url;
-<a href=#4 id=4 data-nosnippet>4</a><span class="kw">use </span>std::time::Duration;
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `cedarling/src/bootstrap_config/lock_config.rs`."><title>lock_config.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-aa0817cf.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="cedarling" data-themes="" data-resource-suffix="" data-rustdoc-version="1.90.0 (1159e78c4 2025-09-14)" data-channel="1.90.0" data-search-js="search-fa3e91e5.js" data-settings-js="settings-5514c975.js" ><script src="../../../static.files/storage-68b7e25d.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-eebb9057.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-32bb7600.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-6580c154.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><rustdoc-search></rustdoc-search><section id="main-content" class="content"><div class="main-heading"><h1><div class="sub-heading">cedarling/bootstrap_config/</div>lock_config.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="kw">use </span><span class="kw">crate</span>::log::LogLevel;
+<a href=#2 id=2 data-nosnippet>2</a><span class="kw">use crate</span>::{BootstrapConfigLoadingError, BootstrapConfigRaw};
+<a href=#3 id=3 data-nosnippet>3</a><span class="kw">use </span>std::time::Duration;
+<a href=#4 id=4 data-nosnippet>4</a><span class="kw">use </span>url::Url;
 <a href=#5 id=5 data-nosnippet>5</a>
 <a href=#6 id=6 data-nosnippet>6</a><span class="doccomment">/// Lock service config
 <a href=#7 id=7 data-nosnippet>7</a></span><span class="attr">#[derive(Debug, Clone, PartialEq)]
@@ -76,51 +76,52 @@
 <a href=#76 id=76 data-nosnippet>76</a>    <span class="kw">fn </span>from(raw: LockServiceConfigRaw) -&gt; <span class="self">Self </span>{
 <a href=#77 id=77 data-nosnippet>77</a>        <span class="self">Self </span>{
 <a href=#78 id=78 data-nosnippet>78</a>            log_level: raw.log_level,
-<a href=#79 id=79 data-nosnippet>79</a>            config_uri: raw.config_uri
-<a href=#80 id=80 data-nosnippet>80</a>                .parse()
-<a href=#81 id=81 data-nosnippet>81</a>                .expect(<span class="string">"Failed to parse lock server configuration URI from raw config"</span>),
-<a href=#82 id=82 data-nosnippet>82</a>            dynamic_config: raw.dynamic_config,
-<a href=#83 id=83 data-nosnippet>83</a>            ssa_jwt: raw.ssa_jwt,
-<a href=#84 id=84 data-nosnippet>84</a>            log_interval: raw.log_interval,
-<a href=#85 id=85 data-nosnippet>85</a>            health_interval: raw.health_interval,
-<a href=#86 id=86 data-nosnippet>86</a>            telemetry_interval: raw.telemetry_interval,
-<a href=#87 id=87 data-nosnippet>87</a>            listen_sse: raw.listen_sse,
-<a href=#88 id=88 data-nosnippet>88</a>            accept_invalid_certs: raw.accept_invalid_certs,
-<a href=#89 id=89 data-nosnippet>89</a>        }
-<a href=#90 id=90 data-nosnippet>90</a>    }
-<a href=#91 id=91 data-nosnippet>91</a>}
-<a href=#92 id=92 data-nosnippet>92</a>
-<a href=#93 id=93 data-nosnippet>93</a><span class="kw">impl </span>TryFrom&lt;<span class="kw-2">&amp;</span>BootstrapConfigRaw&gt; <span class="kw">for </span>LockServiceConfig {
-<a href=#94 id=94 data-nosnippet>94</a>    <span class="kw">type </span>Error = BootstrapConfigLoadingError;
-<a href=#95 id=95 data-nosnippet>95</a>
-<a href=#96 id=96 data-nosnippet>96</a>    <span class="kw">fn </span>try_from(raw: <span class="kw-2">&amp;</span>BootstrapConfigRaw) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
-<a href=#97 id=97 data-nosnippet>97</a>        <span class="kw">let </span>config_uri = raw
-<a href=#98 id=98 data-nosnippet>98</a>            .lock_server_configuration_uri
-<a href=#99 id=99 data-nosnippet>99</a>            .clone()
-<a href=#100 id=100 data-nosnippet>100</a>            .ok_or(BootstrapConfigLoadingError::MissingLockServerConfigUri)<span class="question-mark">?
-<a href=#101 id=101 data-nosnippet>101</a>            </span>.parse()<span class="question-mark">?</span>;
-<a href=#102 id=102 data-nosnippet>102</a>
-<a href=#103 id=103 data-nosnippet>103</a>        <span class="kw">let </span>ssa_jwt = raw.lock_ssa_jwt.clone();
-<a href=#104 id=104 data-nosnippet>104</a>
-<a href=#105 id=105 data-nosnippet>105</a>        <span class="kw">let </span>log_interval =
-<a href=#106 id=106 data-nosnippet>106</a>            (raw.audit_log_interval &gt; <span class="number">0</span>).then(|| Duration::from_secs(raw.audit_log_interval));
-<a href=#107 id=107 data-nosnippet>107</a>        <span class="kw">let </span>health_interval =
-<a href=#108 id=108 data-nosnippet>108</a>            (raw.audit_health_interval &gt; <span class="number">0</span>).then(|| Duration::from_secs(raw.audit_health_interval));
-<a href=#109 id=109 data-nosnippet>109</a>        <span class="kw">let </span>telemetry_interval = (raw.audit_telemetry_interval &gt; <span class="number">0</span>)
-<a href=#110 id=110 data-nosnippet>110</a>            .then(|| Duration::from_secs(raw.audit_telemetry_interval));
-<a href=#111 id=111 data-nosnippet>111</a>
-<a href=#112 id=112 data-nosnippet>112</a>        <span class="kw">let </span>listen_sse = raw.listen_sse.into();
-<a href=#113 id=113 data-nosnippet>113</a>
-<a href=#114 id=114 data-nosnippet>114</a>        <span class="prelude-val">Ok</span>(LockServiceConfig {
-<a href=#115 id=115 data-nosnippet>115</a>            config_uri,
-<a href=#116 id=116 data-nosnippet>116</a>            dynamic_config: raw.dynamic_configuration.into(),
-<a href=#117 id=117 data-nosnippet>117</a>            ssa_jwt,
-<a href=#118 id=118 data-nosnippet>118</a>            log_interval,
-<a href=#119 id=119 data-nosnippet>119</a>            health_interval,
-<a href=#120 id=120 data-nosnippet>120</a>            telemetry_interval,
-<a href=#121 id=121 data-nosnippet>121</a>            listen_sse,
-<a href=#122 id=122 data-nosnippet>122</a>            log_level: raw.log_level,
-<a href=#123 id=123 data-nosnippet>123</a>            accept_invalid_certs: raw.accept_invalid_certs.into(),
-<a href=#124 id=124 data-nosnippet>124</a>        })
-<a href=#125 id=125 data-nosnippet>125</a>    }
-<a href=#126 id=126 data-nosnippet>126</a>} </code></pre></div></section></main></body></html>
+<a href=#79 id=79 data-nosnippet>79</a>            config_uri: raw
+<a href=#80 id=80 data-nosnippet>80</a>                .config_uri
+<a href=#81 id=81 data-nosnippet>81</a>                .parse()
+<a href=#82 id=82 data-nosnippet>82</a>                .expect(<span class="string">"Failed to parse lock server configuration URI from raw config"</span>),
+<a href=#83 id=83 data-nosnippet>83</a>            dynamic_config: raw.dynamic_config,
+<a href=#84 id=84 data-nosnippet>84</a>            ssa_jwt: raw.ssa_jwt,
+<a href=#85 id=85 data-nosnippet>85</a>            log_interval: raw.log_interval,
+<a href=#86 id=86 data-nosnippet>86</a>            health_interval: raw.health_interval,
+<a href=#87 id=87 data-nosnippet>87</a>            telemetry_interval: raw.telemetry_interval,
+<a href=#88 id=88 data-nosnippet>88</a>            listen_sse: raw.listen_sse,
+<a href=#89 id=89 data-nosnippet>89</a>            accept_invalid_certs: raw.accept_invalid_certs,
+<a href=#90 id=90 data-nosnippet>90</a>        }
+<a href=#91 id=91 data-nosnippet>91</a>    }
+<a href=#92 id=92 data-nosnippet>92</a>}
+<a href=#93 id=93 data-nosnippet>93</a>
+<a href=#94 id=94 data-nosnippet>94</a><span class="kw">impl </span>TryFrom&lt;<span class="kw-2">&amp;</span>BootstrapConfigRaw&gt; <span class="kw">for </span>LockServiceConfig {
+<a href=#95 id=95 data-nosnippet>95</a>    <span class="kw">type </span>Error = BootstrapConfigLoadingError;
+<a href=#96 id=96 data-nosnippet>96</a>
+<a href=#97 id=97 data-nosnippet>97</a>    <span class="kw">fn </span>try_from(raw: <span class="kw-2">&amp;</span>BootstrapConfigRaw) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, <span class="self">Self</span>::Error&gt; {
+<a href=#98 id=98 data-nosnippet>98</a>        <span class="kw">let </span>config_uri = raw
+<a href=#99 id=99 data-nosnippet>99</a>            .lock_server_configuration_uri
+<a href=#100 id=100 data-nosnippet>100</a>            .clone()
+<a href=#101 id=101 data-nosnippet>101</a>            .ok_or(BootstrapConfigLoadingError::MissingLockServerConfigUri)<span class="question-mark">?
+<a href=#102 id=102 data-nosnippet>102</a>            </span>.parse()<span class="question-mark">?</span>;
+<a href=#103 id=103 data-nosnippet>103</a>
+<a href=#104 id=104 data-nosnippet>104</a>        <span class="kw">let </span>ssa_jwt = raw.lock_ssa_jwt.clone();
+<a href=#105 id=105 data-nosnippet>105</a>
+<a href=#106 id=106 data-nosnippet>106</a>        <span class="kw">let </span>log_interval =
+<a href=#107 id=107 data-nosnippet>107</a>            (raw.audit_log_interval &gt; <span class="number">0</span>).then(|| Duration::from_secs(raw.audit_log_interval));
+<a href=#108 id=108 data-nosnippet>108</a>        <span class="kw">let </span>health_interval =
+<a href=#109 id=109 data-nosnippet>109</a>            (raw.audit_health_interval &gt; <span class="number">0</span>).then(|| Duration::from_secs(raw.audit_health_interval));
+<a href=#110 id=110 data-nosnippet>110</a>        <span class="kw">let </span>telemetry_interval = (raw.audit_telemetry_interval &gt; <span class="number">0</span>)
+<a href=#111 id=111 data-nosnippet>111</a>            .then(|| Duration::from_secs(raw.audit_telemetry_interval));
+<a href=#112 id=112 data-nosnippet>112</a>
+<a href=#113 id=113 data-nosnippet>113</a>        <span class="kw">let </span>listen_sse = raw.listen_sse.into();
+<a href=#114 id=114 data-nosnippet>114</a>
+<a href=#115 id=115 data-nosnippet>115</a>        <span class="prelude-val">Ok</span>(LockServiceConfig {
+<a href=#116 id=116 data-nosnippet>116</a>            config_uri,
+<a href=#117 id=117 data-nosnippet>117</a>            dynamic_config: raw.dynamic_configuration.into(),
+<a href=#118 id=118 data-nosnippet>118</a>            ssa_jwt,
+<a href=#119 id=119 data-nosnippet>119</a>            log_interval,
+<a href=#120 id=120 data-nosnippet>120</a>            health_interval,
+<a href=#121 id=121 data-nosnippet>121</a>            telemetry_interval,
+<a href=#122 id=122 data-nosnippet>122</a>            listen_sse,
+<a href=#123 id=123 data-nosnippet>123</a>            log_level: raw.log_level,
+<a href=#124 id=124 data-nosnippet>124</a>            accept_invalid_certs: raw.accept_invalid_certs.into(),
+<a href=#125 id=125 data-nosnippet>125</a>        })
+<a href=#126 id=126 data-nosnippet>126</a>    }
+<a href=#127 id=127 data-nosnippet>127</a>}</code></pre></div></section></main></body></html>

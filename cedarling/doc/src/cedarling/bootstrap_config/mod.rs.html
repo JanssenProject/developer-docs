@@ -60,7 +60,7 @@
 <a href=#60 id=60 data-nosnippet>60</a>    /// If `None` then lock service is disabled.
 <a href=#61 id=61 data-nosnippet>61</a>    </span><span class="kw">pub </span>lock_config: <span class="prelude-ty">Option</span>&lt;LockServiceConfig&gt;,
 <a href=#62 id=62 data-nosnippet>62</a>    <span class="doccomment">/// Maximum number of default entities allowed in a policy store.
-<a href=#63 id=63 data-nosnippet>63</a>    /// This prevents DoS attacks by limiting the number of entities that can be loaded.
+<a href=#63 id=63 data-nosnippet>63</a>    /// This prevents `DoS` attacks by limiting the number of entities that can be loaded.
 <a href=#64 id=64 data-nosnippet>64</a>    </span><span class="kw">pub </span>max_default_entities: <span class="prelude-ty">Option</span>&lt;usize&gt;,
 <a href=#65 id=65 data-nosnippet>65</a>    <span class="doccomment">/// Maximum size of base64-encoded default entity strings in bytes.
 <a href=#66 id=66 data-nosnippet>66</a>    /// This prevents memory exhaustion attacks from extremely large base64 strings.
@@ -95,7 +95,7 @@
 <a href=#95 id=95 data-nosnippet>95</a>        raw.try_into()
 <a href=#96 id=96 data-nosnippet>96</a>    }
 <a href=#97 id=97 data-nosnippet>97</a>
-<a href=#98 id=98 data-nosnippet>98</a>    <span class="doccomment">/// Loads a `BootstrapConfig` from a JSON string
+<a href=#98 id=98 data-nosnippet>98</a>    <span class="doccomment">/// Loads a [`BootstrapConfig`] from a JSON string
 <a href=#99 id=99 data-nosnippet>99</a>    </span><span class="kw">pub fn </span>load_from_json(json: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, BootstrapConfigLoadingError&gt; {
 <a href=#100 id=100 data-nosnippet>100</a>        <span class="kw">let </span>raw: BootstrapConfigRaw = serde_json::from_str(json)
 <a href=#101 id=101 data-nosnippet>101</a>            .map_err(|e| BootstrapConfigLoadingError::DecodingJSON(e.to_string()))<span class="question-mark">?</span>;
@@ -228,7 +228,7 @@
 <a href=#228 id=228 data-nosnippet>228</a>    </span><span class="attr">#[error(<span class="string">"Invalid lock server configuration URI: {0}"</span>)]
 <a href=#229 id=229 data-nosnippet>229</a>    </span>InvalidLockServerConfigUri(url::ParseError),
 <a href=#230 id=230 data-nosnippet>230</a>
-<a href=#231 id=231 data-nosnippet>231</a>    <span class="doccomment">/// Error returned when cjar_url is missing or empty.
+<a href=#231 id=231 data-nosnippet>231</a>    <span class="doccomment">/// Error returned when `cjar_url` is missing or empty.
 <a href=#232 id=232 data-nosnippet>232</a>    </span><span class="attr">#[error(
 <a href=#233 id=233 data-nosnippet>233</a>        <span class="string">"cjar_url is missing or empty. A valid URL is required for CjarUrl policy store source."
 <a href=#234 id=234 data-nosnippet>234</a>    </span>)]

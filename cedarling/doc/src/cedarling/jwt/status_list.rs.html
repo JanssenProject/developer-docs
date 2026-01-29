@@ -5,11 +5,11 @@
 <a href=#5 id=5 data-nosnippet>5</a>
 <a href=#6 id=6 data-nosnippet>6</a></span><span class="doccomment">//! The JWT status list validation is implemented as described in this [IETF spec](https://www.ietf.org/archive/id/draft-ietf-oauth-status-list-02.html#name-referenced-token).
 <a href=#7 id=7 data-nosnippet>7</a>//!
-<a href=#8 id=8 data-nosnippet>8</a>//! Status lists are stored on the [`StatusList`] struct and initialized using the 
+<a href=#8 id=8 data-nosnippet>8</a>//! Status lists are stored on the [`StatusList`] struct and initialized using the
 <a href=#9 id=9 data-nosnippet>9</a>//! [`StatusList::parse`] function.
 <a href=#10 id=10 data-nosnippet>10</a>//!
 <a href=#11 id=11 data-nosnippet>11</a>//! To retrieve a status of a JWT, use the [`StatusList::get_status`] function and pass
-<a href=#12 id=12 data-nosnippet>12</a>//! in the JWT's status index (`idx`). 
+<a href=#12 id=12 data-nosnippet>12</a>//! in the JWT's status index (`idx`).
 <a href=#13 id=13 data-nosnippet>13</a>
 <a href=#14 id=14 data-nosnippet>14</a></span><span class="kw">mod </span>cache;
 <a href=#15 id=15 data-nosnippet>15</a><span class="kw">mod </span>error;
@@ -60,7 +60,7 @@
 <a href=#60 id=60 data-nosnippet>60</a>            .get(byte_idx)
 <a href=#61 id=61 data-nosnippet>61</a>            .ok_or(JwtStatusError::StatusListIdxOutOfBounds)<span class="question-mark">?</span>;
 <a href=#62 id=62 data-nosnippet>62</a>
-<a href=#63 id=63 data-nosnippet>63</a>        <span class="kw">let </span>bit_idx = (index % scale) <span class="kw">as </span>u8;
+<a href=#63 id=63 data-nosnippet>63</a>        <span class="kw">let </span>bit_idx = u8::try_from(index % scale)<span class="question-mark">?</span>;
 <a href=#64 id=64 data-nosnippet>64</a>
 <a href=#65 id=65 data-nosnippet>65</a>        <span class="kw">let </span>status = get_status_from_byte(<span class="kw-2">*</span>byte, <span class="self">self</span>.bit_size, bit_idx);
 <a href=#66 id=66 data-nosnippet>66</a>
@@ -134,7 +134,7 @@
 <a href=#134 id=134 data-nosnippet>134</a>            .as_u64()
 <a href=#135 id=135 data-nosnippet>135</a>            .ok_or(ParseStatusListError::JwtInvalidBitsType(bits.clone()))<span class="question-mark">?</span>;
 <a href=#136 id=136 data-nosnippet>136</a>
-<a href=#137 id=137 data-nosnippet>137</a>        <span class="self">Self</span>::parse(<span class="kw-2">&amp;</span>list, bits <span class="kw">as </span>u8)
+<a href=#137 id=137 data-nosnippet>137</a>        <span class="self">Self</span>::parse(<span class="kw-2">&amp;</span>list, u8::try_from(bits)<span class="question-mark">?</span>)
 <a href=#138 id=138 data-nosnippet>138</a>    }
 <a href=#139 id=139 data-nosnippet>139</a>}
 <a href=#140 id=140 data-nosnippet>140</a>
@@ -161,7 +161,7 @@
 <a href=#161 id=161 data-nosnippet>161</a>    (byte &gt;&gt; offset) &amp; mask
 <a href=#162 id=162 data-nosnippet>162</a>}
 <a href=#163 id=163 data-nosnippet>163</a>
-<a href=#164 id=164 data-nosnippet>164</a><span class="doccomment">/// See: https://www.ietf.org/archive/id/draft-ietf-oauth-status-list-10.html#name-status-types
+<a href=#164 id=164 data-nosnippet>164</a><span class="doccomment">/// See: &lt;https://www.ietf.org/archive/id/draft-ietf-oauth-status-list-10.html#name-status-types&gt;
 <a href=#165 id=165 data-nosnippet>165</a></span><span class="attr">#[derive(Debug, PartialEq)]
 <a href=#166 id=166 data-nosnippet>166</a></span><span class="kw">pub enum </span>JwtStatus {
 <a href=#167 id=167 data-nosnippet>167</a>    Valid,
@@ -256,16 +256,16 @@
 <a href=#256 id=256 data-nosnippet>256</a>        <span class="kw">let </span>cases = [
 <a href=#257 id=257 data-nosnippet>257</a>            (
 <a href=#258 id=258 data-nosnippet>258</a>                <span class="macro">vec!</span>[
-<a href=#259 id=259 data-nosnippet>259</a>                    <span class="number">0b10111001</span>, <span class="comment">// 0xb9
-<a href=#260 id=260 data-nosnippet>260</a>                    </span><span class="number">0b10100011</span>, <span class="comment">// 0xa3
+<a href=#259 id=259 data-nosnippet>259</a>                    <span class="number">0b1011_1001</span>, <span class="comment">// 0xb9
+<a href=#260 id=260 data-nosnippet>260</a>                    </span><span class="number">0b1010_0011</span>, <span class="comment">// 0xa3
 <a href=#261 id=261 data-nosnippet>261</a>                </span>],
 <a href=#262 id=262 data-nosnippet>262</a>                <span class="string">"eNrbuRgAAhcBXQ"</span>,
 <a href=#263 id=263 data-nosnippet>263</a>            ),
 <a href=#264 id=264 data-nosnippet>264</a>            (
 <a href=#265 id=265 data-nosnippet>265</a>                <span class="macro">vec!</span>[
-<a href=#266 id=266 data-nosnippet>266</a>                    <span class="number">0b11001001</span>, <span class="comment">// 0xc9
-<a href=#267 id=267 data-nosnippet>267</a>                    </span><span class="number">0b01000100</span>, <span class="comment">// 0x44
-<a href=#268 id=268 data-nosnippet>268</a>                    </span><span class="number">0b11111001</span>, <span class="comment">// 0xf9
+<a href=#266 id=266 data-nosnippet>266</a>                    <span class="number">0b1100_1001</span>, <span class="comment">// 0xc9
+<a href=#267 id=267 data-nosnippet>267</a>                    </span><span class="number">0b0100_0100</span>, <span class="comment">// 0x44
+<a href=#268 id=268 data-nosnippet>268</a>                    </span><span class="number">0b1111_1001</span>, <span class="comment">// 0xf9
 <a href=#269 id=269 data-nosnippet>269</a>                </span>],
 <a href=#270 id=270 data-nosnippet>270</a>                <span class="string">"eNo76fITAAPfAgc"</span>,
 <a href=#271 id=271 data-nosnippet>271</a>            ),

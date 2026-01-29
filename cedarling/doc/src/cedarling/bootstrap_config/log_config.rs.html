@@ -36,7 +36,7 @@
 <a href=#36 id=36 data-nosnippet>36</a>}
 <a href=#37 id=37 data-nosnippet>37</a>
 <a href=#38 id=38 data-nosnippet>38</a><span class="doccomment">/// Configuration for memory log.
-<a href=#39 id=39 data-nosnippet>39</a></span><span class="attr">#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+<a href=#39 id=39 data-nosnippet>39</a></span><span class="attr">#[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 <a href=#40 id=40 data-nosnippet>40</a></span><span class="kw">pub struct </span>MemoryLogConfig {
 <a href=#41 id=41 data-nosnippet>41</a>    <span class="doccomment">/// `CEDARLING_LOG_TTL` in [bootstrap properties](https://github.com/JanssenProject/jans/wiki/Cedarling-Nativity-Plan#bootstrap-properties) documentation.
 <a href=#42 id=42 data-nosnippet>42</a>    /// The maximum time to live (in seconds) of the log entries.
@@ -52,7 +52,7 @@
 <a href=#52 id=52 data-nosnippet>52</a>}
 <a href=#53 id=53 data-nosnippet>53</a>
 <a href=#54 id=54 data-nosnippet>54</a><span class="doccomment">/// Mode for stdout logging.
-<a href=#55 id=55 data-nosnippet>55</a>/// Is used in BootstrapConfigRaw
+<a href=#55 id=55 data-nosnippet>55</a>/// Is used in [`BootstrapConfigRaw`]
 <a href=#56 id=56 data-nosnippet>56</a></span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, Default)]
 <a href=#57 id=57 data-nosnippet>57</a>#[serde(rename_all = <span class="string">"lowercase"</span>)]
 <a href=#58 id=58 data-nosnippet>58</a></span><span class="kw">pub enum </span>StdOutMode {

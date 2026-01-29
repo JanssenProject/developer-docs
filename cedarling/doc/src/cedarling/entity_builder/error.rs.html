@@ -94,7 +94,7 @@
 <a href=#94 id=94 data-nosnippet>94</a>
 <a href=#95 id=95 data-nosnippet>95</a><span class="kw">impl </span>Display <span class="kw">for </span>BuildAttrsErrorVec {
 <a href=#96 id=96 data-nosnippet>96</a>    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; std::fmt::Result {
-<a href=#97 id=97 data-nosnippet>97</a>        <span class="macro">write!</span>(f, <span class="string">"{:?}"</span>, <span class="self">self</span>.<span class="number">0</span>.iter().map(|e| e.to_string()))
+<a href=#97 id=97 data-nosnippet>97</a>        <span class="macro">write!</span>(f, <span class="string">"[{}]"</span>, collect_errors_to_str(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>))
 <a href=#98 id=98 data-nosnippet>98</a>    }
 <a href=#99 id=99 data-nosnippet>99</a>}
 <a href=#100 id=100 data-nosnippet>100</a>
@@ -138,7 +138,7 @@
 <a href=#138 id=138 data-nosnippet>138</a><span class="kw">fn </span>collect_errors_to_str&lt;T: Display&gt;(errors: <span class="kw-2">&amp;</span>[T]) -&gt; String {
 <a href=#139 id=139 data-nosnippet>139</a>    errors
 <a href=#140 id=140 data-nosnippet>140</a>        .iter()
-<a href=#141 id=141 data-nosnippet>141</a>        .map(|e| e.to_string())
+<a href=#141 id=141 data-nosnippet>141</a>        .map(ToString::to_string)
 <a href=#142 id=142 data-nosnippet>142</a>        .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;()
 <a href=#143 id=143 data-nosnippet>143</a>        .join(<span class="string">", "</span>)
 <a href=#144 id=144 data-nosnippet>144</a>}

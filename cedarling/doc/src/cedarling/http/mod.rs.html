@@ -56,7 +56,7 @@
 <a href=#56 id=56 data-nosnippet>56</a>
 <a href=#57 id=57 data-nosnippet>57</a>    <span class="doccomment">/// Sends a GET request to the specified URI with retry logic, returning raw bytes.
 <a href=#58 id=58 data-nosnippet>58</a>    ///
-<a href=#59 id=59 data-nosnippet>59</a>    /// This method will attempt to fetch the resource up to the configured max_retries,
+<a href=#59 id=59 data-nosnippet>59</a>    /// This method will attempt to fetch the resource up to the configured `max_retries`,
 <a href=#60 id=60 data-nosnippet>60</a>    /// with exponential backoff between each attempt. Useful for fetching binary content
 <a href=#61 id=61 data-nosnippet>61</a>    /// like archive files.
 <a href=#62 id=62 data-nosnippet>62</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>get_bytes(<span class="kw-2">&amp;</span><span class="self">self</span>, uri: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;u8&gt;, HttpClientError&gt; {
@@ -80,7 +80,7 @@
 <a href=#80 id=80 data-nosnippet>80</a>    }
 <a href=#81 id=81 data-nosnippet>81</a>}
 <a href=#82 id=82 data-nosnippet>82</a>
-<a href=#83 id=83 data-nosnippet>83</a><span class="doccomment">/// Error type for the HttpClient - re-export from http_utils for compatibility
+<a href=#83 id=83 data-nosnippet>83</a><span class="doccomment">/// Error type for the [`HttpClient`] - re-export from [`http_utils`] for compatibility
 <a href=#84 id=84 data-nosnippet>84</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">type </span>HttpClientError = HttpRequestError;
 <a href=#85 id=85 data-nosnippet>85</a>
 <a href=#86 id=86 data-nosnippet>86</a><span class="attr">#[cfg(test)]

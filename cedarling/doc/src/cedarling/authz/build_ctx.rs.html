@@ -39,7 +39,7 @@
 <a href=#39 id=39 data-nosnippet>39</a>    <span class="kw">if let </span><span class="prelude-val">Some</span>(ctx) = action_schema.applies_to.context.as_ref() {
 <a href=#40 id=40 data-nosnippet>40</a>        <span class="kw">match </span>ctx {
 <a href=#41 id=41 data-nosnippet>41</a>            Attribute::Record { attrs, .. } =&gt; {
-<a href=#42 id=42 data-nosnippet>42</a>                <span class="kw">for </span>(key, attr) <span class="kw">in </span>attrs.iter() {
+<a href=#42 id=42 data-nosnippet>42</a>                <span class="kw">for </span>(key, attr) <span class="kw">in </span>attrs {
 <a href=#43 id=43 data-nosnippet>43</a>                    <span class="kw">if let </span><span class="prelude-val">Some</span>(entity_ref) =
 <a href=#44 id=44 data-nosnippet>44</a>                        build_entity_refs_from_attr(<span class="kw-2">&amp;</span>namespace, attr, build_entities, json_schema)<span class="question-mark">?
 <a href=#45 id=45 data-nosnippet>45</a>                    </span>{
@@ -54,7 +54,7 @@
 <a href=#54 id=54 data-nosnippet>54</a>                </span>{
 <a href=#55 id=55 data-nosnippet>55</a>                    <span class="kw">match </span>attr {
 <a href=#56 id=56 data-nosnippet>56</a>                        Attribute::Record { attrs, .. } =&gt; {
-<a href=#57 id=57 data-nosnippet>57</a>                            <span class="kw">for </span>(key, attr) <span class="kw">in </span>attrs.iter() {
+<a href=#57 id=57 data-nosnippet>57</a>                            <span class="kw">for </span>(key, attr) <span class="kw">in </span>attrs {
 <a href=#58 id=58 data-nosnippet>58</a>                                <span class="kw">if let </span><span class="prelude-val">Some</span>(entity_ref) = build_entity_refs_from_attr(
 <a href=#59 id=59 data-nosnippet>59</a>                                    <span class="kw-2">&amp;</span>namespace,
 <a href=#60 id=60 data-nosnippet>60</a>                                    attr,
@@ -83,7 +83,7 @@
 <a href=#83 id=83 data-nosnippet>83</a>        }
 <a href=#84 id=84 data-nosnippet>84</a>    }
 <a href=#85 id=85 data-nosnippet>85</a>
-<a href=#86 id=86 data-nosnippet>86</a>    <span class="kw">let </span>context = merge_json_values(request_context, ctx_entity_refs)<span class="question-mark">?</span>;
+<a href=#86 id=86 data-nosnippet>86</a>    <span class="kw">let </span>context = merge_json_values(request_context, <span class="kw-2">&amp;</span>ctx_entity_refs)<span class="question-mark">?</span>;
 <a href=#87 id=87 data-nosnippet>87</a>    <span class="kw">let </span>context: cedar_policy::Context =
 <a href=#88 id=88 data-nosnippet>88</a>        cedar_policy::Context::from_json_value(context, <span class="prelude-val">Some</span>((schema, action)))<span class="question-mark">?</span>;
 <a href=#89 id=89 data-nosnippet>89</a>
@@ -93,7 +93,7 @@
 <a href=#93 id=93 data-nosnippet>93</a><span class="doccomment">/// Constructs the authorization context for multi-issuer requests with token collection
 <a href=#94 id=94 data-nosnippet>94</a>///
 <a href=#95 id=95 data-nosnippet>95</a>/// This function implements the design document's token collection context structure:
-<a href=#96 id=96 data-nosnippet>96</a>/// - Individual token entities are accessible via context.tokens.{issuer}_{token_type}
+<a href=#96 id=96 data-nosnippet>96</a>/// - Individual token entities are accessible via `context.tokens.{issuer}_{token_type}`
 <a href=#97 id=97 data-nosnippet>97</a>/// - All JWT claims are stored as entity tags (Set of String by default)
 <a href=#98 id=98 data-nosnippet>98</a>/// - Provides ergonomic policy syntax for cross-token validation
 <a href=#99 id=99 data-nosnippet>99</a></span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>build_multi_issuer_context(
@@ -204,7 +204,7 @@
 <a href=#204 id=204 data-nosnippet>204</a>    }
 <a href=#205 id=205 data-nosnippet>205</a>}
 <a href=#206 id=206 data-nosnippet>206</a>
-<a href=#207 id=207 data-nosnippet>207</a><span class="kw">fn </span>merge_json_values(<span class="kw-2">mut </span>base: Value, other: Value) -&gt; <span class="prelude-ty">Result</span>&lt;Value, BuildContextError&gt; {
+<a href=#207 id=207 data-nosnippet>207</a><span class="kw">fn </span>merge_json_values(<span class="kw-2">mut </span>base: Value, other: <span class="kw-2">&amp;</span>Value) -&gt; <span class="prelude-ty">Result</span>&lt;Value, BuildContextError&gt; {
 <a href=#208 id=208 data-nosnippet>208</a>    <span class="kw">if let </span>(<span class="prelude-val">Some</span>(base_map), <span class="prelude-val">Some</span>(additional_map)) = (base.as_object_mut(), other.as_object()) {
 <a href=#209 id=209 data-nosnippet>209</a>        <span class="kw">for </span>(key, value) <span class="kw">in </span>additional_map {
 <a href=#210 id=210 data-nosnippet>210</a>            <span class="kw">if let </span>Entry::Vacant(entry) = base_map.entry(key) {
@@ -228,7 +228,7 @@
 <a href=#228 id=228 data-nosnippet>228</a>        <span class="kw">let </span>obj2 = <span class="macro">json!</span>({ <span class="string">"c"</span>: <span class="number">3</span>, <span class="string">"d"</span>: <span class="number">4 </span>});
 <a href=#229 id=229 data-nosnippet>229</a>        <span class="kw">let </span>expected = <span class="macro">json!</span>({<span class="string">"a"</span>: <span class="number">1</span>, <span class="string">"b"</span>: <span class="number">2</span>, <span class="string">"c"</span>: <span class="number">3</span>, <span class="string">"d"</span>: <span class="number">4</span>});
 <a href=#230 id=230 data-nosnippet>230</a>
-<a href=#231 id=231 data-nosnippet>231</a>        <span class="kw">let </span>result = merge_json_values(obj1, obj2).expect(<span class="string">"Should merge JSON objects"</span>);
+<a href=#231 id=231 data-nosnippet>231</a>        <span class="kw">let </span>result = merge_json_values(obj1, <span class="kw-2">&amp;</span>obj2).expect(<span class="string">"Should merge JSON objects"</span>);
 <a href=#232 id=232 data-nosnippet>232</a>
 <a href=#233 id=233 data-nosnippet>233</a>        <span class="macro">assert_eq!</span>(result, expected);
 <a href=#234 id=234 data-nosnippet>234</a>    }
@@ -238,7 +238,7 @@
 <a href=#238 id=238 data-nosnippet>238</a>        <span class="comment">// Test for only two objects
 <a href=#239 id=239 data-nosnippet>239</a>        </span><span class="kw">let </span>obj1 = <span class="macro">json!</span>({ <span class="string">"a"</span>: <span class="number">1</span>, <span class="string">"b"</span>: <span class="number">2 </span>});
 <a href=#240 id=240 data-nosnippet>240</a>        <span class="kw">let </span>obj2 = <span class="macro">json!</span>({ <span class="string">"b"</span>: <span class="number">3</span>, <span class="string">"c"</span>: <span class="number">4 </span>});
-<a href=#241 id=241 data-nosnippet>241</a>        <span class="kw">let </span>result = merge_json_values(obj1, obj2);
+<a href=#241 id=241 data-nosnippet>241</a>        <span class="kw">let </span>result = merge_json_values(obj1, <span class="kw-2">&amp;</span>obj2);
 <a href=#242 id=242 data-nosnippet>242</a>
 <a href=#243 id=243 data-nosnippet>243</a>        <span class="macro">assert!</span>(
 <a href=#244 id=244 data-nosnippet>244</a>            <span class="macro">matches!</span>(result, <span class="prelude-val">Err</span>(BuildContextError::KeyConflict(key)) <span class="kw">if </span>key.as_str() == <span class="string">"b"</span>),

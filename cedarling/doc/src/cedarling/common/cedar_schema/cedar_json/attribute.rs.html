@@ -3,8 +3,8 @@
 <a href=#3 id=3 data-nosnippet>3</a>//
 <a href=#4 id=4 data-nosnippet>4</a>// Copyright (c) 2024, Gluu, Inc.
 <a href=#5 id=5 data-nosnippet>5</a>
-<a href=#6 id=6 data-nosnippet>6</a></span><span class="kw">use </span><span class="kw">super</span>::deserialize::<span class="kw-2">*</span>;
-<a href=#7 id=7 data-nosnippet>7</a><span class="kw">use super</span>::<span class="kw-2">*</span>;
+<a href=#6 id=6 data-nosnippet>6</a></span><span class="kw">use </span><span class="kw">super</span>::deserialize::deserialize_record_attrs;
+<a href=#7 id=7 data-nosnippet>7</a><span class="kw">use super</span>::{AttributeName, EntityName, EntityOrCommonName, ExtensionName};
 <a href=#8 id=8 data-nosnippet>8</a><span class="kw">use </span>serde::{Deserialize, de};
 <a href=#9 id=9 data-nosnippet>9</a><span class="kw">use </span>serde_json::Value;
 <a href=#10 id=10 data-nosnippet>10</a><span class="kw">use </span>std::collections::HashMap;
@@ -121,14 +121,14 @@
 <a href=#121 id=121 data-nosnippet>121</a><span class="kw">impl </span>Attribute {
 <a href=#122 id=122 data-nosnippet>122</a>    <span class="kw">pub fn </span>is_required(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
 <a href=#123 id=123 data-nosnippet>123</a>        <span class="kw-2">*</span><span class="kw">match </span><span class="self">self </span>{
-<a href=#124 id=124 data-nosnippet>124</a>            Attribute::String { required } =&gt; required,
-<a href=#125 id=125 data-nosnippet>125</a>            Attribute::Long { required } =&gt; required,
-<a href=#126 id=126 data-nosnippet>126</a>            Attribute::Boolean { required } =&gt; required,
-<a href=#127 id=127 data-nosnippet>127</a>            Attribute::Record { required, .. } =&gt; required,
-<a href=#128 id=128 data-nosnippet>128</a>            Attribute::Set { required, .. } =&gt; required,
-<a href=#129 id=129 data-nosnippet>129</a>            Attribute::Entity { required, .. } =&gt; required,
-<a href=#130 id=130 data-nosnippet>130</a>            Attribute::Extension { required, .. } =&gt; required,
-<a href=#131 id=131 data-nosnippet>131</a>            Attribute::EntityOrCommon { required, .. } =&gt; required,
+<a href=#124 id=124 data-nosnippet>124</a>            Attribute::String { required }
+<a href=#125 id=125 data-nosnippet>125</a>            | Attribute::Long { required }
+<a href=#126 id=126 data-nosnippet>126</a>            | Attribute::Boolean { required }
+<a href=#127 id=127 data-nosnippet>127</a>            | Attribute::Record { required, .. }
+<a href=#128 id=128 data-nosnippet>128</a>            | Attribute::Set { required, .. }
+<a href=#129 id=129 data-nosnippet>129</a>            | Attribute::Entity { required, .. }
+<a href=#130 id=130 data-nosnippet>130</a>            | Attribute::Extension { required, .. }
+<a href=#131 id=131 data-nosnippet>131</a>            | Attribute::EntityOrCommon { required, .. } =&gt; required,
 <a href=#132 id=132 data-nosnippet>132</a>        }
 <a href=#133 id=133 data-nosnippet>133</a>    }
 <a href=#134 id=134 data-nosnippet>134</a>}

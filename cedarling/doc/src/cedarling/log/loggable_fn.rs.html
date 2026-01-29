@@ -8,7 +8,7 @@
 <a href=#8 id=8 data-nosnippet>8</a>    interface::{Indexed, Loggable, can_log},
 <a href=#9 id=9 data-nosnippet>9</a>};
 <a href=#10 id=10 data-nosnippet>10</a>
-<a href=#11 id=11 data-nosnippet>11</a><span class="doccomment">/// LoggableFn is a helper struct to create loggable entries using a closure.
+<a href=#11 id=11 data-nosnippet>11</a><span class="doccomment">/// [`LoggableFn`] is a helper struct to create loggable entries using a closure.
 <a href=#12 id=12 data-nosnippet>12</a></span><span class="attr">#[derive(Clone)]
 <a href=#13 id=13 data-nosnippet>13</a></span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>LoggableFn&lt;F&gt; {
 <a href=#14 id=14 data-nosnippet>14</a>    base: BaseLogEntry,
@@ -37,9 +37,9 @@
 <a href=#37 id=37 data-nosnippet>37</a>    }
 <a href=#38 id=38 data-nosnippet>38</a>}
 <a href=#39 id=39 data-nosnippet>39</a>
-<a href=#40 id=40 data-nosnippet>40</a><span class="doccomment">/// Implementation serde::Serialize for LoggableFn
+<a href=#40 id=40 data-nosnippet>40</a><span class="doccomment">/// Implementation [`serde::Serialize`] for [`LoggableFn`]
 <a href=#41 id=41 data-nosnippet>41</a>///
-<a href=#42 id=42 data-nosnippet>42</a>/// Implemented only to satisfy the requirement that Loggable extends serde::Serialize.
+<a href=#42 id=42 data-nosnippet>42</a>/// Implemented only to satisfy the requirement that Loggable extends [`serde::Serialize`].
 <a href=#43 id=43 data-nosnippet>43</a>/// But better to use `build` method to get the actual loggable entry and serialize it.
 <a href=#44 id=44 data-nosnippet>44</a></span><span class="kw">impl</span>&lt;F, R&gt; serde::Serialize <span class="kw">for </span>LoggableFn&lt;F&gt;
 <a href=#45 id=45 data-nosnippet>45</a><span class="kw">where

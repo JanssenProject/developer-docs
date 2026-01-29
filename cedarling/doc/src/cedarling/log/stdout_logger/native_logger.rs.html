@@ -380,65 +380,62 @@
 <a href=#380 id=380 data-nosnippet>380</a>            </span><span class="kw">let </span>expected_json = <span class="macro">json!</span>(log_entry1).to_string() + <span class="string">"\n"</span>;
 <a href=#381 id=381 data-nosnippet>381</a>            <span class="macro">assert!</span>(
 <a href=#382 id=382 data-nosnippet>382</a>                buf_contents.starts_with(<span class="kw-2">&amp;</span>expected_json),
-<a href=#383 id=383 data-nosnippet>383</a>                <span class="string">"If buffer not empty, it should start with first message, got: {}"</span>,
-<a href=#384 id=384 data-nosnippet>384</a>                buf_contents
-<a href=#385 id=385 data-nosnippet>385</a>            );
-<a href=#386 id=386 data-nosnippet>386</a>        } <span class="comment">// else buffer is empty, which is also valid
-<a href=#387 id=387 data-nosnippet>387</a>
-<a href=#388 id=388 data-nosnippet>388</a>        </span>logger.log_any(log_entry2);
-<a href=#389 id=389 data-nosnippet>389</a>
-<a href=#390 id=390 data-nosnippet>390</a>        <span class="comment">// Wait for the full timeout plus small margin
-<a href=#391 id=391 data-nosnippet>391</a>        </span>thread::sleep(flush_timeout / <span class="number">2 </span>+ Duration::from_millis(<span class="number">1</span>));
-<a href=#392 id=392 data-nosnippet>392</a>
-<a href=#393 id=393 data-nosnippet>393</a>        <span class="comment">// Buffer should now contain the first message (may also contain second message)
-<a href=#394 id=394 data-nosnippet>394</a>        </span><span class="kw">let </span>expected_json = <span class="macro">json!</span>(log_entry1).to_string() + <span class="string">"\n"</span>;
-<a href=#395 id=395 data-nosnippet>395</a>        <span class="kw">let </span>buf_contents = test_writer.get_buf_contents();
-<a href=#396 id=396 data-nosnippet>396</a>        <span class="macro">assert!</span>(
-<a href=#397 id=397 data-nosnippet>397</a>            buf_contents.starts_with(<span class="kw-2">&amp;</span>expected_json),
-<a href=#398 id=398 data-nosnippet>398</a>            <span class="string">"First message should appear after flush timeout, got: {}"</span>,
-<a href=#399 id=399 data-nosnippet>399</a>            buf_contents
-<a href=#400 id=400 data-nosnippet>400</a>        );
-<a href=#401 id=401 data-nosnippet>401</a>
-<a href=#402 id=402 data-nosnippet>402</a>        <span class="comment">// Now continuously send messages at intervals shorter than timeout
-<a href=#403 id=403 data-nosnippet>403</a>        </span><span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..<span class="number">5 </span>{
-<a href=#404 id=404 data-nosnippet>404</a>            <span class="kw">let </span>log_entry = LogEntry {
-<a href=#405 id=405 data-nosnippet>405</a>                base: BaseLogEntry::new_decision(gen_uuid7()),
-<a href=#406 id=406 data-nosnippet>406</a>                auth_info: <span class="prelude-val">None</span>,
-<a href=#407 id=407 data-nosnippet>407</a>                msg: <span class="macro">format!</span>(<span class="string">"Continuous message {}"</span>, i),
-<a href=#408 id=408 data-nosnippet>408</a>                error_msg: <span class="prelude-val">None</span>,
-<a href=#409 id=409 data-nosnippet>409</a>                cedar_lang_version: <span class="prelude-val">None</span>,
-<a href=#410 id=410 data-nosnippet>410</a>                cedar_sdk_version: <span class="prelude-val">None</span>,
-<a href=#411 id=411 data-nosnippet>411</a>            };
-<a href=#412 id=412 data-nosnippet>412</a>            <span class="kw">let </span>log_entry =
-<a href=#413 id=413 data-nosnippet>413</a>                LogEntryWithClientInfo::from_loggable(log_entry.clone(), pdp_id, app_name.clone());
+<a href=#383 id=383 data-nosnippet>383</a>                <span class="string">"If buffer not empty, it should start with first message, got: {buf_contents}"
+<a href=#384 id=384 data-nosnippet>384</a>            </span>);
+<a href=#385 id=385 data-nosnippet>385</a>        } <span class="comment">// else buffer is empty, which is also valid
+<a href=#386 id=386 data-nosnippet>386</a>
+<a href=#387 id=387 data-nosnippet>387</a>        </span>logger.log_any(log_entry2);
+<a href=#388 id=388 data-nosnippet>388</a>
+<a href=#389 id=389 data-nosnippet>389</a>        <span class="comment">// Wait for the full timeout plus small margin
+<a href=#390 id=390 data-nosnippet>390</a>        </span>thread::sleep(flush_timeout / <span class="number">2 </span>+ Duration::from_millis(<span class="number">1</span>));
+<a href=#391 id=391 data-nosnippet>391</a>
+<a href=#392 id=392 data-nosnippet>392</a>        <span class="comment">// Buffer should now contain the first message (may also contain second message)
+<a href=#393 id=393 data-nosnippet>393</a>        </span><span class="kw">let </span>expected_json = <span class="macro">json!</span>(log_entry1).to_string() + <span class="string">"\n"</span>;
+<a href=#394 id=394 data-nosnippet>394</a>        <span class="kw">let </span>buf_contents = test_writer.get_buf_contents();
+<a href=#395 id=395 data-nosnippet>395</a>        <span class="macro">assert!</span>(
+<a href=#396 id=396 data-nosnippet>396</a>            buf_contents.starts_with(<span class="kw-2">&amp;</span>expected_json),
+<a href=#397 id=397 data-nosnippet>397</a>            <span class="string">"First message should appear after flush timeout, got: {buf_contents}"
+<a href=#398 id=398 data-nosnippet>398</a>        </span>);
+<a href=#399 id=399 data-nosnippet>399</a>
+<a href=#400 id=400 data-nosnippet>400</a>        <span class="comment">// Now continuously send messages at intervals shorter than timeout
+<a href=#401 id=401 data-nosnippet>401</a>        </span><span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..<span class="number">5 </span>{
+<a href=#402 id=402 data-nosnippet>402</a>            <span class="kw">let </span>log_entry = LogEntry {
+<a href=#403 id=403 data-nosnippet>403</a>                base: BaseLogEntry::new_decision(gen_uuid7()),
+<a href=#404 id=404 data-nosnippet>404</a>                auth_info: <span class="prelude-val">None</span>,
+<a href=#405 id=405 data-nosnippet>405</a>                msg: <span class="macro">format!</span>(<span class="string">"Continuous message {i}"</span>),
+<a href=#406 id=406 data-nosnippet>406</a>                error_msg: <span class="prelude-val">None</span>,
+<a href=#407 id=407 data-nosnippet>407</a>                cedar_lang_version: <span class="prelude-val">None</span>,
+<a href=#408 id=408 data-nosnippet>408</a>                cedar_sdk_version: <span class="prelude-val">None</span>,
+<a href=#409 id=409 data-nosnippet>409</a>            };
+<a href=#410 id=410 data-nosnippet>410</a>            <span class="kw">let </span>log_entry =
+<a href=#411 id=411 data-nosnippet>411</a>                LogEntryWithClientInfo::from_loggable(log_entry.clone(), pdp_id, app_name.clone());
+<a href=#412 id=412 data-nosnippet>412</a>
+<a href=#413 id=413 data-nosnippet>413</a>            logger.log_any(log_entry);
 <a href=#414 id=414 data-nosnippet>414</a>
-<a href=#415 id=415 data-nosnippet>415</a>            logger.log_any(log_entry);
-<a href=#416 id=416 data-nosnippet>416</a>
-<a href=#417 id=417 data-nosnippet>417</a>            <span class="comment">// Wait shorter than timeout
-<a href=#418 id=418 data-nosnippet>418</a>            </span>thread::sleep(flush_timeout / <span class="number">4</span>);
-<a href=#419 id=419 data-nosnippet>419</a>
-<a href=#420 id=420 data-nosnippet>420</a>            <span class="comment">// Verify that previous continuous messages might not be flushed yet,
-<a href=#421 id=421 data-nosnippet>421</a>            // but they shouldn't block the flush of the first message (already verified)
-<a href=#422 id=422 data-nosnippet>422</a>        </span>}
-<a href=#423 id=423 data-nosnippet>423</a>
-<a href=#424 id=424 data-nosnippet>424</a>        <span class="comment">// Wait for final flush
-<a href=#425 id=425 data-nosnippet>425</a>        </span>thread::sleep(flush_timeout * <span class="number">2</span>);
-<a href=#426 id=426 data-nosnippet>426</a>
-<a href=#427 id=427 data-nosnippet>427</a>        <span class="comment">// Clean up logger
-<a href=#428 id=428 data-nosnippet>428</a>        </span>drop(logger);
-<a href=#429 id=429 data-nosnippet>429</a>
-<a href=#430 id=430 data-nosnippet>430</a>        <span class="comment">// Verify that all messages eventually arrived
-<a href=#431 id=431 data-nosnippet>431</a>        </span><span class="kw">let </span>final_content = test_writer.into_inner_buf();
-<a href=#432 id=432 data-nosnippet>432</a>        <span class="macro">assert!</span>(
-<a href=#433 id=433 data-nosnippet>433</a>            final_content.contains(<span class="string">"First message"</span>),
-<a href=#434 id=434 data-nosnippet>434</a>            <span class="string">"First message should still be in final output"
-<a href=#435 id=435 data-nosnippet>435</a>        </span>);
-<a href=#436 id=436 data-nosnippet>436</a>        <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..<span class="number">5 </span>{
-<a href=#437 id=437 data-nosnippet>437</a>            <span class="macro">assert!</span>(
-<a href=#438 id=438 data-nosnippet>438</a>                final_content.contains(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"Continuous message {}"</span>, i)),
-<a href=#439 id=439 data-nosnippet>439</a>                <span class="string">"Continuous message {} should be in final output"</span>,
-<a href=#440 id=440 data-nosnippet>440</a>                i
-<a href=#441 id=441 data-nosnippet>441</a>            );
-<a href=#442 id=442 data-nosnippet>442</a>        }
-<a href=#443 id=443 data-nosnippet>443</a>    }
-<a href=#444 id=444 data-nosnippet>444</a>}</code></pre></div></section></main></body></html>
+<a href=#415 id=415 data-nosnippet>415</a>            <span class="comment">// Wait shorter than timeout
+<a href=#416 id=416 data-nosnippet>416</a>            </span>thread::sleep(flush_timeout / <span class="number">4</span>);
+<a href=#417 id=417 data-nosnippet>417</a>
+<a href=#418 id=418 data-nosnippet>418</a>            <span class="comment">// Verify that previous continuous messages might not be flushed yet,
+<a href=#419 id=419 data-nosnippet>419</a>            // but they shouldn't block the flush of the first message (already verified)
+<a href=#420 id=420 data-nosnippet>420</a>        </span>}
+<a href=#421 id=421 data-nosnippet>421</a>
+<a href=#422 id=422 data-nosnippet>422</a>        <span class="comment">// Wait for final flush
+<a href=#423 id=423 data-nosnippet>423</a>        </span>thread::sleep(flush_timeout * <span class="number">2</span>);
+<a href=#424 id=424 data-nosnippet>424</a>
+<a href=#425 id=425 data-nosnippet>425</a>        <span class="comment">// Clean up logger
+<a href=#426 id=426 data-nosnippet>426</a>        </span>drop(logger);
+<a href=#427 id=427 data-nosnippet>427</a>
+<a href=#428 id=428 data-nosnippet>428</a>        <span class="comment">// Verify that all messages eventually arrived
+<a href=#429 id=429 data-nosnippet>429</a>        </span><span class="kw">let </span>final_content = test_writer.into_inner_buf();
+<a href=#430 id=430 data-nosnippet>430</a>        <span class="macro">assert!</span>(
+<a href=#431 id=431 data-nosnippet>431</a>            final_content.contains(<span class="string">"First message"</span>),
+<a href=#432 id=432 data-nosnippet>432</a>            <span class="string">"First message should still be in final output"
+<a href=#433 id=433 data-nosnippet>433</a>        </span>);
+<a href=#434 id=434 data-nosnippet>434</a>        <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..<span class="number">5 </span>{
+<a href=#435 id=435 data-nosnippet>435</a>            <span class="macro">assert!</span>(
+<a href=#436 id=436 data-nosnippet>436</a>                final_content.contains(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"Continuous message {i}"</span>)),
+<a href=#437 id=437 data-nosnippet>437</a>                <span class="string">"Continuous message {i} should be in final output"
+<a href=#438 id=438 data-nosnippet>438</a>            </span>);
+<a href=#439 id=439 data-nosnippet>439</a>        }
+<a href=#440 id=440 data-nosnippet>440</a>    }
+<a href=#441 id=441 data-nosnippet>441</a>}</code></pre></div></section></main></body></html>

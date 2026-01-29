@@ -49,12 +49,12 @@
 <a href=#49 id=49 data-nosnippet>49</a>        <span class="string">"scope"</span>: DCR_SCOPE,
 <a href=#50 id=50 data-nosnippet>50</a>        <span class="string">"access_token_as_jwt"</span>: <span class="bool-val">true</span>,
 <a href=#51 id=51 data-nosnippet>51</a>    });
-<a href=#52 id=52 data-nosnippet>52</a>    
+<a href=#52 id=52 data-nosnippet>52</a>
 <a href=#53 id=53 data-nosnippet>53</a>    <span class="comment">// Add SSA JWT to the DCR request if provided
 <a href=#54 id=54 data-nosnippet>54</a>    </span><span class="kw">if let </span><span class="prelude-val">Some</span>(ssa_jwt) = ssa_jwt {
 <a href=#55 id=55 data-nosnippet>55</a>        dcr_body[<span class="string">"software_statement"</span>] = <span class="macro">json!</span>(ssa_jwt);
 <a href=#56 id=56 data-nosnippet>56</a>    }
-<a href=#57 id=57 data-nosnippet>57</a>    
+<a href=#57 id=57 data-nosnippet>57</a>
 <a href=#58 id=58 data-nosnippet>58</a>    <span class="kw">let </span>ClientIdAndSecret {
 <a href=#59 id=59 data-nosnippet>59</a>        client_id,
 <a href=#60 id=60 data-nosnippet>60</a>        client_secret,
@@ -75,7 +75,7 @@
 <a href=#75 id=75 data-nosnippet>75</a>    }))
 <a href=#76 id=76 data-nosnippet>76</a>    <span class="comment">// this should never fail since this is a hard-coded valid JSON
 <a href=#77 id=77 data-nosnippet>77</a>    </span>.expect(<span class="string">"serialize form data"</span>);
-<a href=#78 id=78 data-nosnippet>78</a>    
+<a href=#78 id=78 data-nosnippet>78</a>
 <a href=#79 id=79 data-nosnippet>79</a>    <span class="kw">let </span>AccessToken { access_token } = sender
 <a href=#80 id=80 data-nosnippet>80</a>        .send(|| {
 <a href=#81 id=81 data-nosnippet>81</a>            client

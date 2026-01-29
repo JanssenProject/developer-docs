@@ -58,7 +58,7 @@
 <a href=#58 id=58 data-nosnippet>58</a>    <span class="kw">use </span>serde::Deserialize;
 <a href=#59 id=59 data-nosnippet>59</a>    <span class="kw">use </span>test_utils::assert_eq;
 <a href=#60 id=60 data-nosnippet>60</a>
-<a href=#61 id=61 data-nosnippet>61</a>    <span class="doccomment">/// Test structure used to verify fallback_deserialize functionality
+<a href=#61 id=61 data-nosnippet>61</a>    <span class="doccomment">/// Test structure used to verify `fallback_deserialize` functionality
 <a href=#62 id=62 data-nosnippet>62</a>    /// Contains fields of different types to test various scenarios:
 <a href=#63 id=63 data-nosnippet>63</a>    /// - value: i32 - tests number deserialization
 <a href=#64 id=64 data-nosnippet>64</a>    /// - optional: Option&lt;String&gt; - tests optional string handling
@@ -254,7 +254,7 @@
 <a href=#254 id=254 data-nosnippet>254</a>
 <a href=#255 id=255 data-nosnippet>255</a>        <span class="kw">for </span>(json, error_desc) <span class="kw">in </span>test_cases {
 <a href=#256 id=256 data-nosnippet>256</a>            <span class="kw">let </span>result: <span class="prelude-ty">Result</span>&lt;TestStruct, <span class="kw">_</span>&gt; = serde_json::from_str(json);
-<a href=#257 id=257 data-nosnippet>257</a>            result.expect_err(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"should fail to parse {}"</span>, error_desc));
+<a href=#257 id=257 data-nosnippet>257</a>            result.expect_err(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">"should fail to parse {error_desc}"</span>));
 <a href=#258 id=258 data-nosnippet>258</a>        }
 <a href=#259 id=259 data-nosnippet>259</a>    }
 <a href=#260 id=260 data-nosnippet>260</a>}</code></pre></div></section></main></body></html>

@@ -55,21 +55,21 @@
 <a href=#55 id=55 data-nosnippet>55</a>    <span class="doccomment">/// Error encountered while processing JWT token data
 <a href=#56 id=56 data-nosnippet>56</a>    </span><span class="attr">#[error(transparent)]
 <a href=#57 id=57 data-nosnippet>57</a>    </span>ProcessTokens(<span class="attr">#[from] </span>JwtProcessingError),
-<a href=#58 id=58 data-nosnippet>58</a>    <span class="doccomment">/// Error encountered while parsing Action to EntityUid
+<a href=#58 id=58 data-nosnippet>58</a>    <span class="doccomment">/// Error encountered while parsing Action to `EntityUid`
 <a href=#59 id=59 data-nosnippet>59</a>    </span><span class="attr">#[error(<span class="string">"could not parse action: {0}"</span>)]
-<a href=#60 id=60 data-nosnippet>60</a>    </span>Action(ParseErrors),
+<a href=#60 id=60 data-nosnippet>60</a>    </span>Action(Box&lt;ParseErrors&gt;),
 <a href=#61 id=61 data-nosnippet>61</a>    <span class="doccomment">/// Error encountered while validating context according to the schema
 <a href=#62 id=62 data-nosnippet>62</a>    </span><span class="attr">#[error(<span class="string">"could not create context: {0}"</span>)]
-<a href=#63 id=63 data-nosnippet>63</a>    </span>CreateContext(<span class="attr">#[from] </span>ContextJsonError),
+<a href=#63 id=63 data-nosnippet>63</a>    </span>CreateContext(<span class="attr">#[from] </span>Box&lt;ContextJsonError&gt;),
 <a href=#64 id=64 data-nosnippet>64</a>    <span class="doccomment">/// Error encountered while creating [`cedar_policy::Request`] for entity principal
 <a href=#65 id=65 data-nosnippet>65</a>    </span><span class="attr">#[error(transparent)]
-<a href=#66 id=66 data-nosnippet>66</a>    </span>InvalidPrincipal(<span class="attr">#[from] </span>InvalidPrincipalError),
+<a href=#66 id=66 data-nosnippet>66</a>    </span>InvalidPrincipal(<span class="attr">#[from] </span>Box&lt;InvalidPrincipalError&gt;),
 <a href=#67 id=67 data-nosnippet>67</a>    <span class="doccomment">/// Error encountered while validating the Cedar request
 <a href=#68 id=68 data-nosnippet>68</a>    </span><span class="attr">#[error(<span class="string">"request validation error: {0}"</span>)]
-<a href=#69 id=69 data-nosnippet>69</a>    </span>RequestValidation(<span class="attr">#[from] </span>RequestValidationError),
+<a href=#69 id=69 data-nosnippet>69</a>    </span>RequestValidation(<span class="attr">#[from] </span>Box&lt;RequestValidationError&gt;),
 <a href=#70 id=70 data-nosnippet>70</a>    <span class="doccomment">/// Error encountered while checking if the Entities adhere to the schema
 <a href=#71 id=71 data-nosnippet>71</a>    </span><span class="attr">#[error(<span class="string">"failed to validate Cedar entities: {0:?}"</span>)]
-<a href=#72 id=72 data-nosnippet>72</a>    </span>ValidateEntities(<span class="attr">#[from] </span>EntitiesError),
+<a href=#72 id=72 data-nosnippet>72</a>    </span>ValidateEntities(<span class="attr">#[from] </span>Box&lt;EntitiesError&gt;),
 <a href=#73 id=73 data-nosnippet>73</a>    <span class="doccomment">/// Error encountered while parsing all entities to json for logging
 <a href=#74 id=74 data-nosnippet>74</a>    </span><span class="attr">#[error(<span class="string">"could not convert entities to json: {0}"</span>)]
 <a href=#75 id=75 data-nosnippet>75</a>    </span>EntitiesToJson(SerdeJsonError),
@@ -96,15 +96,15 @@
 <a href=#96 id=96 data-nosnippet>96</a>    </span>MultiIssuerEntity(MultiIssuerEntityError),
 <a href=#97 id=97 data-nosnippet>97</a>}
 <a href=#98 id=98 data-nosnippet>98</a>
-<a href=#99 id=99 data-nosnippet>99</a><span class="kw">impl </span>From&lt;Box&lt;EntitiesError&gt;&gt; <span class="kw">for </span>AuthorizeError {
-<a href=#100 id=100 data-nosnippet>100</a>    <span class="kw">fn </span>from(err: Box&lt;EntitiesError&gt;) -&gt; <span class="self">Self </span>{
-<a href=#101 id=101 data-nosnippet>101</a>        AuthorizeError::ValidateEntities(<span class="kw-2">*</span>err)
+<a href=#99 id=99 data-nosnippet>99</a><span class="kw">impl </span>From&lt;ParseErrors&gt; <span class="kw">for </span>AuthorizeError {
+<a href=#100 id=100 data-nosnippet>100</a>    <span class="kw">fn </span>from(err: ParseErrors) -&gt; <span class="self">Self </span>{
+<a href=#101 id=101 data-nosnippet>101</a>        <span class="self">Self</span>::Action(Box::new(err))
 <a href=#102 id=102 data-nosnippet>102</a>    }
 <a href=#103 id=103 data-nosnippet>103</a>}
 <a href=#104 id=104 data-nosnippet>104</a>
-<a href=#105 id=105 data-nosnippet>105</a><span class="kw">impl </span>From&lt;Box&lt;RequestValidationError&gt;&gt; <span class="kw">for </span>AuthorizeError {
-<a href=#106 id=106 data-nosnippet>106</a>    <span class="kw">fn </span>from(err: Box&lt;RequestValidationError&gt;) -&gt; <span class="self">Self </span>{
-<a href=#107 id=107 data-nosnippet>107</a>        AuthorizeError::RequestValidation(<span class="kw-2">*</span>err)
+<a href=#105 id=105 data-nosnippet>105</a><span class="kw">impl </span>From&lt;InvalidPrincipalError&gt; <span class="kw">for </span>AuthorizeError {
+<a href=#106 id=106 data-nosnippet>106</a>    <span class="kw">fn </span>from(err: InvalidPrincipalError) -&gt; <span class="self">Self </span>{
+<a href=#107 id=107 data-nosnippet>107</a>        <span class="self">Self</span>::InvalidPrincipal(Box::new(err))
 <a href=#108 id=108 data-nosnippet>108</a>    }
 <a href=#109 id=109 data-nosnippet>109</a>}
 <a href=#110 id=110 data-nosnippet>110</a>

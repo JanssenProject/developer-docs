@@ -30,7 +30,7 @@
 <a href=#30 id=30 data-nosnippet>30</a>    /// `CEDARLING_DECISION_LOG_USER_CLAIMS` in [bootstrap properties](https://github.com/JanssenProject/jans/wiki/Cedarling-Nativity-Plan#bootstrap-properties) documentation.
 <a href=#31 id=31 data-nosnippet>31</a>    </span><span class="kw">pub </span>decision_log_user_claims: Vec&lt;String&gt;,
 <a href=#32 id=32 data-nosnippet>32</a>
-<a href=#33 id=33 data-nosnippet>33</a>    <span class="doccomment">/// List of claims to map from user entity, such as ["client_id", "rp_id", ...]
+<a href=#33 id=33 data-nosnippet>33</a>    <span class="doccomment">/// List of claims to map from user entity, such as [ `client_id`, `rp_id`, ...]
 <a href=#34 id=34 data-nosnippet>34</a>    /// `CEDARLING_DECISION_LOG_WORKLOAD_CLAIMS` in [bootstrap properties](https://github.com/JanssenProject/jans/wiki/Cedarling-Nativity-Plan#bootstrap-properties) documentation.
 <a href=#35 id=35 data-nosnippet>35</a>    </span><span class="kw">pub </span>decision_log_workload_claims: Vec&lt;String&gt;,
 <a href=#36 id=36 data-nosnippet>36</a>
@@ -146,10 +146,10 @@
 <a href=#146 id=146 data-nosnippet>146</a>    }
 <a href=#147 id=147 data-nosnippet>147</a>}
 <a href=#148 id=148 data-nosnippet>148</a>
-<a href=#149 id=149 data-nosnippet>149</a><span class="kw">impl </span>From&lt;TokenEntityNames&gt; <span class="kw">for </span>HashMap&lt;String, String&gt; {
+<a href=#149 id=149 data-nosnippet>149</a><span class="kw">impl</span>&lt;S: std::hash::BuildHasher + Default&gt; From&lt;TokenEntityNames&gt; <span class="kw">for </span>HashMap&lt;String, String, S&gt; {
 <a href=#150 id=150 data-nosnippet>150</a>    <span class="kw">fn </span>from(value: TokenEntityNames) -&gt; <span class="self">Self </span>{
-<a href=#151 id=151 data-nosnippet>151</a>        value.<span class="number">0
-<a href=#152 id=152 data-nosnippet>152</a>    </span>}
+<a href=#151 id=151 data-nosnippet>151</a>        value.<span class="number">0</span>.into_iter().collect::&lt;HashMap&lt;<span class="kw">_</span>, <span class="kw">_</span>, S&gt;&gt;()
+<a href=#152 id=152 data-nosnippet>152</a>    }
 <a href=#153 id=153 data-nosnippet>153</a>}
 <a href=#154 id=154 data-nosnippet>154</a>
 <a href=#155 id=155 data-nosnippet>155</a><span class="doccomment">/// Error when parsing [`IdTokenTrustMode`]

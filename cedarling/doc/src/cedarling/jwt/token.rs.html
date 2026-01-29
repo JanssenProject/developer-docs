@@ -95,7 +95,7 @@
 <a href=#95 id=95 data-nosnippet>95</a>    }
 <a href=#96 id=96 data-nosnippet>96</a>
 <a href=#97 id=97 data-nosnippet>97</a>    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>logging_info(<span class="kw-2">&amp;</span><span class="self">self</span>, claim: <span class="kw-2">&amp;</span>str) -&gt; HashMap&lt;String, serde_json::Value&gt; {
-<a href=#98 id=98 data-nosnippet>98</a>        <span class="kw">let </span>claim = <span class="kw">if </span>!claim.is_empty() { claim } <span class="kw">else </span>{ <span class="string">"jti" </span>};
+<a href=#98 id=98 data-nosnippet>98</a>        <span class="kw">let </span>claim = <span class="kw">if </span>claim.is_empty() { <span class="string">"jti" </span>} <span class="kw">else </span>{ claim };
 <a href=#99 id=99 data-nosnippet>99</a>
 <a href=#100 id=100 data-nosnippet>100</a>        <span class="self">self</span>.claims
 <a href=#101 id=101 data-nosnippet>101</a>            .get(claim)
