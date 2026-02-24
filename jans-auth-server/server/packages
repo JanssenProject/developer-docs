@@ -42,6 +42,7 @@ io.jans.as.server.service.status.ldap
 io.jans.as.server.service.date
 io.jans.as.server.service.expiration
 io.jans.as.server.service.cdi.event
+io.jans.as.server.service.cdi
 io.jans.as.server.ws.rs.stat
 io.jans.as.server.ws.rs.controller
 io.jans.as.server.session.ws.rs
