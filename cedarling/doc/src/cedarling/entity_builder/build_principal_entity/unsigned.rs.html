@@ -77,14 +77,14 @@
 <a href=#77 id=77 data-nosnippet>77</a>
 <a href=#78 id=78 data-nosnippet>78</a><span class="kw">fn </span>extract_roles_from_value(value: <span class="kw-2">&amp;</span>Value) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;String&gt;, BuildUnsignedEntityError&gt; {
 <a href=#79 id=79 data-nosnippet>79</a>    <span class="kw">match </span>value {
-<a href=#80 id=80 data-nosnippet>80</a>        Value::String(role) =&gt; <span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[role.to_string()]),
+<a href=#80 id=80 data-nosnippet>80</a>        Value::String(role) =&gt; <span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[role.clone()]),
 <a href=#81 id=81 data-nosnippet>81</a>        Value::Array(vals) =&gt; {
 <a href=#82 id=82 data-nosnippet>82</a>            <span class="kw">let </span><span class="kw-2">mut </span>roles = Vec::new();
 <a href=#83 id=83 data-nosnippet>83</a>            <span class="kw">for </span>role <span class="kw">in </span>vals {
 <a href=#84 id=84 data-nosnippet>84</a>                <span class="kw">let </span>Value::String(role) = role <span class="kw">else </span>{
 <a href=#85 id=85 data-nosnippet>85</a>                    <span class="kw">return </span><span class="prelude-val">Err</span>(BuildUnsignedEntityError::InvalidType(role.clone()));
 <a href=#86 id=86 data-nosnippet>86</a>                };
-<a href=#87 id=87 data-nosnippet>87</a>                roles.push(role.to_string());
+<a href=#87 id=87 data-nosnippet>87</a>                roles.push(role.clone());
 <a href=#88 id=88 data-nosnippet>88</a>            }
 <a href=#89 id=89 data-nosnippet>89</a>            <span class="prelude-val">Ok</span>(roles)
 <a href=#90 id=90 data-nosnippet>90</a>        },

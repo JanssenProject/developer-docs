@@ -79,7 +79,7 @@
 <a href=#79 id=79 data-nosnippet>79</a>                <span class="kw">let </span>iss_id = normalize_issuer(<span class="kw-2">&amp;</span>iss.oidc_endpoint.origin().ascii_serialization());
 <a href=#80 id=80 data-nosnippet>80</a>
 <a href=#81 id=81 data-nosnippet>81</a>                <span class="kw">let </span>iss_type_name = <span class="self">Self</span>::trusted_issuer_typename(<span class="kw-2">&amp;</span>iss.name);
-<a href=#82 id=82 data-nosnippet>82</a>                build_iss_entity(<span class="kw-2">&amp;</span>iss_type_name.to_string(), <span class="kw-2">&amp;</span>iss_id, iss, schema.as_ref())
+<a href=#82 id=82 data-nosnippet>82</a>                build_iss_entity(<span class="kw-2">&amp;</span>iss_type_name.clone(), <span class="kw-2">&amp;</span>iss_id, iss, schema.as_ref())
 <a href=#83 id=83 data-nosnippet>83</a>            })
 <a href=#84 id=84 data-nosnippet>84</a>            .partition_result();
 <a href=#85 id=85 data-nosnippet>85</a>
@@ -127,7 +127,7 @@
 <a href=#127 id=127 data-nosnippet>127</a>                HashSet::new(),
 <a href=#128 id=128 data-nosnippet>128</a>            )<span class="question-mark">?</span>;
 <a href=#129 id=129 data-nosnippet>129</a>            built_entities.insert(<span class="kw-2">&amp;</span>tkn_entity.uid());
-<a href=#130 id=130 data-nosnippet>130</a>            token_entities.insert(tkn_name.to_string(), tkn_entity);
+<a href=#130 id=130 data-nosnippet>130</a>            token_entities.insert(tkn_name.clone(), tkn_entity);
 <a href=#131 id=131 data-nosnippet>131</a>        }
 <a href=#132 id=132 data-nosnippet>132</a>
 <a href=#133 id=133 data-nosnippet>133</a>        <span class="kw">let </span>workload = <span class="kw">if </span><span class="self">self</span>.config.build_workload {

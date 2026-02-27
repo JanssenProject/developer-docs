@@ -585,7 +585,7 @@
 <a href=#585 id=585 data-nosnippet>585</a>    };
 <a href=#586 id=586 data-nosnippet>586</a>
 <a href=#587 id=587 data-nosnippet>587</a>    <span class="kw">let </span>decoded_body = <span class="kw">match </span>policy_with_metadata.encoding {
-<a href=#588 id=588 data-nosnippet>588</a>        <span class="kw">super</span>::Encoding::None =&gt; policy_with_metadata.body.to_string(),
+<a href=#588 id=588 data-nosnippet>588</a>        <span class="kw">super</span>::Encoding::None =&gt; policy_with_metadata.body.clone(),
 <a href=#589 id=589 data-nosnippet>589</a>        <span class="kw">super</span>::Encoding::Base64 =&gt; {
 <a href=#590 id=590 data-nosnippet>590</a>            <span class="kw">use </span>base64::prelude::<span class="kw-2">*</span>;
 <a href=#591 id=591 data-nosnippet>591</a>            <span class="kw">let </span>buf = BASE64_STANDARD
