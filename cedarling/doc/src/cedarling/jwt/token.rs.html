@@ -4,7 +4,7 @@
 <a href=#4 id=4 data-nosnippet>4</a>// Copyright (c) 2024, Gluu, Inc.
 <a href=#5 id=5 data-nosnippet>5</a>
 <a href=#6 id=6 data-nosnippet>6</a></span><span class="kw">use </span><span class="kw">crate</span>::common::{
-<a href=#7 id=7 data-nosnippet>7</a>    issuer_utils::normalize_issuer,
+<a href=#7 id=7 data-nosnippet>7</a>    issuer_utils::IssClaim,
 <a href=#8 id=8 data-nosnippet>8</a>    policy_store::{ClaimMappings, TokenEntityMetadata, TrustedIssuer},
 <a href=#9 id=9 data-nosnippet>9</a>};
 <a href=#10 id=10 data-nosnippet>10</a><span class="kw">use </span>serde::Deserialize;
@@ -54,16 +54,16 @@
 <a href=#54 id=54 data-nosnippet>54</a>    }
 <a href=#55 id=55 data-nosnippet>55</a>
 <a href=#56 id=56 data-nosnippet>56</a>    <span class="doccomment">/// Extract normalized issuer URL from a token
-<a href=#57 id=57 data-nosnippet>57</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>extract_normalized_issuer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
+<a href=#57 id=57 data-nosnippet>57</a>    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>extract_normalized_issuer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;IssClaim&gt; {
 <a href=#58 id=58 data-nosnippet>58</a>        <span class="comment">// Method 1: From TrustedIssuer reference (preferred)
 <a href=#59 id=59 data-nosnippet>59</a>        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(trusted_issuer) = <span class="kw-2">&amp;</span><span class="self">self</span>.iss {
-<a href=#60 id=60 data-nosnippet>60</a>            <span class="kw">return </span><span class="prelude-val">Some</span>(trusted_issuer.normalized_issuer());
+<a href=#60 id=60 data-nosnippet>60</a>            <span class="kw">return </span><span class="prelude-val">Some</span>(trusted_issuer.iss_claim());
 <a href=#61 id=61 data-nosnippet>61</a>        }
 <a href=#62 id=62 data-nosnippet>62</a>
 <a href=#63 id=63 data-nosnippet>63</a>        <span class="comment">// Method 2: From token claims (fallback)
 <a href=#64 id=64 data-nosnippet>64</a>        </span><span class="self">self</span>.claims
 <a href=#65 id=65 data-nosnippet>65</a>            .get_claim(<span class="string">"iss"</span>)
-<a href=#66 id=66 data-nosnippet>66</a>            .and_then(|claim| claim.value().as_str().map(normalize_issuer))
+<a href=#66 id=66 data-nosnippet>66</a>            .and_then(|claim| claim.value().as_str().map(IssClaim::new))
 <a href=#67 id=67 data-nosnippet>67</a>    }
 <a href=#68 id=68 data-nosnippet>68</a>}
 <a href=#69 id=69 data-nosnippet>69</a>

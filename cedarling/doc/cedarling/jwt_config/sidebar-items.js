@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":["JwtConfig","TokenValidationConfig"]};
+window.SIDEBAR_ITEMS = {"enum":["TrustedIssuerLoaderConfig","TrustedIssuerLoaderTypeRaw"],"struct":["JwtConfig","TokenValidationConfig","WorkersCount"]};
