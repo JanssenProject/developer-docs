@@ -1,0 +1,5 @@
+io.jans.configapi.plugin.shibboleth
+io.jans.configapi.plugin.shibboleth.model
+io.jans.configapi.plugin.shibboleth.rest
+io.jans.configapi.plugin.shibboleth.service
+io.jans.configapi.plugin.shibboleth.util

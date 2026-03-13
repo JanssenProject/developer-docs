@@ -359,6 +359,86 @@ public class <span class="typeNameLabel"><a href=CedarlingAdapter.html>Cedarling
                                         <tr id="i12" class="altColor">
                                             <td class="colFirst"><code>void</code>
                                             </td>
+                                            <th class="colSecond" scope="row"><code><a href=CedarlingAdapter.html#pushDataCtx(java.lang.String,org.json.JSONObject,java.lang.Long)>pushDataCtx</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> key, JSONObject value, <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Long.html>Long</a> ttlSecs) </code>
+                                            </th>
+                                            <td class="colLast">Push a value into the data store with an optional TTL.</td>
+                                        </tr>
+                                        
+                                        <tr id="i13" class="rowColor">
+                                            <td class="colFirst"><code>void</code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=CedarlingAdapter.html#pushDataCtx(java.lang.String,java.lang.String,java.lang.Long)>pushDataCtx</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> key, <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> value, <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Long.html>Long</a> ttlSecs) </code>
+                                            </th>
+                                            <td class="colLast">Push a value into the data store with an optional TTL.</td>
+                                        </tr>
+                                        
+                                        <tr id="i14" class="altColor">
+                                            <td class="colFirst"><code>void</code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=CedarlingAdapter.html#pushDataCtx(java.lang.String,org.json.JSONObject)>pushDataCtx</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> key, JSONObject value) </code>
+                                            </th>
+                                            <td class="colLast">Push a value into the data store without TTL (uses default from config).</td>
+                                        </tr>
+                                        
+                                        <tr id="i15" class="rowColor">
+                                            <td class="colFirst"><code>void</code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=CedarlingAdapter.html#pushDataCtx(java.lang.String,java.lang.String)>pushDataCtx</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> key, <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> value) </code>
+                                            </th>
+                                            <td class="colLast">Push a value into the data store without TTL (uses default from config).</td>
+                                        </tr>
+                                        
+                                        <tr id="i16" class="altColor">
+                                            <td class="colFirst"><code><a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html>Object</a></code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=CedarlingAdapter.html#getDataCtx(java.lang.String)>getDataCtx</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> key) </code>
+                                            </th>
+                                            <td class="colLast">Get a value from the data store by key.</td>
+                                        </tr>
+                                        
+                                        <tr id="i17" class="rowColor">
+                                            <td class="colFirst"><code><a href=../../../../../uniffi/cedarling_uniffi/DataEntry.html>DataEntry</a></code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=CedarlingAdapter.html#getDataEntryCtx(java.lang.String)>getDataEntryCtx</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> key) </code>
+                                            </th>
+                                            <td class="colLast">Get a data entry with full metadata by key.</td>
+                                        </tr>
+                                        
+                                        <tr id="i18" class="altColor">
+                                            <td class="colFirst"><code>boolean</code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=CedarlingAdapter.html#removeDataCtx(java.lang.String)>removeDataCtx</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> key) </code>
+                                            </th>
+                                            <td class="colLast">Remove a value from the data store by key.</td>
+                                        </tr>
+                                        
+                                        <tr id="i19" class="rowColor">
+                                            <td class="colFirst"><code>void</code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=CedarlingAdapter.html#clearDataCtx()>clearDataCtx</a>() </code>
+                                            </th>
+                                            <td class="colLast">Clear all entries from the data store.</td>
+                                        </tr>
+                                        
+                                        <tr id="i20" class="altColor">
+                                            <td class="colFirst"><code><a href=https://docs.oracle.com/javase/8/docs/api/java/util/List.html>List</a>&lt;<a href=../../../../../uniffi/cedarling_uniffi/DataEntry.html>DataEntry</a>&gt;</code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=CedarlingAdapter.html#listDataCtx()>listDataCtx</a>() </code>
+                                            </th>
+                                            <td class="colLast">List all entries with their metadata.</td>
+                                        </tr>
+                                        
+                                        <tr id="i21" class="rowColor">
+                                            <td class="colFirst"><code><a href=../../../../../uniffi/cedarling_uniffi/DataStoreStats.html>DataStoreStats</a></code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=CedarlingAdapter.html#getStatsCtx()>getStatsCtx</a>() </code>
+                                            </th>
+                                            <td class="colLast">Get statistics about the data store.</td>
+                                        </tr>
+                                        
+                                        <tr id="i22" class="altColor">
+                                            <td class="colFirst"><code>void</code>
+                                            </td>
                                             <th class="colSecond" scope="row"><code><a href=CedarlingAdapter.html#close()>close</a>() </code>
                                             </th>
                                             <td class="colLast"></td>
@@ -686,6 +766,324 @@ public class <span class="typeNameLabel"><a href=CedarlingAdapter.html>Cedarling
 
                                         
 
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="pushDataCtx(java.lang.String,org.json.JSONObject,java.lang.Long)">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>pushDataCtx</h4>
+                                        <pre class="methodSignature"> void <a href=CedarlingAdapter.html#pushDataCtx(java.lang.String,org.json.JSONObject,java.lang.Long)>pushDataCtx</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> key, JSONObject value, <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Long.html>Long</a> ttlSecs)</pre>
+                                        <div class="block"><p>Push a value into the data store with an optional TTL. If the key already exists, the value will be replaced. If TTL is not provided, the default TTL from configuration is used.</p></div>
+
+                                        <dl>
+
+                                        
+                                            <dt><span class="paramLabel">Parameters:</span></dt>
+                                            
+                                            
+                                            <dd><code>key</code> - The key for the data entry</dd>
+                                            
+                                            
+                                            
+                                            <dd><code>value</code> - The value to store (as JSONObject)</dd>
+                                            
+                                            
+                                            
+                                            <dd><code>ttlSecs</code> - Optional TTL in seconds (null uses default from config)</dd>
+                                            
+                                            
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="pushDataCtx(java.lang.String,java.lang.String,java.lang.Long)">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>pushDataCtx</h4>
+                                        <pre class="methodSignature"> void <a href=CedarlingAdapter.html#pushDataCtx(java.lang.String,java.lang.String,java.lang.Long)>pushDataCtx</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> key, <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> value, <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Long.html>Long</a> ttlSecs)</pre>
+                                        <div class="block"><p>Push a value into the data store with an optional TTL. If the key already exists, the value will be replaced. If TTL is not provided, the default TTL from configuration is used.</p></div>
+
+                                        <dl>
+
+                                        
+                                            <dt><span class="paramLabel">Parameters:</span></dt>
+                                            
+                                            
+                                            <dd><code>key</code> - The key for the data entry</dd>
+                                            
+                                            
+                                            
+                                            <dd><code>value</code> - The value to store (as JSON string)</dd>
+                                            
+                                            
+                                            
+                                            <dd><code>ttlSecs</code> - Optional TTL in seconds (null uses default from config)</dd>
+                                            
+                                            
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="pushDataCtx(java.lang.String,org.json.JSONObject)">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>pushDataCtx</h4>
+                                        <pre class="methodSignature"> void <a href=CedarlingAdapter.html#pushDataCtx(java.lang.String,org.json.JSONObject)>pushDataCtx</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> key, JSONObject value)</pre>
+                                        <div class="block"><p>Push a value into the data store without TTL (uses default from config).</p></div>
+
+                                        <dl>
+
+                                        
+                                            <dt><span class="paramLabel">Parameters:</span></dt>
+                                            
+                                            
+                                            <dd><code>key</code> - The key for the data entry</dd>
+                                            
+                                            
+                                            
+                                            <dd><code>value</code> - The value to store (as JSONObject)</dd>
+                                            
+                                            
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="pushDataCtx(java.lang.String,java.lang.String)">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>pushDataCtx</h4>
+                                        <pre class="methodSignature"> void <a href=CedarlingAdapter.html#pushDataCtx(java.lang.String,java.lang.String)>pushDataCtx</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> key, <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> value)</pre>
+                                        <div class="block"><p>Push a value into the data store without TTL (uses default from config).</p></div>
+
+                                        <dl>
+
+                                        
+                                            <dt><span class="paramLabel">Parameters:</span></dt>
+                                            
+                                            
+                                            <dd><code>key</code> - The key for the data entry</dd>
+                                            
+                                            
+                                            
+                                            <dd><code>value</code> - The value to store (as JSON string)</dd>
+                                            
+                                            
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="getDataCtx(java.lang.String)">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>getDataCtx</h4>
+                                        <pre class="methodSignature"> <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html>Object</a> <a href=CedarlingAdapter.html#getDataCtx(java.lang.String)>getDataCtx</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> key)</pre>
+                                        <div class="block"><p>Get a value from the data store by key. Returns null if the key doesn't exist or the entry has expired.</p></div>
+
+                                        <dl>
+
+                                        
+                                            <dt><span class="paramLabel">Parameters:</span></dt>
+                                            
+                                            
+                                            <dd><code>key</code> - The key to retrieve</dd>
+                                            
+                                            
+                                        
+
+                                        
+                                            <dt><span class="returnLabel">Returns:</span></dt>
+                                            <dd><p>The value as an Object (JSONObject, JSONArray, String, Number, Boolean, or null), or null if not found</p></dd>
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="getDataEntryCtx(java.lang.String)">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>getDataEntryCtx</h4>
+                                        <pre class="methodSignature"> <a href=../../../../../uniffi/cedarling_uniffi/DataEntry.html>DataEntry</a> <a href=CedarlingAdapter.html#getDataEntryCtx(java.lang.String)>getDataEntryCtx</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> key)</pre>
+                                        <div class="block"><p>Get a data entry with full metadata by key. Returns null if the key doesn't exist or the entry has expired.</p></div>
+
+                                        <dl>
+
+                                        
+                                            <dt><span class="paramLabel">Parameters:</span></dt>
+                                            
+                                            
+                                            <dd><code>key</code> - The key to retrieve</dd>
+                                            
+                                            
+                                        
+
+                                        
+                                            <dt><span class="returnLabel">Returns:</span></dt>
+                                            <dd><p>A DataEntry object with metadata, or null if not found</p></dd>
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="removeDataCtx(java.lang.String)">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>removeDataCtx</h4>
+                                        <pre class="methodSignature"> boolean <a href=CedarlingAdapter.html#removeDataCtx(java.lang.String)>removeDataCtx</a>(<a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> key)</pre>
+                                        <div class="block"><p>Remove a value from the data store by key.</p></div>
+
+                                        <dl>
+
+                                        
+                                            <dt><span class="paramLabel">Parameters:</span></dt>
+                                            
+                                            
+                                            <dd><code>key</code> - The key to remove</dd>
+                                            
+                                            
+                                        
+
+                                        
+                                            <dt><span class="returnLabel">Returns:</span></dt>
+                                            <dd><p>True if the key existed and was removed, False otherwise</p></dd>
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="clearDataCtx()">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>clearDataCtx</h4>
+                                        <pre class="methodSignature"> void <a href=CedarlingAdapter.html#clearDataCtx()>clearDataCtx</a>()</pre>
+                                        <div class="block"><p>Clear all entries from the data store.</p></div>
+
+                                        <dl>
+
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="listDataCtx()">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>listDataCtx</h4>
+                                        <pre class="methodSignature"> <a href=https://docs.oracle.com/javase/8/docs/api/java/util/List.html>List</a>&lt;<a href=../../../../../uniffi/cedarling_uniffi/DataEntry.html>DataEntry</a>&gt; <a href=CedarlingAdapter.html#listDataCtx()>listDataCtx</a>()</pre>
+                                        <div class="block"><p>List all entries with their metadata.</p></div>
+
+                                        <dl>
+
+                                        
+
+                                        
+                                            <dt><span class="returnLabel">Returns:</span></dt>
+                                            <dd><p>A list of DataEntry objects</p></dd>
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="getStatsCtx()">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>getStatsCtx</h4>
+                                        <pre class="methodSignature"> <a href=../../../../../uniffi/cedarling_uniffi/DataStoreStats.html>DataStoreStats</a> <a href=CedarlingAdapter.html#getStatsCtx()>getStatsCtx</a>()</pre>
+                                        <div class="block"><p>Get statistics about the data store.</p></div>
+
+                                        <dl>
+
+                                        
+
+                                        
+                                            <dt><span class="returnLabel">Returns:</span></dt>
+                                            <dd><p>A DataStoreStats object</p></dd>
                                         
 
                                         

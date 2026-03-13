@@ -7,6 +7,13 @@ $dokka.location:uniffi.cedarling_uniffi/Cedarling.Companion///PointingToDeclarat
 $dokka.location:uniffi.cedarling_uniffi/CedarlingException.ErrorHandler///PointingToDeclaration/uniffi/cedarling_uniffi/CedarlingException.ErrorHandler.html
 $dokka.location:uniffi.cedarling_uniffi/CedarlingException.InitializationFailed///PointingToDeclaration/uniffi/cedarling_uniffi/CedarlingException.InitializationFailed.html
 $dokka.location:uniffi.cedarling_uniffi/CedarlingInterface.Companion///PointingToDeclaration/uniffi/cedarling_uniffi/CedarlingInterface.Companion.html
+$dokka.location:uniffi.cedarling_uniffi/DataException.ErrorHandler///PointingToDeclaration/uniffi/cedarling_uniffi/DataException.ErrorHandler.html
+$dokka.location:uniffi.cedarling_uniffi/DataException.InvalidKey///PointingToDeclaration/uniffi/cedarling_uniffi/DataException.InvalidKey.html
+$dokka.location:uniffi.cedarling_uniffi/DataException.KeyNotFound///PointingToDeclaration/uniffi/cedarling_uniffi/DataException.KeyNotFound.html
+$dokka.location:uniffi.cedarling_uniffi/DataException.SerializationException///PointingToDeclaration/uniffi/cedarling_uniffi/DataException.SerializationException.html
+$dokka.location:uniffi.cedarling_uniffi/DataException.StorageLimitExceeded///PointingToDeclaration/uniffi/cedarling_uniffi/DataException.StorageLimitExceeded.html
+$dokka.location:uniffi.cedarling_uniffi/DataException.TtlExceeded///PointingToDeclaration/uniffi/cedarling_uniffi/DataException.TtlExceeded.html
+$dokka.location:uniffi.cedarling_uniffi/DataException.ValueTooLarge///PointingToDeclaration/uniffi/cedarling_uniffi/DataException.ValueTooLarge.html
 $dokka.location:uniffi.cedarling_uniffi/Decision.Companion///PointingToDeclaration/uniffi/cedarling_uniffi/Decision.Companion.html
 $dokka.location:uniffi.cedarling_uniffi/Disposable.Companion///PointingToDeclaration/uniffi/cedarling_uniffi/Disposable.Companion.html
 $dokka.location:uniffi.cedarling_uniffi/EntityData.Companion///PointingToDeclaration/uniffi/cedarling_uniffi/EntityData.Companion.html

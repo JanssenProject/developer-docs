@@ -1,0 +1,13 @@
+io.jans.configapi.core.service
+io.jans.configapi.core.protect
+io.jans.configapi.core.interceptor
+io.jans.configapi.core.test.service
+io.jans.configapi.core.test
+io.jans.configapi.core.test.listener
+io.jans.configapi.core.configuration
+io.jans.configapi.core.annotation
+io.jans.configapi.core.util
+io.jans.configapi.core.rest
+io.jans.configapi.core.model.exception
+io.jans.configapi.core.model
+io.jans.configapi.core.model.adminui

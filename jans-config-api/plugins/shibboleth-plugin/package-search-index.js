@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"io.jans.configapi.plugin.shibboleth"},{"l":"io.jans.configapi.plugin.shibboleth.model"},{"l":"io.jans.configapi.plugin.shibboleth.rest"},{"l":"io.jans.configapi.plugin.shibboleth.service"},{"l":"io.jans.configapi.plugin.shibboleth.util"}];updateSearchResults();
