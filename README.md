@@ -4,8 +4,9 @@ Hosts the API references for the most recent official Janssen release: javadocs,
 Cedarling rustdocs (`cedarling` and `cedarling_wasm`) and the Cedarling Python
 binding docs. Only the most recent release tag is hosted.
 
-The repository root is not browsable; reach the references through the Janssen
-documentation:
+Browse them at
+[janssenproject.github.io/developer-docs](https://janssenproject.github.io/developer-docs/),
+or through the Janssen documentation:
 
 - [Janssen server javadocs](https://docs.jans.io/stable/janssen-server/reference/)
 - [Cedarling interface reference](https://docs.jans.io/stable/cedarling/)
