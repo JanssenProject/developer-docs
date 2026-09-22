@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["init","init_from_archive_bytes"],"struct":["AuthorizeResult","AuthorizeResultResponse","BatchAuthorizeMultiIssuerResponse","BatchAuthorizeUnsignedResponse","BatchItemError","BatchItemMultiIssuerResult","BatchItemUnsignedResult","Cedarling","DataEntry","DataStoreStats","Diagnostics","MultiIssuerAuthorizeResult","PolicyEvaluationError"]};

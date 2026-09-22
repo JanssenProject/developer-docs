@@ -1,0 +1,4 @@
+io.jans.lock.model.audit
+io.jans.lock.model.config
+io.jans.lock.model.config.grpc
+io.jans.lock.model.core
