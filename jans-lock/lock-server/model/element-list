@@ -1,0 +1,7 @@
+io.jans.lock.model.audit
+io.jans.lock.model.config
+io.jans.lock.model.config.grpc
+io.jans.lock.model.core
+io.jans.lock.model.trace.api
+io.jans.lock.model.trace.config
+io.jans.lock.model.trace.entity

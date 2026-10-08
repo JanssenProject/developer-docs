@@ -1,0 +1,9 @@
+io.jans.saml.exception
+io.jans.saml.metadata.builder
+io.jans.saml.metadata.builder.ds
+io.jans.saml.metadata.builder.enc
+io.jans.saml.metadata.model
+io.jans.saml.metadata.model.ds
+io.jans.saml.metadata.model.enc
+io.jans.saml.metadata.parser
+io.jans.saml.metadata.util

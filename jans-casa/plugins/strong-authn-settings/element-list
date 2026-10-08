@@ -1,0 +1,5 @@
+io.jans.casa.plugins.strongauthn
+io.jans.casa.plugins.strongauthn.model
+io.jans.casa.plugins.strongauthn.rest
+io.jans.casa.plugins.strongauthn.service
+io.jans.casa.plugins.strongauthn.vm

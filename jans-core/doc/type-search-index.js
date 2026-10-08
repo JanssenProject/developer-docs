@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"io.jans.doc.annotation","l":"DocFeatureFlag"},{"p":"io.jans.doc.annotation","l":"DocFeatureFlagProcessor"},{"p":"io.jans.doc.annotation","l":"DocProperty"},{"p":"io.jans.doc.annotation","l":"DocPropertyProcessor"}];updateSearchResults();

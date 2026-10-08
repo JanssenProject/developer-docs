@@ -1,0 +1,1 @@
+var packageSearchIndex = [{"l":"io.jans.cedarling.binding.wrapper","url":"io/jans/cedarling/binding/wrapper/package-summary.html"}, {"l":"uniffi.cedarling_uniffi","url":"uniffi/cedarling_uniffi/package-summary.html"}, {"l":"All packages","url":"index.html"}]
