@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Cedarling Go API documentation</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; }
+    pre { white-space: pre-wrap; font-size: 0.95rem; line-height: 1.45; }
+  </style>
+</head>
+<body>
+<h1>Cedarling Go API documentation</h1>
+<pre>
+package cedarling_go // import "github.com/JanssenProject/jans/jans-cedarling/bindings/cedarling_go"
+
+Package cedarling_go provides Golang bindings for the cedarling project
+
+[cedarling]: https://docs.jans.io/stable/cedarling/
+
+TYPES
+
+type AuthorizeMultiIssuerRequest struct {
+	Tokens   []TokenInput `json:"tokens"`
+	Resource EntityData   `json:"resource"`
+	Action   string       `json:"action"`
+	Context  any          `json:"context"`
+	// Options is per-call metadata such as a TRACE context; nil means none.
+	Options *AuthorizeOptions `json:"options,omitempty"`
+}
+    AuthorizeMultiIssuerRequest represents a multi-issuer authorization request
+
+func (r AuthorizeMultiIssuerRequest) MarshalJSON() ([]byte, error)
+
+type AuthorizeOptions struct {
+	Trace *TraceContext `json:"trace,omitempty"`
+}
+    AuthorizeOptions is per-call metadata of an authorization request. None of
+    it takes part in policy evaluation: the decision is the same with or without
+    options. A nil Trace means the host has no execution context.
+
+type AuthorizeResult struct {
+	Response  CedarResponse `json:"response"`
+	Decision  bool          `json:"decision"`
+	RequestID string        `json:"request_id"`
+}
+    Represents the result of an authorization request
+
+type BatchAuthorizeMultiIssuerRequest struct {
+	Tokens []TokenInput `json:"tokens"`
+	Items  []BatchItem  `json:"items"`
+	// Options applies to the whole batch, not to individual items.
+	Options *AuthorizeOptions `json:"options,omitempty"`
+}
+    BatchAuthorizeMultiIssuerRequest bundles one token set with N BatchItems.
+
+type BatchAuthorizeMultiIssuerResponse struct {
+	BatchID string                       `json:"batch_id"`
+	Results []BatchItemMultiIssuerResult `json:"results"`
+}
+    BatchAuthorizeMultiIssuerResponse carries a shared batch_id alongside
+    per-item multi-issuer results. Results[i] corresponds to the Items[i]
+    supplied in the request.
+
+type BatchAuthorizeUnsignedRequest struct {
+	Principal *EntityData `json:"principal,omitempty"`
+	Items     []BatchItem `json:"items"`
+	// Options applies to the whole batch, not to individual items.
+	Options *AuthorizeOptions `json:"options,omitempty"`
+}
+    BatchAuthorizeUnsignedRequest bundles one optional principal with N
+    BatchItems.
+
+type BatchAuthorizeUnsignedResponse struct {
+	BatchID string                    `json:"batch_id"`
+	Results []BatchItemUnsignedResult `json:"results"`
+}
+    BatchAuthorizeUnsignedResponse carries a shared batch_id alongside per-item
+    results. Results[i] corresponds to the Items[i] supplied in the request.
+
+type BatchItem struct {
+	Resource EntityData `json:"resource"`
+	Action   string     `json:"action"`
+	Context  any        `json:"context"`
+}
+    BatchItem is one {resource, action, context} triple in a batch authorization
+    request. When Context is nil it is serialized as an empty object; explicit
+    non-object values are rejected at validate-time.
+
+func (b BatchItem) MarshalJSON() ([]byte, error)
+    MarshalJSON emits Context as `{}` when nil so the batch validate step
+    doesn't reject the item.
+
+type BatchItemError struct {
+	Variant   string `json:"variant"`
+	Message   string `json:"message"`
+	ItemIndex uint64 `json:"item_index"`
+}
+    BatchItemError is the per-item build failure surfaced inside a batch
+    response when Cedar couldn't be reached for that item. Category is the
+    stable variant slug ("action_parse", "resource_build", …); ItemIndex is the
+    position of the failing item in the original items list.
+
+type BatchItemMultiIssuerResult struct {
+	Ok  *MultiIssuerAuthorizeResult
+	Err *BatchItemError
+}
+    BatchItemMultiIssuerResult is the multi-issuer analog of
+    BatchItemUnsignedResult.
+
+func (r BatchItemMultiIssuerResult) IsOk() bool
+    IsOk reports whether Cedar reached a decision on this item.
+
+func (r *BatchItemMultiIssuerResult) UnmarshalJSON(data []byte) error
+    UnmarshalJSON decodes the {"Ok":{...}} / {"Err":{...}} discriminated union.
+
+type BatchItemUnsignedResult struct {
+	Ok  *AuthorizeResult
+	Err *BatchItemError
+}
+    BatchItemUnsignedResult is one slot in
+    BatchAuthorizeUnsignedResponse.Results. Exactly one of Ok / Err is non-nil:
+    Ok when Cedar evaluated the item (Allow or Deny), Err when the item failed
+    to build. Use IsOk() to switch.
+
+func (r BatchItemUnsignedResult) IsOk() bool
+    IsOk reports whether Cedar reached a decision on this item.
+
+func (r *BatchItemUnsignedResult) UnmarshalJSON(data []byte) error
+    UnmarshalJSON decodes the {"Ok":{...}} / {"Err":{...}} discriminated union
+    emitted by the core lib.
+
+type CedarEntityMapping struct {
+	EntityType string `json:"entity_type"`
+	ID         string `json:"id"`
+}
+    Represents type and id for a cedarling entity
+
+type CedarResponse struct {
+	// Has unexported fields.
+}
+    Represents the authorization decision
+
+func (r CedarResponse) Decision() DecisionType
+
+func (r CedarResponse) Errors() []string
+
+func (r CedarResponse) IsAllowed() bool
+
+func (r CedarResponse) MarshalJSON() ([]byte, error)
+
+func (r CedarResponse) Reason() []string
+
+func (r *CedarResponse) UnmarshalJSON(data []byte) error
+
+type Cedarling struct {
+	// Has unexported fields.
+}
+    Struct representing a cedarling instance
+
+func NewCedarling(bootstrap_config map[string]any) (*Cedarling, error)
+    Creates cedarling instance given bootstrap configuration
+
+func NewCedarlingWithEnv(bootstrap_config *map[string]any) (*Cedarling, error)
+    Creates cedarling instance from environment variables. If bootstrap
+    configuration is provided, they will override the corresponding environment
+    variables.
+
+func (c *Cedarling) AuthorizeMultiIssuer(request AuthorizeMultiIssuerRequest) (MultiIssuerAuthorizeResult, error)
+
+func (c *Cedarling) AuthorizeMultiIssuerBatch(request BatchAuthorizeMultiIssuerRequest) (BatchAuthorizeMultiIssuerResponse, error)
+    AuthorizeMultiIssuerBatch runs a batch of multi-issuer authorize requests
+    against one shared token set. Tokens are validated and token/issuer entities
+    built once, then each item is evaluated in input order. Batch-level failures
+    (validation, JWT verification, status-list refresh) return an error;
+    per-item failures are returned as BatchItemError entries that callers must
+    inspect.
+
+func (c *Cedarling) AuthorizeUnsigned(request RequestUnsigned) (AuthorizeResult, error)
+    Executes an unsigned authorization request (raw data for principle)
+
+func (c *Cedarling) AuthorizeUnsignedBatch(request BatchAuthorizeUnsignedRequest) (BatchAuthorizeUnsignedResponse, error)
+    AuthorizeUnsignedBatch runs a batch of unsigned authorize requests against
+    one shared principal. Setup work (principal build + pushed-data snapshot)
+    runs once and each item is evaluated in input order. Batch-level failures
+    (validation, principal parse) return an error; per-item failures are
+    returned as BatchItemError entries that callers must inspect without failing
+    the whole batch.
+
+func (c *Cedarling) ClearDataCtx() error
+    ClearDataCtx removes all entries from the data store.
+
+func (c *Cedarling) DrainMetrics() (MetricsSnapshot, error)
+    DrainMetrics is a destructive read: it returns the telemetry metrics and
+    resets the counters for the next interval, so there should be a single
+    consumer. Returns an error when metrics collection is disabled, or when the
+    collector is owned by the Lock telemetry ticker.
+
+func (c *Cedarling) FailedTrustedIssuerIds() []string
+    FailedTrustedIssuerIds returns ids of trusted issuers that failed to load.
+
+func (c *Cedarling) GetDataCtx(key string) (any, error)
+    GetDataCtx retrieves a value from the data store by key. Returns nil if the
+    key doesn't exist or the entry has expired.
+
+func (c *Cedarling) GetDataEntryCtx(key string) (DataEntry, error)
+    GetDataEntryCtx retrieves a data entry with full metadata by key. Returns
+    a zero value DataEntry if the key doesn't exist or the entry has expired.
+    Check if entry.Key is empty to determine if the entry was found.
+
+func (c *Cedarling) GetLogById(id string) string
+    Retrieves specific log by ID
+
+func (c *Cedarling) GetLogIds() []string
+    Returns an array of log IDs
+
+func (c *Cedarling) GetLogsByRequestId(request_id string) []string
+    Retrieves specific log by request ID obtained from authorization request
+
+func (c *Cedarling) GetLogsByRequestIdAndTag(request_id string, tag string) []string
+    Retrieves specific log by request ID and tag
+
+func (c *Cedarling) GetLogsByTag(tag string) []string
+    Retrieves specific log by tag i.e. "info"
+
+func (c *Cedarling) GetStatsCtx() (DataStoreStats, error)
+    GetStatsCtx returns statistics about the data store.
+
+func (c *Cedarling) IsTrustedIssuerLoadedByIss(issClaim string) bool
+    IsTrustedIssuerLoadedByIss returns true if the trusted issuer for the given
+    JWT iss claim finished loading successfully.
+
+func (c *Cedarling) IsTrustedIssuerLoadedByName(issuerName string) bool
+    IsTrustedIssuerLoadedByName returns true if the trusted issuer with the
+    given name finished loading successfully.
+
+func (c *Cedarling) ListDataCtx() ([]DataEntry, error)
+    ListDataCtx returns all entries in the data store with their metadata.
+
+func (c *Cedarling) LoadedTrustedIssuerIds() []string
+    LoadedTrustedIssuerIds returns ids of successfully loaded trusted issuers.
+
+func (c *Cedarling) LoadedTrustedIssuersCount() uint
+    LoadedTrustedIssuersCount returns how many trusted issuers loaded
+    successfully.
+
+func (c *Cedarling) PolicyStoreID() (string, bool)
+    PolicyStoreID returns the ID of the currently published policy store.
+    The bool is false when the store carries no ID. The value is opaque and can
+    change after a background refresh.
+
+func (c *Cedarling) PopLogs() []string
+
+func (c *Cedarling) PushDataCtx(key string, value any, ttl *time.Duration) error
+    PushDataCtx stores a value in the data store with an optional TTL. If ttl
+    is nil or zero, the default TTL from configuration is used. The value can be
+    any JSON-serializable Go value.
+
+func (c *Cedarling) RemoveDataCtx(key string) (bool, error)
+    RemoveDataCtx removes a value from the data store by key. Returns true if
+    the key existed and was removed, false otherwise.
+
+func (c *Cedarling) ShutDown()
+    Closes the cedarling instance
+
+func (c *Cedarling) TotalIssuers() uint
+    TotalIssuers returns the number of trusted issuers configured in the policy
+    store.
+
+type DataEntry struct {
+	Key         string  `json:"key"`
+	Value       any     `json:"value"`
+	DataType    string  `json:"data_type"`
+	CreatedAt   string  `json:"created_at"`
+	ExpiresAt   *string `json:"expires_at,omitempty"`
+	AccessCount uint64  `json:"access_count"`
+}
+    DataEntry represents a single entry in the data store with metadata
+
+type DataStoreStats struct {
+	EntryCount           uint64  `json:"entry_count"`
+	MaxEntries           uint64  `json:"max_entries"`
+	MaxEntrySize         uint64  `json:"max_entry_size"`
+	MetricsEnabled       bool    `json:"metrics_enabled"`
+	TotalSizeBytes       uint64  `json:"total_size_bytes"`
+	AvgEntrySizeBytes    uint64  `json:"avg_entry_size_bytes"`
+	CapacityUsagePercent float64 `json:"capacity_usage_percent"`
+	MemoryAlertThreshold float64 `json:"memory_alert_threshold"`
+	MemoryAlertTriggered bool    `json:"memory_alert_triggered"`
+}
+    DataStoreStats represents statistics about the data store
+
+type DecisionType int8
+
+const (
+	// we use +1 to be sure that the values are not zero
+	DecisionAllow DecisionType = iota + 1
+	DecisionDeny
+)
+    Decision constants that can be used to represent the decision made by Cedar.
+
+func (d DecisionType) ToString() string
+
+type DropReason struct {
+	Kind    string  `json:"kind"`
+	Detail  *string `json:"detail,omitempty"`
+	Message string  `json:"message"`
+}
+    DropReason explains why a token was dropped. Kind is the stable slug
+    ("jwt_validation_failed", ...); Detail is set only for "invalid_input"
+    ("empty_mapping" / "empty_payload"); Message is the non-empty claim-free
+    text.
+
+type DroppedToken struct {
+	Mapping string     `json:"mapping"`
+	Index   uint64     `json:"index"`
+	Reason  DropReason `json:"reason"`
+}
+    DroppedToken is a token the caller supplied that multi-issuer authorization
+    did not use, identified by its input Mapping and zero-based Index.
+
+type EntityData struct {
+	CedarMapping CedarEntityMapping
+	// Payload will be flattened into the JSON object.
+	Payload map[string]any
+}
+    Represents a cedarling principal or resource entity
+
+func (e EntityData) MarshalJSON() ([]byte, error)
+    MarshalJSON flattens Payload into the top-level JSON object.
+
+func (e *EntityData) UnmarshalJSON(data []byte) error
+    UnmarshalJSON extracts "cedar_entity_mapping" then stores the rest in
+    Payload.
+
+type MetricsSnapshot struct {
+	PolicyStats      map[string]int64 `json:"policy_stats"`
+	ErrorCounters    map[string]int64 `json:"error_counters"`
+	OperationalStats map[string]int64 `json:"operational_stats"`
+	// Interval elapsed since the previous drain. Crosses the binding as
+	// whole nanoseconds, which is exactly how time.Duration is represented.
+	Interval time.Duration `json:"interval_nanos"`
+}
+    MetricsSnapshot represents the telemetry metrics snapshot for
+    the current interval. Local snapshots are only available when
+    CEDARLING_METRICS_COLLECTION is enabled.
+
+type MultiIssuerAuthorizeResult struct {
+	Response  CedarResponse `json:"response"`
+	Decision  bool          `json:"decision"`
+	RequestID string        `json:"request_id"`
+	// DroppedTokens lists the supplied tokens that were not used in this decision.
+	DroppedTokens []DroppedToken `json:"dropped_tokens,omitempty"`
+}
+    MultiIssuerAuthorizeResult represents the result of a multi-issuer
+    authorization request
+
+type RequestUnsigned struct {
+	Principal *EntityData
+	Action    string
+	Resource  EntityData
+	Context   any
+	// Options is per-call metadata such as a TRACE context; nil means none.
+	Options *AuthorizeOptions
+}
+    Represents an unsigned authorization request. Principal is optional; when
+    nil the request is evaluated via Cedar's partial evaluator and any residual
+    (principal-dependent) policies fail closed to Deny.
+
+func (r RequestUnsigned) MarshalJSON() ([]byte, error)
+
+type TokenInput struct {
+	Mapping string `json:"mapping"`
+	Payload string `json:"payload"`
+}
+    TokenInput represents a JWT token with explicit type mapping
+
+type TraceContext struct {
+	ExecutionID        string  `json:"execution_id"`
+	ExecutionAuthority string  `json:"execution_authority"`
+	WorkloadID         string  `json:"workload_id"`
+	WorkloadInstanceID *string `json:"workload_instance_id,omitempty"`
+}
+    TraceContext is the TRACE execution context of a call, already normalized
+    by the host. Cedarling never generates ExecutionID: the execution initiator
+    (gateway, PEP, host) owns it together with ExecutionAuthority.
+
+</pre>
+</body>
+</html>

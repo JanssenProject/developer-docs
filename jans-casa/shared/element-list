@@ -1,0 +1,11 @@
+io.jans.casa.core
+io.jans.casa.core.model
+io.jans.casa.core.pojo
+io.jans.casa.credential
+io.jans.casa.extension
+io.jans.casa.extension.navigation
+io.jans.casa.misc
+io.jans.casa.rest
+io.jans.casa.service
+io.jans.casa.service.settings
+io.jans.casa.ui

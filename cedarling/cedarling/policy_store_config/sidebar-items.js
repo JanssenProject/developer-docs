@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["PolicyStoreSignature","PolicyStoreSource","PolicyStoreSourceRaw"],"struct":["PolicyStoreConfig","PolicyStoreConfigRaw","SigstoreSigner"]};

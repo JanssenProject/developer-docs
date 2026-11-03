@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["BatchItemMultiIssuerOutcome","BatchItemUnsignedOutcome","Decision"],"struct":["AuthorizeResult","BatchAuthorizeMultiIssuerResponse","BatchAuthorizeUnsignedResponse","BatchItemError","Diagnostics","DropReasonInfo","DroppedToken","MultiIssuerAuthorizeResult","Response"]};

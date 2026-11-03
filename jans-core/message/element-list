@@ -1,0 +1,5 @@
+io.jans.service
+io.jans.service.message.consumer
+io.jans.service.message.model.config
+io.jans.service.message.provider
+io.jans.service.message.pubsub

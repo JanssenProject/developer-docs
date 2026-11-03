@@ -1,0 +1,890 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Cedarling | Cedarling JavaScript/TypeScript API</title><meta name="description" content="Documentation for Cedarling JavaScript/TypeScript API"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="../index.html" class="title">Cedarling JavaScript/TypeScript API</a>
+<div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+<ul role="listbox" id="tsd-search-results"></ul>
+<div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+<div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<ul class="tsd-breadcrumb" aria-label="Breadcrumb">
+<li><a href="../modules/index.html">index</a></li>
+<li><a href="" aria-current="page">Cedarling</a></li></ul>
+<h1>Class Cedarling</h1></div>
+<section class="tsd-panel tsd-comment">
+<div class="tsd-comment tsd-typography"><p>The instance of the Cedarling application.</p>
+</div></section><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:174</li></ul></aside>
+<section class="tsd-panel-group tsd-index-group">
+<section class="tsd-panel tsd-index-panel">
+<details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h5 class="tsd-index-heading uppercase">Index</h5></summary>
+<div class="tsd-accordion-details">
+<section class="tsd-index-section">
+<h3 class="tsd-index-heading tsd-anchor-link" id="methods">Methods<a href="#methods" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-index-list"><a href="#dispose" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>[dispose]</span></a>
+<a href="#annotationsbypolicy" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>annotations<wbr/>By<wbr/>Policy</span></a>
+<a href="#annotationsmap" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>annotations<wbr/>Map</span></a>
+<a href="#annotationvalues" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>annotation<wbr/>Values</span></a>
+<a href="#authorizemultiissuer" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>authorize<wbr/>Multi<wbr/>Issuer</span></a>
+<a href="#authorizemultiissuerbatch" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>authorize<wbr/>Multi<wbr/>Issuer<wbr/>Batch</span></a>
+<a href="#authorizeunsigned" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>authorize<wbr/>Unsigned</span></a>
+<a href="#authorizeunsignedbatch" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>authorize<wbr/>Unsigned<wbr/>Batch</span></a>
+<a href="#cleardatactx" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>clear<wbr/>Data<wbr/>Ctx</span></a>
+<a href="#drainmetrics" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>drain<wbr/>Metrics</span></a>
+<a href="#failedtrustedissuerids" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>failed<wbr/>Trusted<wbr/>Issuer<wbr/>Ids</span></a>
+<a href="#free" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>free</span></a>
+<a href="#getdatactx" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Data<wbr/>Ctx</span></a>
+<a href="#getdataentryctx" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Data<wbr/>Entry<wbr/>Ctx</span></a>
+<a href="#getlogbyid" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Log<wbr/>By<wbr/>Id</span></a>
+<a href="#getlogids" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Log<wbr/>Ids</span></a>
+<a href="#getlogsbyrequestid" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Logs<wbr/>By<wbr/>Request<wbr/>Id</span></a>
+<a href="#getlogsbyrequestidandtag" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Logs<wbr/>By<wbr/>Request<wbr/>Id<wbr/>And<wbr/>Tag</span></a>
+<a href="#getlogsbytag" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Logs<wbr/>By<wbr/>Tag</span></a>
+<a href="#getstatsctx" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Stats<wbr/>Ctx</span></a>
+<a href="#istrustedissuerloadedbyiss" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>is<wbr/>Trusted<wbr/>Issuer<wbr/>Loaded<wbr/>By<wbr/>Iss</span></a>
+<a href="#istrustedissuerloadedbyname" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>is<wbr/>Trusted<wbr/>Issuer<wbr/>Loaded<wbr/>By<wbr/>Name</span></a>
+<a href="#listdatactx" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>list<wbr/>Data<wbr/>Ctx</span></a>
+<a href="#loadedtrustedissuerids" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>loaded<wbr/>Trusted<wbr/>Issuer<wbr/>Ids</span></a>
+<a href="#loadedtrustedissuerscount" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>loaded<wbr/>Trusted<wbr/>Issuers<wbr/>Count</span></a>
+<a href="#policystoreid" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>policy<wbr/>Store<wbr/>Id</span></a>
+<a href="#poplogs" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>pop<wbr/>Logs</span></a>
+<a href="#pushdatactx" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>push<wbr/>Data<wbr/>Ctx</span></a>
+<a href="#removedatactx" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>remove<wbr/>Data<wbr/>Ctx</span></a>
+<a href="#shutdown" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>shut<wbr/>Down</span></a>
+<a href="#totalissuers" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>total<wbr/>Issuers</span></a>
+<a href="#new" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>new</span></a>
+<a href="#newfrommap" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>new<wbr/>From<wbr/>Map</span></a>
+</div></section></div></details></section></section>
+<details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
+<section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="dispose"><span>[dispose]</span><a href="#dispose" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="dispose-1"><span class="tsd-kind-call-signature">&quot;[dispose]&quot;</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#dispose-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:177</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="annotationsbypolicy"><span>annotations<wbr/>By<wbr/>Policy</span><a href="#annotationsbypolicy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="annotationsbypolicy-1"><span class="tsd-kind-call-signature">annotationsByPolicy</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">policy_ids</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><a href="#annotationsbypolicy-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Return the annotations of each given policy, grouped by policy ID. It is
+the loss-free companion to <code>annotationsMap</code>. Unknown policy IDs are
+silently skipped.</p>
+<h1 id="arguments" class="tsd-anchor-link">Arguments<a href="#arguments" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>policy_ids</code> - List of policy IDs whose annotations should be returned
+grouped by policy ID. Typically <code>result.response.diagnostics.reason</code> from
+an authorization result.</li>
+</ul>
+<h1 id="example" class="tsd-anchor-link">Example<a href="#example" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">byPolicy</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">annotationsByPolicy</span><span class="hl-1">(</span><span class="hl-4">result</span><span class="hl-1">.</span><span class="hl-4">response</span><span class="hl-1">.</span><span class="hl-4">diagnostics</span><span class="hl-1">.</span><span class="hl-4">reason</span><span class="hl-1">);</span><br/><span class="hl-8">// { &quot;5&quot;: { redirect: &quot;/upgrade&quot;, tier: &quot;premium&quot; } }</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">policy_ids</span>: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:217</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="annotationsmap"><span>annotations<wbr/>Map</span><a href="#annotationsmap" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="annotationsmap-1"><span class="tsd-kind-call-signature">annotationsMap</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">policy_ids</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><a href="#annotationsmap-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Merge the annotations (<code>@key(&quot;value&quot;)</code>) of the given policies into a single object.</p>
+<p>Intended for resolving the determining policies of an authorization decision:
+pass <code>result.response.diagnostics.reason</code>.</p>
+<p>Lossy: if the same annotation key appears on several policies, one value wins
+arbitrarily. Use <code>annotationValues</code> / <code>annotationsByPolicy</code> when duplicates
+matter. Unknown policy IDs are silently skipped.</p>
+<h1 id="arguments-1" class="tsd-anchor-link">Arguments<a href="#arguments-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>policy_ids</code> - List of policy IDs whose annotations should be merged into
+a single object. Typically <code>result.response.diagnostics.reason</code> from an
+authorization result.</li>
+</ul>
+<h1 id="example-1" class="tsd-anchor-link">Example<a href="#example-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">annotations</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">annotationsMap</span><span class="hl-1">(</span><span class="hl-4">result</span><span class="hl-1">.</span><span class="hl-4">response</span><span class="hl-1">.</span><span class="hl-4">diagnostics</span><span class="hl-1">.</span><span class="hl-4">reason</span><span class="hl-1">);</span><br/><span class="hl-8">// { redirect: &quot;/upgrade&quot;, tier: &quot;premium&quot; }</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">policy_ids</span>: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:241</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="annotationvalues"><span>annotation<wbr/>Values</span><a href="#annotationvalues" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="annotationvalues-1"><span class="tsd-kind-call-signature">annotationValues</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">policy_ids</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">key</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><a href="#annotationvalues-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Collect every value of the annotation <code>key</code> across the given policies,
+preserving duplicates. Unknown policy IDs are silently skipped.</p>
+<h1 id="arguments-2" class="tsd-anchor-link">Arguments<a href="#arguments-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>policy_ids</code> - List of policy IDs to search. Typically
+<code>result.response.diagnostics.reason</code> from an authorization result.</li>
+<li><code>key</code> - The annotation key to collect values for (e.g. <code>&quot;redirect&quot;</code>).</li>
+</ul>
+<h1 id="example-2" class="tsd-anchor-link">Example<a href="#example-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">redirects</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">annotationValues</span><span class="hl-1">(</span><br/><span class="hl-1">  </span><span class="hl-4">result</span><span class="hl-1">.</span><span class="hl-4">response</span><span class="hl-1">.</span><span class="hl-4">diagnostics</span><span class="hl-1">.</span><span class="hl-4">reason</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">&quot;redirect&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">);</span><br/><span class="hl-8">// [&quot;/upgrade&quot;]</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">policy_ids</span>: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></span></li>
+<li><span><span class="tsd-kind-parameter">key</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:198</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="authorizemultiissuer"><span>authorize<wbr/>Multi<wbr/>Issuer</span><a href="#authorizemultiissuer" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="authorizemultiissuer-1"><span class="tsd-kind-call-signature">authorizeMultiIssuer</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">request</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="index.MultiIssuerAuthorizeResult.html" class="tsd-signature-type tsd-kind-class">MultiIssuerAuthorizeResult</a><span class="tsd-signature-symbol">&gt;</span><a href="#authorizemultiissuer-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Authorize multi-issuer request.
+Makes authorization decision based on multiple JWT tokens from different issuers.</p>
+<h1 id="arguments-3" class="tsd-anchor-link">Arguments<a href="#arguments-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>request</code> - JSON string representation of [<code>AuthorizeMultiIssuerRequest</code>].</li>
+</ul>
+<h1 id="example-3" class="tsd-anchor-link">Example<a href="#example-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">result</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">authorizeMultiIssuer</span><span class="hl-1">(</span><span class="hl-6">JSON</span><span class="hl-1">.</span><span class="hl-0">stringify</span><span class="hl-1">(</span><span class="hl-4">request</span><span class="hl-1">));</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">request</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="index.MultiIssuerAuthorizeResult.html" class="tsd-signature-type tsd-kind-class">MultiIssuerAuthorizeResult</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:277</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="authorizemultiissuerbatch"><span>authorize<wbr/>Multi<wbr/>Issuer<wbr/>Batch</span><a href="#authorizemultiissuerbatch" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="authorizemultiissuerbatch-1"><span class="tsd-kind-call-signature">authorizeMultiIssuerBatch</span><span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">request</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="index.BatchAuthorizeMultiIssuerResponse.html" class="tsd-signature-type tsd-kind-class">BatchAuthorizeMultiIssuerResponse</a><span class="tsd-signature-symbol">&gt;</span><a href="#authorizemultiissuerbatch-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Authorize a batch of multi-issuer requests against one shared token set.</p>
+<p>Tokens are validated and token/issuer entities are built once, then
+each item is evaluated in input order. Batch-level failures (validation,
+JWT verification, status-list refresh) reject the whole call; per-item
+failures are returned as <code>BatchItemError</code> results and exposed by WASM
+with <code>is_ok=false</code> and <code>error</code>, while genuine Cedar denials remain
+<code>AuthorizeResult</code> values with <code>decision=false</code>.</p>
+<h1 id="arguments-4" class="tsd-anchor-link">Arguments<a href="#arguments-4" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>request</code> - JSON string representation of [<code>BatchAuthorizeMultiIssuerRequest</code>].</li>
+</ul>
+<h1 id="example-4" class="tsd-anchor-link">Example<a href="#example-4" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">result</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">authorizeMultiIssuerBatch</span><span class="hl-1">(</span><span class="hl-6">JSON</span><span class="hl-1">.</span><span class="hl-0">stringify</span><span class="hl-1">(</span><span class="hl-4">batchRequest</span><span class="hl-1">));</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">request</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="index.BatchAuthorizeMultiIssuerResponse.html" class="tsd-signature-type tsd-kind-class">BatchAuthorizeMultiIssuerResponse</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:262</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="authorizeunsigned"><span>authorize<wbr/>Unsigned</span><a href="#authorizeunsigned" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="authorizeunsigned-1"><span class="tsd-kind-call-signature">authorizeUnsigned</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">request</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="index.AuthorizeResult.html" class="tsd-signature-type tsd-kind-class">AuthorizeResult</a><span class="tsd-signature-symbol">&gt;</span><a href="#authorizeunsigned-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Authorize an unsigned request carrying an optional single principal.
+Makes an authorization decision based on the [<code>RequestUnsigned</code>].</p>
+<p>When <code>principal</code> is omitted / <code>null</code> on the JS side the core uses Cedar
+partial evaluation; residual-dependent requests fail closed with
+<code>Decision::Deny</code> and surface residual policy ids in
+<code>response.diagnostics.reason</code>.</p>
+<h1 id="arguments-5" class="tsd-anchor-link">Arguments<a href="#arguments-5" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>request</code> - JSON string representation of [<code>RequestUnsigned</code>].</li>
+</ul>
+<h1 id="example-5" class="tsd-anchor-link">Example<a href="#example-5" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">result</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">authorizeUnsigned</span><span class="hl-1">(</span><span class="hl-6">JSON</span><span class="hl-1">.</span><span class="hl-0">stringify</span><span class="hl-1">(</span><span class="hl-4">request</span><span class="hl-1">));</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">request</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="index.AuthorizeResult.html" class="tsd-signature-type tsd-kind-class">AuthorizeResult</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:318</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="authorizeunsignedbatch"><span>authorize<wbr/>Unsigned<wbr/>Batch</span><a href="#authorizeunsignedbatch" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="authorizeunsignedbatch-1"><span class="tsd-kind-call-signature">authorizeUnsignedBatch</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">request</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="index.BatchAuthorizeUnsignedResponse.html" class="tsd-signature-type tsd-kind-class">BatchAuthorizeUnsignedResponse</a><span class="tsd-signature-symbol">&gt;</span><a href="#authorizeunsignedbatch-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Authorize a batch of unsigned requests against one shared principal.</p>
+<p>Setup work (principal build + pushed-data snapshot) runs once and each
+item is evaluated in input order. Results are returned inside a
+[<code>BatchAuthorizeUnsignedResponse</code>] carrying the shared <code>batch_id</code>.
+Batch-level failures (validation, principal parse) reject the whole
+call; per-item failures are returned as <code>BatchItemError</code> results and
+exposed by WASM with <code>is_ok=false</code> and <code>error</code>, while genuine Cedar
+denials remain <code>AuthorizeResult</code> values with <code>decision=false</code>.</p>
+<h1 id="arguments-6" class="tsd-anchor-link">Arguments<a href="#arguments-6" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>request</code> - JSON string representation of [<code>BatchAuthorizeUnsignedRequest</code>].</li>
+</ul>
+<h1 id="example-6" class="tsd-anchor-link">Example<a href="#example-6" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">result</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">authorizeUnsignedBatch</span><span class="hl-1">(</span><span class="hl-6">JSON</span><span class="hl-1">.</span><span class="hl-0">stringify</span><span class="hl-1">(</span><span class="hl-4">batchRequest</span><span class="hl-1">));</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">request</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="index.BatchAuthorizeUnsignedResponse.html" class="tsd-signature-type tsd-kind-class">BatchAuthorizeUnsignedResponse</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:298</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="cleardatactx"><span>clear<wbr/>Data<wbr/>Ctx</span><a href="#cleardatactx" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="cleardatactx-1"><span class="tsd-kind-call-signature">clearDataCtx</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#cleardatactx-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Clear all entries from the data store.</p>
+<h1 id="arguments-7" class="tsd-anchor-link">Arguments<a href="#arguments-7" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p>None.</p>
+<h1 id="example-7" class="tsd-anchor-link">Example<a href="#example-7" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">clearDataCtx</span><span class="hl-1">();</span><br/><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">&quot;All data entries cleared&quot;</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:333</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="drainmetrics"><span>drain<wbr/>Metrics</span><a href="#drainmetrics" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="drainmetrics-1"><span class="tsd-kind-call-signature">drainMetrics</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index.MetricsSnapshot.html" class="tsd-signature-type tsd-kind-class">MetricsSnapshot</a><a href="#drainmetrics-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Destructive read: returns the telemetry metrics snapshot and resets
+the counters for the next interval.</p>
+<p>Fails when <code>CEDARLING_METRICS_COLLECTION</code> is disabled or whenever
+<code>CEDARLING_LOCK_TELEMETRY_INTERVAL</code> is set (even if the Lock server
+has no telemetry endpoint). <code>interval_secs</code> is fractional seconds,
+so sub-second intervals are reported exactly.</p>
+<h1 id="example-8" class="tsd-anchor-link">Example<a href="#example-8" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">snapshot</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">drainMetrics</span><span class="hl-1">();</span><br/><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">`Requests: </span><span class="hl-5">${</span><span class="hl-4">snapshot</span><span class="hl-9">.</span><span class="hl-4">operational_stats</span><span class="hl-9">.</span><span class="hl-0">get</span><span class="hl-9">(</span><span class="hl-2">&quot;authz.requests_total&quot;</span><span class="hl-9">)</span><span class="hl-5">}</span><span class="hl-2">`</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<h4 class="tsd-returns-title">Returns <a href="index.MetricsSnapshot.html" class="tsd-signature-type tsd-kind-class">MetricsSnapshot</a></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:350</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="failedtrustedissuerids"><span>failed<wbr/>Trusted<wbr/>Issuer<wbr/>Ids</span><a href="#failedtrustedissuerids" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="failedtrustedissuerids-1"><span class="tsd-kind-call-signature">failedTrustedIssuerIds</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><a href="#failedtrustedissuerids-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get trusted issuer identifiers that failed to load.</p>
+<h1 id="arguments-8" class="tsd-anchor-link">Arguments<a href="#arguments-8" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p>None.</p>
+<h1 id="example-9" class="tsd-anchor-link">Example<a href="#example-9" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">ids</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">failedTrustedIssuerIds</span><span class="hl-1">();</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:364</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="free"><span>free</span><a href="#free" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="free-1"><span class="tsd-kind-call-signature">free</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#free-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:176</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="getdatactx"><span>get<wbr/>Data<wbr/>Ctx</span><a href="#getdatactx" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="getdatactx-1"><span class="tsd-kind-call-signature">getDataCtx</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">key</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><a href="#getdatactx-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get a value from the data store by key.
+Returns null if the key doesn't exist or the entry has expired.</p>
+<h1 id="arguments-9" class="tsd-anchor-link">Arguments<a href="#arguments-9" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>key</code> - A string key for the data entry to retrieve</li>
+</ul>
+<h1 id="example-10" class="tsd-anchor-link">Example<a href="#example-10" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">value</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">getDataCtx</span><span class="hl-1">(</span><span class="hl-2">&quot;user:123&quot;</span><span class="hl-1">);</span><br/><span class="hl-3">if</span><span class="hl-1"> (</span><span class="hl-4">value</span><span class="hl-1"> !== </span><span class="hl-5">null</span><span class="hl-1">) {</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">value</span><span class="hl-1">.</span><span class="hl-4">name</span><span class="hl-1">); </span><span class="hl-8">// &quot;John&quot;</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">key</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:382</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="getdataentryctx"><span>get<wbr/>Data<wbr/>Entry<wbr/>Ctx</span><a href="#getdataentryctx" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="getdataentryctx-1"><span class="tsd-kind-call-signature">getDataEntryCtx</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">key</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <a href="index.DataEntry.html" class="tsd-signature-type tsd-kind-class">DataEntry</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#getdataentryctx-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get a data entry with full metadata by key.
+Returns undefined if the key doesn't exist or the entry has expired.</p>
+<h1 id="arguments-10" class="tsd-anchor-link">Arguments<a href="#arguments-10" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>key</code> - A string key for the data entry to retrieve</li>
+</ul>
+<h1 id="example-11" class="tsd-anchor-link">Example<a href="#example-11" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">entry</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">getDataEntryCtx</span><span class="hl-1">(</span><span class="hl-2">&quot;user:123&quot;</span><span class="hl-1">);</span><br/><span class="hl-3">if</span><span class="hl-1"> (</span><span class="hl-4">entry</span><span class="hl-1"> !== </span><span class="hl-5">undefined</span><span class="hl-1">) {</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">entry</span><span class="hl-1">.</span><span class="hl-4">key</span><span class="hl-1">); </span><span class="hl-8">// &quot;user:123&quot;</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">entry</span><span class="hl-1">.</span><span class="hl-0">value</span><span class="hl-1">()); </span><span class="hl-8">// { name: &quot;John&quot;, age: 30 }</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">entry</span><span class="hl-1">.</span><span class="hl-4">data_type</span><span class="hl-1">); </span><span class="hl-8">// &quot;Record&quot;</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">entry</span><span class="hl-1">.</span><span class="hl-4">created_at</span><span class="hl-1">); </span><span class="hl-8">// &quot;2024-01-01T12:00:00Z&quot;</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">entry</span><span class="hl-1">.</span><span class="hl-4">access_count</span><span class="hl-1">); </span><span class="hl-8">// 5</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">key</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="index.DataEntry.html" class="tsd-signature-type tsd-kind-class">DataEntry</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:404</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="getlogbyid"><span>get<wbr/>Log<wbr/>By<wbr/>Id</span><a href="#getlogbyid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="getlogbyid-1"><span class="tsd-kind-call-signature">getLogById</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><a href="#getlogbyid-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Returns one retained memory log by ID, or <code>null</code> when it is not retained.</p>
+<h1 id="arguments-11" class="tsd-anchor-link">Arguments<a href="#arguments-11" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>id</code> - The retained log identifier.</li>
+</ul>
+<h1 id="example-12" class="tsd-anchor-link">Example<a href="#example-12" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">log</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">getLogById</span><span class="hl-1">(</span><span class="hl-2">&quot;request-id&quot;</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">id</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:418</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="getlogids"><span>get<wbr/>Log<wbr/>Ids</span><a href="#getlogids" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="getlogids-1"><span class="tsd-kind-call-signature">getLogIds</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><a href="#getlogids-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Returns identifiers for all retained memory logs.</p>
+<h1 id="arguments-12" class="tsd-anchor-link">Arguments<a href="#arguments-12" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p>None.</p>
+<h1 id="example-13" class="tsd-anchor-link">Example<a href="#example-13" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">ids</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">getLogIds</span><span class="hl-1">();</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:432</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="getlogsbyrequestid"><span>get<wbr/>Logs<wbr/>By<wbr/>Request<wbr/>Id</span><a href="#getlogsbyrequestid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="getlogsbyrequestid-1"><span class="tsd-kind-call-signature">getLogsByRequestId</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">request_id</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><a href="#getlogsbyrequestid-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Returns retained memory logs for one request ID.</p>
+<h1 id="arguments-13" class="tsd-anchor-link">Arguments<a href="#arguments-13" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>requestId</code> - The request identifier to match.</li>
+</ul>
+<h1 id="example-14" class="tsd-anchor-link">Example<a href="#example-14" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">logs</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">getLogsByRequestId</span><span class="hl-1">(</span><span class="hl-2">&quot;request-id&quot;</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">request_id</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:462</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="getlogsbyrequestidandtag"><span>get<wbr/>Logs<wbr/>By<wbr/>Request<wbr/>Id<wbr/>And<wbr/>Tag</span><a href="#getlogsbyrequestidandtag" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="getlogsbyrequestidandtag-1"><span class="tsd-kind-call-signature">getLogsByRequestIdAndTag</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">request_id</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">tag</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><a href="#getlogsbyrequestidandtag-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Returns retained memory logs matching one request ID and indexed value.</p>
+<h1 id="arguments-14" class="tsd-anchor-link">Arguments<a href="#arguments-14" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>requestId</code> - The request identifier to match.</li>
+<li><code>tag</code> - A log kind (<code>&quot;System&quot;</code>, <code>&quot;Decision&quot;</code>, or <code>&quot;Metric&quot;</code>) or a
+system-log level such as <code>&quot;DEBUG&quot;</code>.</li>
+</ul>
+<h1 id="example-15" class="tsd-anchor-link">Example<a href="#example-15" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">logs</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">getLogsByRequestIdAndTag</span><span class="hl-1">(</span><span class="hl-2">&quot;request-id&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;System&quot;</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">request_id</span>: <span class="tsd-signature-type">string</span></span></li>
+<li><span><span class="tsd-kind-parameter">tag</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:448</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="getlogsbytag"><span>get<wbr/>Logs<wbr/>By<wbr/>Tag</span><a href="#getlogsbytag" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="getlogsbytag-1"><span class="tsd-kind-call-signature">getLogsByTag</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">tag</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><a href="#getlogsbytag-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Returns retained memory logs matching an indexed value.</p>
+<h1 id="arguments-15" class="tsd-anchor-link">Arguments<a href="#arguments-15" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>tag</code> - A log kind (<code>&quot;System&quot;</code>, <code>&quot;Decision&quot;</code>, or <code>&quot;Metric&quot;</code>) or a
+system-log level such as <code>&quot;DEBUG&quot;</code>.</li>
+</ul>
+<h1 id="example-16" class="tsd-anchor-link">Example<a href="#example-16" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">logs</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">getLogsByTag</span><span class="hl-1">(</span><span class="hl-2">&quot;System&quot;</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">tag</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:477</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="getstatsctx"><span>get<wbr/>Stats<wbr/>Ctx</span><a href="#getstatsctx" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="getstatsctx-1"><span class="tsd-kind-call-signature">getStatsCtx</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <a href="index.DataStoreStats.html" class="tsd-signature-type tsd-kind-class">DataStoreStats</a><a href="#getstatsctx-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get statistics about the data store.</p>
+<h1 id="arguments-16" class="tsd-anchor-link">Arguments<a href="#arguments-16" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p>None.</p>
+<h1 id="example-17" class="tsd-anchor-link">Example<a href="#example-17" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">stats</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">getStatsCtx</span><span class="hl-1">();</span><br/><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">`Entries: </span><span class="hl-5">${</span><span class="hl-4">stats</span><span class="hl-9">.</span><span class="hl-4">entry_count</span><span class="hl-5">}</span><span class="hl-2">/</span><span class="hl-5">${</span><span class="hl-4">stats</span><span class="hl-9">.</span><span class="hl-4">max_entries</span><span class="hl-9"> </span><span class="hl-1">||</span><span class="hl-9"> </span><span class="hl-2">&#39;unlimited&#39;</span><span class="hl-5">}</span><span class="hl-2">`</span><span class="hl-1">);</span><br/><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">`Capacity: </span><span class="hl-5">${</span><span class="hl-4">stats</span><span class="hl-9">.</span><span class="hl-4">capacity_usage_percent</span><span class="hl-9">.</span><span class="hl-0">toFixed</span><span class="hl-9">(</span><span class="hl-7">2</span><span class="hl-9">)</span><span class="hl-5">}</span><span class="hl-2">%`</span><span class="hl-1">);</span><br/><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">`Total size: </span><span class="hl-5">${</span><span class="hl-4">stats</span><span class="hl-9">.</span><span class="hl-4">total_size_bytes</span><span class="hl-5">}</span><span class="hl-2"> bytes`</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<h4 class="tsd-returns-title">Returns <a href="index.DataStoreStats.html" class="tsd-signature-type tsd-kind-class">DataStoreStats</a></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:494</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="istrustedissuerloadedbyiss"><span>is<wbr/>Trusted<wbr/>Issuer<wbr/>Loaded<wbr/>By<wbr/>Iss</span><a href="#istrustedissuerloadedbyiss" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="istrustedissuerloadedbyiss-1"><span class="tsd-kind-call-signature">isTrustedIssuerLoadedByIss</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">iss_claim</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><a href="#istrustedissuerloadedbyiss-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Check whether a trusted issuer was loaded by <code>iss</code> claim.</p>
+<h1 id="arguments-17" class="tsd-anchor-link">Arguments<a href="#arguments-17" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>iss_claim</code> - Issuer <code>iss</code> claim value to check.</li>
+</ul>
+<h1 id="example-18" class="tsd-anchor-link">Example<a href="#example-18" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">ok</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">isTrustedIssuerLoadedByIss</span><span class="hl-1">(</span><span class="hl-2">&quot;https://issuer.example.org&quot;</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">iss_claim</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:508</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="istrustedissuerloadedbyname"><span>is<wbr/>Trusted<wbr/>Issuer<wbr/>Loaded<wbr/>By<wbr/>Name</span><a href="#istrustedissuerloadedbyname" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="istrustedissuerloadedbyname-1"><span class="tsd-kind-call-signature">isTrustedIssuerLoadedByName</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">issuer_name</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><a href="#istrustedissuerloadedbyname-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Check whether a trusted issuer was loaded by name.</p>
+<h1 id="arguments-18" class="tsd-anchor-link">Arguments<a href="#arguments-18" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>issuer_name</code> - The issuer name, the <code>issuer</code> of its token types.</li>
+</ul>
+<h1 id="example-19" class="tsd-anchor-link">Example<a href="#example-19" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">ok</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">isTrustedIssuerLoadedByName</span><span class="hl-1">(</span><span class="hl-2">&quot;Acme&quot;</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">issuer_name</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:522</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="listdatactx"><span>list<wbr/>Data<wbr/>Ctx</span><a href="#listdatactx" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="listdatactx-1"><span class="tsd-kind-call-signature">listDataCtx</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><a href="#listdatactx-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>List all entries with their metadata.
+Returns an array of DataEntry objects.</p>
+<h1 id="arguments-19" class="tsd-anchor-link">Arguments<a href="#arguments-19" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p>None.</p>
+<h1 id="example-20" class="tsd-anchor-link">Example<a href="#example-20" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">entries</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">listDataCtx</span><span class="hl-1">();</span><br/><span class="hl-4">entries</span><span class="hl-1">.</span><span class="hl-0">forEach</span><span class="hl-1">(</span><span class="hl-4">entry</span><span class="hl-1"> </span><span class="hl-5">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">`</span><span class="hl-5">${</span><span class="hl-4">entry</span><span class="hl-9">.</span><span class="hl-4">key</span><span class="hl-5">}</span><span class="hl-2">: </span><span class="hl-5">${</span><span class="hl-4">entry</span><span class="hl-9">.</span><span class="hl-4">data_type</span><span class="hl-5">}</span><span class="hl-2"> (accessed </span><span class="hl-5">${</span><span class="hl-4">entry</span><span class="hl-9">.</span><span class="hl-4">access_count</span><span class="hl-5">}</span><span class="hl-2"> times)`</span><span class="hl-1">);</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:540</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="loadedtrustedissuerids"><span>loaded<wbr/>Trusted<wbr/>Issuer<wbr/>Ids</span><a href="#loadedtrustedissuerids" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="loadedtrustedissuerids-1"><span class="tsd-kind-call-signature">loadedTrustedIssuerIds</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><a href="#loadedtrustedissuerids-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get trusted issuer identifiers loaded successfully.</p>
+<h1 id="arguments-20" class="tsd-anchor-link">Arguments<a href="#arguments-20" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p>None.</p>
+<h1 id="example-21" class="tsd-anchor-link">Example<a href="#example-21" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">ids</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">loadedTrustedIssuerIds</span><span class="hl-1">();</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:554</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="loadedtrustedissuerscount"><span>loaded<wbr/>Trusted<wbr/>Issuers<wbr/>Count</span><a href="#loadedtrustedissuerscount" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="loadedtrustedissuerscount-1"><span class="tsd-kind-call-signature">loadedTrustedIssuersCount</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><a href="#loadedtrustedissuerscount-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get the number of trusted issuers loaded successfully.</p>
+<h1 id="arguments-21" class="tsd-anchor-link">Arguments<a href="#arguments-21" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p>None.</p>
+<h1 id="example-22" class="tsd-anchor-link">Example<a href="#example-22" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">loadedCount</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">loadedTrustedIssuersCount</span><span class="hl-1">();</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:568</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="policystoreid"><span>policy<wbr/>Store<wbr/>Id</span><a href="#policystoreid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="policystoreid-1"><span class="tsd-kind-call-signature">policyStoreId</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><a href="#policystoreid-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get the ID of the currently published policy store, if it carries one.</p>
+<p><code>undefined</code> means the store carries no ID. The value is an opaque,
+source-dependent string; it may change after a background refresh.</p>
+<h1 id="arguments-22" class="tsd-anchor-link">Arguments<a href="#arguments-22" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p>None.</p>
+<h1 id="example-23" class="tsd-anchor-link">Example<a href="#example-23" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">id</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">policyStoreId</span><span class="hl-1">();</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:625</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="poplogs"><span>pop<wbr/>Logs</span><a href="#poplogs" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="poplogs-1"><span class="tsd-kind-call-signature">popLogs</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><a href="#poplogs-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Returns all retained memory logs and removes them from storage.
+Other log configurations return an empty array.</p>
+<h1 id="arguments-23" class="tsd-anchor-link">Arguments<a href="#arguments-23" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p>None.</p>
+<h1 id="example-24" class="tsd-anchor-link">Example<a href="#example-24" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">logs</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">popLogs</span><span class="hl-1">();</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:640</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="pushdatactx"><span>push<wbr/>Data<wbr/>Ctx</span><a href="#pushdatactx" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="pushdatactx-1"><span class="tsd-kind-call-signature">pushDataCtx</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">key</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">value</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">ttl_secs</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">bigint</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span><a href="#pushdatactx-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Push a value into the data store with an optional TTL.
+If the key already exists, the value will be replaced.
+If TTL is not provided, the default TTL from configuration is used.</p>
+<h1 id="arguments-24" class="tsd-anchor-link">Arguments<a href="#arguments-24" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>key</code> - A string key for the data entry (must not be empty)</li>
+<li><code>value</code> - The value to store (any JSON-serializable JavaScript value: object, array, string, number, boolean)</li>
+<li><code>ttl_secs</code> - Optional TTL in seconds (undefined/null uses default from config)</li>
+</ul>
+<h1 id="example-25" class="tsd-anchor-link">Example<a href="#example-25" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">pushDataCtx</span><span class="hl-1">(</span><span class="hl-2">&quot;user:123&quot;</span><span class="hl-1">, { </span><span class="hl-4">name:</span><span class="hl-1"> </span><span class="hl-2">&quot;John&quot;</span><span class="hl-1">, </span><span class="hl-4">age:</span><span class="hl-1"> </span><span class="hl-7">30</span><span class="hl-1"> }, </span><span class="hl-7">3600</span><span class="hl-1">);</span><br/><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">pushDataCtx</span><span class="hl-1">(</span><span class="hl-2">&quot;config&quot;</span><span class="hl-1">, { </span><span class="hl-4">setting:</span><span class="hl-1"> </span><span class="hl-2">&quot;value&quot;</span><span class="hl-1"> }); </span><span class="hl-8">// Uses default TTL</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">key</span>: <span class="tsd-signature-type">string</span></span></li>
+<li><span><span class="tsd-kind-parameter">value</span>: <span class="tsd-signature-type">any</span></span></li>
+<li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">ttl_secs</span>: <span class="tsd-signature-type">bigint</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:659</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="removedatactx"><span>remove<wbr/>Data<wbr/>Ctx</span><a href="#removedatactx" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="removedatactx-1"><span class="tsd-kind-call-signature">removeDataCtx</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">key</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><a href="#removedatactx-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Remove a value from the data store by key.
+Returns true if the key existed and was removed, false otherwise.</p>
+<h1 id="arguments-25" class="tsd-anchor-link">Arguments<a href="#arguments-25" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>key</code> - A string key for the data entry to remove</li>
+</ul>
+<h1 id="example-26" class="tsd-anchor-link">Example<a href="#example-26" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">removed</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">removeDataCtx</span><span class="hl-1">(</span><span class="hl-2">&quot;user:123&quot;</span><span class="hl-1">);</span><br/><span class="hl-3">if</span><span class="hl-1"> (</span><span class="hl-4">removed</span><span class="hl-1">) {</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">&quot;Entry was successfully removed&quot;</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">key</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:677</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="shutdown"><span>shut<wbr/>Down</span><a href="#shutdown" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="shutdown-1"><span class="tsd-kind-call-signature">shutDown</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#shutdown-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Closes Lock Server connections and pushes all available logs.</p>
+<h1 id="arguments-26" class="tsd-anchor-link">Arguments<a href="#arguments-26" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p>None.</p>
+<h1 id="example-27" class="tsd-anchor-link">Example<a href="#example-27" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">shutDown</span><span class="hl-1">();</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:691</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="totalissuers"><span>total<wbr/>Issuers</span><a href="#totalissuers" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="totalissuers-1"><span class="tsd-kind-call-signature">totalIssuers</span><span class="tsd-signature-symbol">()</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><a href="#totalissuers-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get the total number of trusted issuer entries discovered.</p>
+<h1 id="arguments-27" class="tsd-anchor-link">Arguments<a href="#arguments-27" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p>None.</p>
+<h1 id="example-28" class="tsd-anchor-link">Example<a href="#example-28" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">total</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">totalIssuers</span><span class="hl-1">();</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:705</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="new"><code class="tsd-tag">Static</code><span>new</span><a href="#new" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="new-1"><span class="tsd-kind-call-signature">new</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">config</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="" class="tsd-signature-type tsd-kind-class">Cedarling</a><span class="tsd-signature-symbol">&gt;</span><a href="#new-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Creates a Cedarling application from bootstrap properties.</p>
+<h1 id="arguments-28" class="tsd-anchor-link">Arguments<a href="#arguments-28" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>config</code> - A plain object of Cedarling bootstrap-property names and values.</li>
+</ul>
+<h1 id="example-29" class="tsd-anchor-link">Example<a href="#example-29" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-0">initWasm</span><span class="hl-1">();</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">cedarling</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">Cedarling</span><span class="hl-1">.</span><span class="hl-0">new</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-4">CEDARLING_APPLICATION_NAME:</span><span class="hl-1"> </span><span class="hl-2">&quot;task-api&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">CEDARLING_POLICY_STORE_URI:</span><span class="hl-1"> </span><span class="hl-2">&quot;https://example.com/policy-store.cjar&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">CEDARLING_LOG_TYPE:</span><span class="hl-1"> </span><span class="hl-2">&quot;memory&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">CEDARLING_LOG_TTL:</span><span class="hl-1"> </span><span class="hl-7">120</span><span class="hl-1">,</span><br/><span class="hl-1">});</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">config</span>: <span class="tsd-signature-type">object</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="" class="tsd-signature-type tsd-kind-class">Cedarling</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:608</li></ul></aside></div></li></ul></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="newfrommap"><code class="tsd-tag">Static</code><span>new<wbr/>From<wbr/>Map</span><a href="#newfrommap" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="">
+<div class="tsd-signature tsd-anchor-link" id="newfrommap-1"><span class="tsd-kind-call-signature">newFromMap</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">config</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="" class="tsd-signature-type tsd-kind-class">Cedarling</a><span class="tsd-signature-symbol">&gt;</span><a href="#newfrommap-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div>
+<div class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Creates a new Cedarling application from a JavaScript <code>Map</code>.</p>
+<h1 id="arguments-29" class="tsd-anchor-link">Arguments<a href="#arguments-29" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<ul>
+<li><code>config</code> - A <code>Map</code> of Cedarling bootstrap-property names and values.</li>
+</ul>
+<h1 id="example-30" class="tsd-anchor-link">Example<a href="#example-30" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<pre><code class="javascript"><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-0">initWasm</span><span class="hl-1">();</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">cedarling</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">Cedarling</span><span class="hl-1">.</span><span class="hl-0">newFromMap</span><span class="hl-1">(</span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">Map</span><span class="hl-1">([</span><br/><span class="hl-1">  [</span><span class="hl-2">&quot;CEDARLING_APPLICATION_NAME&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;task-api&quot;</span><span class="hl-1">],</span><br/><span class="hl-1">  [</span><span class="hl-2">&quot;CEDARLING_POLICY_STORE_URI&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;https://example.com/policy-store.cjar&quot;</span><span class="hl-1">],</span><br/><span class="hl-1">  [</span><span class="hl-2">&quot;CEDARLING_LOG_TYPE&quot;</span><span class="hl-1">, </span><span class="hl-2">&quot;memory&quot;</span><span class="hl-1">],</span><br/><span class="hl-1">  [</span><span class="hl-2">&quot;CEDARLING_LOG_TTL&quot;</span><span class="hl-1">, </span><span class="hl-7">120</span><span class="hl-1">],</span><br/><span class="hl-1">]));</span>
+</code><button type="button">Copy</button></pre>
+
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li><span><span class="tsd-kind-parameter">config</span>: <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></span></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="" class="tsd-signature-type tsd-kind-class">Cedarling</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in generated.d.ts:588</li></ul></aside></div></li></ul></section></section></details></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div>
+<div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>On This Page</h3></summary>
+<div class="tsd-accordion-details">
+<details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Methods</summary>
+<div><a href="#dispose"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>[dispose]</span></a><a href="#annotationsbypolicy"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>annotations<wbr/>By<wbr/>Policy</span></a>
+<ul>
+<li><a href="#arguments"><span>Arguments</span></a></li>
+<li><a href="#example"><span>Example</span></a></li></ul><a href="#annotationsmap"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>annotations<wbr/>Map</span></a>
+<ul>
+<li><a href="#arguments-1"><span>Arguments</span></a></li>
+<li><a href="#example-1"><span>Example</span></a></li></ul><a href="#annotationvalues"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>annotation<wbr/>Values</span></a>
+<ul>
+<li><a href="#arguments-2"><span>Arguments</span></a></li>
+<li><a href="#example-2"><span>Example</span></a></li></ul><a href="#authorizemultiissuer"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>authorize<wbr/>Multi<wbr/>Issuer</span></a>
+<ul>
+<li><a href="#arguments-3"><span>Arguments</span></a></li>
+<li><a href="#example-3"><span>Example</span></a></li></ul><a href="#authorizemultiissuerbatch"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>authorize<wbr/>Multi<wbr/>Issuer<wbr/>Batch</span></a>
+<ul>
+<li><a href="#arguments-4"><span>Arguments</span></a></li>
+<li><a href="#example-4"><span>Example</span></a></li></ul><a href="#authorizeunsigned"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>authorize<wbr/>Unsigned</span></a>
+<ul>
+<li><a href="#arguments-5"><span>Arguments</span></a></li>
+<li><a href="#example-5"><span>Example</span></a></li></ul><a href="#authorizeunsignedbatch"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>authorize<wbr/>Unsigned<wbr/>Batch</span></a>
+<ul>
+<li><a href="#arguments-6"><span>Arguments</span></a></li>
+<li><a href="#example-6"><span>Example</span></a></li></ul><a href="#cleardatactx"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>clear<wbr/>Data<wbr/>Ctx</span></a>
+<ul>
+<li><a href="#arguments-7"><span>Arguments</span></a></li>
+<li><a href="#example-7"><span>Example</span></a></li></ul><a href="#drainmetrics"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>drain<wbr/>Metrics</span></a>
+<ul>
+<li><a href="#example-8"><span>Example</span></a></li></ul><a href="#failedtrustedissuerids"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>failed<wbr/>Trusted<wbr/>Issuer<wbr/>Ids</span></a>
+<ul>
+<li><a href="#arguments-8"><span>Arguments</span></a></li>
+<li><a href="#example-9"><span>Example</span></a></li></ul><a href="#free"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>free</span></a><a href="#getdatactx"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Data<wbr/>Ctx</span></a>
+<ul>
+<li><a href="#arguments-9"><span>Arguments</span></a></li>
+<li><a href="#example-10"><span>Example</span></a></li></ul><a href="#getdataentryctx"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Data<wbr/>Entry<wbr/>Ctx</span></a>
+<ul>
+<li><a href="#arguments-10"><span>Arguments</span></a></li>
+<li><a href="#example-11"><span>Example</span></a></li></ul><a href="#getlogbyid"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Log<wbr/>By<wbr/>Id</span></a>
+<ul>
+<li><a href="#arguments-11"><span>Arguments</span></a></li>
+<li><a href="#example-12"><span>Example</span></a></li></ul><a href="#getlogids"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Log<wbr/>Ids</span></a>
+<ul>
+<li><a href="#arguments-12"><span>Arguments</span></a></li>
+<li><a href="#example-13"><span>Example</span></a></li></ul><a href="#getlogsbyrequestid"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Logs<wbr/>By<wbr/>Request<wbr/>Id</span></a>
+<ul>
+<li><a href="#arguments-13"><span>Arguments</span></a></li>
+<li><a href="#example-14"><span>Example</span></a></li></ul><a href="#getlogsbyrequestidandtag"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Logs<wbr/>By<wbr/>Request<wbr/>Id<wbr/>And<wbr/>Tag</span></a>
+<ul>
+<li><a href="#arguments-14"><span>Arguments</span></a></li>
+<li><a href="#example-15"><span>Example</span></a></li></ul><a href="#getlogsbytag"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Logs<wbr/>By<wbr/>Tag</span></a>
+<ul>
+<li><a href="#arguments-15"><span>Arguments</span></a></li>
+<li><a href="#example-16"><span>Example</span></a></li></ul><a href="#getstatsctx"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>get<wbr/>Stats<wbr/>Ctx</span></a>
+<ul>
+<li><a href="#arguments-16"><span>Arguments</span></a></li>
+<li><a href="#example-17"><span>Example</span></a></li></ul><a href="#istrustedissuerloadedbyiss"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>is<wbr/>Trusted<wbr/>Issuer<wbr/>Loaded<wbr/>By<wbr/>Iss</span></a>
+<ul>
+<li><a href="#arguments-17"><span>Arguments</span></a></li>
+<li><a href="#example-18"><span>Example</span></a></li></ul><a href="#istrustedissuerloadedbyname"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>is<wbr/>Trusted<wbr/>Issuer<wbr/>Loaded<wbr/>By<wbr/>Name</span></a>
+<ul>
+<li><a href="#arguments-18"><span>Arguments</span></a></li>
+<li><a href="#example-19"><span>Example</span></a></li></ul><a href="#listdatactx"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>list<wbr/>Data<wbr/>Ctx</span></a>
+<ul>
+<li><a href="#arguments-19"><span>Arguments</span></a></li>
+<li><a href="#example-20"><span>Example</span></a></li></ul><a href="#loadedtrustedissuerids"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>loaded<wbr/>Trusted<wbr/>Issuer<wbr/>Ids</span></a>
+<ul>
+<li><a href="#arguments-20"><span>Arguments</span></a></li>
+<li><a href="#example-21"><span>Example</span></a></li></ul><a href="#loadedtrustedissuerscount"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>loaded<wbr/>Trusted<wbr/>Issuers<wbr/>Count</span></a>
+<ul>
+<li><a href="#arguments-21"><span>Arguments</span></a></li>
+<li><a href="#example-22"><span>Example</span></a></li></ul><a href="#policystoreid"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>policy<wbr/>Store<wbr/>Id</span></a>
+<ul>
+<li><a href="#arguments-22"><span>Arguments</span></a></li>
+<li><a href="#example-23"><span>Example</span></a></li></ul><a href="#poplogs"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>pop<wbr/>Logs</span></a>
+<ul>
+<li><a href="#arguments-23"><span>Arguments</span></a></li>
+<li><a href="#example-24"><span>Example</span></a></li></ul><a href="#pushdatactx"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>push<wbr/>Data<wbr/>Ctx</span></a>
+<ul>
+<li><a href="#arguments-24"><span>Arguments</span></a></li>
+<li><a href="#example-25"><span>Example</span></a></li></ul><a href="#removedatactx"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>remove<wbr/>Data<wbr/>Ctx</span></a>
+<ul>
+<li><a href="#arguments-25"><span>Arguments</span></a></li>
+<li><a href="#example-26"><span>Example</span></a></li></ul><a href="#shutdown"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>shut<wbr/>Down</span></a>
+<ul>
+<li><a href="#arguments-26"><span>Arguments</span></a></li>
+<li><a href="#example-27"><span>Example</span></a></li></ul><a href="#totalissuers"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>total<wbr/>Issuers</span></a>
+<ul>
+<li><a href="#arguments-27"><span>Arguments</span></a></li>
+<li><a href="#example-28"><span>Example</span></a></li></ul><a href="#new"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>new</span></a>
+<ul>
+<li><a href="#arguments-28"><span>Arguments</span></a></li>
+<li><a href="#example-29"><span>Example</span></a></li></ul><a href="#newfrommap"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Method"><use href="../assets/icons.svg#icon-2048"></use></svg><span>new<wbr/>From<wbr/>Map</span></a>
+<ul>
+<li><a href="#arguments-29"><span>Arguments</span></a></li>
+<li><a href="#example-30"><span>Example</span></a></li></ul></div></details></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="../modules.html">Cedarling JavaScript/TypeScript API</a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+<li>Loading...</li></ul></nav></div></div></div><footer>
+<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer>
+<div class="overlay"></div></body></html>

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"io.jans.model.metric"},{"l":"io.jans.model.metric.counter"},{"l":"io.jans.model.metric.ldap"},{"l":"io.jans.model.metric.timer"},{"l":"io.jans.service.metric"},{"l":"io.jans.service.metric.inject"}];updateSearchResults();

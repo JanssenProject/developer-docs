@@ -1,0 +1,5 @@
+io.jans.casa.plugins.certauthn
+io.jans.casa.plugins.certauthn.extension
+io.jans.casa.plugins.certauthn.model
+io.jans.casa.plugins.certauthn.service
+io.jans.casa.plugins.certauthn.vm

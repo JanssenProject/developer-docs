@@ -1,0 +1,11 @@
+io.jans.model
+io.jans.model.attribute
+io.jans.model.authzen
+io.jans.model.conf
+io.jans.model.error
+io.jans.model.tokenstatus
+io.jans.model.types
+io.jans.model.uma
+io.jans.model.user
+io.jans.model.user.authenticator
+io.jans.model.user.authenticator.serialize

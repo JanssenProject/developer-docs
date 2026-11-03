@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"io.jans.lock.trace.crypto.bc.testkit","l":"AbstractTraceCryptoBenchmarkTest"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"io.jans.lock.trace.crypto.bc.testkit","l":"TraceTestKeys"}];updateSearchResults();

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["AuthorizeError","CedarlingError","DataError","EntityError","LogError","MetricsError"],"mod":["result"],"struct":["AuthorizeOptions","BatchItem","Cedarling","DataEntry","DataStoreStats","EntityData","JsonValue","MetricsSnapshot","TokenInput","TraceContext"]};

@@ -1,0 +1,393 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Cedarling JavaScript/TypeScript API</title><meta name="description" content="Documentation for Cedarling JavaScript/TypeScript API"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container"><a href="index.html" class="title">Cedarling JavaScript/TypeScript API</a>
+<div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/>
+<ul role="listbox" id="tsd-search-results"></ul>
+<div id="tsd-search-status" aria-live="polite" aria-atomic="true">
+<div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header>
+<div class="container container-main">
+<div class="col-content">
+<div class="tsd-page-title">
+<h1>Cedarling JavaScript/TypeScript API</h1></div>
+<div class="tsd-panel tsd-typography"><h1 id="getting-started-with-cedarling-in-a-javascript-app" class="tsd-anchor-link">Getting Started with Cedarling in a JavaScript App<a href="#getting-started-with-cedarling-in-a-javascript-app" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p>The <code>@janssenproject/cedarling_wasm</code> package brings
+<a href="https://docs.jans.io/stable/cedarling/">Cedarling</a> authorization to JavaScript and
+TypeScript applications. Cedarling evaluates Cedar policies within your
+application's process, whether it runs in a browser, on a server, or at the edge.
+It determines whether a principal or token set may perform an action on a resource.</p>
+<p>Use Cedarling to apply consistent access policies, inspect authorization decisions,
+retain decision logs, and make application context available to policy evaluation.</p>
+<h2 id="installation" class="tsd-anchor-link">Installation<a href="#installation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<h3 id="using-the-package-manager" class="tsd-anchor-link">Using the Package Manager<a href="#using-the-package-manager" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<pre><code class="sh"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">@janssenproject/cedarling_wasm</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Choose the package entry for your application. The package ships Cedarling's
+WebAssembly (<code>.wasm</code>) binary; the last column describes how that binary is loaded
+and initialized. Your application's policy archive is configured separately.</p>
+<table>
+<thead>
+<tr>
+<th>Environment</th>
+<th>Package Entry</th>
+<th>Packaged WASM Loading</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Browser applications with supported bundlers</td>
+<td><code>@janssenproject/cedarling_wasm</code></td>
+<td>Automatic</td>
+</tr>
+<tr>
+<td>Node.js 22, 24, or 26, ESM or CommonJS</td>
+<td><code>@janssenproject/cedarling_wasm</code></td>
+<td>Automatic</td>
+</tr>
+<tr>
+<td>Cloudflare Workers and Vercel Edge</td>
+<td><code>@janssenproject/cedarling_wasm/edge</code></td>
+<td>Bundled as a precompiled module</td>
+</tr>
+<tr>
+<td>Other ESM bundlers</td>
+<td><code>@janssenproject/cedarling_wasm/manual</code> and <code>/wasm</code></td>
+<td>Application-configured WASM loading</td>
+</tr>
+</tbody>
+</table>
+<p>Browser applications use an ESM-aware bundler. Follow
+<a href="#other-integration-paths">Other Integration Paths</a> for edge deployment and
+application-controlled WASM loading.</p>
+<h3 id="build-from-source" class="tsd-anchor-link">Build from Source<a href="#build-from-source" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>For local generation, package build, and qualification instructions, see the
+<a href="https://github.com/JanssenProject/jans/blob/main/jans-cedarling/bindings/cedarling_wasm/js/docs/maintainer.md">maintainer guide</a>.</p>
+<h2 id="usage" class="tsd-anchor-link">Usage<a href="#usage" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<h3 id="initialization" class="tsd-anchor-link">Initialization<a href="#initialization" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Create a Cedarling instance with <code>init()</code>. It ensures the package's WASM binary is
+loaded and initialized, then creates the instance using an object or <code>Map</code> of
+canonical Cedarling bootstrap properties.</p>
+<p>For browser or Node.js ESM applications:</p>
+<pre><code class="ts"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">init</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@janssenproject/cedarling_wasm&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">config</span><span class="hl-1"> = {</span><br/><span class="hl-1">  </span><span class="hl-4">CEDARLING_APPLICATION_NAME:</span><span class="hl-1"> </span><span class="hl-2">&quot;task-api&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">CEDARLING_LOG_TYPE:</span><span class="hl-1"> </span><span class="hl-2">&quot;memory&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">CEDARLING_LOG_TTL:</span><span class="hl-1"> </span><span class="hl-7">120</span><span class="hl-1">,</span><br/><span class="hl-1">};</span><br/><span class="hl-5">let</span><span class="hl-1"> </span><span class="hl-4">cedarling</span><span class="hl-1">;</span><br/><span class="hl-3">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">cedarling</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-0">init</span><span class="hl-1">({</span><br/><span class="hl-1">    ...</span><span class="hl-4">config</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-4">CEDARLING_POLICY_STORE_URI:</span><span class="hl-1"> </span><span class="hl-2">&quot;https://example.com/policy-store.cjar&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  });</span><br/><span class="hl-1">} </span><span class="hl-3">catch</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-2">&quot;Cedarling initialization failed&quot;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-3">throw</span><span class="hl-1"> </span><span class="hl-4">error</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Replace the example URL with your application's policy archive. For Node.js
+CommonJS, use the following import and run the initialization inside an async
+function:</p>
+<pre><code class="js"><span class="hl-5">const</span><span class="hl-1"> { </span><span class="hl-6">init</span><span class="hl-1"> } = </span><span class="hl-0">require</span><span class="hl-1">(</span><span class="hl-2">&quot;@janssenproject/cedarling_wasm&quot;</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+<p>The examples below reuse <code>cedarling</code>. Run each authorization walkthrough
+separately, with a policy store that matches its entities and attributes.
+Handle initialization failures in your application's startup error handler.
+See the <a href="https://docs.jans.io/stable/cedarling/reference/cedarling-properties/">bootstrap-property reference</a>
+for configuration values, defaults, and token-validation settings.</p>
+<h3 id="policy-store-sources" class="tsd-anchor-link">Policy Store Sources<a href="#policy-store-sources" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>A Cedar archive (<code>.cjar</code>) packages the schema, policies, and trusted-issuer
+configuration. Prepare policies with the
+<a href="https://cloud.gluu.org/agama-lab/dashboard/policy-designer">Agama Lab Policy Designer</a>
+and follow the <a href="https://docs.jans.io/nightly/cedarling/reference/cedarling-policy-store/#cedar-archive-cjar-format">Cedar Archive format</a>
+for packaging.</p>
+<h4 id="load-a-cedar-archive-from-a-url" class="tsd-anchor-link">Load a Cedar Archive from a URL<a href="#load-a-cedar-archive-from-a-url" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4>
+<p>Set <code>CEDARLING_POLICY_STORE_URI</code> as shown in <a href="#initialization">Initialization</a>.
+Cedarling downloads the archive while creating the instance. Use an absolute
+HTTP(S) URL. For browser downloads, use the application's origin or configure the
+archive server's CORS headers to allow the application origin.</p>
+<h4 id="load-a-cedar-archive-from-bytes" class="tsd-anchor-link">Load a Cedar Archive from Bytes<a href="#load-a-cedar-archive-from-bytes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4>
+<p>Use <code>initFromArchiveBytes()</code> instead of <code>init()</code> when your application controls
+the download. This browser example reuses <code>config</code> from Initialization and
+fetches an archive through a same-origin application endpoint:</p>
+<pre><code class="ts"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">initFromArchiveBytes</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@janssenproject/cedarling_wasm&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">let</span><span class="hl-1"> </span><span class="hl-4">policyArchiveBytes</span><span class="hl-1">;</span><br/><span class="hl-5">let</span><span class="hl-1"> </span><span class="hl-4">cedarling</span><span class="hl-1">;</span><br/><span class="hl-3">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">response</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-0">fetch</span><span class="hl-1">(</span><span class="hl-2">&quot;/api/policy-store&quot;</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-3">if</span><span class="hl-1"> (!</span><span class="hl-4">response</span><span class="hl-1">.</span><span class="hl-4">ok</span><span class="hl-1">) </span><span class="hl-3">throw</span><span class="hl-1"> </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">Error</span><span class="hl-1">(</span><span class="hl-2">&quot;Policy-store download failed&quot;</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-4">policyArchiveBytes</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">Uint8Array</span><span class="hl-1">(</span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">response</span><span class="hl-1">.</span><span class="hl-0">arrayBuffer</span><span class="hl-1">());</span><br/><span class="hl-1">  </span><span class="hl-4">cedarling</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-0">initFromArchiveBytes</span><span class="hl-1">(</span><span class="hl-4">config</span><span class="hl-1">, </span><span class="hl-4">policyArchiveBytes</span><span class="hl-1">);</span><br/><span class="hl-1">} </span><span class="hl-3">catch</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-2">&quot;Policy-store download or initialization failed&quot;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-3">throw</span><span class="hl-1"> </span><span class="hl-4">error</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>The archive bytes supply the policy store; <code>config</code> supplies the other bootstrap
+properties. The package still loads and initializes its own WASM binary. In
+Node.js, use an absolute download URL. Keep upstream policy-store credentials on
+a trusted server; browser configuration is visible to its users.</p>
+<h4 id="verify-the-archive-signature" class="tsd-anchor-link">Verify the Archive Signature<a href="#verify-the-archive-signature" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4>
+<p>Set <code>CEDARLING_POLICY_STORE_SIGSTORE_MODE</code> to <code>enforce</code> to load an archive only
+if its Sigstore bundle verifies for the expected signer. For an archive
+published by Agama Lab:</p>
+<pre><code class="ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">config</span><span class="hl-1"> = {</span><br/><span class="hl-1">  </span><span class="hl-8">// ...other bootstrap properties</span><br/><span class="hl-1">  </span><span class="hl-4">CEDARLING_POLICY_STORE_URI:</span><span class="hl-1"> </span><span class="hl-2">&quot;https://example.com/policy-store.cjar&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">CEDARLING_POLICY_STORE_SIGSTORE_MODE:</span><span class="hl-1"> </span><span class="hl-2">&quot;enforce&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">CEDARLING_POLICY_STORE_SIGSTORE_CERT_IDENTITY:</span><br/><span class="hl-1">    </span><span class="hl-2">&quot;asset-signer@prod-gluu-cloud-platform.iam.gserviceaccount.com&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">CEDARLING_POLICY_STORE_SIGSTORE_CERT_OIDC_ISSUER:</span><span class="hl-1"> </span><span class="hl-2">&quot;https://accounts.google.com&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">};</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Cedarling fetches the bundle from the archive URL with <code>.sigstore.json</code>
+appended. With <code>initFromArchiveBytes()</code>, also set
+<code>CEDARLING_POLICY_STORE_SIGSTORE_BUNDLE_URI</code> to the bundle's HTTP(S) URL. In a
+browser, the bundle server needs the same CORS headers as the archive server.
+See <a href="https://docs.jans.io/nightly/cedarling/reference/cedarling-properties/#verifying-policy-store-signatures">bootstrap properties</a>.</p>
+<h3 id="authorization" class="tsd-anchor-link">Authorization<a href="#authorization" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Choose token-based authorization when identity comes from JWTs, or unsigned
+authorization when the application supplies a trusted principal. Both methods
+accept a JSON-string request and return a promise that resolves to an authorization
+result containing <code>decision</code> and <code>request_id</code>.</p>
+<h4 id="token-based-authorization-multi-issuer" class="tsd-anchor-link">Token-Based Authorization (Multi-Issuer)<a href="#token-based-authorization-multi-issuer" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4>
+<p>Use <code>authorizeMultiIssuer()</code> to evaluate tokens from one or more issuers. Your
+policy store must define the token mappings, trusted issuers, resource schema,
+action, and context used below. Configure token validation for those issuers;
+the initialization example retains Cedarling's validation defaults.</p>
+<ol>
+<li>
+<p>Prepare the tokens.</p>
+<p>Obtain <code>acmeAccessToken</code> and <code>dolphinAccessToken</code> from your application's
+authentication flows. Each <code>mapping</code> must match its policy-store token
+metadata; each <code>payload</code> is the actual JWT string.</p>
+<pre><code class="ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">tokens</span><span class="hl-1"> = [</span><br/><span class="hl-1">  { </span><span class="hl-4">mapping:</span><span class="hl-1"> </span><span class="hl-2">&quot;Acme::Access_Token&quot;</span><span class="hl-1">, </span><span class="hl-4">payload:</span><span class="hl-1"> </span><span class="hl-4">acmeAccessToken</span><span class="hl-1"> },</span><br/><span class="hl-1">  { </span><span class="hl-4">mapping:</span><span class="hl-1"> </span><span class="hl-2">&quot;Dolphin::Access_Token&quot;</span><span class="hl-1">, </span><span class="hl-4">payload:</span><span class="hl-1"> </span><span class="hl-4">dolphinAccessToken</span><span class="hl-1"> },</span><br/><span class="hl-1">];</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Define the resource.</p>
+<p>This example targets a document. Its type and attributes must match your schema.</p>
+<pre><code class="ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">resource</span><span class="hl-1"> = {</span><br/><span class="hl-1">  </span><span class="hl-4">cedar_entity_mapping:</span><span class="hl-1"> { </span><span class="hl-4">entity_type:</span><span class="hl-1"> </span><span class="hl-2">&quot;Task::Document&quot;</span><span class="hl-1">, </span><span class="hl-4">id:</span><span class="hl-1"> </span><span class="hl-2">&quot;document-1&quot;</span><span class="hl-1"> },</span><br/><span class="hl-1">  </span><span class="hl-4">owner:</span><span class="hl-1"> </span><span class="hl-2">&quot;alice&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">};</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Define the action.</p>
+<pre><code class="ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">action</span><span class="hl-1"> = </span><span class="hl-2">&#39;Task::Action::&quot;Read&quot;&#39;</span><span class="hl-1">;</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Define the context.</p>
+<p>Supply request-specific data required by your policies and schema.</p>
+<pre><code class="ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">context</span><span class="hl-1"> = { </span><span class="hl-4">tenant:</span><span class="hl-1"> </span><span class="hl-2">&quot;example&quot;</span><span class="hl-1"> };</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Build the request.</p>
+<pre><code class="ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">request</span><span class="hl-1"> = { </span><span class="hl-4">tokens</span><span class="hl-1">, </span><span class="hl-4">action</span><span class="hl-1">, </span><span class="hl-4">resource</span><span class="hl-1">, </span><span class="hl-4">context</span><span class="hl-1"> };</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Perform authorization and handle the decision.</p>
+<pre><code class="ts"><span class="hl-3">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">result</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">authorizeMultiIssuer</span><span class="hl-1">(</span><span class="hl-6">JSON</span><span class="hl-1">.</span><span class="hl-0">stringify</span><span class="hl-1">(</span><span class="hl-4">request</span><span class="hl-1">));</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">result</span><span class="hl-1">.</span><span class="hl-4">decision</span><span class="hl-1"> ? </span><span class="hl-2">&quot;Allowed&quot;</span><span class="hl-1"> : </span><span class="hl-2">&quot;Denied&quot;</span><span class="hl-1">, </span><span class="hl-4">result</span><span class="hl-1">.</span><span class="hl-4">request_id</span><span class="hl-1">);</span><br/><span class="hl-1">} </span><span class="hl-3">catch</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-2">&quot;Authorization failed&quot;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+</ol>
+<h4 id="unsigned-authorization" class="tsd-anchor-link">Unsigned Authorization<a href="#unsigned-authorization" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4>
+<p>Use <code>authorizeUnsigned()</code> when your application supplies the principal and its
+attributes. Obtain those values from trusted application state. The policy store
+for this example must define <code>Task::User</code> with a <code>role</code>, <code>Task::Document</code> with an
+<code>owner</code>, and the <code>Read</code> action with the <code>tenant</code> context field.</p>
+<ol>
+<li>
+<p>Prepare the principal.</p>
+<pre><code class="ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">principal</span><span class="hl-1"> = {</span><br/><span class="hl-1">  </span><span class="hl-4">cedar_entity_mapping:</span><span class="hl-1"> { </span><span class="hl-4">entity_type:</span><span class="hl-1"> </span><span class="hl-2">&quot;Task::User&quot;</span><span class="hl-1">, </span><span class="hl-4">id:</span><span class="hl-1"> </span><span class="hl-2">&quot;alice&quot;</span><span class="hl-1"> },</span><br/><span class="hl-1">  </span><span class="hl-4">role:</span><span class="hl-1"> </span><span class="hl-2">&quot;member&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">};</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Define the resource.</p>
+<pre><code class="ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">resource</span><span class="hl-1"> = {</span><br/><span class="hl-1">  </span><span class="hl-4">cedar_entity_mapping:</span><span class="hl-1"> { </span><span class="hl-4">entity_type:</span><span class="hl-1"> </span><span class="hl-2">&quot;Task::Document&quot;</span><span class="hl-1">, </span><span class="hl-4">id:</span><span class="hl-1"> </span><span class="hl-2">&quot;document-1&quot;</span><span class="hl-1"> },</span><br/><span class="hl-1">  </span><span class="hl-4">owner:</span><span class="hl-1"> </span><span class="hl-2">&quot;alice&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">};</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Define the action.</p>
+<pre><code class="ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">action</span><span class="hl-1"> = </span><span class="hl-2">&#39;Task::Action::&quot;Read&quot;&#39;</span><span class="hl-1">;</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Define the context.</p>
+<pre><code class="ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">context</span><span class="hl-1"> = { </span><span class="hl-4">tenant:</span><span class="hl-1"> </span><span class="hl-2">&quot;example&quot;</span><span class="hl-1"> };</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Build the request.</p>
+<pre><code class="ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">request</span><span class="hl-1"> = { </span><span class="hl-4">principal</span><span class="hl-1">, </span><span class="hl-4">action</span><span class="hl-1">, </span><span class="hl-4">resource</span><span class="hl-1">, </span><span class="hl-4">context</span><span class="hl-1"> };</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+<li>
+<p>Perform authorization and handle the decision.</p>
+<pre><code class="ts"><span class="hl-3">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">result</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">authorizeUnsigned</span><span class="hl-1">(</span><span class="hl-6">JSON</span><span class="hl-1">.</span><span class="hl-0">stringify</span><span class="hl-1">(</span><span class="hl-4">request</span><span class="hl-1">));</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">result</span><span class="hl-1">.</span><span class="hl-4">decision</span><span class="hl-1"> ? </span><span class="hl-2">&quot;Allowed&quot;</span><span class="hl-1"> : </span><span class="hl-2">&quot;Denied&quot;</span><span class="hl-1">, </span><span class="hl-4">result</span><span class="hl-1">.</span><span class="hl-4">request_id</span><span class="hl-1">);</span><br/><span class="hl-1">} </span><span class="hl-3">catch</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-2">&quot;Authorization failed&quot;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+</li>
+</ol>
+<p>For both methods, <code>decision: false</code> is a valid denial. Malformed requests reject
+the call. Multi-issuer authorization can continue with tokens that pass validation,
+so policies must require the tokens needed for access. Perform the protected
+operation only after receiving <code>decision: true</code>; enforce server-side access at the
+server boundary.</p>
+<h4 id="batch-authorization" class="tsd-anchor-link">Batch Authorization<a href="#batch-authorization" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4>
+<p>Evaluate several resources with one principal or token set. Each item contains
+an action, resource, and optional context. Reuse the values from the relevant
+walkthrough:</p>
+<pre><code class="ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">items</span><span class="hl-1"> = [</span><br/><span class="hl-1">  { </span><span class="hl-4">action</span><span class="hl-1">, </span><span class="hl-4">resource</span><span class="hl-1">, </span><span class="hl-4">context</span><span class="hl-1"> },</span><br/><span class="hl-1">  {</span><br/><span class="hl-1">    </span><span class="hl-4">action</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-4">resource:</span><span class="hl-1"> {</span><br/><span class="hl-1">      ...</span><span class="hl-4">resource</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-4">cedar_entity_mapping:</span><span class="hl-1"> { </span><span class="hl-4">entity_type:</span><span class="hl-1"> </span><span class="hl-2">&quot;Task::Document&quot;</span><span class="hl-1">, </span><span class="hl-4">id:</span><span class="hl-1"> </span><span class="hl-2">&quot;document-2&quot;</span><span class="hl-1"> },</span><br/><span class="hl-1">    },</span><br/><span class="hl-1">    </span><span class="hl-4">context</span><span class="hl-1">,</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">];</span>
+</code><button type="button">Copy</button></pre>
+
+<p>For the unsigned walkthrough:</p>
+<pre><code class="ts"><span class="hl-5">let</span><span class="hl-1"> </span><span class="hl-4">batch</span><span class="hl-1">;</span><br/><span class="hl-3">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">batch</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">authorizeUnsignedBatch</span><span class="hl-1">(</span><br/><span class="hl-1">    </span><span class="hl-6">JSON</span><span class="hl-1">.</span><span class="hl-0">stringify</span><span class="hl-1">({ </span><span class="hl-4">principal</span><span class="hl-1">, </span><span class="hl-4">items</span><span class="hl-1"> }),</span><br/><span class="hl-1">  );</span><br/><span class="hl-1">} </span><span class="hl-3">catch</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-2">&quot;Batch authorization failed&quot;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-3">throw</span><span class="hl-1"> </span><span class="hl-4">error</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>For the token-based walkthrough, use this call instead:</p>
+<pre><code class="ts"><span class="hl-5">let</span><span class="hl-1"> </span><span class="hl-4">batch</span><span class="hl-1">;</span><br/><span class="hl-3">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">batch</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">authorizeMultiIssuerBatch</span><span class="hl-1">(</span><br/><span class="hl-1">    </span><span class="hl-6">JSON</span><span class="hl-1">.</span><span class="hl-0">stringify</span><span class="hl-1">({ </span><span class="hl-4">tokens</span><span class="hl-1">, </span><span class="hl-4">items</span><span class="hl-1"> }),</span><br/><span class="hl-1">  );</span><br/><span class="hl-1">} </span><span class="hl-3">catch</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-2">&quot;Batch authorization failed&quot;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-3">throw</span><span class="hl-1"> </span><span class="hl-4">error</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>After a successful batch call, inspect each item in the same order as the
+submitted <code>items</code>:</p>
+<pre><code class="ts"><span class="hl-3">for</span><span class="hl-1"> (</span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">item</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-4">batch</span><span class="hl-1">.</span><span class="hl-4">results</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-3">if</span><span class="hl-1"> (</span><span class="hl-4">item</span><span class="hl-1">.</span><span class="hl-4">is_ok</span><span class="hl-1">) {</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">item</span><span class="hl-1">.</span><span class="hl-0">unwrap</span><span class="hl-1">().</span><span class="hl-4">decision</span><span class="hl-1"> ? </span><span class="hl-2">&quot;Allowed&quot;</span><span class="hl-1"> : </span><span class="hl-2">&quot;Denied&quot;</span><span class="hl-1">);</span><br/><span class="hl-1">  } </span><span class="hl-3">else</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-4">item</span><span class="hl-1">.</span><span class="hl-4">error</span><span class="hl-1">?.</span><span class="hl-4">category</span><span class="hl-1">, </span><span class="hl-4">item</span><span class="hl-1">.</span><span class="hl-4">error</span><span class="hl-1">?.</span><span class="hl-4">message</span><span class="hl-1">);</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>A valid denial has <code>is_ok === true</code> and a false decision. A per-item build error
+has <code>is_ok === false</code>. The returned <code>batch_id</code> correlates the batch's decision logs.</p>
+<h3 id="logging" class="tsd-anchor-link">Logging<a href="#logging" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>The initialization example enables memory logging and retains entries for up to 120
+seconds. Inside either authorization walkthrough's <code>try</code> block, use the returned
+request ID to inspect its logs:</p>
+<pre><code class="ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">logs</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">getLogsByRequestId</span><span class="hl-1">(</span><span class="hl-4">result</span><span class="hl-1">.</span><span class="hl-4">request_id</span><span class="hl-1">);</span><br/><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">logs</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Log records are plain JavaScript objects. To retrieve and clear all retained logs
+when your application is ready to consume them:</p>
+<pre><code class="ts"><span class="hl-3">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">retainedLogs</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">popLogs</span><span class="hl-1">();</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">retainedLogs</span><span class="hl-1">);</span><br/><span class="hl-1">} </span><span class="hl-3">catch</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-2">&quot;Log retrieval failed&quot;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<h3 id="context-data" class="tsd-anchor-link">Context Data<a href="#context-data" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Store application-scoped data for policy evaluation, then retrieve or remove it:</p>
+<pre><code class="ts"><span class="hl-3">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">pushDataCtx</span><span class="hl-1">(</span><span class="hl-2">&quot;user:alice&quot;</span><span class="hl-1">, { </span><span class="hl-4">plan:</span><span class="hl-1"> </span><span class="hl-2">&quot;pro&quot;</span><span class="hl-1"> }, </span><span class="hl-7">3600</span><span class="hl-5">n</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">value</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">getDataCtx</span><span class="hl-1">(</span><span class="hl-2">&quot;user:alice&quot;</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">value</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">removeDataCtx</span><span class="hl-1">(</span><span class="hl-2">&quot;user:alice&quot;</span><span class="hl-1">);</span><br/><span class="hl-1">} </span><span class="hl-3">catch</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-2">&quot;Context-data operation failed&quot;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>The optional TTL is a <code>bigint</code> number of seconds; omitting it uses the configured
+default. Retrieval returns <code>null</code> when a value is absent or expired.</p>
+<h3 id="metrics-snapshot" class="tsd-anchor-link">Metrics Snapshot<a href="#metrics-snapshot" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Destructive read: returns a metrics snapshot and resets the counters.</p>
+<pre><code class="ts"><span class="hl-3">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">snapshot</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">drainMetrics</span><span class="hl-1">();</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">snapshot</span><span class="hl-1">.</span><span class="hl-4">operational_stats</span><span class="hl-1">.</span><span class="hl-0">get</span><span class="hl-1">(</span><span class="hl-2">&quot;authz.requests_total&quot;</span><span class="hl-1">));</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">snapshot</span><span class="hl-1">.</span><span class="hl-4">interval_secs</span><span class="hl-1">);</span><br/><span class="hl-1">} </span><span class="hl-3">catch</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-2">&quot;Metrics snapshot failed&quot;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Requires <code>CEDARLING_METRICS_COLLECTION: &quot;enabled&quot;</code>. Fails whenever
+<code>CEDARLING_LOCK_TELEMETRY_INTERVAL</code> is set, even if the Lock server has no
+telemetry endpoint. <code>interval_secs</code> is a plain <code>Number</code> (not <code>BigInt</code>), so
+<code>snapshot.interval_secs + 1</code> works. It carries fractional seconds, so
+sub-second intervals are reported exactly. Use <code>snapshot.jsonString()</code> for a
+JSON-serializable form with plain objects.</p>
+<h3 id="trusted-issuer-readiness" class="tsd-anchor-link">Trusted Issuer Readiness<a href="#trusted-issuer-readiness" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Before token-based authorization, inspect which configured issuers loaded and
+which failed:</p>
+<pre><code class="ts"><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">&quot;Loaded issuers&quot;</span><span class="hl-1">, </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">loadedTrustedIssuerIds</span><span class="hl-1">());</span><br/><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">&quot;Failed issuers&quot;</span><span class="hl-1">, </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">failedTrustedIssuerIds</span><span class="hl-1">());</span>
+</code><button type="button">Copy</button></pre>
+
+<p>To check one issuer, pass its name (the <code>issuer</code> of its token types) to
+<code>cedarling.isTrustedIssuerLoadedByName(issuerName)</code>.</p>
+<h3 id="policy-annotations" class="tsd-anchor-link">Policy Annotations<a href="#policy-annotations" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>Annotations attach metadata such as descriptions to policies using
+<code>@key(&quot;value&quot;)</code>. They describe policies independently of their authorization rules.
+For example, a policy in your archive can include:</p>
+<pre><code class="cedar">@description("Allows Alice to read document-1")
+permit (
+    principal == Task::User::"alice",
+    action == Task::Action::"Read",
+    resource == Task::Document::"document-1"
+);
+</code><button type="button">Copy</button></pre>
+
+<p>Inside the unsigned walkthrough's <code>try</code> block, retrieve descriptions for the
+determining policy IDs returned in the result:</p>
+<pre><code class="ts"><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">descriptions</span><span class="hl-1"> = </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">annotationValues</span><span class="hl-1">(</span><br/><span class="hl-1">  </span><span class="hl-4">result</span><span class="hl-1">.</span><span class="hl-4">response</span><span class="hl-1">.</span><span class="hl-4">diagnostics</span><span class="hl-1">.</span><span class="hl-4">reason</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-2">&quot;description&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">);</span><br/><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-4">descriptions</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+<p>See the <a href="https://docs.cedarpolicy.com/policies/syntax-policy.html#annotations">Cedar annotation reference</a>
+for annotation syntax and behavior.</p>
+<h3 id="shutdown" class="tsd-anchor-link">Shutdown<a href="#shutdown" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<p>When the application finishes using a Cedarling instance, shut it down:</p>
+<pre><code class="ts"><span class="hl-3">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">cedarling</span><span class="hl-1">.</span><span class="hl-0">shutDown</span><span class="hl-1">();</span><br/><span class="hl-1">} </span><span class="hl-3">catch</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-2">&quot;Cedarling shutdown failed&quot;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">);</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<h3 id="other-integration-paths" class="tsd-anchor-link">Other Integration Paths<a href="#other-integration-paths" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<h4 id="edge-deployments" class="tsd-anchor-link">Edge Deployments<a href="#edge-deployments" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4>
+<p>Use the ESM-only <code>./edge</code> entry in hosts whose deployment tool bundles the package's
+WASM binary as a precompiled WebAssembly module. In Cloudflare Workers, initialize inside
+the <a href="https://developers.cloudflare.com/workers/runtime-apis/request/#the-request-context">request context</a>
+so policy downloads can run:</p>
+<pre><code class="ts"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">init</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@janssenproject/cedarling_wasm/edge&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-3">export</span><span class="hl-1"> </span><span class="hl-3">default</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-5">async</span><span class="hl-1"> </span><span class="hl-0">fetch</span><span class="hl-1">() {</span><br/><span class="hl-1">    </span><span class="hl-5">let</span><span class="hl-1"> </span><span class="hl-4">cedarling</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-3">try</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-4">cedarling</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-0">init</span><span class="hl-1">({</span><br/><span class="hl-1">        </span><span class="hl-4">CEDARLING_APPLICATION_NAME:</span><span class="hl-1"> </span><span class="hl-2">&quot;edge-api&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">        </span><span class="hl-4">CEDARLING_POLICY_STORE_URI:</span><span class="hl-1"> </span><span class="hl-2">&quot;https://example.com/policy-store.cjar&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">      });</span><br/><span class="hl-1">      </span><span class="hl-3">return</span><span class="hl-1"> </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">Response</span><span class="hl-1">(</span><span class="hl-2">&quot;Cedarling initialized&quot;</span><span class="hl-1">);</span><br/><span class="hl-1">    } </span><span class="hl-3">catch</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">) {</span><br/><span class="hl-1">      </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-2">&quot;Cedarling initialization failed&quot;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">);</span><br/><span class="hl-1">      </span><span class="hl-3">return</span><span class="hl-1"> </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">Response</span><span class="hl-1">(</span><span class="hl-2">&quot;Internal server error&quot;</span><span class="hl-1">, { </span><span class="hl-4">status:</span><span class="hl-1"> </span><span class="hl-7">500</span><span class="hl-1"> });</span><br/><span class="hl-1">    } </span><span class="hl-3">finally</span><span class="hl-1"> {</span><br/><span class="hl-1">      </span><span class="hl-3">try</span><span class="hl-1"> {</span><br/><span class="hl-1">        </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">cedarling</span><span class="hl-1">?.</span><span class="hl-0">shutDown</span><span class="hl-1">();</span><br/><span class="hl-1">      } </span><span class="hl-3">catch</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">) {</span><br/><span class="hl-1">        </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-2">&quot;Cedarling shutdown failed&quot;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">);</span><br/><span class="hl-1">      }</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  },</span><br/><span class="hl-1">};</span>
+</code><button type="button">Copy</button></pre>
+
+<h4 id="manual-bundler-integration" class="tsd-anchor-link">Manual Bundler Integration<a href="#manual-bundler-integration" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4>
+<p>For application-controlled WASM loading, configure your ESM bundler to emit the
+package's <code>./wasm</code> export as a URL-addressable binary asset. Configure the server
+to serve it with the <code>application/wasm</code> content type. The example below reuses
+<code>config</code> and <code>policyArchiveBytes</code> from
+<a href="#load-a-cedar-archive-from-bytes">Load a Cedar Archive from Bytes</a>, replacing
+that section's initialization call:</p>
+<pre><code class="ts"><span class="hl-3">import</span><span class="hl-1"> </span><span class="hl-4">initWasm</span><span class="hl-1">, {</span><br/><span class="hl-1">  </span><span class="hl-4">initFromArchiveBytes</span><span class="hl-1">,</span><br/><span class="hl-1">} </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@janssenproject/cedarling_wasm/manual&quot;</span><span class="hl-1">;</span><br/><span class="hl-3">import</span><span class="hl-1"> </span><span class="hl-4">wasmUrl</span><span class="hl-1"> </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@janssenproject/cedarling_wasm/wasm&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">let</span><span class="hl-1"> </span><span class="hl-4">cedarling</span><span class="hl-1">;</span><br/><span class="hl-3">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-0">initWasm</span><span class="hl-1">({ </span><span class="hl-4">module_or_path:</span><span class="hl-1"> </span><span class="hl-4">wasmUrl</span><span class="hl-1"> });</span><br/><span class="hl-1">  </span><span class="hl-4">cedarling</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-0">initFromArchiveBytes</span><span class="hl-1">(</span><span class="hl-4">config</span><span class="hl-1">, </span><span class="hl-4">policyArchiveBytes</span><span class="hl-1">);</span><br/><span class="hl-1">} </span><span class="hl-3">catch</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-2">&quot;WASM loading or Cedarling initialization failed&quot;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">);</span><br/><span class="hl-1">  </span><span class="hl-3">throw</span><span class="hl-1"> </span><span class="hl-4">error</span><span class="hl-1">;</span><br/><span class="hl-1">}</span>
+</code><button type="button">Copy</button></pre>
+
+<p>Configure the <code>.wasm</code> import to return an asset URL; the exact rule or plugin
+depends on your bundler.</p>
+<h2 id="upgrading-existing-applications" class="tsd-anchor-link">Upgrading Existing Applications<a href="#upgrading-existing-applications" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p>Update calls such as <code>authorize_unsigned()</code> to <code>authorizeUnsigned()</code>,
+<code>shut_down()</code> to <code>shutDown()</code>, and <code>json_string()</code> to <code>jsonString()</code>.
+Bootstrap keys (<code>CEDARLING_*</code>), request JSON, result/data fields such as
+<code>request_id</code>, and serialized JSON retain their names.</p>
+<h2 id="see-also" class="tsd-anchor-link">See Also<a href="#see-also" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<ul>
+<li><a href="https://docs.jans.io/stable/cedarling/tutorials/javascript/">JavaScript tutorial</a></li>
+<li><a href="https://docs.jans.io/stable/cedarling/tutorials/javascript/#api-reference">Full API reference</a></li>
+<li><a href="https://docs.jans.io/stable/cedarling/reference/cedarling-properties/">Bootstrap-property reference</a></li>
+<li><a href="https://docs.jans.io/nightly/cedarling/reference/cedarling-policy-store/#cedar-archive-cjar-format">Cedar Archive format</a></li>
+<li><a href="https://github.com/JanssenProject/jans/blob/main/jans-cedarling/bindings/cedarling_wasm/js/docs/maintainer.md">Maintainer guide</a></li>
+</ul>
+</div></div>
+<div class="col-sidebar">
+<div class="page-menu">
+<div class="tsd-navigation settings">
+<details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>Settings</h3></summary>
+<div class="tsd-accordion-details">
+<div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span>
+<ul id="tsd-filter-options">
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li>
+<li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div>
+<div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div>
+<details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>
+<h3>On This Page</h3></summary>
+<div class="tsd-accordion-details"><a href="#getting-started-with-cedarling-in-a-javascript-app"><span>Getting <wbr/>Started with <wbr/>Cedarling in a <wbr/>Java<wbr/>Script <wbr/>App</span></a>
+<ul>
+<li><a href="#installation"><span>Installation</span></a></li>
+<li>
+<ul>
+<li><a href="#using-the-package-manager"><span>Using the <wbr/>Package <wbr/>Manager</span></a></li>
+<li><a href="#build-from-source"><span>Build from <wbr/>Source</span></a></li></ul></li>
+<li><a href="#usage"><span>Usage</span></a></li>
+<li>
+<ul>
+<li><a href="#initialization"><span>Initialization</span></a></li>
+<li><a href="#policy-store-sources"><span>Policy <wbr/>Store <wbr/>Sources</span></a></li>
+<li>
+<ul>
+<li><a href="#load-a-cedar-archive-from-a-url"><span>Load a <wbr/>Cedar <wbr/>Archive from a <wbr/>URL</span></a></li>
+<li><a href="#load-a-cedar-archive-from-bytes"><span>Load a <wbr/>Cedar <wbr/>Archive from <wbr/>Bytes</span></a></li>
+<li><a href="#verify-the-archive-signature"><span>Verify the <wbr/>Archive <wbr/>Signature</span></a></li></ul></li>
+<li><a href="#authorization"><span>Authorization</span></a></li>
+<li>
+<ul>
+<li><a href="#token-based-authorization-multi-issuer"><span>Token-<wbr/>Based <wbr/>Authorization (<wbr/>Multi-<wbr/>Issuer)</span></a></li>
+<li><a href="#unsigned-authorization"><span>Unsigned <wbr/>Authorization</span></a></li>
+<li><a href="#batch-authorization"><span>Batch <wbr/>Authorization</span></a></li></ul></li>
+<li><a href="#logging"><span>Logging</span></a></li>
+<li><a href="#context-data"><span>Context <wbr/>Data</span></a></li>
+<li><a href="#metrics-snapshot"><span>Metrics <wbr/>Snapshot</span></a></li>
+<li><a href="#trusted-issuer-readiness"><span>Trusted <wbr/>Issuer <wbr/>Readiness</span></a></li>
+<li><a href="#policy-annotations"><span>Policy <wbr/>Annotations</span></a></li>
+<li><a href="#shutdown"><span>Shutdown</span></a></li>
+<li><a href="#other-integration-paths"><span>Other <wbr/>Integration <wbr/>Paths</span></a></li>
+<li>
+<ul>
+<li><a href="#edge-deployments"><span>Edge <wbr/>Deployments</span></a></li>
+<li><a href="#manual-bundler-integration"><span>Manual <wbr/>Bundler <wbr/>Integration</span></a></li></ul></li></ul></li>
+<li><a href="#upgrading-existing-applications"><span>Upgrading <wbr/>Existing <wbr/>Applications</span></a></li>
+<li><a href="#see-also"><span>See <wbr/>Also</span></a></li></ul></div></details></div>
+<div class="site-menu">
+<nav class="tsd-navigation"><a href="modules.html">Cedarling JavaScript/TypeScript API</a>
+<ul class="tsd-small-nested-navigation" id="tsd-nav-container">
+<li>Loading...</li></ul></nav></div></div></div><footer>
+<p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer>
+<div class="overlay"></div></body></html>
